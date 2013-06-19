@@ -16,7 +16,9 @@
 #import "RunUser.h"
 #import "UserSessionManager.h"
 
-
+#import "GTMBase64.h"
+#import "AFJSONRequestOperation.h"
+#import "AFHTTPClient.h"
 
 @implementation AppDelegate
 
@@ -96,6 +98,11 @@
         
     }
     
+    //test
+    [self testUploadImage];
+    
+    //test end
+    
     [self.navController.navigationBar setHidden:YES];
     self.window.rootViewController = self.navController;
     [self.window addSubview:self.navController.view];
@@ -103,6 +110,53 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(void)testUploadImage{
+    
+    NSString *testImageUrl = @"http://ktv.9158.com/Content/Images/first20121017.jpg";
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:testImageUrl]];
+    NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"base64data: %@", base64data);
+    
+//    NSString *uploadImageUrl = [NSString stringWithFormat:@"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=%@", base64data];
+    NSString *uploadImageUrl = [NSString stringWithFormat:@"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23"];
+    
+//    NSString *uploadUrl = @"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=(将文件转换为Base64字符串";
+    
+//    NSLog(@"uploadImageUrl: %@", uploadImageUrl);
+    
+    NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:base64data, @"headImg", nil];
+    NSURL *url = [NSURL URLWithString:uploadImageUrl];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"headImg" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+    }];
+    
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSString *msg = [dicResult objectForKey:@"msg"];
+        NSLog(@"status: %@, msg: %@", status, msg);
+        if ([status isEqual:@"0"]) {
+            
+            
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+    }];
+    
+    [operation start];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
