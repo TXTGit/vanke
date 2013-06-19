@@ -14,6 +14,10 @@
 
 @interface PCommonUtil : NSObject
 
++(NSString *)md5Encode:(NSString *)str;
++(NSString *)encodeBase64:(NSString *)str;
++(NSString *)decodeBase64:(NSString *)str;
+
 /*
  * 已知体重,距离,计算卡路里消耗
  * 跑步热量（kcal）＝体重（kg）×距离（公里）×1.036
