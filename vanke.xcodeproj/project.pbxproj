@@ -326,6 +326,7 @@
 		16F1153317661E2F00CC1D3B /* NoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F1153117661E2F00CC1D3B /* NoticeViewController.xib */; };
 		16F115361766275800CC1D3B /* AutoLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F115351766275600CC1D3B /* AutoLogin.m */; };
 		18380FE51771826300584B10 /* RunInfoOfWeek.m in Sources */ = {isa = PBXBuildFile; fileRef = 18380FE41771826300584B10 /* RunInfoOfWeek.m */; };
+		18380FEA1771AD0A00584B10 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18380FE81771AD0A00584B10 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		186839EA176EC7A50042CB34 /* UnreadMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839E9176EC7A50042CB34 /* UnreadMessage.m */; };
 		186839ED176ECC7D0042CB34 /* RankInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839EC176ECC7D0042CB34 /* RankInfo.m */; };
 		186839F0176ECFD80042CB34 /* RankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839EF176ECFD80042CB34 /* RankCell.m */; };
@@ -759,6 +760,9 @@
 		16F115351766275600CC1D3B /* AutoLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLogin.m; sourceTree = "<group>"; };
 		18380FE31771826300584B10 /* RunInfoOfWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunInfoOfWeek.h; sourceTree = "<group>"; };
 		18380FE41771826300584B10 /* RunInfoOfWeek.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunInfoOfWeek.m; sourceTree = "<group>"; };
+		18380FE71771AD0A00584B10 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		18380FE81771AD0A00584B10 /* GTMBase64.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GTMBase64.m; sourceTree = "<group>"; };
+		18380FE91771AD0A00584B10 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		186839E8176EC7A50042CB34 /* UnreadMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadMessage.h; sourceTree = "<group>"; };
 		186839E9176EC7A50042CB34 /* UnreadMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadMessage.m; sourceTree = "<group>"; };
 		186839EB176ECC7C0042CB34 /* RankInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankInfo.h; sourceTree = "<group>"; };
@@ -1004,6 +1008,7 @@
 		165C8ECC1764AF4C00DEF452 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				18380FE61771AD0A00584B10 /* CTMBase64 */,
 				167C4F2F17687E3500F63119 /* Task */,
 				167C4EFA1768490800F63119 /* MBProgressHUD */,
 				165AE0F5176783A300B15416 /* LBS */,
@@ -1579,6 +1584,16 @@
 			path = Notice;
 			sourceTree = "<group>";
 		};
+		18380FE61771AD0A00584B10 /* CTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				18380FE71771AD0A00584B10 /* GTMBase64.h */,
+				18380FE81771AD0A00584B10 /* GTMBase64.m */,
+				18380FE91771AD0A00584B10 /* GTMDefines.h */,
+			);
+			path = CTMBase64;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1946,6 +1961,7 @@
 				186839ED176ECC7D0042CB34 /* RankInfo.m in Sources */,
 				186839F0176ECFD80042CB34 /* RankCell.m in Sources */,
 				18380FE51771826300584B10 /* RunInfoOfWeek.m in Sources */,
+				18380FEA1771AD0A00584B10 /* GTMBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2022,8 +2038,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2040,8 +2056,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2049,8 +2065,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2067,8 +2083,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
