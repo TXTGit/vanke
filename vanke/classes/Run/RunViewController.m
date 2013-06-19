@@ -288,7 +288,6 @@
                 NSLog(@"UIEventSubtypeRemoteControlPreviousTrack...");
                 break;
             }
-                
             default:
                 break;
         }
