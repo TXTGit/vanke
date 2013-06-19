@@ -308,17 +308,25 @@ static double DEF_R =6370693.5; // radius of earth
 
 +(int)getWeekFromTime:(NSString *)strTime{
     
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    int weekday = 0;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *tempdate = [formatter dateFromString:strTime];
-    NSDateComponents *comps = [calendar components:unitFlags fromDate:tempdate];
-    NSInteger week = comps.weekday;
-    NSLog(@"week: %d", week);
+    if (strTime && strTime.length > 10) {
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *tempDate = [strTime substringToIndex:10];
+        NSLog(@"tempDate: %@", tempDate);
+        NSDate *tempdate = [formatter dateFromString:tempDate];
+        NSDateComponents *comps = [calendar components:unitFlags fromDate:tempdate];
+        weekday = comps.weekday;//从周日开始计算
+    }
     
-    return week;
+    NSLog(@"weekday: %d", weekday);
+    
+    return weekday;
 }
 
 @end

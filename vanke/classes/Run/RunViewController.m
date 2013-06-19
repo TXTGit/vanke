@@ -418,10 +418,42 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 RunInfoOfWeek *runInfoOfWeek = [RunInfoOfWeek initWithNSDictionary:dicrecord];
                 
+                if (runInfoOfWeek.beginTime) {
+                    
+                    int tempweek = [PCommonUtil getWeekFromTime:runInfoOfWeek.beginTime];
+                    switch (tempweek) {
+                        case 1:
+                            _lblSunday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 2:
+                            _lblMonday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 3:
+                            _lblTuesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 4:
+                            _lblWednesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 5:
+                            _lblThursday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 6:
+                            _lblFriday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                        case 7:
+                            _lblSaturday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                }
+                
                 [_weekRunList addObject:runInfoOfWeek];
             }
             
-            [self doUpdateWeekData];
+//            [self doUpdateWeekData];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -440,7 +472,7 @@
         if (runInfoOfWeek.beginTime) {
             
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-            NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+            NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
             
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd"];
@@ -450,7 +482,7 @@
             NSLog(@"week: %d", week);
             
             int tempweek = [PCommonUtil getWeekFromTime:runInfoOfWeek.beginTime];
-            switch (i+1) {
+            switch (tempweek) {
                 case 1:
                     _lblMonday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
                     break;
