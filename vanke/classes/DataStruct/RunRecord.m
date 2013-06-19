@@ -50,7 +50,11 @@
             NSArray *locations = [line componentsSeparatedByString:@";"];
             int locationCount = [locations count];
             for (int i=0; i<locationCount; i++) {
-                [locationList addObject:[locations objectAtIndex:i]];
+                NSString *templocation = [locations objectAtIndex:i];
+                if (templocation && templocation.length > 10) {
+                    [locationList addObject:templocation];
+                }
+            
             }
             record.locationList = locationList;
             record.runTime = [dict objectForKey:@"runTime"];
