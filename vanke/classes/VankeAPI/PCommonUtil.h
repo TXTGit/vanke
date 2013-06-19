@@ -44,4 +44,6 @@
 
 +(id)checkDataIsNull:(id)data;
 
++(int)getWeekFromTime:(NSString *)strTime;
+
 @end

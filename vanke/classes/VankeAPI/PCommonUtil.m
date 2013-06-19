@@ -305,4 +305,20 @@ static double DEF_R =6370693.5; // radius of earth
     
     return data;
 }
+
++(int)getWeekFromTime:(NSString *)strTime{
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *tempdate = [formatter dateFromString:strTime];
+    NSDateComponents *comps = [calendar components:unitFlags fromDate:tempdate];
+    NSInteger week = comps.weekday;
+    NSLog(@"week: %d", week);
+    
+    return week;
+}
+
 @end

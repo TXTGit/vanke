@@ -22,6 +22,7 @@
 #import "AFJSONRequestOperation.h"
 #import "Song.h"
 #import "MBProgressHUD.h"
+#import "RunInfoOfWeek.h"
 
 #define RECORD_RUN_DATA_INTERVAL 60.0
 
@@ -67,6 +68,13 @@
 
 @synthesize btnDownUpArrow = _btnDownUpArrow;
 @synthesize isRecordShowing = _isRecordShowing;
+@synthesize lblMonday = _lblMonday;
+@synthesize lblTuesday = _lblTuesday;
+@synthesize lblWednesday = _lblWednesday;
+@synthesize lblThursday = _lblThursday;
+@synthesize lblFriday = _lblFriday;
+@synthesize lblSaturday = _lblSaturday;
+@synthesize lblSunday = _lblSunday;
 
 @synthesize aaplayer = _aaplayer;
 
@@ -87,6 +95,8 @@
 @synthesize currentSongIndex = _currentSongIndex;
 @synthesize player = _player;
 @synthesize mediaPickerController = _mediaPickerController;
+
+@synthesize weekRunList = _weekRunList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -177,6 +187,7 @@
     [self.btnMenuFourth addTarget:self action:@selector(touchFourthMenuOfBottom:) forControlEvents:UIControlEventTouchUpInside];
     
     //
+    _weekRunList = [[NSMutableArray alloc] init];
     [self doShowOrHideRunRecord:_btnDownUpArrow];
     
     //song in phone
@@ -208,6 +219,9 @@
     [self updateRunningProcessByDistance:1];
     //刷新里程
     _lblRunDistance.text = @"0.0";
+    
+    //刷新一周记录
+    [self getWeekRunRecordList];
     
     //百度
     [_mapView viewWillAppear];
@@ -383,6 +397,90 @@
     _lblSpead.text = [NSString stringWithFormat:@"%.2f", (float)(totaldistance / tataltime)];
     
     return totaldistance;
+}
+
+-(void)getWeekRunRecordList{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *fanListUrl = [VankeAPI getGetWeekRunListUrl:memberid];
+    NSURL *url = [NSURL URLWithString:fanListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"getWeekRunRecordList: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            for (int i=0; i<datalistCount; i++) {
+                NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                RunInfoOfWeek *runInfoOfWeek = [RunInfoOfWeek initWithNSDictionary:dicrecord];
+                
+                [_weekRunList addObject:runInfoOfWeek];
+            }
+            
+            [self doUpdateWeekData];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+    
+}
+
+-(void)doUpdateWeekData{
+    
+    int weekRunListCount = [_weekRunList count];
+    for (int i=0; i<weekRunListCount; i++) {
+        RunInfoOfWeek *runInfoOfWeek = [_weekRunList objectAtIndex:i];
+        
+        if (runInfoOfWeek.beginTime) {
+            
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd"];
+            NSDate *tempdate = [formatter dateFromString:runInfoOfWeek.beginTime];
+            NSDateComponents *comps = [calendar components:unitFlags fromDate:tempdate];
+            NSInteger week = comps.weekday;
+            NSLog(@"week: %d", week);
+            
+            int tempweek = [PCommonUtil getWeekFromTime:runInfoOfWeek.beginTime];
+            switch (i+1) {
+                case 1:
+                    _lblMonday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 2:
+                    _lblTuesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 3:
+                    _lblWednesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 4:
+                    _lblThursday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 5:
+                    _lblFriday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 6:
+                    _lblSaturday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                case 7:
+                    _lblSpead.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
+    }
+    
 }
 
 -(void)doBack{
@@ -966,6 +1064,14 @@
     
     if (_isRecordShowing) {
         //隐藏跑步纪录
+        _lblMonday.hidden = YES;
+        _lblTuesday.hidden = YES;
+        _lblWednesday.hidden = YES;
+        _lblThursday.hidden = YES;
+        _lblFriday.hidden = YES;
+        _lblSaturday.hidden = YES;
+        _lblSunday.hidden = YES;
+        
         [self arrowMoveUp];
         [self hideRecord];
         _isRecordShowing = NO;
@@ -976,6 +1082,14 @@
         //显示
         [self arrowMoveDown];
         [self showRecord];
+        
+        _lblMonday.hidden = NO;
+        _lblTuesday.hidden = NO;
+        _lblWednesday.hidden = NO;
+        _lblThursday.hidden = NO;
+        _lblFriday.hidden = NO;
+        _lblSaturday.hidden = NO;
+        _lblSunday.hidden = NO;
         _isRecordShowing = YES;
         
         //底部menu
