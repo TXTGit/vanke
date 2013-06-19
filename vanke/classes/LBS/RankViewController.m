@@ -99,8 +99,8 @@
 
 -(void)initData{
     
-    [self getFanRankListByType:4];
-    [self getCommunityRankListByType:4];
+    [self getFanRankListByType:1];
+    [self getCommunityRankListByType:1];
     
 }
 
@@ -207,9 +207,17 @@
     
     int temprank = temprankinfo.rank;
     cell.lblRank.text = [NSString stringWithFormat:@"%d", temprank];
+//    cell.headImageView.imageURL = [NSURL URLWithString:temprankinfo.headImg];
     cell.headImageView.tag = temprankinfo.memberID;
     [cell.headImageView addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
+    cell.lblNickname.text = temprankinfo.nickName;
+    cell.lblTime.text = temprankinfo.loginTime;
     cell.lblEnergy.text = [NSString stringWithFormat:@"%.3f", temprankinfo.energy];
+    if (temprankinfo.isFan > 0) {
+        cell.isFriendImageView.hidden = NO;
+    } else {
+        cell.isFriendImageView.hidden = YES;
+    }
     
 	return cell;
 }

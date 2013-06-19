@@ -10,6 +10,7 @@
 
 @implementation RankInfo
 
+@synthesize rank = _rank;
 @synthesize totalID = _totalID;
 @synthesize memberID = _memberID;
 @synthesize mileage = _mileage;
@@ -20,7 +21,10 @@
 @synthesize runTimes = _runTimes;
 @synthesize beginTime = _beginTime;
 @synthesize endTime = _endTime;
-@synthesize rank = _rank;
+@synthesize nickName = _nickName;
+@synthesize headImg = _headImg;
+@synthesize loginTime = _loginTime;
+@synthesize isFan = _isFan;
 
 +(RankInfo *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -29,6 +33,7 @@
     @try {
         if ([dict isKindOfClass:[NSDictionary class]]) {
             rankInfo = [[RankInfo alloc] init];
+            rankInfo.rank = [[dict objectForKey:@"rank"] floatValue];
             rankInfo.totalID = [[dict objectForKey:@"totalID"] longValue];
             rankInfo.memberID = [[dict objectForKey:@"memberID"] longValue];
             rankInfo.mileage = [[dict objectForKey:@"mileage"] floatValue];
@@ -39,7 +44,11 @@
             rankInfo.runTimes = [[dict objectForKey:@"runTimes"] intValue];
             rankInfo.beginTime = [dict objectForKey:@"beginTime"];
             rankInfo.endTime = [dict objectForKey:@"endTime"];
-            rankInfo.rank = [[dict objectForKey:@"rank"] floatValue];
+            rankInfo.nickName = [dict objectForKey:@"nickName"];
+            rankInfo.headImg = [dict objectForKey:@"headImg"];
+            rankInfo.loginTime = [dict objectForKey:@"loginTime"];
+            rankInfo.isFan = [[dict objectForKey:@"isFan"] intValue];
+            
         }
     }
     @catch (NSException *exception) {
