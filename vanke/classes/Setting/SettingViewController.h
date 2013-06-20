@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 
-@interface SettingViewController : UIViewController<UITextFieldDelegate>
+@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 

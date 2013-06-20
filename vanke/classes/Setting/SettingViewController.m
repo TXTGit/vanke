@@ -13,6 +13,8 @@
 #import "UserSessionManager.h"
 #import "TaskViewController.h"
 
+#import "MBProgressHUD.h"
+
 @interface SettingViewController ()
 
 @end
@@ -74,6 +76,7 @@
     _tempScroll.frame = CGRectMake(0, 0, 320, height);
     _tempScroll.scrollEnabled = YES;
     _tempScroll.contentSize = CGSizeMake(320, 548);
+    _tempScroll.delegate = self;
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
     
@@ -200,6 +203,16 @@
             NSLog(@"status: %@", status);
             if ([status isEqual:@"0"]) {
                 NSLog(@"SetInfo successful...");
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                
+                // Configure for text only and offset down
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = @"分享成功";
+                hud.margin = 10.f;
+                hud.yOffset = 0.f;
+                hud.removeFromSuperViewOnHide = YES;
+                
+                [hud hide:YES afterDelay:3];
             }
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -242,6 +255,11 @@
     
     NSLog(@"doTel...");
     
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
 #pragma textfield delegate

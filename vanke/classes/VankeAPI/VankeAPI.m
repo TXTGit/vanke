@@ -379,4 +379,24 @@
     return [NSString stringWithFormat:@"%@?type=share&memberID=%@&shareContent=%@",VANKE_DOMAIN,memberid,[PCommonUtil encodeUrlParameter:shareContent]];
 }
 
+/*
+10.	获取分享列表（2013-6-19）
+	地址：
+http://www.4000757888.com:880/i.aspx?type=getShareList&memberID=23&page=1&rows=5
+	参数：
+memberID：会员ID
+page：当前页数
+rows：每页显示记录数量
+	返回：
+list：当前页的分享列表*/
++(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
+{
+    return [NSString stringWithFormat:@"%@?type=getShareList&memberID=%@&page=%d&rows=%d",VANKE_DOMAIN,memberid,page,pageCount];
+}
+
+//获取分享的图片地址
++(NSString *)getSHarePicUrl:(NSString*)imageName
+{
+    return [NSString stringWithFormat:@"%@/upload/share/%@",VANKE_DOMAINBase,imageName];
+}
 @end

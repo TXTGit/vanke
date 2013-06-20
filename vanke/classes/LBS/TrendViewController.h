@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 
-@interface TrendViewController : UIViewController
+@interface TrendViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
+@property (weak, nonatomic) IBOutlet UITableView *trendTableView;
+@property (nonatomic, retain) NSMutableArray *trendList;
 
 -(void)doBack;
 

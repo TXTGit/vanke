@@ -22,6 +22,7 @@
 
 //#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
 #define VANKE_DOMAIN                        @"http://api.4000757888.com/i.aspx"
+#define VANKE_DOMAINBase                    @"http://api.4000757888.com"
 
 #endif
 
