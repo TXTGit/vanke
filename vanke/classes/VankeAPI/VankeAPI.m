@@ -365,4 +365,18 @@
     return [NSString stringWithFormat:@"%@?type=unread&memberID=%@", VANKE_DOMAIN, memberid];
 }
 
+/*
+ 分享接口（2013-06-20）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=share&memberID=23&shareContent=我们都是小青蛙，呱呱呱呱呱
+ •	说明：
+ •	参数：
+ memberID：自己会员ID
+ shareContent: 分享的内容
+ •	返回：
+ */
++(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent{
+    return [NSString stringWithFormat:@"%@?type=share&memberID=%@&shareContent=%@",VANKE_DOMAIN,memberid,[PCommonUtil encodeUrlParameter:shareContent]];
+}
+
 @end

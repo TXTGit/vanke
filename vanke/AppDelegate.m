@@ -99,7 +99,7 @@
     }
     
     //test
-    [self testUploadImage];
+//    [self testUploadImage];
     
     //test end
     

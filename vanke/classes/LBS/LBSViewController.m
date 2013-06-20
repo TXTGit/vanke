@@ -345,57 +345,72 @@
 #pragma map view delegate
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation{
-    if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
-        BMKPinAnnotationView *newAnnotation = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
-        if ([annotation.title isEqualToString:@"Runner"]) {
-            newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
-        } else if ([annotation.title isEqualToString:@"Owner"]) {
-            newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+    @try {
+        if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+            BMKPinAnnotationView *newAnnotation = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+            if (annotation.title && [annotation.title isEqualToString:@"Runner"]) {
+                newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            } else if (annotation.title && [annotation.title isEqualToString:@"Owner"]) {
+                newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            }
+            
+            newAnnotation.animatesDrop = YES;
+            newAnnotation.canShowCallout = NO;
+            newAnnotation.calloutOffset = CGPointMake(0,0);
+            newAnnotation.draggable = NO;//拖动
+            
+            return newAnnotation;
+        } else if ([annotation isKindOfClass:[CustomPointAnnotation class]]) {
+            
+            static NSString *annotationIdentifier = @"customAnnotation";
+            BMKPinAnnotationView *annotationview = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationview.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            annotationview.animatesDrop = YES;
+            annotationview.canShowCallout = NO;
+            
+            return annotationview;
+        } else if ([annotation isKindOfClass:[CalloutMapAnnotation class]]) {
+            
+            //此时annotation就是我们calloutview的annotation
+            CalloutMapAnnotation *ann = (CalloutMapAnnotation *)annotation;
+            
+            //如果可以重用
+            CallOutAnnotationView *calloutannotationview = (CallOutAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"calloutview"];
+            
+            //否则创建新的calloutView
+            if (!calloutannotationview) {
+                calloutannotationview = [[CallOutAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"calloutview"];
+                
+                BusPointCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"BusPointCell" owner:self options:nil] objectAtIndex:0];
+                
+                [calloutannotationview.contentView addSubview:cell];
+                calloutannotationview.busInfoView = cell;
+            }
+            
+            //开始设置添加marker时的赋值
+            long memberid = ann.nearFriend.memberID;
+            calloutannotationview.busInfoView.btnUserTip.tag = memberid;
+            [calloutannotationview.busInfoView.btnUserTip addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
+            if ([PCommonUtil checkDataIsNull:ann.nearFriend.nickName]) {
+                calloutannotationview.busInfoView.lblNickName.text = ann.nearFriend.nickName;
+            }else{
+                calloutannotationview.busInfoView.lblNickName.text = @"";
+            }
+            calloutannotationview.busInfoView.lblLoginTime.text = ann.nearFriend.loginTime;
+            
+            return calloutannotationview;
         }
-        
-        newAnnotation.animatesDrop = YES;
-        newAnnotation.canShowCallout = NO;
-        newAnnotation.calloutOffset = CGPointMake(0,0);
-        newAnnotation.draggable = NO;//拖动
-        
-        return newAnnotation;
-    } else if ([annotation isKindOfClass:[CustomPointAnnotation class]]) {
+    }
+    @catch (NSException *exception) {
+        NSLog(@"parser RunUser failed...pease check");
         
         static NSString *annotationIdentifier = @"customAnnotation";
         BMKPinAnnotationView *annotationview = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        annotationview.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+        annotationview.image = nil;
         annotationview.animatesDrop = YES;
         annotationview.canShowCallout = NO;
         
         return annotationview;
-    } else if ([annotation isKindOfClass:[CalloutMapAnnotation class]]) {
-        
-        //此时annotation就是我们calloutview的annotation
-        CalloutMapAnnotation *ann = (CalloutMapAnnotation *)annotation;
-        
-        //如果可以重用
-        CallOutAnnotationView *calloutannotationview = (CallOutAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"calloutview"];
-        
-        //否则创建新的calloutView
-        if (!calloutannotationview) {
-            calloutannotationview = [[CallOutAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"calloutview"];
-            
-            BusPointCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"BusPointCell" owner:self options:nil] objectAtIndex:0];
-            
-            [calloutannotationview.contentView addSubview:cell];
-            calloutannotationview.busInfoView = cell;
-        }
-        
-        //开始设置添加marker时的赋值
-        long memberid = ann.nearFriend.memberID;
-        calloutannotationview.busInfoView.btnUserTip.tag = memberid;
-        [calloutannotationview.busInfoView.btnUserTip addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
-        
-        calloutannotationview.busInfoView.lblNickName.text = ann.nearFriend.nickName;
-        calloutannotationview.busInfoView.lblDistance.text = [NSString stringWithFormat:@"%ld 米", ann.nearFriend.distance];
-        calloutannotationview.busInfoView.lblLoginTime.text = ann.nearFriend.loginTime;
-        
-        return calloutannotationview;
     }
     
     return nil;
@@ -525,7 +540,7 @@
         NSArray *dl = [_currentLocation componentsSeparatedByString:@","];
         center.latitude = [[dl objectAtIndex:0] doubleValue];
         center.longitude = [[dl objectAtIndex:1] doubleValue];
-        [_mapView setCenterCoordinate:center animated:true];
+        [_mapView setCenterCoordinate:center animated:NO];
         
         //记录用户坐标
         [self doSetGPS:templocation];

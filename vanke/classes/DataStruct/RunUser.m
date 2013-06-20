@@ -7,6 +7,7 @@
 //
 
 #import "RunUser.h"
+#import "PCommonUtil.h"
 
 @implementation RunUser
 
@@ -26,6 +27,8 @@
 @synthesize birthday = _birthday;
 @synthesize headImg = _headImg;
 
+@synthesize mobile = _mobile;
+
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict{
     
     RunUser *runner = nil;
@@ -44,10 +47,16 @@
             runner.headImg = [dict objectForKey:@"headImg"];
             runner.address = [dict objectForKey:@"address"];
             runner.birthday = [dict objectForKey:@"birthday"];
-            runner.weight = [[dict objectForKey:@"weight"] floatValue];
-            runner.tall = [[dict objectForKey:@"height"] floatValue];
-            runner.score = [[dict objectForKey:@"score"] longValue];
-            
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"weight"]]) {
+                runner.weight = [[dict objectForKey:@"weight"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"height"]]) {
+                runner.tall = [[dict objectForKey:@"height"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"score"]]) {
+                runner.score = [[dict objectForKey:@"score"] longValue];
+            }
+            runner.mobile = [dict objectForKey:@"mobile"];
         }
     }
     @catch (NSException *exception) {

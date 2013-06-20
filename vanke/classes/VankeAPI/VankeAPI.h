@@ -76,6 +76,7 @@
 //长轮询通知接口（2013-6-17）
 +(NSString *)getUnreadUrl:(NSString *)memberid;
 
-
+//分享接口（2012-6-17）
++(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;
 
 @end

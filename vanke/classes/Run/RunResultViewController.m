@@ -14,6 +14,13 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "RunRecordListViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
+#import "GTMBase64.h"
+#import "AFJSONRequestOperation.h"
+#import "AFHTTPClient.h"
+
+#import "MBProgressHUD.h"
 
 @interface RunResultViewController ()
 
@@ -69,6 +76,7 @@
     UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
     
     //show data
     _lblRunDistance.text = [NSString stringWithFormat:@"%.2f", _runRecord.mileage];
@@ -99,7 +107,7 @@
         
         if (i == locationCount / 2) {
             CLLocationCoordinate2D center = coors[i];
-            [_mapView setCenterCoordinate:center animated:true];
+            [_mapView setCenterCoordinate:center animated:YES];
         }
         
         if (i == locationCount - 1) {
@@ -208,6 +216,76 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
+#pragma mark 分享
+-(void)doShare{
+    NSLog(@"doShare...");
+    
+    UIGraphicsBeginImageContext(CGSizeMake(self.mapView.frame.size.width, self.mapView.frame.size.height));
+    [self.mapView.viewForBaselineLayout.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *trackImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.mobile,_lblRunDistance.text]];
+    
+    NSData *imageData = UIImagePNGRepresentation(trackImage);
+    NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"base64data: %@", base64data);
+    
+    NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:base64data, @"shareImg", nil];
+    NSURL *url = [NSURL URLWithString:setShareUrl];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"shareImg" fileName:@"23_201306200600.jpg" mimeType:@"image/jpeg"];
+    }];
+    
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSString *msg = [dicResult objectForKey:@"msg"];
+        NSLog(@"status: %@, msg: %@", status, msg);
+        if ([status isEqual:@"0"]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"分享成功";
+            hud.margin = 10.f;
+            hud.yOffset = 0.f;
+            hud.removeFromSuperViewOnHide = YES;
+            
+            [hud hide:YES afterDelay:3];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+    }];
+    
+    [operation start];
+}
+
+// get the current view screen shot
+#pragma mark 截屏
+//- (UIImage *)capture:(UIView*)view
+//{
+//    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+//    
+//    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    
+//    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    
+//    return img;
+//}
 
 -(IBAction)doCancel:(id)sender{
     

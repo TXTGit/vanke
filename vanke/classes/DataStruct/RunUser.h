@@ -26,6 +26,8 @@
 @property (nonatomic, retain) NSString *birthday;
 @property (nonatomic, retain) NSString *headImg;
 
+@property (nonatomic, retain) NSString *mobile;
+
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict;
 
 @end

@@ -20,7 +20,8 @@
 
 #elif (1 == IS_DEBUG_SERVER)
 
-#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
+//#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
+#define VANKE_DOMAIN                        @"http://api.4000757888.com/i.aspx"
 
 #endif
 

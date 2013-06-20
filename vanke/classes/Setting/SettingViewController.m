@@ -86,11 +86,41 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setTitle:@"保存" forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
-    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    long long currentMemberid = [[UserSessionManager GetInstance].currentRunUser.userid longLongValue];
+     //如果是登录者进入设置，则显示保存按钮
+    if (currentMemberid == _memberid) {
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+        [_navView.rightButton setTitle:@"保存" forState:UIControlStateNormal];
+        [_navView.rightButton setHidden:NO];
+        [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.btnJiFen setEnabled:YES];
+        [self.btnDuoBao setEnabled:YES];
+        [self.btnDuiHuanRecord setEnabled:YES];
+        
+        [self.tallField setEnabled:YES];
+        [self.weightField setEnabled:YES];
+        [self.areaField setEnabled:YES];
+        [self.addressField setEnabled:YES];
+        [self.telField setEnabled:YES];
+    }else{
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+        [_navView.rightButton setTitle:@"约跑" forState:UIControlStateNormal];
+        [_navView.rightButton setHidden:NO];
+        [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.btnJiFen setEnabled:NO];
+        [self.btnDuoBao setEnabled:NO];
+        [self.btnDuiHuanRecord setEnabled:NO];
+        
+        [self.tallField setEnabled:NO];
+        [self.weightField setEnabled:NO];
+        [self.areaField setEnabled:NO];
+        [self.addressField setEnabled:NO];
+        [self.telField setEnabled:NO];
+    }
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];

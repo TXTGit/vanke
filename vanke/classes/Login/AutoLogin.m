@@ -38,7 +38,7 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
-            
+            NSLog(@"dicResult:%@",dicResult);
             NSString *tempmemberid = [dicResult objectForKey:@"memberID"];
             [UserSessionManager GetInstance].currentRunUser.userid = tempmemberid;
             [UserSessionManager GetInstance].currentRunUser.communityid = [[dicResult objectForKey:@"communityID"] intValue];
@@ -66,6 +66,7 @@
 -(void)doGetMemberInfo:(long)memberid{
     
     NSString *memberUrl = [VankeAPI getGetMemberUrl:[NSString stringWithFormat:@"%ld", memberid]];
+    NSLog(@"memberUrl:%@",memberUrl);
     NSURL *url = [NSURL URLWithString:memberUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
