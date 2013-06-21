@@ -94,7 +94,7 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 TrendInfo *trendInfo = [TrendInfo initWithNSDictionary:dicrecord];
                 [_trendList addObject:trendInfo];
-                NSLog(@"shareCOntent:%@",trendInfo.shareContent);
+                NSLog(@"shareContent:%@",trendInfo.shareContent);
             }
             
             [_trendTableView reloadData];

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
+#import "RunUser.h"
 
 @interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate>
 
@@ -38,6 +39,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnTel;                 //
 
 @property (nonatomic, assign) long memberid;
+@property (nonatomic, retain) RunUser *runner;
 
 -(void)initData;
 

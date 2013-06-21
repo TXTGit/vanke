@@ -10,8 +10,9 @@
 #import "PCustomNavigationBarView.h"
 #import "BMapKit.h"
 #import "RunRecord.h"
+#import <MapKit/MapKit.h>
 
-@interface RunResultViewController : UIViewController<BMKMapViewDelegate>
+@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *runResultBgImageView;
 @property (nonatomic, retain) PCustomNavigationBarView *navView;

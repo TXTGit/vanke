@@ -221,14 +221,21 @@
 -(void)doShare{
     NSLog(@"doShare...");
     
-    UIGraphicsBeginImageContext(CGSizeMake(self.mapView.frame.size.width, self.mapView.frame.size.height));
-    [self.mapView.viewForBaselineLayout.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *trackImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIWindow *screenWindow=[[UIApplication sharedApplication]keyWindow];
+    //UIGraphicsBeginImageContext(self.view.frame.size);
+    
+    UIGraphicsBeginImageContext(self.mapView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    UIRectClip(CGRectMake(0, 0, 320, 190));
+    [self.mapView.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.mobile,_lblRunDistance.text]];
     
-    NSData *imageData = UIImagePNGRepresentation(trackImage);
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
     NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
     
     NSLog(@"base64data: %@", base64data);

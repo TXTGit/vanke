@@ -13,6 +13,7 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "NearFriend.h"
+#import "PCommonUtil.h"
 
 @interface NearViewController ()
 
@@ -209,7 +210,9 @@
         nearfriend = [_communitylist objectAtIndex:indexPath.row];
     }
     
-    cell.lblNickname.text = nearfriend.nickName;
+    if ([PCommonUtil checkDataIsNull:nearfriend.nickName]) {
+        cell.lblNickname.text = nearfriend.nickName;
+    }
     cell.lblNearDistance.text = [NSString stringWithFormat:@"%ld", nearfriend.distance];
     if (nearfriend.isFan) {
         cell.isFriendImageView.hidden = NO;

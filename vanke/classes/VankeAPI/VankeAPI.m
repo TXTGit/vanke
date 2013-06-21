@@ -269,7 +269,21 @@
 +(NSString *)getSendInviteUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext{
     
     NSString *tempmessage = [PCommonUtil encodeUrlParameter:msgtext];
-    return [NSString stringWithFormat:@"%@?type=sendInvite&fromMemberID=%@&toMemberID=%@&msgText=%@", VANKE_DOMAIN, memberid, tomemberid, tempmessage];
+    return [NSString stringWithFormat:@"%@?type=sendInvite&memberID=%@&toMemberID=%@&inviteText=%@", VANKE_DOMAIN, memberid, tomemberid, tempmessage];
+}
+
+/*
+ 获取约跑邀请（2013-06-17）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getInviteList&memberID=33&page=1&rows=5
+ •	参数：
+ fromMemberID：自己会员ID
+ toMemberID：对方会员ID
+ msgText：信息内容
+ */
++(NSString *)getInviteListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
+{
+    return [NSString stringWithFormat:@"%@?type=getInviteList&memberID=%@&page=%d&rows=%d", VANKE_DOMAIN, memberid, page, pageCount];
 }
 
 /*
@@ -285,7 +299,7 @@
 +(NSString *)getSendMsgUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext{
     
     NSString *tempmessage = [PCommonUtil encodeUrlParameter:msgtext];
-    return [NSString stringWithFormat:@"%@?type=sendMsg&fromMemberID=%@&toMemberID=%@&msgText=%@", VANKE_DOMAIN, memberid, tomemberid, tempmessage];
+    return [NSString stringWithFormat:@"%@?type=sendMsg&memberID=%@&toMemberID=%@&msgText=%@", VANKE_DOMAIN, memberid, tomemberid, tempmessage];
 }
 
 /*
@@ -313,9 +327,9 @@
  •	返回：
  list：未读信息列表
  */
-+(NSString *)getGetMsgListUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid lastMsgId:(long)lastmsgid{
++(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid{
     
-    return [NSString stringWithFormat:@"%@?type=getMsgList&fromMemberID=%@&toMemberID=%@&lastMsgID=%ld", VANKE_DOMAIN, memberid, tomemberid, lastmsgid];
+    return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid];
 }
 
 /*
@@ -395,8 +409,36 @@ list：当前页的分享列表*/
 }
 
 //获取分享的图片地址
-+(NSString *)getSHarePicUrl:(NSString*)imageName
++(NSString *)getSharePicUrl:(NSString*)imageName
 {
     return [NSString stringWithFormat:@"%@/upload/share/%@",VANKE_DOMAINBase,imageName];
+}
+
+/*
+ 添加好友（2013-06-21）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=addFan&memberID=33&toMemberID=23
+ •	说明：
+ •	参数：
+ memberID：自己会员ID
+ shareContent: 分享的内容
+ •	返回：
+ */
++(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId{
+    return [NSString stringWithFormat:@"%@?type=addFan&memberID=%@&toMemberID=%@&inviteID=%@",VANKE_DOMAIN,memberid,toMemberID,inviteId];
+}
+
+/*
+ 获取是否好友（2013-06-21）
+ •	地址：
+http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=37&fromMemberID=23
+ •	说明：
+ •	参数：
+ memberID：自己会员ID
+ shareContent: 分享的内容
+ •	返回：
+ */
++(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID{
+    return [NSString stringWithFormat:@"%@?type=getIsFan&memberID=%@&fromMemberID=%@",VANKE_DOMAIN,memberid,fromMemberID];
 }
 @end

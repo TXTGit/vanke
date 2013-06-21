@@ -10,12 +10,19 @@
 #import "FriendInfo.h"
 #import "ChatMessage.h"
 
+typedef enum {
+    chatTypeDefault,
+    chatTypeInvite,
+    chatTYpeInviteCheck
+}ChatType;
+
 @interface ChatCell : UITableViewCell
 
 @property (nonatomic, retain) IBOutlet UIImageView *leftHeadImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *rightHeadImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *textBgImageView;
 @property (nonatomic, retain) IBOutlet UILabel *lblChatText;
+@property (nonatomic, assign) ChatType chatType;
 
 @property (nonatomic, retain) ChatMessage *chatmessage;
 @property (nonatomic, retain) FriendInfo *friendinfo;

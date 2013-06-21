@@ -38,7 +38,7 @@
             self.lblTime.text = [_trendInfo.shareTime componentsSeparatedByString:@"T"][0];
         }
         if ([PCommonUtil checkDataIsNull:_trendInfo.shareImg]) {
-            NSString *testImageUrl = [VankeAPI getSHarePicUrl:_trendInfo.shareImg];
+            NSString *testImageUrl = [VankeAPI getSharePicUrl:_trendInfo.shareImg];
             NSLog(@"testImageUrl:%@",testImageUrl);
             [self.imgShare setImageURL:[NSURL URLWithString:testImageUrl]];
 //            [self.imgShare setImage:[UIImage imageWithData:imageData]];

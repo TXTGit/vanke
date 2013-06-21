@@ -15,6 +15,10 @@
 
 #import "MBProgressHUD.h"
 
+#import "FriendInfo.h"
+#import "ChatViewController.h"
+#import "UserSessionManager.h"
+
 @interface SettingViewController ()
 
 @end
@@ -92,10 +96,11 @@
     long long currentMemberid = [[UserSessionManager GetInstance].currentRunUser.userid longLongValue];
      //如果是登录者进入设置，则显示保存按钮
     if (currentMemberid == _memberid) {
-        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_save" type:@"png"];
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-        [_navView.rightButton setTitle:@"保存" forState:UIControlStateNormal];
+//        [_navView.rightButton setTitle:@"保存" forState:UIControlStateNormal];
         [_navView.rightButton setHidden:NO];
+        [_navView.rightButton setFrame:CGRectMake(250, 7, 56, 29)];
         [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.btnJiFen setEnabled:YES];
@@ -108,11 +113,38 @@
         [self.addressField setEnabled:YES];
         [self.telField setEnabled:YES];
     }else{
-        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-        [_navView.rightButton setTitle:@"约跑" forState:UIControlStateNormal];
-        [_navView.rightButton setHidden:NO];
-        [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+        NSString *setIsFanUrl = [VankeAPI getIsFanUrl:[UserSessionManager GetInstance].currentRunUser.userid :[NSString stringWithFormat:@"%ld",_memberid]];
+        NSURL *url = [NSURL URLWithString:setIsFanUrl];
+        NSLog(@"isFan:%@",setIsFanUrl);
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            NSLog(@"App.net Global Stream: %@", JSON);
+            NSDictionary *dicResult = JSON;
+            NSString *status = [dicResult objectForKey:@"status"];
+            NSLog(@"status: %@", status);
+            if ([status isEqual:@"0"]) {
+                NSLog(@"isFan：%d",[[dicResult objectForKey:@"isFan"] intValue]);
+                if ([[dicResult objectForKey:@"isFan"] intValue] == 1) {
+                    UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_invit" type:@"png"];
+                    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+                    [_navView.rightButton setTitle:@"聊天" forState:UIControlStateNormal];
+                    [_navView.rightButton setHidden:NO];
+                    [_navView.rightButton setFrame:CGRectMake(272, 9, 24, 25)];
+                    [_navView.rightButton addTarget:self action:@selector(doGotoChat:) forControlEvents:UIControlEventTouchUpInside];
+                }else{
+                    UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_invit" type:@"png"];
+                    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+                    //        [_navView.rightButton setTitle:@"约跑" forState:UIControlStateNormal];
+                    [_navView.rightButton setHidden:NO];
+                    [_navView.rightButton setFrame:CGRectMake(272, 9, 24, 25)];
+                    [_navView.rightButton addTarget:self action:@selector(doGotoInvite:) forControlEvents:UIControlEventTouchUpInside];
+                }
+            }
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSLog(@"failure: %@", error);
+        }];
+        [operation start];
         
         [self.btnJiFen setEnabled:NO];
         [self.btnDuoBao setEnabled:NO];
@@ -153,13 +185,13 @@
         if ([status isEqual:@"0"]) {
             
             NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
-            RunUser *runner = [RunUser initWithNSDictionary:dicEnt];
+            _runner = [RunUser initWithNSDictionary:dicEnt];
             
-            _tallField.text = [NSString stringWithFormat:@"%.2f", runner.tall];
-            _weightField.text = [NSString stringWithFormat:@"%.2f", runner.weight];
-            _areaField.text = [NSString stringWithFormat:@"%d", runner.communityid];
-            _addressField.text = [NSString stringWithFormat:@"%@", runner.address];
-            _telField.text = [NSString stringWithFormat:@"%@", runner.tel];
+            _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
+            _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
+            _areaField.text = [NSString stringWithFormat:@"%d", _runner.communityid];
+            _addressField.text = [NSString stringWithFormat:@"%@", _runner.address];
+            _telField.text = [NSString stringWithFormat:@"%@", _runner.tel];
             
         }
         
@@ -207,7 +239,7 @@
                 
                 // Configure for text only and offset down
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"分享成功";
+                hud.labelText = @"保存成功";
                 hud.margin = 10.f;
                 hud.yOffset = 0.f;
                 hud.removeFromSuperViewOnHide = YES;
@@ -222,6 +254,30 @@
         
     }//end if
     
+}
+
+-(void)doGotoInvite:(id)sender{
+    NSLog(@"doGotoInvite...");
+    
+    FriendInfo *friendinfo = [[FriendInfo alloc]init];
+    friendinfo.fromMemberID = [_runner.userid longLongValue];
+    
+    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+    [chatViewController setFriendInfo:friendinfo];
+    [chatViewController setChatType:chatTypeInvite];
+    [self.navigationController pushViewController:chatViewController animated:YES];
+}
+
+-(void)doGotoChat:(id)sender{
+    NSLog(@"doGotoChat...");
+    
+    FriendInfo *friendinfo = [[FriendInfo alloc]init];
+    friendinfo.fromMemberID = [_runner.userid longLongValue];
+    
+    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+    [chatViewController setFriendInfo:friendinfo];
+    [chatViewController setChatType:chatTypeDefault];
+    [self.navigationController pushViewController:chatViewController animated:YES];
 }
 
 -(IBAction)doJiFen:(id)sender{

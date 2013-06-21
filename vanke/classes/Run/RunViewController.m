@@ -598,6 +598,7 @@
     NSLog(@"touchChatAction...");
     
     ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+    [chatViewController setChatType:chatTypeDefault];
     [self.navigationController pushViewController:chatViewController animated:YES];
     
 }

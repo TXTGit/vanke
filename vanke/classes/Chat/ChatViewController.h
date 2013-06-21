@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 #import "FriendInfo.h"
+#import "ChatCell.h"
 
 @interface ChatViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -24,6 +25,7 @@
 
 @property (nonatomic, retain) FriendInfo *friendInfo;
 @property (nonatomic, retain) NSTimer *getMsgTimer;
+@property (nonatomic, assign) ChatType chatType;
 
 -(void)doBack;
 -(void)initData;

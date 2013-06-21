@@ -12,7 +12,6 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "ChatMessage.h"
-#import "ChatCell.h"
 
 @interface ChatViewController ()
 
@@ -32,6 +31,8 @@
 
 @synthesize friendInfo = _friendInfo;
 @synthesize getMsgTimer = _getMsgTimer;
+
+@synthesize chatType = _chatType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,7 +63,21 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"聊天" bgImageView:@"index_nav_bg"];
+    NSString *title = [[NSString alloc]init];
+    switch (_chatType) {
+        case chatTypeDefault:
+            title = @"聊天";
+            break;
+        case chatTypeInvite:
+            title = @"约跑";
+            break;
+        case chatTYpeInviteCheck:
+            title = @"查看约跑记录";
+            break;
+        default:
+            break;
+    }
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:title bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
@@ -102,15 +117,16 @@
     
     //
     [self initData];
-    [self timerStart];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    [self timerStart];
-    
+    if (_chatType!=chatTYpeInviteCheck) {
+        [self timerStart];
+        [self getInviteData];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -132,15 +148,20 @@
 }
 
 -(void)initData{
+    if(_chatType == chatTYpeInviteCheck){
+        [self showInviteData];
+    }else if(_chatType == chatTypeDefault)
+    {
+        [self getDefaultData];
+    }
+}
+
+-(void)getDefaultData{
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
-//    NSString *memberid = @"23";//测试用MemberID，测试完成删除
-//    NSString *tomemberid = @"33";//测试用MemberId，测试完成删除
-//    _friendInfo.fromMemberID = 33;
-//    _friendInfo.toMemberID = 23;
-    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:tomemberid toMemberId:memberid lastMsgId:_lastMessageId];
+    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:tomemberid fromMemberID:memberid lastMsgId:_lastMessageId];
+    NSLog(@"msgList:%@",msgListUrl);
     NSURL *url = [NSURL URLWithString:msgListUrl];
-    NSLog(@"url:%@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"App.net Global Stream: %@", JSON);
@@ -157,7 +178,7 @@
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
                 [_chatMessageList addObject:chatmessage];
                 if (i == datalistCount - 1) {
-//                    _lastMessageId = chatmessage.msgID;
+                    _lastMessageId = chatmessage.msgID;
                 }
             }
             
@@ -168,7 +189,85 @@
         NSLog(@"failure: %@", error);
     }];
     [operation start];
-    
+}
+
+-(void)getInviteData{
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
+    NSLog(@"msgList:%@",msgListUrl);
+    NSURL *url = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            if (datalistCount>0) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+                [alert show];
+            }
+            
+//            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//            [chatViewController setChatType:chatTYpeInviteCheck];
+//            [self.navigationController pushViewController:chatViewController animated:YES];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%d",buttonIndex);
+    if (buttonIndex==1) {
+        ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+        [chatViewController setChatType:chatTYpeInviteCheck];
+        [self.navigationController pushViewController:chatViewController animated:YES];
+    }
+}
+
+-(void)showInviteData
+{
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
+    NSLog(@"msgList:%@",msgListUrl);
+    NSURL *url = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            
+            for (int i=0; i<datalistCount; i++) {
+                NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                
+                ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
+                chatmessage.fromMemberID = [[dicrecord objectForKey:@"memberID"] longValue];
+                chatmessage.toMemberID = [[dicrecord objectForKey:@"fromMemberID"] longValue];
+                chatmessage.msgText = [NSString stringWithFormat:@"来自%@的邀请：%@",[dicrecord objectForKey:@"fromNickName"],[dicrecord objectForKey:@"inviteText"]];
+                NSLog(@"chatMessageRecord:%@",dicrecord);
+                [_chatMessageList addObject:chatmessage];
+                if (i == datalistCount - 1) {
+                    _lastMessageId = chatmessage.msgID;
+                }
+            }
+            
+            [_chatTableView reloadData];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
 }
 
 -(IBAction)doSend:(id)sender{
@@ -179,6 +278,10 @@
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
     NSString *msgListUrl = [VankeAPI getSendMsgUrl:memberid toMemberId:tomemberid msgText:_messageField.text];
+    if (_chatType == chatTypeInvite) {
+        NSLog(@"tomemberid:%@,memberid;%@",tomemberid,memberid);
+        msgListUrl = [VankeAPI getSendInviteUrl:memberid toMemberId:tomemberid msgText:msgText];
+    }
     NSURL *url = [NSURL URLWithString:msgListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -223,9 +326,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
+    cell.chatType = self.chatType;
     
     ChatMessage *tempmessage = [_chatMessageList objectAtIndex:indexPath.row];
     
+    NSLog(@"%ld,%ld",tempmessage.fromMemberID,tempmessage.toMemberID);
     cell.chatmessage = tempmessage;
     cell.friendinfo = _friendInfo;
     

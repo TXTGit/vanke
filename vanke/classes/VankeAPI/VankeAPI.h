@@ -58,6 +58,9 @@
 //发送约跑邀请（2013-6-17）
 +(NSString *)getSendInviteUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext;
 
+//获取约跑邀请列表(2013-6-17)
++(NSString *)getInviteListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
+
 //发送普通信息（2013-6-17）
 +(NSString *)getSendMsgUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext;
 
@@ -65,7 +68,7 @@
 +(NSString *)getGetUnreadListUrl:(NSString *)memberid;
 
 //获取未读信息列表（2013-6-12）
-+(NSString *)getGetMsgListUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid lastMsgId:(long)lastmsgid;
++(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid;
 
 //获取好友排名列表（2013-6-17）
 +(NSString *)getGetFanRankListUrl:(NSString *)memberid rankType:(int)ranktype;
@@ -83,5 +86,10 @@
 +(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
 
 //获取分享的图片地址
-+(NSString *)getSHarePicUrl:(NSString*)imageName;
++(NSString *)getSharePicUrl:(NSString*)imageName;
+
+//添加好友
++(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId;
+//判断是否好友
++(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID;
 @end

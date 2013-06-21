@@ -17,6 +17,7 @@
 @synthesize isReceive = _isReceive;
 @synthesize sendTime = _sendTime;
 @synthesize receiveTime = _receiveTime;
+@synthesize inviteID = _inviteID;
 
 +(ChatMessage *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -32,6 +33,7 @@
             chatmessage.isReceive = [[dict objectForKey:@"isReceive"] intValue];
             chatmessage.sendTime = [dict objectForKey:@"sendTime"];
             chatmessage.receiveTime = [dict objectForKey:@"receiveTime"];
+            chatmessage.inviteID = [dict objectForKey:@"inviteID"];
         }
     }
     @catch (NSException *exception) {

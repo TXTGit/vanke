@@ -16,6 +16,7 @@
 #import "ChatViewController.h"
 #import "FriendInfo.h"
 #import "SettingViewController.h"
+#import "PCommonUtil.h"
 
 @interface FriendViewController ()
 
@@ -53,9 +54,9 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
+//    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
+//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+//    [_navView.rightButton setHidden:NO];
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
@@ -91,6 +92,7 @@
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *fanListUrl = [VankeAPI getGetFanListUrl:memberid];
+    NSLog(@"fanListUrl:%@",fanListUrl);
     NSURL *url = [NSURL URLWithString:fanListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -137,7 +139,9 @@
     
     FriendInfo *friendinfo = [_friendList objectAtIndex:indexPath.row];
     
-    cell.lblNickname.text = friendinfo.fromNickName;
+    if ([PCommonUtil checkDataIsNull:friendinfo.fromNickName]) {
+        cell.lblNickname.text = friendinfo.fromNickName;
+    }
     cell.lblTime.text = friendinfo.fromLoginTime;
     cell.btnChat.tag = indexPath.row;
     [cell.btnChat addTarget:self action:@selector(doGotoChat:) forControlEvents:UIControlEventTouchUpInside];
