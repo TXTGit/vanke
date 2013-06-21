@@ -119,7 +119,7 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"Hi! Mey" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:[UserSessionManager GetInstance].currentRunUser.nickname bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];

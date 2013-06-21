@@ -92,4 +92,7 @@
 +(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId;
 //判断是否好友
 +(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID;
+
+//上传头像
++(NSString *)getSetHeadImgUrl:(NSString*)memberid;
 @end

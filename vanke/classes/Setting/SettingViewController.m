@@ -19,6 +19,11 @@
 #import "ChatViewController.h"
 #import "UserSessionManager.h"
 
+#import "GTMBase64.h"
+#import "AFHTTPClient.h"
+
+#import "UIImage+PImageCategory.h"
+
 @interface SettingViewController ()
 
 @end
@@ -253,7 +258,44 @@
         [operation start];
         
     }//end if
-    
+    if (changeHeadImg) {
+        
+        NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
+        NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:headData] encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"base64data: %@", base64data);
+        
+        NSString *uploadImageUrl = [VankeAPI getSetHeadImgUrl:strMemberid];
+        
+        NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:base64data, @"headImg", nil];
+        NSURL *url = [NSURL URLWithString:uploadImageUrl];
+        
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+        NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:headData name:@"headImg" fileName:@"headimg.jpg" mimeType:@"image/jpeg"];
+        }];
+        
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            NSLog(@"App.net Global Stream: %@", JSON);
+            NSDictionary *dicResult = JSON;
+            NSString *status = [dicResult objectForKey:@"status"];
+            NSString *msg = [dicResult objectForKey:@"msg"];
+            NSLog(@"status: %@, msg: %@", status, msg);
+            if ([status isEqual:@"0"]) {
+                
+            }
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSLog(@"failure: %@", error);
+        }];
+        
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+        }];
+        
+        [operation start];
+    }
 }
 
 -(void)doGotoInvite:(id)sender{
@@ -313,10 +355,35 @@
     
 }
 
--(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+-(IBAction)doSelectHeadImg:(id)sender
 {
-    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    NSLog(@"doSelectHeadImg...");
+    UIImagePickerController *pc = [[UIImagePickerController alloc]init];
+    
+    pc.delegate = self;
+    
+    pc.allowsEditing = NO;
+    
+    //pc.allowsImageEditing = NO;
+    
+    pc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentModalViewController:pc animated:YES];
 }
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *imageNew = [UIImage createRoundedRectImage:image size:CGSizeMake(100, 100) radius:50];
+    [self.btnHeadImg setImage:imageNew forState:UIControlStateNormal];
+    [picker dismissModalViewControllerAnimated:YES];
+    changeHeadImg = YES;
+}
+
+//-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+//{
+//    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+//}
 
 #pragma textfield delegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -333,8 +400,12 @@
     } else if (textField == _telField) {
         [_tempScroll scrollRectToVisible:CGRectMake(0, 290, 320, height - 210) animated:YES];
     }
+}
 
-    
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    float height = [UIScreen mainScreen].bounds.size.height - 20;
+    _tempScroll.frame = CGRectMake(0, 0, 320, height);
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -372,4 +443,8 @@
     
 }
 
+- (void)viewDidUnload {
+    [self setBtnHeadImg:nil];
+    [super viewDidUnload];
+}
 @end

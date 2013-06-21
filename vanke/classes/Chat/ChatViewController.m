@@ -124,7 +124,7 @@
     [super viewWillAppear:animated];
     
     if (_chatType!=chatTYpeInviteCheck) {
-        [self timerStart];
+//        [self timerStart];
         [self getInviteData];
     }
 }
@@ -159,7 +159,7 @@
 -(void)getDefaultData{
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
-    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:tomemberid fromMemberID:memberid lastMsgId:_lastMessageId];
+    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:memberid fromMemberID:tomemberid lastMsgId:_lastMessageId];
     NSLog(@"msgList:%@",msgListUrl);
     NSURL *url = [NSURL URLWithString:msgListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -181,12 +181,16 @@
                     _lastMessageId = chatmessage.msgID;
                 }
             }
-            
-            [_chatTableView reloadData];
+            if (datalistCount>0) {
+                [_chatTableView reloadData];
+            }
         }
+        
+        [self performSelector:@selector(initData) withObject:nil afterDelay:5.0f];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [self performSelector:@selector(initData) withObject:nil afterDelay:5.0f];
     }];
     [operation start];
 }
@@ -251,8 +255,8 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-                chatmessage.fromMemberID = [[dicrecord objectForKey:@"memberID"] longValue];
-                chatmessage.toMemberID = [[dicrecord objectForKey:@"fromMemberID"] longValue];
+//                chatmessage.fromMemberID = [[dicrecord objectForKey:@"memberID"] longValue];
+//                chatmessage.memberID = [[dicrecord objectForKey:@"fromMemberID"] longValue];
                 chatmessage.msgText = [NSString stringWithFormat:@"来自%@的邀请：%@",[dicrecord objectForKey:@"fromNickName"],[dicrecord objectForKey:@"inviteText"]];
                 NSLog(@"chatMessageRecord:%@",dicrecord);
                 [_chatMessageList addObject:chatmessage];
@@ -290,20 +294,24 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
-            ChatMessage *chatmessage = [[ChatMessage alloc]init];
-            chatmessage.msgText = msgText;
-//            NSLog(@"chatmessageText:%@",chatmessage.msgText);
-            chatmessage.sendTime = @"2012-12-12";
-            chatmessage.toMemberID = (long)tomemberid;
-            chatmessage.fromMemberID = (long)memberid;
-            [_chatMessageList addObject:chatmessage];
-            [_chatTableView reloadData];
+            
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
     }];
     [operation start];
+    
+    ChatMessage *chatmessage = [[ChatMessage alloc]init];
+    chatmessage.msgText = msgText;
+    //            NSLog(@"chatmessageText:%@",chatmessage.msgText);
+    NSDateFormatter*dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    chatmessage.sendTime = [dateFormatter stringFromDate:[NSDate date]];
+    chatmessage.memberID = (long)memberid;
+    chatmessage.fromMemberID = (long)tomemberid;
+    [_chatMessageList addObject:chatmessage];
+    [_chatTableView reloadData];
     
     //发送后清理
     _messageField.text = @"";
@@ -313,6 +321,7 @@
 #pragma mark - UITableView datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"_chatMessageListCount:%d",[_chatMessageList count]);
     return [_chatMessageList count];
 }
 
@@ -320,7 +329,6 @@
     static NSString *CellIdentifier = @"RecordTableCell";
 	ChatCell *cell = (ChatCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        
         NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"ChatCell" owner:self options:nil];
         cell = (ChatCell *)[nibContents objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -330,7 +338,7 @@
     
     ChatMessage *tempmessage = [_chatMessageList objectAtIndex:indexPath.row];
     
-    NSLog(@"%ld,%ld",tempmessage.fromMemberID,tempmessage.toMemberID);
+//    NSLog(@"%ld,%ld",tempmessage.fromMemberID,tempmessage.toMemberID);
     cell.chatmessage = tempmessage;
     cell.friendinfo = _friendInfo;
     

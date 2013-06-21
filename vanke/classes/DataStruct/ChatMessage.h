@@ -12,7 +12,7 @@
 
 @property (nonatomic, assign) long msgID;
 @property (nonatomic, assign) long fromMemberID;
-@property (nonatomic, assign) long toMemberID;
+@property (nonatomic, assign) long memberID;
 @property (nonatomic, retain) NSString *msgText;
 @property (nonatomic, assign) int isReceive;
 @property (nonatomic, retain) NSString *sendTime;

@@ -36,10 +36,10 @@
 
 -(void)updateView{
     
-    NSLog(@"%ld,%ld",_chatmessage.fromMemberID,_chatmessage.toMemberID);
+//    NSLog(@"%ld,%ld",_chatmessage.fromMemberID,_chatmessage.toMemberID);
     BOOL isFromSelf = NO;
     //如果是对方发的消息
-    if (_chatmessage.fromMemberID == [[UserSessionManager GetInstance].currentRunUser.userid longLongValue]) {
+    if (_chatmessage.memberID == [[UserSessionManager GetInstance].currentRunUser.userid longLongValue]) {
         _leftHeadImageView.hidden = NO;
         _rightHeadImageView.hidden = YES;
         isFromSelf = NO;
@@ -67,20 +67,22 @@
             _textBgImageView.frame = CGRectMake(250 - textSize.width, 10, textSize.width+20, textSize.height + 10);
         }else{
             _lblChatText.frame = CGRectMake(60, 14, textSize.width, textSize.height);
+            _textBgImageView.frame = CGRectMake(50, 10, textSize.width+20, textSize.height + 10);
         }
     }
     
     if (_chatType == chatTYpeInviteCheck) {
-        UIButton *btnAccept = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 5, _textBgImageView.frame.size.height + 5, 49, 21)];
+        UIButton *btnAccept = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 5, _textBgImageView.frame.size.height + 10, 49, 21)];
         [btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         [btnAccept setBackgroundColor:[UIColor grayColor]];
         [btnAccept addTarget:self action:@selector(acceptInvit:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnAccept];
         
-//        UIButton *btnReply = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 5, 49, 21)];
-//        [btnReply setTitle:@"回复" forState:UIControlStateNormal];
-//        [btnReply setBackgroundColor:[UIColor grayColor]];
-//        [self addSubview:btnReply];
+        UIButton *btnReply = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 5, 49, 21)];
+        [btnReply setTitle:@"拒绝" forState:UIControlStateNormal];
+        [btnReply setBackgroundColor:[UIColor grayColor]];
+        [btnAccept addTarget:self action:@selector(rejectInvit:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btnReply];
         
         CGRect bgFrame = self.textBgImageView.frame;
         bgFrame.size.height = bgFrame.size.height + 31;
@@ -94,8 +96,8 @@
 
 -(IBAction)acceptInvit:(UIButton*)sender
 {
-    NSString *memberid = [NSString stringWithFormat:@"%ld",_chatmessage.fromMemberID];
-    NSString *tomemberid = [NSString stringWithFormat:@"%ld",_chatmessage.toMemberID];
+    NSString *memberid = [NSString stringWithFormat:@"%ld",_chatmessage.memberID];
+    NSString *tomemberid = [NSString stringWithFormat:@"%ld",_chatmessage.fromMemberID];
     NSString *msgListUrl = [VankeAPI getAddFanUrl:memberid :tomemberid :_chatmessage.inviteID];
     NSLog(@"AddFanUrl:%@",msgListUrl);
     NSURL *url = [NSURL URLWithString:msgListUrl];
@@ -123,6 +125,11 @@
         NSLog(@"failure: %@", error);
     }];
     [operation start];
+}
+
+-(IBAction)rejectInvite:(id)sender
+{
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

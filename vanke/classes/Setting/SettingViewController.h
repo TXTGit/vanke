@@ -10,7 +10,9 @@
 #import "PCustomNavigationBarView.h"
 #import "RunUser.h"
 
-@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate>
+@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
+    BOOL changeHeadImg;
+}
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
@@ -54,5 +56,6 @@
 -(IBAction)doTel:(id)sender;
 
 -(IBAction)resiginTextField:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnHeadImg;
 
 @end

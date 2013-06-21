@@ -10,6 +10,7 @@
 #import "UIImage+PImageCategory.h"
 #import "RunViewController.h"
 #import "AutoLogin.h"
+#import "UserSessionManager.h"
 
 @interface IndexViewController ()
 
@@ -36,7 +37,7 @@
     // Do any additional setup after loading the view from its nib.
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"Hi! Mey" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:[UserSessionManager GetInstance].currentRunUser.nickname bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];

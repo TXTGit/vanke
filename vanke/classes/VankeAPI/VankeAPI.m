@@ -441,4 +441,19 @@ http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=37&fromMemberID=23
 +(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID{
     return [NSString stringWithFormat:@"%@?type=getIsFan&memberID=%@&fromMemberID=%@",VANKE_DOMAIN,memberid,fromMemberID];
 }
+
+
+/*
+ 上传头像地址（2013-06-21）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=37&fromMemberID=23
+ •	说明：
+ •	参数：
+ memberID：自己会员ID
+ shareContent: 分享的内容
+ •	返回：
+ */
++(NSString *)getSetHeadImgUrl:(NSString*)memberid{
+    return [NSString stringWithFormat:@"%@?type=setHeadImg&memberID=%@",VANKE_DOMAIN,memberid];
+}
 @end

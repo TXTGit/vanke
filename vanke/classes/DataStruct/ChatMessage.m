@@ -12,7 +12,7 @@
 
 @synthesize msgID = _msgID;
 @synthesize fromMemberID = _fromMemberID;
-@synthesize toMemberID = _toMemberID;
+@synthesize memberID = _memberID;
 @synthesize msgText = _msgText;
 @synthesize isReceive = _isReceive;
 @synthesize sendTime = _sendTime;
@@ -28,7 +28,7 @@
             chatmessage = [[ChatMessage alloc] init];
             chatmessage.msgID = [[dict objectForKey:@"msgID"] longValue];
             chatmessage.fromMemberID = [[dict objectForKey:@"fromMemberID"] longValue];
-            chatmessage.toMemberID = [[dict objectForKey:@"toMemberID"] longValue];
+            chatmessage.memberID = [[dict objectForKey:@"memberID"] longValue];
             chatmessage.msgText = [dict objectForKey:@"msgText"];
             chatmessage.isReceive = [[dict objectForKey:@"isReceive"] intValue];
             chatmessage.sendTime = [dict objectForKey:@"sendTime"];
