@@ -376,6 +376,7 @@
     UIImage *image = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
     UIImage *imageNew = [UIImage createRoundedRectImage:image size:CGSizeMake(100, 100) radius:50];
     [self.btnHeadImg setImage:imageNew forState:UIControlStateNormal];
+    
     [picker dismissModalViewControllerAnimated:YES];
     changeHeadImg = YES;
 }

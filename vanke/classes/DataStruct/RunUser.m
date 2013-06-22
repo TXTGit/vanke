@@ -37,16 +37,16 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             
             runner = [[RunUser alloc] init];
-            runner.userid = [dict objectForKey:@"memberID"];
-            runner.nickname = [dict objectForKey:@"nickName"];
-            runner.password = [dict objectForKey:@"password"];
-            runner.fullname = [dict objectForKey:@"fullName"];
-            runner.idcard = [dict objectForKey:@"idCard"];
-            runner.tel = [dict objectForKey:@"mobile"];
-            runner.communityid = [[dict objectForKey:@"communityID"] intValue];
-            runner.headImg = [dict objectForKey:@"headImg"];
-            runner.address = [dict objectForKey:@"address"];
-            runner.birthday = [dict objectForKey:@"birthday"];
+            runner.userid = [PCommonUtil checkDataIsNull:[dict objectForKey:@"memberID"]];
+            runner.nickname = [PCommonUtil checkDataIsNull:[dict objectForKey:@"nickName"]];
+            runner.password = [PCommonUtil checkDataIsNull:[dict objectForKey:@"password"]];
+            runner.fullname = [PCommonUtil checkDataIsNull:[dict objectForKey:@"fullName"]];
+            runner.idcard = [PCommonUtil checkDataIsNull:[dict objectForKey:@"idCard"]];
+            runner.tel = [PCommonUtil checkDataIsNull:[dict objectForKey:@"mobile"]];
+            runner.communityid = [[PCommonUtil checkDataIsNull:[dict objectForKey:@"communityID"]] intValue];
+            runner.headImg = [PCommonUtil checkDataIsNull:[dict objectForKey:@"headImg"]];
+            runner.address = [PCommonUtil checkDataIsNull:[dict objectForKey:@"address"]];
+            runner.birthday = [PCommonUtil checkDataIsNull:[dict objectForKey:@"birthday"]];
             if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"weight"]]) {
                 runner.weight = [[dict objectForKey:@"weight"] floatValue];
             }

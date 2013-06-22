@@ -185,6 +185,7 @@
     }
     
     NSString *registerUrl = [VankeAPI getRegisterUrl:runner.tel password:runner.password nickname:runner.nickname fullname:runner.fullname idCard:runner.idcard];
+    NSLog(@"registerUrl:%@",registerUrl);
     NSURL *url = [NSURL URLWithString:registerUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
