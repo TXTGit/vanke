@@ -40,13 +40,13 @@
     _navView = [[PCustomNavigationBarView alloc] initWithTitle:[UserSessionManager GetInstance].currentRunUser.nickname bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
+//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+//    [_navView.rightButton setHidden:NO];
     
-    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-    [_navView.messageTipImageView setImage:messageTip];
-    [_navView.messageTipImageView setHidden:NO];
+//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+//    [_navView.messageTipImageView setImage:messageTip];
+//    [_navView.messageTipImageView setHidden:NO];
     
     AutoLogin *autoLogin = [[AutoLogin alloc] init];
     [autoLogin doAutoLogin];
