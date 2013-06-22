@@ -133,6 +133,9 @@
 -(void)playLast;                        //上一首歌曲
 -(void)playNext;                        //下一首歌曲
 -(void)pickerIPodLib;
+-(void)volumeSet:(UISlider *)slider;    //音量控制
+-(void)showVolume;
+-(void)hideVolume;
 
 -(IBAction)doShowOrHideRunRecord:(id)sender;
 -(void)showRecord;

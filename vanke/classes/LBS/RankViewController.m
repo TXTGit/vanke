@@ -34,8 +34,10 @@
 
 @synthesize fanRankList = _fanRankList;
 @synthesize communityRankList = _communityRankList;
+@synthesize totalRankList = _totalRankList;
 
 @synthesize showRankType = _showRankType;
+@synthesize isCommunity = _isCommunity;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +45,7 @@
     if (self) {
         // Custom initialization
         _showRankType = 1;
+        _isCommunity = NO;
         
     }
     return self;
@@ -64,10 +67,6 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
-    
     //current show data
     [self updateCurrentArraw];
     
@@ -79,6 +78,7 @@
     //data
     _fanRankList = [[NSMutableArray alloc] init];
     _communityRankList = [[NSMutableArray alloc] init];
+    _totalRankList = [[NSMutableArray alloc] init];
     
     //from net
     [self initData];
@@ -170,6 +170,45 @@
     
 }
 
+-(void)getTotalRanklistByType:(BOOL)isCommunity rankType:(int)rankType{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *rankListUrl = [VankeAPI getGetFanRankListUrl:memberid rankType:rankType];
+    if (isCommunity) {
+        rankListUrl = [VankeAPI getGetCommunityRankListUrl:memberid rankType:rankType];
+    }
+    NSLog(@"rankListUrl: %@", rankListUrl);
+    
+    NSURL *url = [NSURL URLWithString:rankListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"getTotalRanklistByType: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            [_totalRankList removeAllObjects];
+            
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            for (int i=0; i<datalistCount; i++) {
+                NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                RankInfo *rankinfo = [RankInfo initWithNSDictionary:dicrecord];
+                
+                [_totalRankList addObject:rankinfo];
+            }
+            
+            [_rankTableView reloadData];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+    
+}
+
 #pragma mark - UITableView datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -179,7 +218,7 @@
     } else if (_showRankType == 2) {
         return [_communityRankList count];
     } else if (_showRankType == 3) {
-        return 0;
+        return [_totalRankList count];
     }
     return 0;
 }
@@ -202,7 +241,7 @@
     } else if (_showRankType == 2) {
         temprankinfo = [_communityRankList objectAtIndex:indexPath.row];
     } else if (_showRankType == 3) {
-        return cell;
+        temprankinfo = [_totalRankList objectAtIndex:indexPath.row];
     }
     
     int temprank = temprankinfo.rank;
@@ -217,6 +256,16 @@
         cell.isFriendImageView.hidden = NO;
     } else {
         cell.isFriendImageView.hidden = YES;
+    }
+    
+    if (indexPath.row < 3) {
+        cell.lblRank.textColor = [UIColor redColor];
+        cell.lblNickname.textColor = [UIColor redColor];
+        cell.lblEnergy.textColor = [UIColor redColor];
+    } else {
+        cell.lblRank.textColor = [UIColor whiteColor];
+        cell.lblNickname.textColor = [UIColor whiteColor];
+        cell.lblEnergy.textColor = [UIColor whiteColor];
     }
     
 	return cell;
@@ -234,6 +283,8 @@
         temprankinfo = [_fanRankList objectAtIndex:indexPath.row];
     } else if (_showRankType == 2) {
         temprankinfo = [_communityRankList objectAtIndex:indexPath.row];
+    } else if (_showRankType == 3) {
+        temprankinfo = [_totalRankList objectAtIndex:indexPath.row];
     }
     
     
@@ -262,6 +313,7 @@
     NSLog(@"doShowFanRank...");
     
     _showRankType = 1;
+    _isCommunity = NO;
     [self updateCurrentArraw];
     [_rankTableView reloadData];
     
@@ -272,6 +324,7 @@
     NSLog(@"doShowCommunityRank...");
     
     _showRankType = 2;
+    _isCommunity = YES;
     [self updateCurrentArraw];
     [_rankTableView reloadData];
     
@@ -281,9 +334,47 @@
     
     NSLog(@"doShowTotalRank...");
     
-//    _showRankType = 3;
+    _showRankType = 3;
     [self updateCurrentArraw];
-    [_rankTableView reloadData];
+    
+    //rankType：排名类型，总排名=1，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
+    UIActionSheet *showActionSheet = [[UIActionSheet alloc] initWithTitle:@"排名选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"总排名", @"年度排名", @"季度排名", @"月排名", @"周排名", @"日排名", nil];
+    showActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [showActionSheet showInView:self.view];
+    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    @try {
+        
+        NSLog(@"buttonIndex: %d", buttonIndex);
+        switch (buttonIndex) {
+            case 0:
+            {
+                [_totalRankList removeAllObjects];
+                [_totalRankList addObjectsFromArray:_fanRankList];
+                [_rankTableView reloadData];
+            }
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                [self getTotalRanklistByType:_isCommunity rankType:buttonIndex+1];
+                break;
+            case 6:
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"actionSheet clickedButtonAtIndex error...");
+    }
     
 }
 

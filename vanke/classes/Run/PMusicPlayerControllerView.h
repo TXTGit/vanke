@@ -16,6 +16,7 @@
 @property (nonatomic, retain) UIButton *btnNext;
 @property (nonatomic, retain) UIButton *btnSound;
 @property (nonatomic, retain) UISlider *sliderMusicProcess;
+@property (nonatomic, retain) UISlider *sliderVolume;
 
 -(id)initMusicPlayerController:(CGRect)frame;
 

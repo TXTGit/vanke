@@ -15,6 +15,7 @@
 @synthesize btnStart = _btnStart;
 @synthesize btnSound = _btnSound;
 @synthesize sliderMusicProcess = _sliderMusicProcess;
+@synthesize sliderVolume = _sliderVolume;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -68,6 +69,14 @@
         _sliderMusicProcess.maximumTrackTintColor = [UIColor grayColor];
         [self addSubview:_sliderMusicProcess];
         
+        _sliderVolume = [[UISlider alloc] init];
+        _sliderVolume.frame = CGRectMake(204, 71, 118, 23);
+        _sliderVolume.maximumValue = 1;
+        _sliderVolume.minimumValue = 0;
+        _sliderVolume.value = 0.5;
+        _sliderVolume.hidden = YES;
+//        _sliderVolume.transform = CGAffineTransformMakeRotation(-90 * M_PI / 180);
+        [self addSubview:_sliderVolume];
         
     }
     return self;

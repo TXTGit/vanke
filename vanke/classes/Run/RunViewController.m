@@ -167,6 +167,8 @@
     [_musicPlayerControllerView.btnLast addTarget:self action:@selector(playLast) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.btnNext addTarget:self action:@selector(playNext) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.btnMusic addTarget:self action:@selector(pickerIPodLib) forControlEvents:UIControlEventTouchUpInside];
+    [_musicPlayerControllerView.btnSound addTarget:self action:@selector(showVolume) forControlEvents:UIControlEventTouchUpInside];
+    [_musicPlayerControllerView.sliderVolume addTarget:self action:@selector(volumeSet:) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:_musicPlayerControllerView];
     
@@ -1040,6 +1042,19 @@
     _mediaPickerController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentModalViewController:_mediaPickerController animated:YES];
     
+}
+
+-(void)volumeSet:(UISlider *)slider{
+//    _player.
+}
+
+-(void)showVolume{
+    _musicPlayerControllerView.sliderVolume.hidden = NO;
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideVolume) userInfo:nil repeats:NO];
+}
+
+-(void)hideVolume{
+    _musicPlayerControllerView.sliderVolume.hidden = YES;
 }
 
 #pragma MediaPicker delegate

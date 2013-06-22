@@ -224,6 +224,8 @@
 		16B4F30B176B6BC700C5AC24 /* lbs_button4_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B4F301176B6BC700C5AC24 /* lbs_button4_1.png */; };
 		16B4F30C176B6BC700C5AC24 /* lbs_button4_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B4F302176B6BC700C5AC24 /* lbs_button4_2.png */; };
 		16B4F30D176B6BC700C5AC24 /* lbs_button_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B4F303176B6BC700C5AC24 /* lbs_button_center.png */; };
+		16B86B731776150600194890 /* lbs_rank_type_arraw.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B86B711776150600194890 /* lbs_rank_type_arraw.png */; };
+		16B86B741776150600194890 /* lbs_rank_type_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B86B721776150600194890 /* lbs_rank_type_menu.png */; };
 		16F1142D17655A3700CC1D3B /* run_start_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F1142C17655A3700CC1D3B /* run_start_bg.png */; };
 		16F1143017655C0700CC1D3B /* run_his.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F1142F17655C0700CC1D3B /* run_his.png */; };
 		16F1143617655E1A00CC1D3B /* run_right_buttom_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F1143117655E1A00CC1D3B /* run_right_buttom_setting.png */; };
@@ -661,6 +663,8 @@
 		16B4F301176B6BC700C5AC24 /* lbs_button4_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lbs_button4_1.png; sourceTree = "<group>"; };
 		16B4F302176B6BC700C5AC24 /* lbs_button4_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lbs_button4_2.png; sourceTree = "<group>"; };
 		16B4F303176B6BC700C5AC24 /* lbs_button_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lbs_button_center.png; sourceTree = "<group>"; };
+		16B86B711776150600194890 /* lbs_rank_type_arraw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lbs_rank_type_arraw.png; sourceTree = "<group>"; };
+		16B86B721776150600194890 /* lbs_rank_type_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lbs_rank_type_menu.png; sourceTree = "<group>"; };
 		16F1142C17655A3700CC1D3B /* run_start_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run_start_bg.png; sourceTree = "<group>"; };
 		16F1142F17655C0700CC1D3B /* run_his.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run_his.png; sourceTree = "<group>"; };
 		16F1143117655E1A00CC1D3B /* run_right_buttom_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run_right_buttom_setting.png; sourceTree = "<group>"; };
@@ -1411,6 +1415,8 @@
 		167C4F0617685B1C00F63119 /* LBS */ = {
 			isa = PBXGroup;
 			children = (
+				16B86B711776150600194890 /* lbs_rank_type_arraw.png */,
+				16B86B721776150600194890 /* lbs_rank_type_menu.png */,
 				16B4F2F9176B6BC700C5AC24 /* lbs_bottom_menu */,
 				1672DA71176971490040D644 /* lbs_friend_type_bg.png */,
 				1672DA72176971490040D644 /* lbs_is_friend.png */,
@@ -1948,6 +1954,8 @@
 				1864DB40177437DB00993EE5 /* setting_btn_invit.png in Resources */,
 				1864DB41177437DB00993EE5 /* setting_btn_save.png in Resources */,
 				CE8AF8791775273C0037C402 /* touxiang_headBg.png in Resources */,
+				16B86B731776150600194890 /* lbs_rank_type_arraw.png in Resources */,
+				16B86B741776150600194890 /* lbs_rank_type_menu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2114,8 +2122,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2132,8 +2140,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2141,8 +2149,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2159,8 +2167,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

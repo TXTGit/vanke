@@ -37,7 +37,7 @@
 /*
  登录
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=signup&mobile=18818811111&password=131313
+ http://www.4000757888.com:880/i.aspx?type=login&mobile=18818801116&password=131313
  •	参数：
  mobile：手机，唯一标识
  password：密码
@@ -47,7 +47,7 @@
  */
 +(NSString *)getLoginUrl:(NSString *)mobile password:(NSString *)password{
     
-    return [NSString stringWithFormat:@"%@?type=signup&mobile=%@&password=%@", VANKE_DOMAIN, mobile, password];
+    return [NSString stringWithFormat:@"%@?type=login&mobile=%@&password=%@", VANKE_DOMAIN, mobile, password];
 }
 
 /*
