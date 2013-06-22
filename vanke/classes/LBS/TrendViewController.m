@@ -45,9 +45,9 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
+//    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
+//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+//    [_navView.rightButton setHidden:NO];
     
     //bg
     float height = [UIScreen mainScreen].bounds.size.height - 20;
@@ -59,7 +59,6 @@
     
     //tableview
     _trendTableView.backgroundColor = [UIColor clearColor];
-//    _trendTableView.backgroundView = bgImageView;
     _trendTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _trendTableView.frame = CGRectMake(0, 44, 320, height - 44);
     _trendTableView.delegate = self;
