@@ -70,12 +70,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //bg height
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
-    UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 0, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"run_bg" type:@"png"]];
-//    [self.view addSubview:bgImageView];
+    //bg color
     self.view.backgroundColor = [UIColor clearColor];
     
     //
@@ -97,14 +95,13 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setHidden:NO];
-    //    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-    [_navView.messageTipImageView setImage:messageTip];
-    [_navView.messageTipImageView setHidden:NO];
+//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+//    [_navView.rightButton setHidden:NO];
+//    
+//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+//    [_navView.messageTipImageView setImage:messageTip];
+//    [_navView.messageTipImageView setHidden:NO];
     
     //task init view
     _btnTaskCanTask1.hidden = YES;
