@@ -16,6 +16,7 @@
 #import "RunResultViewController.h"
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
+#import "RunViewController.h"
 
 @interface RunRecordListViewController ()
 
@@ -29,11 +30,15 @@
 @synthesize recordList = _recordList;
 @synthesize database = _database;
 
+@synthesize isComeFromRunResultView = _isComeFromRunResultView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _isComeFromRunResultView = NO;
+        
     }
     return self;
 }
@@ -164,7 +169,17 @@
 
 -(void)doBack{
     
-    [self.navigationController popViewControllerAnimated:YES];
+    //如果是来自跑步结束界面，返回时，直接跳转到主页面
+    if (_isComeFromRunResultView) {
+        
+        RunViewController *runViewController = [[RunViewController alloc] initWithNibName:@"RunViewController" bundle:nil];
+        [self.navigationController pushViewController:runViewController animated:YES];
+        
+    } else {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
     
 }
 

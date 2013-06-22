@@ -368,6 +368,7 @@
 -(void)doGotoRunRecord{
     
     RunRecordListViewController *runRecordListViewController = [[RunRecordListViewController alloc] initWithNibName:@"RunRecordListViewController" bundle:nil];
+    [runRecordListViewController setIsComeFromRunResultView:YES];
     [self.navigationController pushViewController:runRecordListViewController animated:YES];
     
 }

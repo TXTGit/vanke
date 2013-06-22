@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSMutableArray *recordList;
 @property (nonatomic, retain) FMDatabase *database;
 
+@property (nonatomic, assign) BOOL isComeFromRunResultView;
+
 -(void)initData;
 -(void)showLocationData;            //本地数据
 -(void)getRunList;                  //服务器获取数据
