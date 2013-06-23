@@ -171,7 +171,8 @@
     
     NSString *tempRunTime = [PCommonUtil encodeUrlParameter:runtime];
     
-    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%d&speed=%f&calorie=%f&line=%@&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, line, tempRunTime];
+//    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%d&speed=%f&calorie=%f&line=%@&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, line, tempRunTime];
+    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%d&speed=%f&calorie=%f&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, tempRunTime];
 }
 
 /*

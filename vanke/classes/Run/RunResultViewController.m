@@ -442,17 +442,23 @@
     NSString *mileage = [NSString stringWithFormat:@"%f", _runRecord.mileage];
     NSString *line = [tempGpsData substringToIndex:tempGpsData.length - 1];
     
-    NSString *setGpsUrl = [VankeAPI getRunUrl:memberid mileage:mileage minute:_runRecord.minute speed:_runRecord.speed calorie:_runRecord.calorie line:line runTime:_runRecord.runTime];
+    NSString *setGpsUrl = [VankeAPI getRunUrl:memberid mileage:mileage minute:_runRecord.minute speed:_runRecord.speed calorie:_runRecord.calorie line:@"" runTime:_runRecord.runTime];
     NSLog(@"setRunGpsUrl: %@", setGpsUrl);
+    
+    NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:line, @"line", nil];
     NSURL *url = [NSURL URLWithString:setGpsUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:nil];
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"App.net Global Stream: %@", JSON);
         NSDictionary *dicResult = JSON;
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
-            
+            NSLog(@"doSetRunLocationList successful...");
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
