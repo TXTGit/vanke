@@ -31,8 +31,20 @@
 //获取会员资料
 +(NSString *)getGetMemberUrl:(NSString *)memberid;
 
+//上传头像
++(NSString *)getSetHeadImgUrl:(NSString*)memberid;
+
 //跑步
 +(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(int)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime;
+
+//分享接口（2013-6-20）
++(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;
+
+//获取分享列表接口（2013-6-29）
++(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
+
+//获取分享的图片地址
++(NSString *)getSharePicUrl:(NSString*)imageName;
 
 //获取跑步记录列表
 +(NSString *)getGetRunListUrl:(NSString *)memberid page:(int)page rows:(int)rows;
@@ -49,17 +61,23 @@
 //获取社区跑友列表
 +(NSString *)getLbsCommunityList:(NSString *)memberid communityID:(int)communityid gpsData:(NSString *)gps radius:(long)radius;
 
-//向跑友发送信息
-//+(NSString *)getSendMsgUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext isFan:(int)isfan;
-
 //获取好友列表
 +(NSString *)getGetFanListUrl:(NSString *)memberid;
+
+//判断是否好友
++(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID;
 
 //发送约跑邀请（2013-6-17）
 +(NSString *)getSendInviteUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext;
 
 //获取约跑邀请列表(2013-6-17)
 +(NSString *)getInviteListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
+
+//添加好友
++(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId;
+
+//拒绝邀请
++(NSString *)getRejectInviteUrl:(NSString *)inviteid;
 
 //发送普通信息（2013-6-17）
 +(NSString *)getSendMsgUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext;
@@ -79,20 +97,7 @@
 //长轮询通知接口（2013-6-17）
 +(NSString *)getUnreadUrl:(NSString *)memberid;
 
-//分享接口（2013-6-20）
-+(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;
 
-//获取分享列表接口（2013-6-29）
-+(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
 
-//获取分享的图片地址
-+(NSString *)getSharePicUrl:(NSString*)imageName;
 
-//添加好友
-+(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId;
-//判断是否好友
-+(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID;
-
-//上传头像
-+(NSString *)getSetHeadImgUrl:(NSString*)memberid;
 @end

@@ -13,9 +13,9 @@
 @implementation VankeAPI
 
 /*
- 注册
+ 注册（2013-6-22）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=signup&mobile=18818811111&password=131313&nickName=sing1&fullName=全名&idCard=440682198602031111
+ http://www.4000757888.com:880/i.aspx?type=signup&mobile=18818801116&password=131313&nickName=sing大6&fullName=sing大6&idCard=440682198601011116
  •	参数：
  mobile：手机，唯一标识
  password：密码
@@ -24,7 +24,6 @@
  idCard：身份证
  •	返回：
  memberID：会员ID
- communityID：会员的社区ID，为0则要求其绑定社区，不为0则已经绑定
  */
 +(NSString *)getRegisterUrl:(NSString *)mobile password:(NSString *)password nickname:(NSString *)nickname fullname:(NSString *)fullname idCard:(NSString *)idCard{
     
@@ -112,12 +111,13 @@
 }
 
 /*
- 获取会员资料
+ 获取会员资料（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getMember&memberID=23
  •	参数：
  memberID：会员ID
  •	返回：
+ imgPath：头像图片文件夹路径
  ent：会员资料对象
  */
 +(NSString *)getGetMemberUrl:(NSString *)memberid{
@@ -126,18 +126,31 @@
 }
 
 /*
- 8.	跑步（2013-6-17）
- 	地址：
- http://www.4000757888.com:880/i.aspx?type=run&memberID=23&mileage=3&minute=20&speed=15&calorie=50&runTime=2013-06-17 12:10:10&line=113.316166,23.116726;113.316166,23.116726;
- 	参数：
+ 上传头像（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=Post的Base64字符串
+ •	参数：
+ memberID：会员ID
+ headImg：图片文件转换成Base64字符串，用Post方式提交
+ •	返回：
+ */
++(NSString *)getSetHeadImgUrl:(NSString*)memberid{
+    return [NSString stringWithFormat:@"%@?type=setHeadImg&memberID=%@", VANKE_DOMAIN, memberid];
+}
+
+/*
+ 跑步（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=run&memberID=23&mileage=3&minute=20&speed=15&calorie=50&runTime=2013-06-22 12:10:10&line=113.316166,23.116726;113.316166,23.116726;
+ •	参数：
  memberID：会员ID
  mileage：里程，单位公里
  minute：耗时，单位分钟
  speed：速度，单位米/秒
  calorie：卡路里，单位卡
  runTime：跑步时间，格式：2013-06-10 12:10:20
- line：路线，多个gps点之间用分号分割
- 	返回：
+ line：路线，多个gps点之间用分号分割，用Post方式提交
+ •	返回：
  */
 +(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(int)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime{
     
@@ -147,15 +160,51 @@
 }
 
 /*
- 获取跑步记录列表
+ 分享（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=share&memberID=23&shareContent=我是一只小青蛙，呱呱呱呱呱&shareImg=Post的Base64字符串
+ •	参数：
+ memberID：会员ID
+ shareContent：分享内容
+ shareImg：图片文件转换成Base64字符串，用Post方式提交
+ •	返回：
+ */
++(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent{
+    return [NSString stringWithFormat:@"%@?type=share&memberID=%@&shareContent=%@",VANKE_DOMAIN,memberid,[PCommonUtil encodeUrlParameter:shareContent]];
+}
+
+/*
+ 获取分享列表（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getShareList&memberID=23&page=1&rows=5
+ •	参数：
+ memberID：会员ID
+ page：当前页数
+ rows：每页显示记录数
+ •	返回：
+ imgPath：分享图片文件夹路径
+ list：当前页的分享列表
+ */
++(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
+{
+    return [NSString stringWithFormat:@"%@?type=getShareList&memberID=%@&page=%d&rows=%d",VANKE_DOMAIN,memberid,page,pageCount];
+}
+
+//获取分享的图片地址
++(NSString *)getSharePicUrl:(NSString*)imageName
+{
+    return [NSString stringWithFormat:@"%@/upload/share/%@", VANKE_DOMAINBase, imageName];
+}
+
+/*
+ 获取跑步记录列表（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getRunList&memberID=23&page=1&rows=20
  •	参数：
  memberID：会员ID
  page：当前页数
- rows：每页显示记录数量
+ rows：每页显示记录数
  •	返回：
- total：所有跑步记录数量
  list：当前页的跑步记录列表
  */
 +(NSString *)getGetRunListUrl:(NSString *)memberid page:(int)page rows:(int)rows{
@@ -164,7 +213,7 @@
 }
 
 /*
- 获取本周跑步记录列表（2013-6-17）
+ 获取本周跑步记录列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getWeekRunList&memberID=23
  •	参数：
@@ -178,13 +227,13 @@
 }
 
 /*
- 获取任务列表
+ 获取任务列表（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getTaskList&memberID=23
  •	参数：
  memberID：会员ID
  •	返回：
- list：任务列表，字段taskStatus代表状态，已完成=1，已领取=2
+ list：任务列表，字段taskStatus代表状态，已完成=1，已申领=2，已领取=3
  */
 +(NSString *)getGetTaskListUrl:(NSString *)memberid{
     
@@ -192,7 +241,7 @@
 }
 
 /*
- 获取附近跑友列表（2013-6-12）
+ 获取附近跑友列表（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getLbsList&memberID=23&gps=113.316166,23.116726&radius=1000
  •	参数：
@@ -200,7 +249,7 @@
  gps：gps
  radius：搜索半径，单位米
  •	返回：
- list：跑友列表，字段isFan为true代表好友，字段distance代表距离，单位米
+ list：跑友列表，字段isFan为1代表好友，字段distance代表距离，单位米
  */
 +(NSString *)getGetLbsListUrl:(NSString *)memberid gpsData:(NSString *)gps radius:(long)radius{
     
@@ -208,16 +257,16 @@
 }
 
 /*
- 获取社区跑友列表（2013-6-12）
+ 获取社区跑友列表（2013-6-22）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=getLbsCommunityList&memberID=23&communityID=2&gps=113.316166,23.116726&radius=1000
+ http://www.4000757888.com:880/i.aspx?type=getCommunityLbsList&memberID=23&gps=113.316166,23.116726&radius=1000&communityID=3
  •	参数：
  memberID：会员ID
- communityID：社区ID
  gps：gps
  radius：搜索半径，单位米
+ communityID：社区ID
  •	返回：
- list：跑友列表，字段isFan为true代表好友，字段distance代表距离，单位米
+ list：跑友列表，字段isFan为1代表好友，字段distance代表距离，单位米
  */
 +(NSString *)getLbsCommunityList:(NSString *)memberid communityID:(int)communityid gpsData:(NSString *)gps radius:(long)radius{
     
@@ -225,31 +274,13 @@
 }
 
 /*
- 向跑友发送信息（2013-6-12）
- •	地址：
- http://www.4000757888.com:880/i.aspx?type=sendMsg&fromMemberID=23&toMemberID=33&msgText=adfsad&msgType=1
- •	参数：
- fromMemberID：自己会员ID
- toMemberID：对方会员ID
- msgText：信息内容
- msgType：信息类型，约跑邀请=1，加为好友=2，普通信息=3
- •	返回：
- */
-//+(NSString *)getSendMsgUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext isFan:(int)isfan{
-//    
-//    NSString *tempmessage = [PCommonUtil encodeUrlParameter:msgtext];
-//    
-//    return [NSString stringWithFormat:@"%@?type=sendMsg&fromMemberID=%@&toMemberID=%@&msgText=%@&isFan=%d", VANKE_DOMAIN, memberid, tomemberid, tempmessage, isfan];
-//}
-
-/*
- 获取好友列表
+ 获取好友列表（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getFanList&memberID=23
  •	参数：
  memberID：会员ID
  •	返回：
- list：好友列表，字段toMemberID代表好友的会员ID
+ list：好友列表，字段fromMemberID代表好友的会员ID
  */
 +(NSString *)getGetFanListUrl:(NSString *)memberid{
     
@@ -257,13 +288,27 @@
 }
 
 /*
- 发送约跑邀请（2013-6-17）
+ 获取是否好友（2013-6-22）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=sendInvite&fromMemberID=23&toMemberID=33&msgText=adfsad
+ http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=23&fromMemberID=33
  •	参数：
- fromMemberID：自己会员ID
+ memberID：会员ID
+ fromMemberID：对方会员ID
+ •	返回：
+ isFan：1代表好友，0代表非好友
+ */
++(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID{
+    return [NSString stringWithFormat:@"%@?type=getIsFan&memberID=%@&fromMemberID=%@",VANKE_DOMAIN,memberid,fromMemberID];
+}
+
+/*
+ 发送约跑邀请
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=sendInvite&memberID=23&toMemberID=33&inviteText=adfsad
+ •	参数：
+ memberID：自己会员ID
  toMemberID：对方会员ID
- msgText：信息内容
+ inviteText：邀请内容
  •	返回：
  */
 +(NSString *)getSendInviteUrl:(NSString *)memberid toMemberId:(NSString *)tomemberid msgText:(NSString *)msgtext{
@@ -273,13 +318,14 @@
 }
 
 /*
- 获取约跑邀请（2013-06-17）
+ 获取邀请列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getInviteList&memberID=33&page=1&rows=5
  •	参数：
- fromMemberID：自己会员ID
- toMemberID：对方会员ID
- msgText：信息内容
+ memberID：自己会员ID
+ page：当前页数
+ rows：每页显示记录数
+ •	返回：
  */
 +(NSString *)getInviteListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
 {
@@ -287,11 +333,35 @@
 }
 
 /*
- 发送普通信息（2013-6-17）
+ 加为好友（2013-6-22）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=sendMsg&fromMemberID=23&toMemberID=33&msgText=adfsad
+ http://www.4000757888.com:880/i.aspx?type=addFan&inviteID=5
  •	参数：
- fromMemberID：自己会员ID
+ inviteID：邀请ID
+ •	返回：
+ */
++(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId{
+    return [NSString stringWithFormat:@"%@?type=addFan&memberID=%@&toMemberID=%@&inviteID=%@",VANKE_DOMAIN,memberid,toMemberID,inviteId];
+}
+
+/*
+ 拒绝邀请（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=rejectInvite&inviteID=5
+ •	参数：
+ inviteID：邀请ID
+ •	返回：
+ */
++(NSString *)getRejectInviteUrl:(NSString *)inviteid{
+    return [NSString stringWithFormat:@"%@?type=rejectInvite&inviteID=%@", VANKE_DOMAIN, inviteid];
+}
+
+/*
+ 发送普通信息（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=sendMsg&memberID=33&toMemberID=23&msgText=adfsad
+ •	参数：
+ memberID：自己会员ID
  toMemberID：对方会员ID
  msgText：信息内容
  •	返回：
@@ -303,13 +373,13 @@
 }
 
 /*
- 获取所有未读信息数量（2013-6-17）
+ 获取所有未读信息的好友列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getUnreadList&memberID=23
  •	参数：
  memberID：会员ID
  •	返回：
- list：所有未读信息数量
+ list：所有未读信息的好友列表
  */
 +(NSString *)getGetUnreadListUrl:(NSString *)memberid{
     
@@ -317,15 +387,16 @@
 }
 
 /*
- 获取未读信息列表（2013-6-12）
+ 获取聊天记录列表（2013-6-22）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=getMsgList&fromMemberID=23&toMemberID=33&lastMsgID=0
+ http://www.4000757888.com:880/i.aspx?type=getMsgList&memberID=23&fromMemberID=33&page=1&rows=5
  •	参数：
- fromMemberID：自己会员ID
- toMemberID：对方会员ID
- lastMsgID：最后一次获取的信息ID，用于服务器判断哪些是未读信息
+ memberID：自己会员ID
+ fromMemberID：对方会员ID
+ page：当前页数
+ rows：每页显示记录数
  •	返回：
- list：未读信息列表
+ list：聊天记录列表
  */
 +(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid{
     
@@ -333,7 +404,7 @@
 }
 
 /*
- 获取好友排名列表（2013-6-17）
+ 获取好友排名列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getFanRankList&memberID=23&rankType=4
  •	参数：
@@ -348,7 +419,7 @@
 }
 
 /*
- 获取社区排名列表（2013-6-17）
+ 获取社区排名列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getCommunityRankList&memberID=23&rankType=4
  •	参数：
@@ -363,7 +434,7 @@
 }
 
 /*
- 长轮询通知接口（2013-6-17）
+ 长轮询通知接口
  •	地址：
  http://www.4000757888.com:880/comet.aspx?type=unread&memberID=23
  •	说明：
@@ -379,81 +450,7 @@
     return [NSString stringWithFormat:@"%@?type=unread&memberID=%@", VANKE_DOMAIN, memberid];
 }
 
-/*
- 分享接口（2013-06-20）
- •	地址：
- http://www.4000757888.com:880/i.aspx?type=share&memberID=23&shareContent=我们都是小青蛙，呱呱呱呱呱
- •	说明：
- •	参数：
- memberID：自己会员ID
- shareContent: 分享的内容
- •	返回：
- */
-+(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent{
-    return [NSString stringWithFormat:@"%@?type=share&memberID=%@&shareContent=%@",VANKE_DOMAIN,memberid,[PCommonUtil encodeUrlParameter:shareContent]];
-}
-
-/*
-10.	获取分享列表（2013-6-19）
-	地址：
-http://www.4000757888.com:880/i.aspx?type=getShareList&memberID=23&page=1&rows=5
-	参数：
-memberID：会员ID
-page：当前页数
-rows：每页显示记录数量
-	返回：
-list：当前页的分享列表*/
-+(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
-{
-    return [NSString stringWithFormat:@"%@?type=getShareList&memberID=%@&page=%d&rows=%d",VANKE_DOMAIN,memberid,page,pageCount];
-}
-
-//获取分享的图片地址
-+(NSString *)getSharePicUrl:(NSString*)imageName
-{
-    return [NSString stringWithFormat:@"%@/upload/share/%@",VANKE_DOMAINBase,imageName];
-}
-
-/*
- 添加好友（2013-06-21）
- •	地址：
- http://www.4000757888.com:880/i.aspx?type=addFan&memberID=33&toMemberID=23
- •	说明：
- •	参数：
- memberID：自己会员ID
- shareContent: 分享的内容
- •	返回：
- */
-+(NSString *)getAddFanUrl:(NSString*)memberid :(NSString*)toMemberID :(NSString*)inviteId{
-    return [NSString stringWithFormat:@"%@?type=addFan&memberID=%@&toMemberID=%@&inviteID=%@",VANKE_DOMAIN,memberid,toMemberID,inviteId];
-}
-
-/*
- 获取是否好友（2013-06-21）
- •	地址：
-http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=37&fromMemberID=23
- •	说明：
- •	参数：
- memberID：自己会员ID
- shareContent: 分享的内容
- •	返回：
- */
-+(NSString *)getIsFanUrl:(NSString*)memberid :(NSString*)fromMemberID{
-    return [NSString stringWithFormat:@"%@?type=getIsFan&memberID=%@&fromMemberID=%@",VANKE_DOMAIN,memberid,fromMemberID];
-}
 
 
-/*
- 上传头像地址（2013-06-21）
- •	地址：
- http://www.4000757888.com:880/i.aspx?type=getIsFan&memberID=37&fromMemberID=23
- •	说明：
- •	参数：
- memberID：自己会员ID
- shareContent: 分享的内容
- •	返回：
- */
-+(NSString *)getSetHeadImgUrl:(NSString*)memberid{
-    return [NSString stringWithFormat:@"%@?type=setHeadImg&memberID=%@",VANKE_DOMAIN,memberid];
-}
+
 @end
