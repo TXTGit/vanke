@@ -134,7 +134,7 @@
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
-    [_navView.messageTipImageView setHidden:NO];
+//    [_navView.messageTipImageView setHidden:NO];
     
     //menu of head
     UIView *transparentByForMenu = [[UIView alloc] init];
