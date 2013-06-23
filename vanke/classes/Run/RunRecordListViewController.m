@@ -16,7 +16,7 @@
 #import "RunResultViewController.h"
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
-#import "RunViewController.h"
+#import "IndexViewController.h"
 
 @interface RunRecordListViewController ()
 
@@ -183,8 +183,8 @@
     //如果是来自跑步结束界面，返回时，直接跳转到主页面
     if (_isComeFromRunResultView) {
         
-        RunViewController *runViewController = [[RunViewController alloc] initWithNibName:@"RunViewController" bundle:nil];
-        [self.navigationController pushViewController:runViewController animated:YES];
+        IndexViewController *indexViewController = [[IndexViewController alloc] initWithNibName:@"IndexViewController" bundle:nil];
+        [self.navigationController pushViewController:indexViewController animated:YES];
         
     } else {
         

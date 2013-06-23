@@ -21,4 +21,7 @@
 -(IBAction)doIndexVanke:(id)sender;
 -(IBAction)doIndexStore:(id)sender;
 
+-(void)getUnreadDataFromServerByHttp;
+-(void)doGetMemberInfo:(NSString *)memberid;
+
 @end

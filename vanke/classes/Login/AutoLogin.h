@@ -23,6 +23,5 @@
 @property (retain) NSString *password;
 
 -(void)doAutoLogin;
--(void)doGetMemberInfo:(long)memberid;
 
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 #import "RunUser.h"
+#import "EGOImageButton.h"
 
-@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
+@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,EGOImageButtonDelegate>{
     BOOL changeHeadImg;
 }
 
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) UIScrollView *tempScroll;
 @property (nonatomic, retain) IBOutlet UIView *broadView;
 @property (nonatomic, retain) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, retain) IBOutlet EGOImageButton *btnHeadImg;
 @property (nonatomic, retain) IBOutlet UILabel *lblTotalDistance;
 @property (nonatomic, retain) IBOutlet UILabel *lblDuiHuanDistance;
 
@@ -56,6 +58,5 @@
 -(IBAction)doTel:(id)sender;
 
 -(IBAction)resiginTextField:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *btnHeadImg;
 
 @end

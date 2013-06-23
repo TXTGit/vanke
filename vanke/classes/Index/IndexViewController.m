@@ -9,8 +9,10 @@
 #import "IndexViewController.h"
 #import "UIImage+PImageCategory.h"
 #import "RunViewController.h"
-#import "AutoLogin.h"
 #import "UserSessionManager.h"
+#import "VankeAPI.h"
+#import "AFJSONRequestOperation.h"
+#import "VankeConfig.h"
 
 @interface IndexViewController ()
 
@@ -48,8 +50,8 @@
 //    [_navView.messageTipImageView setImage:messageTip];
 //    [_navView.messageTipImageView setHidden:NO];
     
-    AutoLogin *autoLogin = [[AutoLogin alloc] init];
-    [autoLogin doAutoLogin];
+    //
+    [self getUnreadDataFromServerByHttp];
     
 }
 
@@ -67,10 +69,78 @@
 }
 
 -(IBAction)doIndexVanke:(id)sender{
-    
+    NSLog(@"doIndexVanke...");
 }
 
 -(IBAction)doIndexStore:(id)sender{
+    NSLog(@"doIndexStore...");
+}
+
+-(void)getUnreadDataFromServerByHttp{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *getUnreadUrl = [VankeAPI getUnreadUrl:memberid];
+    NSLog(@"getUnreadUrl: %@", getUnreadUrl);
+    
+    NSURL *url = [NSURL URLWithString:getUnreadUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+        }
+        
+        //5秒后继续请求
+        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:5.0];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+        //5秒后继续请求
+        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:5.0];
+        
+    }];
+    [operation start];
+    
+}
+
+-(void)doGetMemberInfo:(NSString *)memberid{
+    
+    //搞个事件来同步下
+    //    NSCondition *itlock = [[NSCondition alloc] init];
+    
+    NSString *memberUrl = [VankeAPI getGetMemberUrl:memberid];
+    NSLog(@"memberUrl:%@",memberUrl);
+    NSURL *url = [NSURL URLWithString:memberUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSString *imgpath = [dicResult objectForKey:@"imgPath"];
+            NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
+            RunUser *runner = [RunUser initWithNSDictionary:dicEnt];
+            runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
+            [UserSessionManager GetInstance].currentRunUser = runner;
+            NSLog(@"headImg: %@", runner.headImg);
+            
+            //show nickname
+            _navView.titleLabel.text = runner.nickname;
+            
+        }
+        
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+    }];
+    [operation start];
     
 }
 

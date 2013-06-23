@@ -22,7 +22,7 @@
 #import "GTMBase64.h"
 #import "AFHTTPClient.h"
 #import "PCommonUtil.h"
-#import "UIImage+PImageCategory.h"
+#import "VankeConfig.h"
 
 @interface SettingViewController ()
 
@@ -35,6 +35,7 @@
 @synthesize tempScroll = _tempScroll;
 @synthesize broadView = _broadView;
 @synthesize avatarImageView = _avatarImageView;
+@synthesize btnHeadImg = _btnHeadImg;
 @synthesize lblTotalDistance = _lblTotalDistance;
 @synthesize lblDuiHuanDistance = _lblDuiHuanDistance;
 
@@ -195,6 +196,12 @@
                 
                 NSDictionary *dicEnt0 = [entList objectAtIndex:0];
                 _runner = [RunUser initWithNSDictionary:dicEnt0];
+                
+                NSString *imgpath = [dicResult objectForKey:@"imgPath"];
+                _runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, _runner.headImg];
+                NSLog(@"headImg: %@", _runner.headImg);
+                _btnHeadImg.delegate = self;
+                _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
                 
                 _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
                 _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程0km"];
@@ -487,4 +494,25 @@
     [self setBtnHeadImg:nil];
     [super viewDidUnload];
 }
+
+#pragma EGOImageButtonDelegate
+
+- (void)imageButtonLoadedImage:(EGOImageButton*)imageButton{
+    
+    NSLog(@"imageButtonLoadedImage...");
+    
+    UIImage *image = [imageButton imageForState:UIControlStateNormal];
+    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
+    UIImage *resultImage = [PCommonUtil maskImage:image withImage:maskImage];
+    [imageButton setImage:resultImage forState:UIControlStateNormal];
+}
+
+- (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
+    
+    NSLog(@"imageButtonFailedToLoadImage. error: %@", error);
+    
+    UIImage *avatarImage = [UIImage imageWithName:@"setting_header_bg_avatar" type:@"png"];
+    [imageButton setImage:avatarImage forState:UIControlStateNormal];
+}
+
 @end
