@@ -502,9 +502,9 @@
     NSLog(@"imageButtonLoadedImage...");
     
     UIImage *image = [imageButton imageForState:UIControlStateNormal];
-    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
-    UIImage *resultImage = [PCommonUtil maskImage:image withImage:maskImage];
-    [imageButton setImage:resultImage forState:UIControlStateNormal];
+//    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
+//    UIImage *resultImage = [PCommonUtil maskImage:image withImage:maskImage];
+    [imageButton setImage:image forState:UIControlStateNormal];
 }
 
 - (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
