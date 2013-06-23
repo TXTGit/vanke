@@ -250,7 +250,7 @@
                         break;
                 }//switch
                 
-            } else if (tempTaskStatus == 2) {
+            } else if (tempTaskStatus == 2 || tempTaskStatus == 3) {
                 
                 int temptaskid = taskinfo.taskID;
                 switch (temptaskid) {
