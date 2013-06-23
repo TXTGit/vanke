@@ -49,13 +49,18 @@
                 [_delegate autoLoginSuccess];
             }
             
+        } else {
+            NSString *msg = [dicResult objectForKey:@"msg"];
+            if (_delegate && [_delegate respondsToSelector:@selector(autoLoginFailed:)]) {
+                [_delegate autoLoginFailed:msg];
+            }
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
         
-        if (_delegate && [_delegate respondsToSelector:@selector(autoLoginFailed)]) {
-            [_delegate autoLoginFailed];
+        if (_delegate && [_delegate respondsToSelector:@selector(autoLoginFailed:)]) {
+            [_delegate autoLoginFailed:@"网络异常,请重试"];
         }
         
     }];

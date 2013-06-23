@@ -12,7 +12,7 @@
 
 -(void)autoLoginStart;
 -(void)autoLoginSuccess;
--(void)autoLoginFailed;
+-(void)autoLoginFailed:(NSString *)msg;
 
 @end
 
