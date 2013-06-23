@@ -21,7 +21,7 @@
 
 #import "GTMBase64.h"
 #import "AFHTTPClient.h"
-
+#import "PCommonUtil.h"
 #import "UIImage+PImageCategory.h"
 
 @interface SettingViewController ()
@@ -241,6 +241,9 @@
     NSString *strTall = _tallField.text;
     NSString *strWeight = _weightField.text;
     NSString *strBirthday = @"2013-06-15";
+    if ([UserSessionManager GetInstance].currentRunUser.birthday) {
+        strBirthday = [UserSessionManager GetInstance].currentRunUser.birthday;
+    }
     
     if (strTall && strTall.length >= 1 && strWeight && strWeight.length >= 1) {
         
@@ -277,7 +280,7 @@
         NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
         NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:headData] encoding:NSUTF8StringEncoding];
         
-        NSLog(@"base64data: %@", base64data);
+//        NSLog(@"base64data: %@", base64data);
         
         NSString *uploadImageUrl = [VankeAPI getSetHeadImgUrl:strMemberid];
         
@@ -285,10 +288,7 @@
         NSURL *url = [NSURL URLWithString:uploadImageUrl];
         
         AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-        NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:headData name:@"headImg" fileName:@"headimg.jpg" mimeType:@"image/jpeg"];
-        }];
-        
+        NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:nil];
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             NSLog(@"App.net Global Stream: %@", JSON);
@@ -372,6 +372,13 @@
 -(IBAction)doSelectHeadImg:(id)sender
 {
     NSLog(@"doSelectHeadImg...");
+    
+    long long currentMemberid = [[UserSessionManager GetInstance].currentRunUser.userid longLongValue];
+    //如果是登录者进入设置，则显示保存按钮
+    if (currentMemberid != _memberid) {
+        return;
+    }
+    
     UIImagePickerController *pc = [[UIImagePickerController alloc]init];
     
     pc.delegate = self;
@@ -389,10 +396,28 @@
 {
     UIImage *image = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
     UIImage *imageNew = [UIImage createRoundedRectImage:image size:CGSizeMake(100, 100) radius:50];
+//    UIImage *imageNew = [UIImage scaleImage:image scaleToSize:CGSizeMake(100, 100)];
+//    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
+//    UIImage *resultImage = [PCommonUtil maskImage:imageNew withImage:maskImage];
     [self.btnHeadImg setImage:imageNew forState:UIControlStateNormal];
     
     [picker dismissModalViewControllerAnimated:YES];
     changeHeadImg = YES;
+}
+
+//合并图片
+-(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
+    
+    CGSize imageSize = CGSizeMake(200, 200);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(0, 0, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
 }
 
 //-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

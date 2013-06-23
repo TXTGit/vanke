@@ -65,7 +65,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">setting_header_bg.png</string>
+							<string key="NSResourceName">setting_header_bg_check.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="710805900">
@@ -400,6 +400,7 @@
 						<string key="NSFrame">{{13, 486}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1093,7 +1094,6 @@
 						<string key="doDuiHuan:">id</string>
 						<string key="doDuoBao:">id</string>
 						<string key="doJiFen:">id</string>
-						<string key="doSelectHeadImg:">id</string>
 						<string key="doSina:">id</string>
 						<string key="doTel:">id</string>
 						<string key="resiginTextField:">id</string>
@@ -1109,10 +1109,6 @@
 						</object>
 						<object class="IBActionInfo" key="doJiFen:">
 							<string key="name">doJiFen:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doSelectHeadImg:">
-							<string key="name">doSelectHeadImg:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doSina:">
@@ -1243,8 +1239,8 @@
 			<string key="setting_body_menu.png">{640, 468}</string>
 			<string key="setting_body_sina.png">{592, 81}</string>
 			<string key="setting_body_tel.png">{592, 81}</string>
-			<string key="setting_header_bg.png">{640, 378}</string>
 			<string key="setting_header_bg_avatar.png">{200, 200}</string>
+			<string key="setting_header_bg_check.png">{640, 378}</string>
 			<string key="setting_header_info.png">{640, 88}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1930</string>
