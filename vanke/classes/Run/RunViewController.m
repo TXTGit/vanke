@@ -632,6 +632,9 @@
                 _player = nil;
             }
             
+            //释放掉对playItem的观察
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+            
         }
         
         //baidu
@@ -852,8 +855,6 @@
         
         runDistance = [PCommonUtil calcDistance:lat1 longitude1:lng1 latitude2:lat2 longitude2:lng2];
         
-//        runDistance = [PCommonUtil getDistanceByLatitude1:lat1 longitude1:lng1 latitude2:lat2 longitude2:lng2];
-        
         runDistance = (runDistance < 0) ? (-runDistance) : runDistance;
         
     }
@@ -999,8 +1000,20 @@
                 _player = nil;
             } else {
                 Song *tempsong = [_locationSongList objectAtIndex:_currentSongIndex];
-                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//                [_player play];
+                
+                //使用playerItem获取视频的信息，当前播放时间，总时间等
+                AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:tempsong.musicUrl];
+                //player是视频播放的控制器，可以用来快进播放，暂停等
+                _player = [AVPlayer playerWithPlayerItem:playerItem];
                 [_player play];
+                //计算视频总时间
+                CMTime totalTime = playerItem.duration;
+                //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
+                _totalSongDuration = totalTime.value / totalTime.timescale;
+                NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+                
             }
         }
     }
@@ -1034,9 +1047,6 @@
             //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
-            
-            //添加视频播放完成的notifation
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             
         }
     }
@@ -1072,9 +1082,6 @@
             //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
-            
-            //添加视频播放完成的notifation
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             
         }
     }
