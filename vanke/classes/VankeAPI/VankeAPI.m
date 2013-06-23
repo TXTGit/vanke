@@ -126,6 +126,21 @@
 }
 
 /*
+ 获取会员详细资料（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getMemberDetail&memberID=23
+ •	参数：
+ memberID：会员ID
+ •	返回：
+ imgPath：头像图片文件夹路径
+ ent：会员资料对象
+ */
++(NSString *)getGetMemberDetailUrl:(NSString *)memberid{
+    
+    return [NSString stringWithFormat:@"%@?type=getMemberDetail&memberID=%@", VANKE_DOMAIN, memberid];
+}
+
+/*
  上传头像（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=Post的Base64字符串

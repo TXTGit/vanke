@@ -179,7 +179,7 @@
 
 -(void)initData{
     
-    NSString *memberUrl = [VankeAPI getGetMemberUrl:[NSString stringWithFormat:@"%ld", _memberid]];
+    NSString *memberUrl = [VankeAPI getGetMemberDetailUrl:[NSString stringWithFormat:@"%ld", _memberid]];
     NSURL *url = [NSURL URLWithString:memberUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -189,14 +189,28 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
-            NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
-            _runner = [RunUser initWithNSDictionary:dicEnt];
-            
-            _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
-            _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
-            _areaField.text = [NSString stringWithFormat:@"%d", _runner.communityid];
-            _addressField.text = [NSString stringWithFormat:@"%@", _runner.address];
-            _telField.text = [NSString stringWithFormat:@"%@", _runner.tel];
+//            NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
+            NSArray *entList = [dicResult objectForKey:@"ent"];
+            if (entList && [entList count] > 0) {
+                
+                NSDictionary *dicEnt0 = [entList objectAtIndex:0];
+                _runner = [RunUser initWithNSDictionary:dicEnt0];
+                
+                _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
+                _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程0km"];
+                
+                _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];
+                _lblHaoYou.text = [NSString stringWithFormat:@"%d", _runner.fanCount];
+                _lblNengLiang.text = [NSString stringWithFormat:@"%.2f", _runner.energy];
+                _lblDeFen.text = [NSString stringWithFormat:@"%ld", _runner.score];
+                
+                _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
+                _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
+                _areaField.text = _runner.communityName;
+                _addressField.text = _runner.gpsAddress;
+                _telField.text = _runner.tel;
+                
+            }
             
         }
         

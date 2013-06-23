@@ -31,6 +31,9 @@
 //获取会员资料
 +(NSString *)getGetMemberUrl:(NSString *)memberid;
 
+//获取会员详细资料（2013-6-22）
++(NSString *)getGetMemberDetailUrl:(NSString *)memberid;
+
 //上传头像
 +(NSString *)getSetHeadImgUrl:(NSString*)memberid;
 
