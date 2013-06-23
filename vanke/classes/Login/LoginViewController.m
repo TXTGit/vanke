@@ -183,7 +183,8 @@
     
     // Configure for text only and offset down
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = @"帐号或者密码有误，请重新登录";
+//    hud.labelText = @"帐号或者密码有误，请重新登录";
+    hud.labelText = msg;
     hud.margin = 10.f;
     hud.yOffset = 150.f;
     hud.removeFromSuperViewOnHide = YES;
