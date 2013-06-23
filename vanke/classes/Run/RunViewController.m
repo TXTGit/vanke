@@ -1045,7 +1045,11 @@
 }
 
 -(void)volumeSet:(UISlider *)slider{
-//    _player.
+    
+    //控制手机系统音量
+    [[MPMusicPlayerController applicationMusicPlayer] setVolume:slider.value];
+    NSLog(@"slider.value: %f, applicationMusicPlayer.volume: %f", slider.value, [MPMusicPlayerController applicationMusicPlayer].volume);
+    
 }
 
 -(void)showVolume{
