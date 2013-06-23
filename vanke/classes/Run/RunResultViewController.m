@@ -227,14 +227,14 @@
     UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
     
     //保存图像
-    NSDate *nowDate = [NSDate date];
-    long forImageName = [nowDate timeIntervalSince1970];
-    NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
-    if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
-        NSLog(@"Successful...");
-    } else {
-        NSLog(@"failure...");
-    }
+//    NSDate *nowDate = [NSDate date];
+//    long forImageName = [nowDate timeIntervalSince1970];
+//    NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+//    if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
+//        NSLog(@"Successful...");
+//    } else {
+//        NSLog(@"failure...");
+//    }
     
 //    UIGraphicsBeginImageContext(self.mapView.frame.size);
 //    CGContextRef context = UIGraphicsGetCurrentContext();
