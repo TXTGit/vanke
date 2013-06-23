@@ -26,6 +26,7 @@
 
 @synthesize navView = _navView;
 @synthesize runRecordTableView = _runRecordTableView;
+@synthesize indicatorView = _indicatorView;
 
 @synthesize recordList = _recordList;
 @synthesize database = _database;
@@ -99,6 +100,8 @@
 
 -(void)getRunList{
     
+    [_indicatorView startAnimating];
+    
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *memberUrl = [VankeAPI getGetRunListUrl:memberid page:1 rows:20];
     NSURL *url = [NSURL URLWithString:memberUrl];
@@ -121,8 +124,17 @@
             [_runRecordTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     

@@ -26,6 +26,7 @@
 @synthesize btnNearFriend = _btnNearFriend;
 @synthesize btnCommunityFriend = _btnCommunityFriend;
 @synthesize friendTableView = _friendTableView;
+@synthesize indicatorView = _indicatorView;
 
 @synthesize isShowNearFriend = _isShowNearFriend;
 @synthesize nearfriendlist = _nearfriendlist;
@@ -94,6 +95,9 @@
 -(void)initData{
     
     if (_currentLocation) {
+        
+        [_indicatorView startAnimating];
+        
         [self getLbsList];
         [self getLbsCommunityList];
     }
@@ -124,8 +128,17 @@
             [_friendTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     
@@ -155,8 +168,17 @@
             
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     

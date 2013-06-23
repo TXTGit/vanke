@@ -16,6 +16,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnNearFriend;
 @property (nonatomic, retain) IBOutlet UIButton *btnCommunityFriend;
 @property (nonatomic, retain) IBOutlet UITableView *friendTableView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, assign) BOOL isShowNearFriend;
 @property (nonatomic, retain) NSMutableArray *nearfriendlist;
