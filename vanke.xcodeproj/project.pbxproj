@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160CC00C1776BC11005E5BDA /* header_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 160CC00B1776BC11005E5BDA /* header_mask.png */; };
+		160CC00E1776BD58005E5BDA /* setting_header_bg_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 160CC00D1776BD58005E5BDA /* setting_header_bg_check.png */; };
 		160DAC83176ACB030016F0F5 /* circle_process.png in Resources */ = {isa = PBXBuildFile; fileRef = 160DAC82176ACB030016F0F5 /* circle_process.png */; };
 		16164659176C0BD200349EAD /* CustomPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 16164658176C0BD200349EAD /* CustomPointAnnotation.m */; };
 		1616465D176C10F400349EAD /* CalloutMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1616465C176C10F400349EAD /* CalloutMapAnnotation.m */; };
@@ -303,6 +305,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160CC00B1776BC11005E5BDA /* header_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_mask.png; sourceTree = "<group>"; };
+		160CC00D1776BD58005E5BDA /* setting_header_bg_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_header_bg_check.png; sourceTree = "<group>"; };
 		160DAC82176ACB030016F0F5 /* circle_process.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_process.png; sourceTree = "<group>"; };
 		16164657176C0BD200349EAD /* CustomPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPointAnnotation.h; sourceTree = "<group>"; };
 		16164658176C0BD200349EAD /* CustomPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPointAnnotation.m; sourceTree = "<group>"; };
@@ -803,6 +807,8 @@
 		165AE0AE1767286E00B15416 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				160CC00D1776BD58005E5BDA /* setting_header_bg_check.png */,
+				160CC00B1776BC11005E5BDA /* header_mask.png */,
 				CE8AF8781775273C0037C402 /* touxiang_headBg.png */,
 				1864DB3E177437DB00993EE5 /* setting_btn_invit.png */,
 				1864DB3F177437DB00993EE5 /* setting_btn_save.png */,
@@ -1752,6 +1758,8 @@
 				CE8AF8791775273C0037C402 /* touxiang_headBg.png in Resources */,
 				16B86B731776150600194890 /* lbs_rank_type_arraw.png in Resources */,
 				16B86B741776150600194890 /* lbs_rank_type_menu.png in Resources */,
+				160CC00C1776BC11005E5BDA /* header_mask.png in Resources */,
+				160CC00E1776BD58005E5BDA /* setting_header_bg_check.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
