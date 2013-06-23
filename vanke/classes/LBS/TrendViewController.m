@@ -76,7 +76,7 @@
     //    NSString *tomemberid = @"33";//测试用MemberId，测试完成删除
     //    _friendInfo.fromMemberID = 33;
     //    _friendInfo.toMemberID = 23;
-    NSString *msgListUrl = [VankeAPI getShareListUrl:memberid :1 :10];
+    NSString *msgListUrl = [VankeAPI getShareListUrl:memberid page:1 rows:10];
     NSURL *url = [NSURL URLWithString:msgListUrl];
     NSLog(@"url:%@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

@@ -31,9 +31,9 @@
 
 -(void)updateView{
     @try {
-//        if ([PCommonUtil checkDataIsNull:_trendInfo.shareContent]) {
-//            self.lblTitle.text = _trendInfo.shareContent;
-//        }
+        if ([PCommonUtil checkDataIsNull:_trendInfo.shareContent]) {
+            self.lblTitle.text = _trendInfo.shareContent;
+        }
         if ([PCommonUtil checkDataIsNull:_trendInfo.shareTime]) {
             self.lblTime.text = [_trendInfo.shareTime componentsSeparatedByString:@"T"][0];
         }

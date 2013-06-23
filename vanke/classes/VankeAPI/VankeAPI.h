@@ -41,7 +41,7 @@
 +(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;
 
 //获取分享列表接口（2013-6-29）
-+(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount;
++(NSString *)getShareListUrl:(NSString*)memberid page:(NSInteger)page rows:(NSInteger)pageCount;
 
 //获取分享的图片地址
 +(NSString *)getSharePicUrl:(NSString*)imageName;

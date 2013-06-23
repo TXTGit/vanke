@@ -185,7 +185,7 @@
  imgPath：分享图片文件夹路径
  list：当前页的分享列表
  */
-+(NSString *)getShareListUrl:(NSString*)memberid :(NSInteger)page :(NSInteger)pageCount
++(NSString *)getShareListUrl:(NSString *)memberid page:(NSInteger)page rows:(NSInteger)pageCount
 {
     return [NSString stringWithFormat:@"%@?type=getShareList&memberID=%@&page=%d&rows=%d",VANKE_DOMAIN,memberid,page,pageCount];
 }
