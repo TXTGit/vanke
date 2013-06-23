@@ -503,7 +503,7 @@
                     _lblSaturday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
                     break;
                 case 7:
-                    _lblSpead.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                    _lblSunday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
                     break;
                     
                 default:
@@ -649,6 +649,9 @@
     } else {
         
         NSLog(@"doStart...");
+        
+        //开始时，清理旧数据
+        [_locationList removeAllObjects];
         
         @synchronized(_player) {
             if (_locationSongList && [_locationSongList count]>0) {
