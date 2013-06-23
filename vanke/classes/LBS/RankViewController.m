@@ -31,6 +31,7 @@
 @synthesize totalArrawImageView = _totalArrawImageView;
 
 @synthesize rankTableView = _rankTableView;
+@synthesize indicatorView = _indicatorView;
 
 @synthesize fanRankList = _fanRankList;
 @synthesize communityRankList = _communityRankList;
@@ -99,6 +100,8 @@
 
 -(void)initData{
     
+    [_indicatorView startAnimating];
+    
     [self getFanRankListByType:1];
     [self getCommunityRankListByType:1];
     
@@ -130,8 +133,17 @@
             [_rankTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     
@@ -163,14 +175,25 @@
             [_rankTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     
 }
 
 -(void)getTotalRanklistByType:(BOOL)isCommunity rankType:(int)rankType{
+    
+    [_indicatorView startAnimating];
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *rankListUrl = [VankeAPI getGetFanRankListUrl:memberid rankType:rankType];
@@ -202,8 +225,17 @@
             [_rankTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     

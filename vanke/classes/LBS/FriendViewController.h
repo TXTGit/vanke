@@ -13,6 +13,7 @@
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (nonatomic, retain) IBOutlet UITableView *friendTableView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, retain) NSMutableArray *friendList;
 

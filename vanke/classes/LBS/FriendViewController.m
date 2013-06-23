@@ -26,6 +26,7 @@
 
 @synthesize navView = _navView;
 @synthesize friendTableView = _friendTableView;
+@synthesize indicatorView = _indicatorView;
 
 @synthesize friendList = _friendList;
 
@@ -90,6 +91,8 @@
 
 -(void)initData{
     
+    [_indicatorView startAnimating];
+    
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *fanListUrl = [VankeAPI getGetFanListUrl:memberid];
     NSLog(@"fanListUrl:%@",fanListUrl);
@@ -113,8 +116,17 @@
             [_friendTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     

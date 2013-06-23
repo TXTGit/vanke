@@ -21,6 +21,10 @@
 @implementation TrendViewController
 
 @synthesize navView = _navView;
+@synthesize trendTableView = _trendTableView;
+@synthesize indicatorView = _indicatorView;
+
+@synthesize trendList = _trendList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,6 +74,9 @@
 }
 
 -(void)initData{
+    
+    [_indicatorView startAnimating];
+    
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
 //    NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
     //    NSString *memberid = @"23";//测试用MemberID，测试完成删除
@@ -99,8 +106,17 @@
             [_trendTableView reloadData];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
     }];
     [operation start];
     

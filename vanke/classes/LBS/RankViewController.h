@@ -21,6 +21,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *totalArrawImageView;
 
 @property (nonatomic, retain) IBOutlet UITableView *rankTableView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, retain) NSMutableArray *fanRankList;
 @property (nonatomic, retain) NSMutableArray *communityRankList;
