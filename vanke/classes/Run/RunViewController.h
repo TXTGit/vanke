@@ -83,6 +83,7 @@
 @property (nonatomic, assign) int currentSongIndex;                         //当前歌曲播放位置
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) MPMediaPickerController *mediaPickerController;
+@property (nonatomic, assign) CGFloat totalSongDuration;
 
 @property (nonatomic, retain) NSMutableArray *weekRunList;
 
@@ -136,6 +137,7 @@
 -(void)volumeSet:(UISlider *)slider;    //音量控制
 -(void)showVolume;
 -(void)hideVolume;
+-(void)songPlayDidEnd:(NSNotification*)notification;
 
 -(IBAction)doShowOrHideRunRecord:(id)sender;
 -(void)showRecord;

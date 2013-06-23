@@ -95,6 +95,7 @@
 @synthesize currentSongIndex = _currentSongIndex;
 @synthesize player = _player;
 @synthesize mediaPickerController = _mediaPickerController;
+@synthesize totalSongDuration = _totalSongDuration;
 
 @synthesize weekRunList = _weekRunList;
 
@@ -661,8 +662,23 @@
                 }
                 
                 Song *tempsong = [_locationSongList objectAtIndex:_currentSongIndex];
-                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//                [_player play];
+                
+                //使用playerItem获取视频的信息，当前播放时间，总时间等
+                AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:tempsong.musicUrl];
+                //player是视频播放的控制器，可以用来快进播放，暂停等
+                _player = [AVPlayer playerWithPlayerItem:playerItem];
                 [_player play];
+                //计算视频总时间
+                CMTime totalTime = playerItem.duration;
+                //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
+                _totalSongDuration = totalTime.value / totalTime.timescale;
+                NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+                
+                //添加视频播放完成的notifation
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+                
             }
         }
         
@@ -1005,8 +1021,23 @@
                 _player = nil;
             }
             
-            _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//            _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//            [_player play];
+            
+            //使用playerItem获取视频的信息，当前播放时间，总时间等
+            AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:tempsong.musicUrl];
+            //player是视频播放的控制器，可以用来快进播放，暂停等
+            _player = [AVPlayer playerWithPlayerItem:playerItem];
             [_player play];
+            //计算视频总时间
+            CMTime totalTime = playerItem.duration;
+            //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
+            _totalSongDuration = totalTime.value / totalTime.timescale;
+            NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+            
+            //添加视频播放完成的notifation
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+            
         }
     }
     
@@ -1028,8 +1059,23 @@
                 _player = nil;
             }
             
-            _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//            _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
+//            [_player play];
+            
+            //使用playerItem获取视频的信息，当前播放时间，总时间等
+            AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:tempsong.musicUrl];
+            //player是视频播放的控制器，可以用来快进播放，暂停等
+            _player = [AVPlayer playerWithPlayerItem:playerItem];
             [_player play];
+            //计算视频总时间
+            CMTime totalTime = playerItem.duration;
+            //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
+            _totalSongDuration = totalTime.value / totalTime.timescale;
+            NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+            
+            //添加视频播放完成的notifation
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+            
         }
     }
     
@@ -1062,6 +1108,13 @@
 
 -(void)hideVolume{
     _musicPlayerControllerView.sliderVolume.hidden = YES;
+}
+
+-(void)songPlayDidEnd:(NSNotification *)notification{
+    
+    //一首歌曲播放完成，下一首
+    [self playNext];
+    
 }
 
 #pragma MediaPicker delegate
