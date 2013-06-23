@@ -106,13 +106,28 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
+					<object class="IBUIImageView" id="649985797">
+						<reference key="NSNextResponder" ref="1039775317"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{26, 76}, {102, 102}}</string>
+						<reference key="NSSuperview" ref="1039775317"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="710805900"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">header_red_circle.png</string>
+						</object>
+					</object>
 					<object class="IBUIImageView" id="761635237">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 164}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="710805900"/>
+						<reference key="NSNextKeyView" ref="649985797"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -400,7 +415,6 @@
 						<string key="NSFrame">{{13, 486}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -922,6 +936,7 @@
 							<reference ref="87184008"/>
 							<reference ref="280629517"/>
 							<reference ref="710805900"/>
+							<reference ref="649985797"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1045,6 +1060,11 @@
 						<reference key="object" ref="710805900"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">80</int>
+						<reference key="object" ref="649985797"/>
+						<reference key="parent" ref="1039775317"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1079,12 +1099,13 @@
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="77.CustomClassName">EGOImageButton</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">79</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1103,6 +1124,7 @@
 						<string key="doDuiHuan:">id</string>
 						<string key="doDuoBao:">id</string>
 						<string key="doJiFen:">id</string>
+						<string key="doSelectHeadImg:">id</string>
 						<string key="doSina:">id</string>
 						<string key="doTel:">id</string>
 						<string key="resiginTextField:">id</string>
@@ -1118,6 +1140,10 @@
 						</object>
 						<object class="IBActionInfo" key="doJiFen:">
 							<string key="name">doJiFen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doSelectHeadImg:">
+							<string key="name">doSelectHeadImg:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doSina:">
@@ -1244,6 +1270,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="header_red_circle.png">{200, 200}</string>
 			<string key="setting_bg.png">{640, 1136}</string>
 			<string key="setting_body_menu.png">{640, 468}</string>
 			<string key="setting_body_sina.png">{592, 81}</string>

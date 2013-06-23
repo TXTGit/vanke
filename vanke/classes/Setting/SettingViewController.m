@@ -387,10 +387,8 @@
     }
     
     UIImagePickerController *pc = [[UIImagePickerController alloc]init];
-    
     pc.delegate = self;
-    
-    pc.allowsEditing = NO;
+    pc.allowsEditing = YES;
     
     //pc.allowsImageEditing = NO;
     
@@ -401,11 +399,15 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     UIImage *imageNew = [UIImage createRoundedRectImage:image size:CGSizeMake(100, 100) radius:50];
 //    UIImage *imageNew = [UIImage scaleImage:image scaleToSize:CGSizeMake(100, 100)];
 //    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
 //    UIImage *resultImage = [PCommonUtil maskImage:imageNew withImage:maskImage];
+    
+//    UIImage *redCircleImage = [UIImage imageWithName:@"header_red_circle" type:@"png"];
+//    UIImage *resultImage = [self mergerImage:imageNew secodImage:redCircleImage];
     [self.btnHeadImg setImage:imageNew forState:UIControlStateNormal];
     
     [picker dismissModalViewControllerAnimated:YES];
@@ -504,6 +506,8 @@
     UIImage *image = [imageButton imageForState:UIControlStateNormal];
 //    UIImage *maskImage = [UIImage imageWithName:@"header_mask" type:@"png"];
 //    UIImage *resultImage = [PCommonUtil maskImage:image withImage:maskImage];
+//    UIImage *redCircleImage = [UIImage imageWithName:@"header_red_circle" type:@"png"];
+//    UIImage *resultImage = [self mergerImage:image secodImage:redCircleImage];
     [imageButton setImage:image forState:UIControlStateNormal];
 }
 
