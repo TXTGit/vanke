@@ -12,7 +12,7 @@
 
 @property (nonatomic, assign) long shareID;
 @property (nonatomic, assign) long memberID;
-@property (nonatomic, assign) NSString *shareContent;
+@property (nonatomic, retain) NSString *shareContent;
 @property (nonatomic, retain) NSString *shareImg;
 @property (nonatomic, retain) NSString *shareTime;
 @property (nonatomic, retain) NSString *nickName;
