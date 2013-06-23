@@ -1177,15 +1177,8 @@
     }
     
     if (_isRecordShowing) {
-        //隐藏跑步纪录
-        _lblMonday.hidden = YES;
-        _lblTuesday.hidden = YES;
-        _lblWednesday.hidden = YES;
-        _lblThursday.hidden = YES;
-        _lblFriday.hidden = YES;
-        _lblSaturday.hidden = YES;
-        _lblSunday.hidden = YES;
         
+        //隐藏
         [self arrowMoveUp];
         [self hideRecord];
         _isRecordShowing = NO;
@@ -1196,15 +1189,6 @@
         //显示
         [self arrowMoveDown];
         [self showRecord];
-        
-        _lblMonday.hidden = NO;
-        _lblTuesday.hidden = NO;
-        _lblWednesday.hidden = NO;
-        _lblThursday.hidden = NO;
-        _lblFriday.hidden = NO;
-        _lblSaturday.hidden = NO;
-        _lblSunday.hidden = NO;
-        _isRecordShowing = YES;
         
         //底部menu
         if (_isMenuOfBottomShowing) {
@@ -1239,12 +1223,29 @@
         _ivRunRecordOfWeek.frame = CGRectMake(10, 332, 300, 80);
         _ivRunRecordOfWeek.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        
+        //显示跑步纪录
+        _lblMonday.hidden = NO;
+        _lblTuesday.hidden = NO;
+        _lblWednesday.hidden = NO;
+        _lblThursday.hidden = NO;
+        _lblFriday.hidden = NO;
+        _lblSaturday.hidden = NO;
+        _lblSunday.hidden = NO;
+        _isRecordShowing = YES;
     }];
 }
 
 -(void)hideRecord{
     [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        //隐藏跑步纪录
+        _lblMonday.hidden = YES;
+        _lblTuesday.hidden = YES;
+        _lblWednesday.hidden = YES;
+        _lblThursday.hidden = YES;
+        _lblFriday.hidden = YES;
+        _lblSaturday.hidden = YES;
+        _lblSunday.hidden = YES;
         
         _ivRunRecordOfWeek.frame = CGRectMake(10, 332, 300, 0);
         _ivRunRecordOfWeek.alpha = 0.0f;
