@@ -82,7 +82,6 @@
     _lblRunDistance.text = [NSString stringWithFormat:@"%.2f", _runRecord.mileage];
     _lblRunTime.text = [NSString stringWithFormat:@"%ld", _runRecord.minute];
     _lblCalorie.text = [NSString stringWithFormat:@"%.2f", _runRecord.calorie];
-//    _lblSpead.text = [NSString stringWithFormat:@"%.2f", _runRecord.speed];
     
     float secondPerMileage = (_runRecord.mileage > 0.0001) ? _runRecord.secondOfRunning / _runRecord.mileage : 0;
     int tempMinute = secondPerMileage / 60;
@@ -221,16 +220,30 @@
 -(void)doShare{
     NSLog(@"doShare...");
     
-    UIWindow *screenWindow=[[UIApplication sharedApplication]keyWindow];
-    //UIGraphicsBeginImageContext(self.view.frame.size);
+    //screenshots
+    UIImage *mapimage = [self glToUIImage];
+//    UIImage *tipimage = [self capture:_mapView];
+    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
     
-    UIGraphicsBeginImageContext(self.mapView.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    UIRectClip(CGRectMake(0, 0, 320, 190));
-    [self.mapView.layer renderInContext:context];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    //保存图像
+    NSDate *nowDate = [NSDate date];
+    long forImageName = [nowDate timeIntervalSince1970];
+    NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+    if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
+        NSLog(@"Successful...");
+    } else {
+        NSLog(@"failure...");
+    }
+    
+//    UIGraphicsBeginImageContext(self.mapView.frame.size);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextSaveGState(context);
+//    UIRectClip(CGRectMake(0, 0, 320, 190));
+//    [self.mapView.layer renderInContext:context];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+    
     
     NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.mobile,_lblRunDistance.text]];
     
@@ -238,16 +251,18 @@
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
     
-    NSLog(@"base64data: %@", base64data);
+//    NSLog(@"base64data: %@", base64data);
     
     NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:base64data, @"shareImg", nil];
     NSURL *url = [NSURL URLWithString:setShareUrl];
     
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"shareImg" fileName:@"23_201306200600.jpg" mimeType:@"image/jpeg"];
-    }];
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+//    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        [formData appendPartWithFileData:imageData name:@"shareImg" fileName:@"23_201306200600.jpg" mimeType:@"image/jpeg"];
+//    }];
     
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:nil];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"App.net Global Stream: %@", JSON);
@@ -281,18 +296,100 @@
 
 // get the current view screen shot
 #pragma mark 截屏
-//- (UIImage *)capture:(UIView*)view
-//{
-//    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
-//    
-//    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    
-//    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    UIGraphicsEndImageContext();
-//    
-//    return img;
-//}
+
+-(UIImage *)glToUIImage{
+    
+    int width = 310 * 2;
+    int height = 190 * 2;
+    
+    NSInteger myDataLength = width * height * 4;
+    
+    // allocate array and read pixels into it.
+    GLubyte *buffer = (GLubyte *) malloc(myDataLength);
+    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+    
+    // gl renders "upside down" so swap top to bottom into new array.
+    // there's gotta be a better way, but this works.
+    GLubyte *buffer2 = (GLubyte *) malloc(myDataLength);
+    for(int y = 0; y <height; y++)
+    {
+        for(int x = 0; x <width * 4; x++)
+        {
+            buffer2[(height - 1 - y) * width * 4 + x] = buffer[y * 4 * width + x];
+        }
+    }
+    
+    // make data provider with data.
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, buffer2, myDataLength, NULL);
+    
+    // prep the ingredients
+    int bitsPerComponent = 8;
+    int bitsPerPixel = 32;
+    int bytesPerRow = 4 * width;
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+    
+    // make the cgimage
+    CGImageRef imageRef = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    
+    // then make the uiimage from that
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    
+    return image;
+}
+
+//截取图片的位置tip
+- (UIImage *) capture:(BMKMapView *)tmapview {
+    
+    UIImage *tempImage = nil;
+    
+    if (tmapview) {
+        // Create a graphics context with the target size
+        // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+        // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+        CGSize imageSize = tmapview.frame.size;
+        if (NULL != UIGraphicsBeginImageContextWithOptions) {
+            UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+        } else {
+            UIGraphicsBeginImageContext(imageSize);
+        }
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        // Iterate over every window from back to front
+        for (UIView *subView in [tmapview subviews])
+        {
+            if ([subView isKindOfClass:[BMKPinAnnotationView class]])
+            {
+                // Render the layer hierarchy to the current context
+                [[subView layer] renderInContext:context];
+                // Retrieve the screenshot image
+                tempImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+                break;
+            }
+        }
+        
+    }
+    
+    return tempImage;
+}
+
+//合并图片
+-(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
+    
+    CGSize imageSize = CGSizeMake(620, 380);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(310 - 40, 190 - 60, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
 
 -(IBAction)doCancel:(id)sender{
     
