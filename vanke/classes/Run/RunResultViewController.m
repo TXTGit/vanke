@@ -21,6 +21,7 @@
 #import "AFHTTPClient.h"
 
 #import "MBProgressHUD.h"
+#import "WXApi.h"
 
 @interface RunResultViewController ()
 
@@ -217,6 +218,94 @@
 }
 
 #pragma mark 分享
+-(void)doShareAction{
+    
+    UIActionSheet *showActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享到微信朋友圈", @"分享到新浪微博", nil];
+    showActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [showActionSheet showInView:self.view];
+    
+}
+
+#pragma UIActionSheetDelegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    @try {
+        
+        NSLog(@"buttonIndex: %d", buttonIndex);
+        switch (buttonIndex) {
+            case 0:
+            {
+                //分享到微信朋友圈
+                if (![WXApi isWXAppInstalled]) {
+                    [self showAlertView:@"你的iPhone上还没有安装微信，无法使用此功能，请先下载"];
+                    return;
+                }
+                
+                if (![WXApi isWXAppSupportApi]) {
+                    [self showAlertView:@"你当前的微信版本过低，无法支持此功能，请更新微信至最新版本"];
+                    return;
+                }
+                
+                [self doShare2WeiXin:WXSceneTimeline];
+                //分享到自己的服务器
+                [self doShare];
+            }
+                break;
+            case 1:
+            {
+                //分享到新浪微博
+                [self doShare2SinaWeibo];
+                
+                //分享到自己的服务器
+                [self doShare];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"actionSheet clickedButtonAtIndex error...");
+    }
+    
+}
+
+//需要注意的是，SendMessageToWXReq的scene成员，如果scene填WXSceneSession，那么消息会发送至微信的会话内。如果scene填WXSceneTimeline
+-(void)doShare2WeiXin:(int)scene{
+    
+    NSLog(@"doShare2WeiXin: %d", scene);
+    
+    //screenshots
+    UIImage *mapimage = [self glToUIImage];
+    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
+    
+    NSString *descText = [NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.nickname, _lblRunDistance.text];
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = [UserSessionManager GetInstance].currentRunUser.nickname;
+    message.description = descText;
+    
+    WXImageObject *ext = [WXImageObject object];
+    ext.imageData = UIImagePNGRepresentation(image);
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;//选择发送到朋友圈，默认值为WXSceneSession，发送到会话
+    
+    [WXApi sendReq:req];
+}
+
+-(void)doShare2SinaWeibo{
+    
+    NSLog(@"doShare2SinaWeibo...");
+    
+}
+
 -(void)doShare{
     NSLog(@"doShare...");
     
@@ -474,6 +563,11 @@
     [runRecordListViewController setIsComeFromRunResultView:YES];
     [self.navigationController pushViewController:runRecordListViewController animated:YES];
     
+}
+
+-(void)showAlertView:(NSString *)title{
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:nil message:title delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+    [alertview show];
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "RunRecord.h"
 #import <MapKit/MapKit.h>
 
-@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate>
+@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *runResultBgImageView;
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
