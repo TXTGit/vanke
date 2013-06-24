@@ -76,6 +76,46 @@
         _bgImageView.frame = CGRectMake(0, 0, 320, 160);
         [self addSubview:_bgImageView];
         
+        _btnMenuFirst = [[OBShapedButton alloc] initWithFrame:CGRectMake(32, 82, 157, 78)];
+        UIImage *firstImage = [UIImage imageNamed:@"circle_menu_11.png"];
+        [_btnMenuFirst setImage:firstImage forState:UIControlStateNormal];
+        [self addSubview:_btnMenuFirst];
+        
+        _btnMenuSecond = [[OBShapedButton alloc] initWithFrame:CGRectMake(75, 50, 100, 96)];
+        UIImage *secondImage = [UIImage imageNamed:@"circle_menu_20.png"];
+        [_btnMenuSecond setImage:secondImage forState:UIControlStateNormal];
+        [self addSubview:_btnMenuSecond];
+        
+        _btnMenuThird = [[OBShapedButton alloc] initWithFrame:CGRectMake(151, 50, 112, 127)];
+        UIImage *thirdImage = [UIImage imageNamed:@"circle_menu_30.png"];
+        [_btnMenuThird setImage:thirdImage forState:UIControlStateNormal];
+        [self addSubview:_btnMenuThird];
+        
+        _btnMenuFourth = [[OBShapedButton alloc] initWithFrame:CGRectMake(156, 92, 135, 68)];
+        UIImage *fourthImage = [UIImage imageNamed:@"circle_menu_40.png"];
+        [_btnMenuFourth setImage:fourthImage forState:UIControlStateNormal];
+        [self addSubview:_btnMenuFourth];
+        
+        _btnMenuCenter = [[OBShapedButton alloc] initWithFrame:CGRectMake(125, 133, 71, 27)];
+        UIImage *centerImage = [UIImage imageNamed:@"circle_menu_center.png"];
+        [_btnMenuCenter setImage:centerImage forState:UIControlStateNormal];
+        [self addSubview:_btnMenuCenter];
+        
+        
+    }
+    return self;
+}
+
+/*
+-(id)initShapMenuOfLBS:(CGRect)frame{
+    
+    self = [super initWithFrame:frame];
+    if (self) {
+        UIImage *bgimage = [UIImage imageNamed:@"menu_bottom_bg.png"];
+        _bgImageView = [[UIImageView alloc] initWithImage:bgimage];
+        _bgImageView.frame = CGRectMake(0, 0, 320, 160);
+        [self addSubview:_bgImageView];
+        
         _btnMenuFirst = [[OBShapedButton alloc] initWithFrame:CGRectMake(32, 79, 160, 81)];
         UIImage *firstImage = [UIImage imageNamed:@"lbs_button1_1.png"];
         [_btnMenuFirst setImage:firstImage forState:UIControlStateNormal];
@@ -110,6 +150,7 @@
     }
     return self;
 }
+*/
 
 /*
 // Only override drawRect: if you perform custom drawing.
