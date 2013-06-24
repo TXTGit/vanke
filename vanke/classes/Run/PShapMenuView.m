@@ -86,7 +86,7 @@
         [_btnMenuSecond setImage:secondImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuSecond];
         
-        _btnMenuThird = [[OBShapedButton alloc] initWithFrame:CGRectMake(151, 50, 112, 127)];
+        _btnMenuThird = [[OBShapedButton alloc] initWithFrame:CGRectMake(156, 50, 101, 110)];
         UIImage *thirdImage = [UIImage imageNamed:@"circle_menu_30.png"];
         [_btnMenuThird setImage:thirdImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuThird];
