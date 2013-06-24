@@ -281,6 +281,7 @@
 		16F115361766275800CC1D3B /* AutoLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F115351766275600CC1D3B /* AutoLogin.m */; };
 		18380FE51771826300584B10 /* RunInfoOfWeek.m in Sources */ = {isa = PBXBuildFile; fileRef = 18380FE41771826300584B10 /* RunInfoOfWeek.m */; };
 		18380FEA1771AD0A00584B10 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18380FE81771AD0A00584B10 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
+		185042A1177856CF001E352C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850429D177856CF001E352C /* libWeChatSDK.a */; };
 		1864DB40177437DB00993EE5 /* setting_btn_invit.png in Resources */ = {isa = PBXBuildFile; fileRef = 1864DB3E177437DB00993EE5 /* setting_btn_invit.png */; };
 		1864DB41177437DB00993EE5 /* setting_btn_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 1864DB3F177437DB00993EE5 /* setting_btn_save.png */; };
 		186839EA176EC7A50042CB34 /* UnreadMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839E9176EC7A50042CB34 /* UnreadMessage.m */; };
@@ -687,6 +688,9 @@
 		18380FE71771AD0A00584B10 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		18380FE81771AD0A00584B10 /* GTMBase64.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GTMBase64.m; sourceTree = "<group>"; };
 		18380FE91771AD0A00584B10 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1850429D177856CF001E352C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		1850429F177856CF001E352C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		185042A0177856CF001E352C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		1864DB3E177437DB00993EE5 /* setting_btn_invit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_invit.png; sourceTree = "<group>"; };
 		1864DB3F177437DB00993EE5 /* setting_btn_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_save.png; sourceTree = "<group>"; };
 		186839E8176EC7A50042CB34 /* UnreadMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadMessage.h; sourceTree = "<group>"; };
@@ -736,6 +740,7 @@
 				165C8EAA1764A57900DEF452 /* Foundation.framework in Frameworks */,
 				165C8EAC1764A57900DEF452 /* CoreGraphics.framework in Frameworks */,
 				165AE00D1766CAB300B15416 /* libbaidumapapi.a in Frameworks */,
+				185042A1177856CF001E352C /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,6 +962,8 @@
 		165C8ECC1764AF4C00DEF452 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				185042A317786221001E352C /* Share */,
+				1850429C177856CF001E352C /* WeChatAPI */,
 				18380FE61771AD0A00584B10 /* CTMBase64 */,
 				167C4F2F17687E3500F63119 /* Task */,
 				167C4EFA1768490800F63119 /* MBProgressHUD */,
@@ -1491,6 +1498,23 @@
 			path = CTMBase64;
 			sourceTree = "<group>";
 		};
+		1850429C177856CF001E352C /* WeChatAPI */ = {
+			isa = PBXGroup;
+			children = (
+				1850429D177856CF001E352C /* libWeChatSDK.a */,
+				1850429F177856CF001E352C /* WXApi.h */,
+				185042A0177856CF001E352C /* WXApiObject.h */,
+			);
+			path = WeChatAPI;
+			sourceTree = "<group>";
+		};
+		185042A317786221001E352C /* Share */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		CE8BFCF217733F12001AFAA9 /* share */ = {
 			isa = PBXGroup;
 			children = (
@@ -1934,6 +1958,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vanke/classes/BaiduAPI\"",
+					"\"$(SRCROOT)/vanke/classes/WeChatAPI\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -1961,6 +1986,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vanke/classes/BaiduAPI\"",
+					"\"$(SRCROOT)/vanke/classes/WeChatAPI\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
