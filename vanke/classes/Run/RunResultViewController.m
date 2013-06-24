@@ -246,7 +246,7 @@
                     return;
                 }
                 
-                [self doShare2WeiXin:WXSceneTimeline];
+//                [self doShare2WeiXin:WXSceneTimeline];
                 //分享到自己的服务器
                 [self doShare];
             }
