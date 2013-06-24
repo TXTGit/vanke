@@ -83,9 +83,11 @@
     NSLog(@"getUnreadUrl: %@", getUnreadUrl);
     
     NSURL *url = [NSURL URLWithString:getUnreadUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60 * 30];
+//    [request setValue:@"1" forKey:@"keep-alive"];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"App.net Global Stream: %@", JSON);
+        NSLog(@"getUnreadDataFromServerByHttp success: %@", JSON);
         NSDictionary *dicResult = JSON;
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
@@ -93,14 +95,14 @@
             
         }
         
-        //5秒后继续请求
-        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:5.0];
+        //3秒后继续请求
+        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:3.0];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"failure: %@", error);
+        NSLog(@"getUnreadDataFromServerByHttp failure: %@", error);
         
-        //5秒后继续请求
-        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:5.0];
+        //3秒后继续请求
+        [self performSelector:@selector(getUnreadDataFromServerByHttp) withObject:nil afterDelay:3.0];
         
     }];
     [operation start];
