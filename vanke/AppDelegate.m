@@ -44,6 +44,9 @@
 		NSLog(@"manager start failed!");
 	}
     
+    //向微信注册
+    [WXApi registerApp:@"wxb5db1dacf0668cd5"];
+    
     //这种方式后台，可以连续播放非网络请求歌曲。遇到网络请求歌曲就废，需要后台申请task
     /*
      * AudioSessionInitialize用于处理中断处理，
@@ -102,53 +105,6 @@
     return YES;
 }
 
--(void)testUploadImage{
-    
-    NSString *testImageUrl = @"http://ktv.9158.com/Content/Images/first20121017.jpg";
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:testImageUrl]];
-    NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"base64data: %@", base64data);
-    
-//    NSString *uploadImageUrl = [NSString stringWithFormat:@"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=%@", base64data];
-    NSString *uploadImageUrl = [NSString stringWithFormat:@"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23"];
-    
-//    NSString *uploadUrl = @"http://www.4000757888.com:880/i.aspx?type=setHeadImg&memberID=23&headImg=(将文件转换为Base64字符串";
-    
-//    NSLog(@"uploadImageUrl: %@", uploadImageUrl);
-    
-    NSDictionary *dicParam = [NSDictionary dictionaryWithObjectsAndKeys:base64data, @"headImg", nil];
-    NSURL *url = [NSURL URLWithString:uploadImageUrl];
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"headImg" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
-    }];
-    
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"App.net Global Stream: %@", JSON);
-        NSDictionary *dicResult = JSON;
-        NSString *status = [dicResult objectForKey:@"status"];
-        NSString *msg = [dicResult objectForKey:@"msg"];
-        NSLog(@"status: %@, msg: %@", status, msg);
-        if ([status isEqual:@"0"]) {
-            
-            
-        }
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"failure: %@", error);
-    }];
-    
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-    }];
-    
-    [operation start];
-    
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -182,6 +138,43 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma something
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    if ([[url absoluteString] hasPrefix:@"wx"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    
+    return YES;
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    if ([[url absoluteString] hasPrefix:@"wx"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    
+    return YES;
+}
+
+#pragma weixin
+-(void)onReq:(BaseReq *)req{
+    //onReq是微信终端向第三方程序发起请求，要求第三方程序响应。第三方程序响应完后必须调用sendRsp返回。在调用sendRsp返回时，会切回到微信终端程序界面。
+    if ([req isKindOfClass:[GetMessageFromWXReq class]]) {
+        //
+    } else if ([req isKindOfClass:[ShowMessageFromWXReq class]]) {
+        //
+    }
+    
+}
+
+-(void)onResp:(BaseResp *)resp{
+    //如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终端程序界面。
+    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+        NSLog(@"resp.errCode: %d, resp.description: %@", resp.errCode, resp.description);
+    }
 }
 
 @end
