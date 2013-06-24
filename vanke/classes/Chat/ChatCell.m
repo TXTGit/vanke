@@ -129,7 +129,33 @@
 
 -(IBAction)rejectInvite:(id)sender
 {
-    
+    NSString *rejectInviteUrl = [VankeAPI getRejectInviteUrl:_chatmessage.inviteID];
+    NSLog(@"rejectInviteUrl: %@", rejectInviteUrl);
+    NSURL *url = [NSURL URLWithString:rejectInviteUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            [sender setHidden:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"您已经拒绝该好友的添加请求！";
+            hud.margin = 10.f;
+            hud.yOffset = 0.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            
+            [hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
