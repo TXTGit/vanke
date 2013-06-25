@@ -293,7 +293,7 @@
 							<object class="IBUIButton" id="86170901">
 								<reference key="NSNextResponder" ref="252598917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{73, 50}, {102, 99}}</string>
+								<string key="NSFrame">{{73, 50}, {102, 96}}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="679078659"/>
@@ -311,7 +311,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="211757710"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">circle_menu_20.png</string>
+									<string key="NSResourceName">run_circle_menu_20.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="160136053"/>
 								<reference key="IBUIFont" ref="869478738"/>
@@ -319,7 +319,7 @@
 							<object class="IBUIButton" id="524458407">
 								<reference key="NSNextResponder" ref="252598917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{156, 50}, {103, 111}}</string>
+								<string key="NSFrame">{{160, 50}, {98, 110}}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="860660664"/>
@@ -337,7 +337,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="211757710"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">circle_menu_30.png</string>
+									<string key="NSResourceName">run_circle_menu_30.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="160136053"/>
 								<reference key="IBUIFont" ref="869478738"/>
@@ -345,7 +345,7 @@
 							<object class="IBUIButton" id="860660664">
 								<reference key="NSNextResponder" ref="252598917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{168, 92}, {121, 68}}</string>
+								<string key="NSFrame">{{162, 94}, {126, 66}}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="585491308"/>
@@ -363,7 +363,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="211757710"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">circle_menu_40.png</string>
+									<string key="NSResourceName">run_circle_menu_40.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="160136053"/>
 								<reference key="IBUIFont" ref="869478738"/>
@@ -1087,9 +1087,9 @@
 							<reference ref="992054142"/>
 							<reference ref="679078659"/>
 							<reference ref="980047283"/>
-							<reference ref="860660664"/>
-							<reference ref="524458407"/>
 							<reference ref="86170901"/>
+							<reference ref="524458407"/>
+							<reference ref="860660664"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1465,9 +1465,6 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="circle_menu_20.png">{247, 257}</string>
-			<string key="circle_menu_30.png">{240, 256}</string>
-			<string key="circle_menu_40.png">{271, 155}</string>
 			<string key="circle_menu_center.png">{142, 54}</string>
 			<string key="circle_process.png">{386, 386}</string>
 			<string key="index_nav_bg.png">{640, 90}</string>
@@ -1475,6 +1472,9 @@
 			<string key="login_bg.png">{640, 1136}</string>
 			<string key="menu_bottom_bg.png">{640, 320}</string>
 			<string key="run_circle_menu_11.png">{281, 160}</string>
+			<string key="run_circle_menu_20.png">{239, 244}</string>
+			<string key="run_circle_menu_30.png">{220, 242}</string>
+			<string key="run_circle_menu_40.png">{280, 144}</string>
 			<string key="run_down_up_arrow.png">{591, 34}</string>
 			<string key="run_his.png">{596, 84}</string>
 			<string key="run_his2.png">{590, 158}</string>
