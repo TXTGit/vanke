@@ -10,11 +10,16 @@
 #import "BMapKit.h"
 #import "WXApi.h"
 
+
+@class SinaWeibo;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, BMKGeneralDelegate, WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UINavigationController *navController;
 
 @property (nonatomic, retain) BMKMapManager* mapManager;
+
+@property (nonatomic, retain) SinaWeibo *sinaweibo;
 
 @end

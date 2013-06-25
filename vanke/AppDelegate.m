@@ -20,12 +20,16 @@
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 
+#import "SinaWeibo.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize navController = _navController;
 
 @synthesize mapManager = _mapManager;
+
+@synthesize sinaweibo = _sinaweibo;
 
 //for crash
 -(void)installUncaughtExceptionHandler
@@ -132,6 +136,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     NSLog(@"applicationDidBecomeActive...");
+    [_sinaweibo applicationDidBecomeActive];
     
 }
 
@@ -147,6 +152,10 @@
         return [WXApi handleOpenURL:url delegate:self];
     }
     
+    if ([[url absoluteString] hasPrefix:@"sinaweibosso"]) {
+        return [_sinaweibo handleOpenURL:url];
+    }
+    
     return YES;
 }
 
@@ -154,6 +163,10 @@
     
     if ([[url absoluteString] hasPrefix:@"wx"]) {
         return [WXApi handleOpenURL:url delegate:self];
+    }
+    
+    if ([[url absoluteString] hasPrefix:@"sinaweibosso"]) {
+        return [_sinaweibo handleOpenURL:url];
     }
     
     return YES;
