@@ -37,28 +37,28 @@
         _bgImageView.frame = CGRectMake(0, 0, 320, 160);
         [self addSubview:_bgImageView];
         
-        _btnMenuFirst = [[OBShapedButton alloc] initWithFrame:CGRectMake(36, 87, 101, 72)];
-        UIImage *firstImage = [UIImage imageNamed:@"btn1_1.png"];
+        _btnMenuFirst = [[OBShapedButton alloc] initWithFrame:CGRectMake(32, 83, 10, 77)];
+        UIImage *firstImage = [UIImage imageNamed:@"run_circle_menu_11.png"];
         [_btnMenuFirst setImage:firstImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuFirst];
         
-        _btnMenuSecond = [[OBShapedButton alloc] initWithFrame:CGRectMake(72, 51, 105, 98)];
-        UIImage *secondImage = [UIImage imageNamed:@"btn2_1.png"];
+        _btnMenuSecond = [[OBShapedButton alloc] initWithFrame:CGRectMake(73, 50, 99, 99)];
+        UIImage *secondImage = [UIImage imageNamed:@"run_circle_menu_20.png"];
         [_btnMenuSecond setImage:secondImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuSecond];
         
-        _btnMenuThird = [[OBShapedButton alloc] initWithFrame:CGRectMake(161, 51, 97, 96)];
-        UIImage *thirdImage = [UIImage imageNamed:@"btn3_1.png"];
+        _btnMenuThird = [[OBShapedButton alloc] initWithFrame:CGRectMake(157, 50, 99, 108)];
+        UIImage *thirdImage = [UIImage imageNamed:@"run_circle_menu_30.png"];
         [_btnMenuThird setImage:thirdImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuThird];
         
-        _btnMenuFourth = [[OBShapedButton alloc] initWithFrame:CGRectMake(185, 94, 102, 68)];
-        UIImage *fourthImage = [UIImage imageNamed:@"btn4_1.png"];
+        _btnMenuFourth = [[OBShapedButton alloc] initWithFrame:CGRectMake(156, 93, 131, 67)];
+        UIImage *fourthImage = [UIImage imageNamed:@"run_circle_menu_40.png"];
         [_btnMenuFourth setImage:fourthImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuFourth];
         
-        _btnMenuCenter = [[OBShapedButton alloc] initWithFrame:CGRectMake(0, 125, 320, 35)];
-        UIImage *centerImage = [UIImage imageNamed:@"menu_bottom_center.png"];
+        _btnMenuCenter = [[OBShapedButton alloc] initWithFrame:CGRectMake(125, 133, 71, 27)];
+        UIImage *centerImage = [UIImage imageNamed:@"circle_menu_center.png"];
         [_btnMenuCenter setImage:centerImage forState:UIControlStateNormal];
         [self addSubview:_btnMenuCenter];
         
