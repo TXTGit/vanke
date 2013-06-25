@@ -11,8 +11,11 @@
 #import "BMapKit.h"
 #import "RunRecord.h"
 #import <MapKit/MapKit.h>
+#import "VankeConfig.h"
+#import "SinaWeibo.h"
+#import "SinaWeiboRequest.h"
 
-@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate>
+@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate,SinaWeiboDelegate, SinaWeiboRequestDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *runResultBgImageView;
 @property (nonatomic, retain) PCustomNavigationBarView *navView;

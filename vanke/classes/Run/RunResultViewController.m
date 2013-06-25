@@ -22,6 +22,7 @@
 
 #import "MBProgressHUD.h"
 #import "WXApi.h"
+#import "AppDelegate.h"
 
 @interface RunResultViewController ()
 
@@ -56,6 +57,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
     
     //bg
     _runResultBgImageView.hidden = YES;
@@ -303,6 +306,14 @@
 -(void)doShare2SinaWeibo{
     
     NSLog(@"doShare2SinaWeibo...");
+    
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    BOOL authValid = sinaweibo.isAuthValid;
+    if (authValid) {
+        [self postImageStatusButtonPressed];
+    } else {
+        [sinaweibo logIn];
+    }
     
 }
 
@@ -568,6 +579,119 @@
 -(void)showAlertView:(NSString *)title{
     UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:nil message:title delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
     [alertview show];
+}
+
+//
+-(SinaWeibo *)sinaweibo{
+    
+    //sina weibo
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appDelegate.sinaweibo) {
+        return appDelegate.sinaweibo;
+    }
+    appDelegate.sinaweibo = [[SinaWeibo alloc] initWithAppKey:VANKE_SINA_WEIBO_APP_KEY appSecret:VANKE_SINA_WEIBO_APP_SECRET appRedirectURI:VANKE_SINA_WEIBO_APP_REDIRECTURI andDelegate:self];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *sinaweiboInfo = [defaults objectForKey:@"SinaWeiboAuthData"];
+    if ([sinaweiboInfo objectForKey:@"AccessTokenKey"] && [sinaweiboInfo objectForKey:@"ExpirationDateKey"] && [sinaweiboInfo objectForKey:@"UserIDKey"])
+    {
+        appDelegate.sinaweibo.accessToken = [sinaweiboInfo objectForKey:@"AccessTokenKey"];
+        appDelegate.sinaweibo.expirationDate = [sinaweiboInfo objectForKey:@"ExpirationDateKey"];
+        appDelegate.sinaweibo.userID = [sinaweiboInfo objectForKey:@"UserIDKey"];
+    }
+    return appDelegate.sinaweibo;
+}
+
+- (void)removeAuthData
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SinaWeiboAuthData"];
+}
+
+- (void)storeAuthData
+{
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    
+    NSDictionary *authData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              sinaweibo.accessToken, @"AccessTokenKey",
+                              sinaweibo.expirationDate, @"ExpirationDateKey",
+                              sinaweibo.userID, @"UserIDKey",
+                              sinaweibo.refreshToken, @"refresh_token", nil];
+    [[NSUserDefaults standardUserDefaults] setObject:authData forKey:@"SinaWeiboAuthData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - SinaWeibo Delegate
+
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    NSLog(@"sinaweiboDidLogIn userID = %@ accesstoken = %@ expirationDate = %@ refresh_token = %@", sinaweibo.userID, sinaweibo.accessToken, sinaweibo.expirationDate,sinaweibo.refreshToken);
+    
+    [self storeAuthData];
+    
+    //
+    [self postImageStatusButtonPressed];
+    
+}
+
+- (void)sinaweiboDidLogOut:(SinaWeibo *)sinaweibo
+{
+    NSLog(@"sinaweiboDidLogOut");
+    [self removeAuthData];
+}
+
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+{
+    NSLog(@"sinaweiboLogInDidCancel");
+}
+
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    NSLog(@"sinaweibo logInDidFailWithError %@", error);
+}
+
+- (void)sinaweibo:(SinaWeibo *)sinaweibo accessTokenInvalidOrExpired:(NSError *)error
+{
+    NSLog(@"sinaweiboAccessTokenInvalidOrExpired %@", error);
+    [self removeAuthData];
+}
+
+//发送新浪微博
+- (void)postImageStatusButtonPressed{
+    
+    //screenshots
+    UIImage *mapimage = [self glToUIImage];
+    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
+    
+    NSString *descText = [NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.nickname, _lblRunDistance.text];
+    
+    // post image status
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    
+    [sinaweibo requestWithURL:@"statuses/upload.json"
+                       params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                               descText, @"status",
+                               image, @"pic", nil]
+                   httpMethod:@"POST"
+                     delegate:self];
+    
+}
+
+#pragma mark - SinaWeiboRequest Delegate
+
+- (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
+{
+    if ([request.url hasSuffix:@"statuses/upload.json"]) {
+        NSLog(@"Post image status failed with error : %@", error);
+    }
+    
+}
+
+- (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result
+{
+    if ([request.url hasSuffix:@"statuses/upload.json"]) {
+        NSLog(@"Post image status \"%@\" succeed!", [result objectForKey:@"text"]);
+    }
+
 }
 
 @end
