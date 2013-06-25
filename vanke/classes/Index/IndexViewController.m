@@ -51,7 +51,7 @@
 //    [_navView.messageTipImageView setHidden:NO];
     
     //
-    [self getUnreadDataFromServerByHttp];
+//    [self getUnreadDataFromServerByHttp];
     
 }
 
