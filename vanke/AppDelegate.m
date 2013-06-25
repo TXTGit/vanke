@@ -45,7 +45,7 @@
 	}
     
     //向微信注册
-    [WXApi registerApp:@"wxb5db1dacf0668cd5"];
+    [WXApi registerApp:@"wxc7007d32a0ef5d89"];
     
     //这种方式后台，可以连续播放非网络请求歌曲。遇到网络请求歌曲就废，需要后台申请task
     /*
