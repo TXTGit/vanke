@@ -80,7 +80,7 @@
     UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     [_navView.rightButton setHidden:NO];
-    [_navView.rightButton addTarget:self action:@selector(doShare) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightButton addTarget:self action:@selector(doShareAction) forControlEvents:UIControlEventTouchUpInside];
     
     //show data
     _lblRunDistance.text = [NSString stringWithFormat:@"%.2f", _runRecord.mileage];
@@ -243,13 +243,12 @@
                     [self showAlertView:@"你的iPhone上还没有安装微信，无法使用此功能，请先下载"];
                     return;
                 }
-                
                 if (![WXApi isWXAppSupportApi]) {
                     [self showAlertView:@"你当前的微信版本过低，无法支持此功能，请更新微信至最新版本"];
                     return;
                 }
+                [self doShare2WeiXin:WXSceneTimeline];
                 
-//                [self doShare2WeiXin:WXSceneTimeline];
                 //分享到自己的服务器
                 [self doShare];
             }
