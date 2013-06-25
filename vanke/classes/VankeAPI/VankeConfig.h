@@ -9,6 +9,13 @@
 #ifndef vanke_VankeConfig_h
 #define vanke_VankeConfig_h
 
+#define VANKE_WEIXIN_APP_ID                     @"wxc7007d32a0ef5d89"
+#define VANKE_WEIXIN_APP_KEY                    @"5864b551dfbcb1ec5f92d314f0b679de"
+
+#define VANKE_SINA_WEIBO_APP_KEY                @"1468499793"
+#define VANKE_SINA_WEIBO_APP_SECRET             @"ce6dd4ab9ae4f14aa7982a43453cc173"
+#define VANKE_SINA_WEIBO_APP_REDIRECTURI        @"http://sinaweibosso.1468499793"
+
 /*
  * 用于切换不同域名地址
  */
@@ -32,5 +39,6 @@
 #define VANKE_ERROR_CODE_FAILED             @"操作不成功的提示信息"
 //若返回：{result=”0”,msg=”操作成功的提示信息”,……}，表示操作成功；
 #define VANKE_ERROR_CODE_SUCCESS            @"操作成功的提示信息"
+
 
 #endif
