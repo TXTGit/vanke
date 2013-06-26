@@ -53,6 +53,7 @@
     //
 //    [self getUnreadDataFromServerByHttp];
     
+    [self doGetMemberInfo:[UserSessionManager GetInstance].currentRunUser.userid];
 }
 
 - (void)didReceiveMemoryWarning
