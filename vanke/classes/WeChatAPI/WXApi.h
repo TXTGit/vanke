@@ -81,12 +81,6 @@
  */
 +(NSString *) getWXAppSupportMaxApiVersion;
 
-/*! @brief 获取当前微信SDK的版本号
- *
- * @return 返回当前微信SDK的版本号
- */
-+(NSString *) getApiVersion;
-
 /*! @brief 获取微信的itunes安装地址
  *
  * @return 微信的安装地址字符串。

@@ -16,7 +16,6 @@ enum  WXErrCode {
     WXErrCodeUserCancel = -2,
     WXErrCodeSentFail   = -3,
     WXErrCodeAuthDeny   = -4,
-    WXErrCodeUnsupport  = -5,
 };
 
 enum WXScene {
@@ -73,9 +72,7 @@ enum WXAPISupport {
 /** 发送消息的类型，包括文本消息和多媒体消息两种，两者只能选择其一，不能同时发送文本和多媒体消息 */
 @property (nonatomic, assign) BOOL bText;
 
-/** 发送的目标场景， 可以选择发送到会话(WXSceneSession)或者朋友圈(WXSceneTimeline)。 默认发送到会话。
- * @see WXScene
- */
+/** 发送的目标场景， 可以选择发送到朋友或者朋友圈。 默认发送到会话。*/
 @property (nonatomic, assign) int scene;
 
 @end
@@ -245,23 +242,14 @@ enum WXAPISupport {
  */
 +(WXMusicObject *) object;
 
-/** 音乐网页的url地址 
+/** 音乐数据的url地址 
  * @note 长度不能超过10K
  */
 @property (nonatomic, retain) NSString *musicUrl;
-/** 音乐lowband网页的url地址 
+/** 音乐lowband数据的url地址 
  * @note 长度不能超过10K
  */
 @property (nonatomic, retain) NSString *musicLowBandUrl;
-/** 音乐数据url地址
- * @note 长度不能超过10K
- */
-@property (nonatomic, retain) NSString *musicDataUrl;
-
-/**音乐lowband数据url地址
- * @note 长度不能超过10K
- */
-@property (nonatomic, retain) NSString *musicLowBandDataUrl;
 
 @end
 
@@ -278,11 +266,11 @@ enum WXAPISupport {
  */
 +(WXVideoObject *) object;
 
-/** 视频网页的url地址 
+/** 视频数据的url地址 
  * @note 长度不能超过10K
  */
 @property (nonatomic, retain) NSString *videoUrl;
-/** 视频lowband网页的url地址
+/** 视频lowband数据的url地址
  * @note 长度不能超过10K
  */
 @property (nonatomic, retain) NSString *videoLowBandUrl;
@@ -337,24 +325,25 @@ enum WXAPISupport {
 
 @end
 
-/*! @brief 多媒体消息中包含的表情数据对象
- *
- * 微信终端和第三方程序之间传递消息中包含的表情数据对象。
- * @see WXMediaMessage
- */
-@interface WXEmoticonObject : NSObject
+#pragma mark -
 
-/*! @brief 返回一个WXEmoticonObject对象
- *
- * @note 返回的WXEmoticonObject对象是自动释放的
- */
-+(WXEmoticonObject *) object;
 
-/** 表情真实数据内容 
- * @note 大小不能超过10M
+/*
+ * 微信启动App附带的启动数据
  */
-@property (nonatomic, retain) NSData    *emoticonData;
+//@interface WXAppLaunchData : NSObject
 
-@end
+/*
+ * 微信启动App的类型， 参照WXAppLaunchType
+ */
+//@property (nonatomic, assign) WXAppLaunchType launchType;
+
+/*
+ * 微信启动App附带的消息内容
+ */
+//@property (nonatomic, retain) WXMediaMessage *message;
+
+
+//@end
 
 
