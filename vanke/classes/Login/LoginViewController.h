@@ -15,6 +15,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *usernameField;
 @property (nonatomic, retain) IBOutlet UITextField *passwordField;
 @property (nonatomic, retain) IBOutlet UIButton *btnLogin;
+@property (nonatomic, retain) IBOutlet UIButton *btnUse;
 @property (nonatomic, retain) IBOutlet UIImageView *ivIsRecordAccount;
 @property (nonatomic, retain) IBOutlet UIButton *btnIsRecordAccount;
 @property (nonatomic, retain) IBOutlet UIImageView *ivIsAutoLogin;
@@ -26,6 +27,7 @@
 @property (nonatomic,assign) BOOL IsAutoLogin;
 
 -(IBAction)doLogin:(id)sender;
+-(IBAction)doUse:(id)sender;
 -(IBAction)resiginTextField:(id)sender;
 -(IBAction)touchIsRecordAccount:(id)sender;
 -(IBAction)touchIsAutoLogin:(id)sender;

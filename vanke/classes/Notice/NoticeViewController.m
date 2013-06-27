@@ -11,6 +11,8 @@
 #import "IndexViewController.h"
 #import "ChatViewController.h"
 #import "SettingViewController.h"
+#import "AFJSONRequestOperation.h"
+#import "NewsInfo.h"
 
 @interface NoticeViewController ()
 

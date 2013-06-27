@@ -20,6 +20,7 @@
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize btnLogin = _btnLogin;
+@synthesize btnUse = _btnUse;
 @synthesize ivIsRecordAccount = _ivIsRecordAccount;
 @synthesize btnIsAutoLogin = _btnIsAutoLogin;
 @synthesize ivIsAutoLogin = _ivIsAutoLogin;
@@ -157,6 +158,12 @@
     [autoLogin setUsername:tempusername];
     [autoLogin setPassword:temppassword];
     [autoLogin doAutoLogin];
+    
+}
+
+-(IBAction)doUse:(id)sender{
+    
+    NSLog(@"doUse...");
     
 }
 
