@@ -83,12 +83,24 @@
             runner.loginTime = [dict objectForKey:@"loginTime"];
             runner.addTime = [dict objectForKey:@"addTime"];
             runner.communityName = [PCommonUtil checkDataIsNull:[dict objectForKey:@"communityName"]];
-            runner.rank = [[dict objectForKey:@"rank"] intValue];
-            runner.mileage = [[dict objectForKey:@"mileage"] floatValue];
-            runner.minute = [[dict objectForKey:@"minute"] floatValue];
-            runner.speed = [[dict objectForKey:@"speed"] floatValue];
-            runner.calorie = [[dict objectForKey:@"calorie"] floatValue];
-            runner.energy = [[dict objectForKey:@"energy"] floatValue];
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"rank"]]) {
+                runner.rank = [[dict objectForKey:@"rank"] intValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"mileage"]]) {
+                runner.mileage = [[dict objectForKey:@"mileage"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"minute"]]) {
+                runner.minute = [[dict objectForKey:@"minute"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"speed"]]) {
+                runner.speed = [[dict objectForKey:@"speed"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"calorie"]]) {
+                runner.calorie = [[dict objectForKey:@"calorie"] floatValue];
+            }
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"energy"]]) {
+                runner.energy = [[dict objectForKey:@"energy"] floatValue];
+            }
             
             id tempruntimes = [PCommonUtil checkDataIsNull:[dict objectForKey:@"runTimes"]];
             if (tempruntimes) {

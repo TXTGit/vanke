@@ -78,10 +78,10 @@
         [btnAccept addTarget:self action:@selector(acceptInvit:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnAccept];
         
-        UIButton *btnReply = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 5, 49, 21)];
+        UIButton *btnReply = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 10, 49, 21)];
         [btnReply setTitle:@"拒绝" forState:UIControlStateNormal];
         [btnReply setBackgroundColor:[UIColor grayColor]];
-        [btnAccept addTarget:self action:@selector(rejectInvit:) forControlEvents:UIControlEventTouchUpInside];
+        [btnReply addTarget:self action:@selector(rejectInvite:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnReply];
         
         CGRect bgFrame = self.textBgImageView.frame;
@@ -119,6 +119,17 @@
             hud.removeFromSuperViewOnHide = YES;
             
             [hud hide:YES afterDelay:2];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -149,6 +160,17 @@
             hud.yOffset = 0.0f;
             hud.removeFromSuperViewOnHide = YES;
             
+            [hud hide:YES afterDelay:2];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:2];
         }
         

@@ -158,7 +158,7 @@
 -(void)getDefaultData{
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
-    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:memberid fromMemberID:tomemberid lastMsgId:_lastMessageId];
+    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:memberid fromMemberID:tomemberid lastMsgId:_lastMessageId page:1 rows:10];
     NSLog(@"msgList:%@",msgListUrl);
     NSURL *url = [NSURL URLWithString:msgListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -183,6 +183,17 @@
             if (datalistCount>0) {
                 [_chatTableView reloadData];
             }
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
         }
         
         [self performSelector:@selector(initData) withObject:nil afterDelay:5.0f];
@@ -216,6 +227,17 @@
 //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
 //            [chatViewController setChatType:chatTYpeInviteCheck];
 //            [self.navigationController pushViewController:chatViewController animated:YES];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -265,6 +287,17 @@
             }
             
             [_chatTableView reloadData];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -294,6 +327,17 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

@@ -419,6 +419,11 @@
     return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid];
 }
 
++(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid page:(NSInteger)page rows:(NSInteger)rows
+{
+    return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld&page=%d&rows=%d", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid,page,rows];
+}
+
 /*
  获取好友排名列表
  •	地址：
