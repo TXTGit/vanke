@@ -30,6 +30,8 @@
 		163BCDFD177C6F2F008656D1 /* NewsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BCDFC177C6F2F008656D1 /* NewsInfo.m */; };
 		163BCE00177C77CE008656D1 /* button_login_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFE177C77CE008656D1 /* button_login_27.png */; };
 		163BCE01177C77CE008656D1 /* button_use_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFF177C77CE008656D1 /* button_use_27.png */; };
+		163BCE04177C8044008656D1 /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BCE03177C8044008656D1 /* NoticeCell.m */; };
+		163BCE06177C8084008656D1 /* NoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163BCE05177C8084008656D1 /* NoticeCell.xib */; };
 		165ADFED1766B21D00B15416 /* PCommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFEC1766B21D00B15416 /* PCommonUtil.m */; };
 		165ADFF01766B55900B15416 /* RunUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFEF1766B55900B15416 /* RunUser.m */; };
 		165ADFF31766B5AC00B15416 /* UserSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFF21766B5AC00B15416 /* UserSessionManager.m */; };
@@ -359,6 +361,9 @@
 		163BCDFC177C6F2F008656D1 /* NewsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsInfo.m; sourceTree = "<group>"; };
 		163BCDFE177C77CE008656D1 /* button_login_27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_login_27.png; sourceTree = "<group>"; };
 		163BCDFF177C77CE008656D1 /* button_use_27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_use_27.png; sourceTree = "<group>"; };
+		163BCE02177C8044008656D1 /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
+		163BCE03177C8044008656D1 /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
+		163BCE05177C8084008656D1 /* NoticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeCell.xib; sourceTree = "<group>"; };
 		165ADFEA1766B20100B15416 /* VankeConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VankeConfig.h; sourceTree = "<group>"; };
 		165ADFEB1766B21D00B15416 /* PCommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCommonUtil.h; sourceTree = "<group>"; };
 		165ADFEC1766B21D00B15416 /* PCommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCommonUtil.m; sourceTree = "<group>"; };
@@ -1570,6 +1575,9 @@
 				16F1152F17661E2F00CC1D3B /* NoticeViewController.h */,
 				16F1153017661E2F00CC1D3B /* NoticeViewController.m */,
 				16F1153117661E2F00CC1D3B /* NoticeViewController.xib */,
+				163BCE02177C8044008656D1 /* NoticeCell.h */,
+				163BCE03177C8044008656D1 /* NoticeCell.m */,
+				163BCE05177C8084008656D1 /* NoticeCell.xib */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -1919,6 +1927,7 @@
 				1824031F1779D7A100A55B7F /* run_circle_menu_41.png in Resources */,
 				163BCE00177C77CE008656D1 /* button_login_27.png in Resources */,
 				163BCE01177C77CE008656D1 /* button_use_27.png in Resources */,
+				163BCE06177C8084008656D1 /* NoticeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2014,6 +2023,7 @@
 				1824030E1779B28C00A55B7F /* SinaWeiboAuthorizeView.m in Sources */,
 				1824030F1779B28C00A55B7F /* SinaWeiboRequest.m in Sources */,
 				163BCDFD177C6F2F008656D1 /* NewsInfo.m in Sources */,
+				163BCE04177C8044008656D1 /* NoticeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
