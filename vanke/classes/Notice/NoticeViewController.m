@@ -217,6 +217,7 @@
             for (int i=0; i<datalistCount; i++) {
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 NewsInfo *newsInfo = [NewsInfo initWithNSDictionary:dicrecord];
+                [_activityList addObject:newsInfo];
             }
             
             [_activityTableView reloadData];
