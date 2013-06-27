@@ -455,6 +455,36 @@
 }
 
 /*
+ 获取活动列表（2013-6-27）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getNewsList&page=1&rows=5
+ •	参数：
+ page：当前页数
+ rows：每页显示记录数
+ •	返回：
+ imgPath：图片文件夹路径
+ list：活动列表
+ */
++(NSString *)getGetActivitysListUrl:(int)page rows:(int)rows{
+    
+    return [NSString stringWithFormat:@"%@?type=getNewsList&page=%d&rows=%d", VANKE_DOMAIN, page, rows];
+}
+
+/*
+ 获取活动内容（2013-6-27）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getNews&newsID=2
+ •	参数：
+ newsID：活动ID
+ •	返回：
+ ent：活动实体
+ */
++(NSString *)getGetActivitysUrl:(int)activityid{
+    
+    return [NSString stringWithFormat:@"%@?type=getNews&newsID=%d", VANKE_DOMAIN, activityid];
+}
+
+/*
  长轮询通知接口
  •	地址：
  http://www.4000757888.com:880/comet.aspx?type=unread&memberID=23

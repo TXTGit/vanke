@@ -84,9 +84,8 @@
     NSLog(@"getUnreadUrl: %@", getUnreadUrl);
     
     NSURL *url = [NSURL URLWithString:getUnreadUrl];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60 * 30];
-//    [request setValue:@"1" forKey:@"keep-alive"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60 * 30];
+    [request setValue:@"1" forKey:@"keep-alive"];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"getUnreadDataFromServerByHttp success: %@", JSON);
         NSDictionary *dicResult = JSON;

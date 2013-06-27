@@ -11,12 +11,16 @@
 #import "MenuOfHeadView.h"
 #import "CustomWindow.h"
 
-@interface NoticeViewController : UIViewController
+@interface NoticeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
 @property (nonatomic, retain) MenuOfHeadView *menuOfHeadView;
 @property (nonatomic, retain) CustomWindow *menuOfCustomWindow;
+
+@property (nonatomic, retain) IBOutlet UITableView *activityTableView;
+
+@property (nonatomic, retain) NSMutableArray *activityList;
 
 -(void)doBack;
 -(void)touchMenuAction:(id)sender;
@@ -27,5 +31,8 @@
 -(void)touchNoticeAction:(id)sender;
 -(void)touchChatAction:(id)sender;
 -(void)touchSettingAction:(id)sender;
+
+-(void)initData;
+-(void)getActivitysListUrl:(int)page rows:(int)rows;
 
 @end

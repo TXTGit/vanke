@@ -99,6 +99,12 @@
 //获取社区排名列表（2013-6-17）
 +(NSString *)getGetCommunityRankListUrl:(NSString *)memberid rankType:(int)ranktype;
 
+//获取活动列表（2013-6-27）
++(NSString *)getGetActivitysListUrl:(int)page rows:(int)rows;
+
+//获取活动内容（2013-6-27）
++(NSString *)getGetActivitysUrl:(int)activityid;
+
 //长轮询通知接口（2013-6-17）
 +(NSString *)getUnreadUrl:(NSString *)memberid;
 
