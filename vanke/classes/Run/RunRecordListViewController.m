@@ -224,8 +224,15 @@
     
     RunRecord *record = [_recordList objectAtIndex:indexPath.row];
     
-    cell.lblCreateTime.text = [NSString stringWithFormat:@"%@", record.runTime];
-    cell.lblRunDistance.text = [NSString stringWithFormat:@"%.2f", record.mileage];
+    if (record.runTime && record.runTime.length > 11) {
+        NSString *tempRunTime = record.runTime;
+        
+        cell.lblCreateTime.text = [NSString stringWithFormat:@"%@ %@", [tempRunTime substringToIndex:10], [tempRunTime substringFromIndex:11]];
+    } else {
+        cell.lblCreateTime.text = [NSString stringWithFormat:@"%@", record.runTime];
+    }
+    
+    cell.lblRunDistance.text = [NSString stringWithFormat:@"%.2f km", record.mileage];
     cell.lblCalorie.text = [NSString stringWithFormat:@"%.2f", record.calorie];
     cell.lblSpead.text = [NSString stringWithFormat:@"%.2f", record.speed];
     
