@@ -328,9 +328,9 @@
     }
     
     if (indexPath.row < 3) {
-        cell.lblRank.textColor = [UIColor redColor];
-        cell.lblNickname.textColor = [UIColor redColor];
-        cell.lblEnergy.textColor = [UIColor redColor];
+        cell.lblRank.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+        cell.lblNickname.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+        cell.lblEnergy.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
     } else {
         cell.lblRank.textColor = [UIColor whiteColor];
         cell.lblNickname.textColor = [UIColor whiteColor];

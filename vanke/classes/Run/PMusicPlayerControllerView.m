@@ -79,7 +79,7 @@
         
         _sliderVolume = [[UISlider alloc] init];
         _sliderVolume.frame = CGRectMake(204, 71, 118, 23);
-        _sliderVolume.minimumTrackTintColor = [UIColor colorWithRed:249.0f/255.0f green:63.0f/255.0f blue:9.0f/255.0f alpha:1.0f];
+        _sliderVolume.minimumTrackTintColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
         _sliderVolume.maximumTrackTintColor = [UIColor grayColor];
         _sliderVolume.maximumValue = 1;
         _sliderVolume.minimumValue = 0;

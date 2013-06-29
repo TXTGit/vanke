@@ -74,14 +74,13 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //bg color
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     //
-    _broadView.frame = CGRectMake(0, -20, 320, 548+20);
+    _broadView.frame = CGRectMake(0, 0, 320, 548);
     
     _tempScroll = [[UIScrollView alloc] init];
-    _tempScroll.frame = CGRectMake(0, 0, 320, height);
-    _tempScroll.backgroundColor = [UIColor blackColor];
+    _tempScroll.frame = CGRectMake(0, -20, 320, height+20);
     _tempScroll.scrollEnabled = YES;
     _tempScroll.contentSize = CGSizeMake(320, 548);
     [_tempScroll addSubview:_broadView];
