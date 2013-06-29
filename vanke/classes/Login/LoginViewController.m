@@ -10,6 +10,8 @@
 #import "IndexViewController.h"
 #import "UIImage+PImageCategory.h"
 #import "RegisterViewController.h"
+#import "UserSessionManager.h"
+#import "BindViewController.h"
 
 @interface LoginViewController ()
 
@@ -206,10 +208,15 @@
 -(void)autoLoginSuccess{
     
     [_HUD setHidden:YES];
-    
-    IndexViewController *indexViewController = [[IndexViewController alloc] initWithNibName:@"IndexViewController" bundle:nil];
-    [self.navigationController pushViewController:indexViewController animated:YES];
-    
+    NSLog(@"communityid:%d",[UserSessionManager GetInstance].currentRunUser.communityid);
+    if ([UserSessionManager GetInstance].currentRunUser.communityid == 0) {
+        BindViewController *bindViewControll = [[BindViewController alloc]initWithNibName:@"BindViewController" bundle:nil];
+        [self.navigationController pushViewController:bindViewControll animated:YES];
+    }else{
+        IndexViewController *indexViewController = [[IndexViewController alloc] initWithNibName:@"IndexViewController" bundle:nil];
+        [self.navigationController pushViewController:indexViewController animated:YES];
+    }
+    [self.btnLogin setEnabled:YES];
 }
 
 -(IBAction)resiginTextField:(id)sender{

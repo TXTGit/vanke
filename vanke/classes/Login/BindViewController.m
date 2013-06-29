@@ -170,6 +170,7 @@
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    NSLog(@"communityListCount:%d",[_communityList count]);
     return [_communityList count];
 }
 
