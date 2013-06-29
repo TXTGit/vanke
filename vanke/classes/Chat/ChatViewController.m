@@ -311,6 +311,9 @@
 -(IBAction)doSend:(id)sender{
     
 //    NSLog(@"doSend: %@", _messageField.text);
+    if ([_messageField.text isEqualToString:@""]) {
+        return;
+    }
     
     NSString *msgText = _messageField.text;
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
@@ -420,11 +423,6 @@
     
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     _chatTableView.frame = CGRectMake(0, 0, 320, height - 210);
-    
-    NSIndexPath *lastRow = [NSIndexPath indexPathForRow:([_chatMessageList count]-1) inSection:0];
-    [_chatTableView scrollToRowAtIndexPath:lastRow
-                          atScrollPosition:UITableViewScrollPositionBottom
-                                  animated:YES];
 }
 
 -(IBAction)resiginTextField:(id)sender{
