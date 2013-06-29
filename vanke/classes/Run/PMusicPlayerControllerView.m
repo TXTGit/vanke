@@ -7,6 +7,8 @@
 //
 
 #import "PMusicPlayerControllerView.h"
+#import "UIImage+PImageCategory.h"
+#import "PCommonUtil.h"
 
 @implementation PMusicPlayerControllerView
 
@@ -53,9 +55,21 @@
         [self addSubview:_btnLast];
         
         //start
+        _startBgImageView = [[UIImageView alloc] init];
+        _startBgImageView.frame = CGRectMake(124, 0, 72, 72);
+        UIImage *startBgImage = [UIImage imageNamed:@"run_begin_black.png"];
+        _startBgImageView.image = startBgImage;
+        [self addSubview:_startBgImageView];
+        
+        _playProcessImageView = [[UIImageView alloc] init];
+        _playProcessImageView.frame = CGRectMake(128, 4, 65, 65);
+        UIImage *playProcessImage = [UIImage imageNamed:@"run_begin_yellow130_1.png"];
+        _playProcessImageView.image = playProcessImage;
+        [self addSubview:_playProcessImageView];
+        
         _btnStart = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnStart.frame = CGRectMake(124, 0, 72, 72);
-        UIImage *startImage = [UIImage imageNamed:@"run_begin.png"];
+        _btnStart.frame = CGRectMake(130, 7, 60, 60);
+        UIImage *startImage = [UIImage imageNamed:@"run_begin_29.png"];
         [_btnStart setImage:startImage forState:UIControlStateNormal];
         [self addSubview:_btnStart];
         
@@ -94,10 +108,20 @@
         _sliderMusicProcess.maximumTrackTintColor = [UIColor grayColor];
         [self addSubview:_sliderMusicProcess];
         
-        
-        
     }
     return self;
+}
+
+-(void)updatePlayingProcess:(float)playProcess{
+    
+    float width = 65.0f;
+    float height = 65.0f;
+    CGSize imageSize = CGSizeMake(width, height);
+    UIImage *circleProcess = [UIImage imageWithName:@"run_begin_yellow130_1" type:@"png"];
+    UIImage *processMask = [PCommonUtil getCircleProcessImageWithNoneAlpha:imageSize progress:playProcess];
+    UIImage *currentProcessImage = [PCommonUtil maskImage:circleProcess withImage:processMask];
+    _playProcessImageView.image = currentProcessImage;
+    
 }
 
 /*

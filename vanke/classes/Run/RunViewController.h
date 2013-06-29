@@ -51,6 +51,7 @@
 
 @property (nonatomic, assign) long nLastRecordTime;                                 //用于跑步分段时间
 
+@property (nonatomic, retain) IBOutlet UIImageView *runingDataBgImageView;          //跑步数据背景图
 @property (nonatomic, retain) IBOutlet UILabel *lblCalorie;
 @property (nonatomic, retain) IBOutlet UILabel *lblRunCount;
 @property (nonatomic, retain) IBOutlet UILabel *lblSpead;

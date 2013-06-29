@@ -13,6 +13,8 @@
 @property (nonatomic, retain) UIImageView *musicImageView;
 @property (nonatomic, retain) UIButton *btnMusic;
 @property (nonatomic, retain) UIButton *btnLast;
+@property (nonatomic, retain) UIImageView *startBgImageView;
+@property (nonatomic, retain) UIImageView *playProcessImageView;
 @property (nonatomic, retain) UIButton *btnStart;
 @property (nonatomic, retain) UIButton *btnNext;
 @property (nonatomic, retain) UIImageView *soundImaegView;
@@ -21,5 +23,6 @@
 @property (nonatomic, retain) UISlider *sliderMusicProcess;
 
 -(id)initMusicPlayerController:(CGRect)frame;
+-(void)updatePlayingProcess:(float)playProcess;
 
 @end

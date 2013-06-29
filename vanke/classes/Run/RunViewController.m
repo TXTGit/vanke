@@ -60,6 +60,7 @@
 
 @synthesize nLastRecordTime = _nLastRecordTime;
 
+@synthesize runingDataBgImageView = _runingDataBgImageView;
 @synthesize lblCalorie = _lblCalorie;
 @synthesize lblRunCount = _lblRunCount;
 @synthesize lblSpead = _lblSpead;
@@ -171,6 +172,7 @@
     [_musicPlayerControllerView.btnMusic addTarget:self action:@selector(pickerIPodLib) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.btnSound addTarget:self action:@selector(showVolume) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.sliderVolume addTarget:self action:@selector(volumeSet:) forControlEvents:UIControlEventValueChanged];
+    [_musicPlayerControllerView updatePlayingProcess:0.0f];//设置歌曲播放进度为0
     
     [self.view addSubview:_musicPlayerControllerView];
     
@@ -242,16 +244,21 @@
     
     if (!_isRunning) {
         _musicPlayerControllerView.hidden = YES;
+        //更新显示内容背景图片
+        _runingDataBgImageView.image = [UIImage imageWithName:@"run_his" type:@"png"];
+        
+        //刷新里程
+        _lblRunDistance.text = @"0.0";
+        
+        //圆盘进度
+        [self updateRunningProcessByDistance:1];
+        
     }
     
     //显示本地数据
     [self getTotalRunDistanceFromDatabase];
     [self getTotalRunCountFromDatabase];
     [self getTotalRuningSpeedFromDatabase];
-    //圆盘进度
-    [self updateRunningProcessByDistance:1];
-    //刷新里程
-    _lblRunDistance.text = @"0.0";
     
     //刷新一周记录
     [self getWeekRunRecordList];
@@ -675,6 +682,9 @@
             }
         }
         
+        //更新显示内容背景图片
+        _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
+        
         //处理底部菜单
         _isMenuOfBottomShowing = YES;
         [self touchCenterMenuOfBottom:nil];
@@ -753,6 +763,16 @@
 -(void)runningTimerFunction{
     
     @synchronized(_currentLocation){
+        
+        [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:NULL usingBlock:^(CMTime time) {
+            //获取当前时间
+            CMTime currentTime = _player.currentItem.currentTime;
+            //转成秒数
+            CGFloat currentPlayTime = (CGFloat)currentTime.value/currentTime.timescale;
+            float playProcess = _totalSongDuration / currentPlayTime;
+            [_musicPlayerControllerView updatePlayingProcess:playProcess];
+            
+        }];
         
         NSLog(@"--------------runningTimerFunction start--------------");
         
@@ -1004,6 +1024,8 @@
                 _totalSongDuration = totalTime.value / totalTime.timescale;
                 NSLog(@"_totalSongDuration: %f", _totalSongDuration);
                 
+                [_musicPlayerControllerView updatePlayingProcess:0.0f];
+                
             }
         }
     }
@@ -1037,6 +1059,8 @@
             //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+            
+            [_musicPlayerControllerView updatePlayingProcess:0.0f];
             
         }
     }
@@ -1072,6 +1096,8 @@
             //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+            
+            [_musicPlayerControllerView updatePlayingProcess:0.0f];
             
         }
     }
