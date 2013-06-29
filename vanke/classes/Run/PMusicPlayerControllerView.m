@@ -115,7 +115,7 @@
 -(void)updatePlayingProcess:(float)playProcess{
     
     if (playProcess < 0.1) {
-        playProcess = 0.1;
+        playProcess = 0.01;
     }
     
     float width = 65.0f;

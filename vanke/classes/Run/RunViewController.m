@@ -694,6 +694,10 @@
         
         //更新显示内容背景图片
         _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
+        //跑步时间
+        long currentRecordTime = [[NSDate date] timeIntervalSince1970];
+        long tempShowRunningTime = currentRecordTime - _nStartTime;
+        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
         
         //处理底部菜单
         _isMenuOfBottomShowing = YES;
