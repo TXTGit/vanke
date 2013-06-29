@@ -32,6 +32,8 @@
 @synthesize telField = _telField;
 @synthesize btnNext = _btnNext;
 
+@synthesize indicatorView = _indicatorView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -184,6 +186,8 @@
         return;
     }
     
+    [_indicatorView startAnimating];
+    
     NSString *registerUrl = [VankeAPI getRegisterUrl:runner.tel password:runner.password nickname:runner.nickname fullname:runner.fullname idCard:runner.idcard];
     NSLog(@"registerUrl:%@",registerUrl);
     NSURL *url = [NSURL URLWithString:registerUrl];
@@ -224,8 +228,14 @@
             [self.btnNext setEnabled:YES];
         }
         
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
     }];
     [operation start];
     

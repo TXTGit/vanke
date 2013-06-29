@@ -23,6 +23,8 @@
 @property (nonatomic, retain) IBOutlet UITextField *telField;
 @property (nonatomic, retain) IBOutlet UIButton *btnNext;
 
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicatorView;
+
 -(void)doBack;
 -(IBAction)resiginTextField:(id)sender;
 -(IBAction)doNext:(id)sender;
