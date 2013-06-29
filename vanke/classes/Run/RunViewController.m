@@ -463,6 +463,14 @@
             
             [_weekRunList removeAllObjects];
             
+            //当前时间
+            NSDate *nowDate = [NSDate date];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSString *strNowTime = [formatter stringFromDate:nowDate];
+            int nowWeekDay = [PCommonUtil getWeekFromTime:strNowTime];
+            NSLog(@"strNowTime: %@, nowWeekDay: %d", strNowTime, nowWeekDay);
+            
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
@@ -474,25 +482,60 @@
                     int tempweek = [PCommonUtil getWeekFromTime:runInfoOfWeek.beginTime];
                     switch (tempweek) {
                         case 1:
+                        {
                             _lblSunday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 1) {
+                                _lblSunday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 2:
+                        {
                             _lblMonday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 2) {
+                                _lblMonday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 3:
+                        {
                             _lblTuesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 3) {
+                                _lblTuesday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 4:
+                        {
                             _lblWednesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 4) {
+                                _lblWednesday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 5:
+                        {
                             _lblThursday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 5) {
+                                _lblThursday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 6:
+                        {
                             _lblFriday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 6) {
+                                _lblFriday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                         case 7:
+                        {
                             _lblSaturday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
+                            if (nowWeekDay >= 7) {
+                                _lblSaturday.textColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
+                            }
+                        }
                             break;
                             
                         default:
