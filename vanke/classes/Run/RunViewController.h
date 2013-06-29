@@ -20,7 +20,7 @@
 #import "PMusicPlayerControllerView.h"
 #import "PDropdownMenuView.h"
 
-@interface RunViewController : UIViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate>
+@interface RunViewController : UIViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 
@@ -88,6 +88,8 @@
 @property (nonatomic, assign) CGFloat totalSongDuration;
 
 @property (nonatomic, retain) NSMutableArray *weekRunList;
+
+-(void)firstEnterRunningShowTip;
 
 -(void)initLocalDatabase;
 
