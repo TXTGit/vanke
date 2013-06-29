@@ -77,17 +77,18 @@
     self.view.backgroundColor = [UIColor clearColor];
     
     //
-    _broadView.frame = CGRectMake(0, 0, 320, 548);
+    _broadView.frame = CGRectMake(0, -20, 320, 548+20);
     
     _tempScroll = [[UIScrollView alloc] init];
     _tempScroll.frame = CGRectMake(0, 0, 320, height);
+    _tempScroll.backgroundColor = [UIColor blackColor];
     _tempScroll.scrollEnabled = YES;
     _tempScroll.contentSize = CGSizeMake(320, 548);
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"任务列表" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"夺宝" bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
@@ -95,10 +96,10 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-//    [_navView.rightButton setHidden:NO];
-//    
+    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setHidden:NO];
+    
 //    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
 //    [_navView.messageTipImageView setImage:messageTip];
 //    [_navView.messageTipImageView setHidden:NO];
