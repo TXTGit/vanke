@@ -23,6 +23,7 @@
 #import "AFHTTPClient.h"
 #import "PCommonUtil.h"
 #import "VankeConfig.h"
+#import "LoginViewController.h"
 
 @interface SettingViewController ()
 
@@ -56,6 +57,8 @@
 
 @synthesize btnSina = _btnSina;
 @synthesize btnTel = _btnTel;
+@synthesize logoutImageView = _logoutImageView;
+@synthesize btnLogout = _btnLogout;
 
 @synthesize memberid = _memberid;
 
@@ -80,12 +83,12 @@
     [bgImageView setImage:[UIImage imageWithName:@"setting_bg" type:@"png"]];
     [self.view addSubview:bgImageView];
     
-    _broadView.frame = CGRectMake(0, 0, 320, 548);
+    _broadView.frame = CGRectMake(0, 0, 320, 588);
     
     _tempScroll = [[UIScrollView alloc] init];
     _tempScroll.frame = CGRectMake(0, 0, 320, height);
     _tempScroll.scrollEnabled = YES;
-    _tempScroll.contentSize = CGSizeMake(320, 548);
+    _tempScroll.contentSize = CGSizeMake(320, 588);
     _tempScroll.delegate = self;
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
@@ -187,6 +190,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    if ([UserSessionManager GetInstance].isLoggedIn) {
+        //已登陆
+        
+    }
+    
 }
 
 -(void)initData{
@@ -406,6 +420,18 @@
 -(IBAction)doTel:(id)sender{
     
     NSLog(@"doTel...");
+    
+}
+
+-(IBAction)doLogout:(id)sender{
+    
+    NSLog(@"doLogout...");
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:NO forKey:@"IsAutoLogin"];
+    
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    [self.navigationController pushViewController:loginViewController animated:YES];
     
 }
 

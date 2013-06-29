@@ -41,6 +41,8 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *btnSina;                //
 @property (nonatomic, retain) IBOutlet UIButton *btnTel;                 //
+@property (nonatomic, retain) IBOutlet UIImageView *logoutImageView;
+@property (nonatomic, retain) IBOutlet UIButton *btnLogout;              //
 
 @property (nonatomic, assign) long memberid;
 @property (nonatomic, retain) RunUser *runner;
@@ -56,6 +58,7 @@
 
 -(IBAction)doSina:(id)sender;
 -(IBAction)doTel:(id)sender;
+-(IBAction)doLogout:(id)sender;
 
 -(IBAction)resiginTextField:(id)sender;
 

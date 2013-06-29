@@ -588,7 +588,7 @@
 						<string key="NSFrame">{{13, 486}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="404727622"/>
+						<reference key="NSNextKeyView" ref="237348455"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -608,55 +608,36 @@
 						<reference key="IBUIFontDescription" ref="761166104"/>
 						<reference key="IBUIFont" ref="160177024"/>
 					</object>
-					<object class="IBUIButton" id="404727622">
+					<object class="IBUIButton" id="237348455">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{13, 534}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="704214009"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Button</string>
+						<string key="IBUINormalTitle">           退出登陆</string>
 						<reference key="IBUIHighlightedTitleColor" ref="919576795"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="648942936"/>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">setting_btn_arrow.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="761166104"/>
-						<reference key="IBUIFont" ref="160177024"/>
-					</object>
-					<object class="IBUILabel" id="704214009">
-						<reference key="NSNextResponder" ref="1039775317"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{51, 543}, {186, 21}}</string>
-						<reference key="NSSuperview" ref="1039775317"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">7</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">退出登陆</string>
-						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
-						<nil key="IBUIHighlightedColor"/>
-						<int key="IBUIBaselineAdjustment">0</int>
-						<reference key="IBUIFontDescription" ref="727666731"/>
-						<reference key="IBUIFont" ref="658311388"/>
-						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+						<reference key="IBUINormalTitleShadowColor" ref="648942936"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">setting_btn_arrow.png</string>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">2</int>
+							<double key="pointSize">13</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">13</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 588}</string>
@@ -840,6 +821,14 @@
 					<int key="connectionID">79</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btnLogout</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="237348455"/>
+					</object>
+					<int key="connectionID">91</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">doTel:</string>
 						<reference key="source" ref="808901780"/>
@@ -933,6 +922,15 @@
 					</object>
 					<int key="connectionID">78</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doLogout:</string>
+						<reference key="source" ref="237348455"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">92</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -988,8 +986,7 @@
 							<reference ref="215625799"/>
 							<reference ref="808901780"/>
 							<reference ref="649985797"/>
-							<reference ref="404727622"/>
-							<reference ref="704214009"/>
+							<reference ref="237348455"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1119,13 +1116,8 @@
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">81</int>
-						<reference key="object" ref="404727622"/>
-						<reference key="parent" ref="1039775317"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">82</int>
-						<reference key="object" ref="704214009"/>
+						<int key="objectID">86</int>
+						<reference key="object" ref="237348455"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 				</array>
@@ -1163,14 +1155,13 @@
 				<string key="77.CustomClassName">EGOImageButton</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">82</int>
+			<int key="maxID">92</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1189,6 +1180,8 @@
 						<string key="doDuiHuan:">id</string>
 						<string key="doDuoBao:">id</string>
 						<string key="doJiFen:">id</string>
+						<string key="doLogout:">id</string>
+						<string key="doSelectHeadImg:">id</string>
 						<string key="doSina:">id</string>
 						<string key="doTel:">id</string>
 						<string key="resiginTextField:">id</string>
@@ -1204,6 +1197,14 @@
 						</object>
 						<object class="IBActionInfo" key="doJiFen:">
 							<string key="name">doJiFen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doLogout:">
+							<string key="name">doLogout:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doSelectHeadImg:">
+							<string key="name">doSelectHeadImg:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doSina:">
@@ -1228,6 +1229,7 @@
 						<string key="btnDuoBao">UIButton</string>
 						<string key="btnHeadImg">EGOImageButton</string>
 						<string key="btnJiFen">UIButton</string>
+						<string key="btnLogout">UIButton</string>
 						<string key="btnSina">UIButton</string>
 						<string key="btnTel">UIButton</string>
 						<string key="lblDeFen">UILabel</string>
@@ -1236,6 +1238,7 @@
 						<string key="lblMingCi">UILabel</string>
 						<string key="lblNengLiang">UILabel</string>
 						<string key="lblTotalDistance">UILabel</string>
+						<string key="logoutImageView">UIImageView</string>
 						<string key="tallField">UITextField</string>
 						<string key="telField">UITextField</string>
 						<string key="weightField">UITextField</string>
@@ -1273,6 +1276,10 @@
 							<string key="name">btnJiFen</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="btnLogout">
+							<string key="name">btnLogout</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="btnSina">
 							<string key="name">btnSina</string>
 							<string key="candidateClassName">UIButton</string>
@@ -1304,6 +1311,10 @@
 						<object class="IBToOneOutletInfo" key="lblTotalDistance">
 							<string key="name">lblTotalDistance</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="logoutImageView">
+							<string key="name">logoutImageView</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tallField">
 							<string key="name">tallField</string>
