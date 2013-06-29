@@ -240,6 +240,10 @@
         [self.ivIsRecordAccount setImage:[UIImage imageWithName:@"login_checked" type:@"png"]];
     }
     IsRemember = !IsRemember;
+    NSLog(@"IsRemember: %d", IsRemember);
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:IsRemember forKey:@"IsRemember"];
+    [ud synchronize];
 }
 
 -(IBAction)touchIsAutoLogin:(id)sender{
@@ -252,6 +256,9 @@
         }
     }
     IsAutoLogin = !IsAutoLogin;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:IsAutoLogin forKey:@"IsAutoLogin"];
+    [ud synchronize];
 }
 
 -(IBAction)touchCreateAccount:(id)sender{
