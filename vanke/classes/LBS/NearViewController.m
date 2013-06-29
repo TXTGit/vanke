@@ -257,7 +257,7 @@
     if ([PCommonUtil checkDataIsNull:nearfriend.nickName]) {
         cell.lblNickname.text = nearfriend.nickName;
     }
-    cell.lblNearDistance.text = [NSString stringWithFormat:@"%ld", nearfriend.distance];
+    cell.lblNearDistance.text = [NSString stringWithFormat:@"%ld M", nearfriend.distance];
     if (nearfriend.isFan) {
         cell.isFriendImageView.hidden = NO;
     } else {
