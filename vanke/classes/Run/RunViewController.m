@@ -144,9 +144,10 @@
     tapViewForMenu.cancelsTouchesInView = NO;
     [transparentByForMenu addGestureRecognizer:tapViewForMenu];
     
-    NSArray *menuOfHeadNibContents = [[NSBundle mainBundle] loadNibNamed:@"MenuOfHead" owner:nil options:nil];
-    _menuOfHeadView = (MenuOfHeadView *)[menuOfHeadNibContents objectAtIndex:0];
-    _menuOfHeadView.frame = CGRectMake(270, 70, 57, 210);
+//    NSArray *menuOfHeadNibContents = [[NSBundle mainBundle] loadNibNamed:@"MenuOfHead" owner:nil options:nil];
+//    _menuOfHeadView = (MenuOfHeadView *)[menuOfHeadNibContents objectAtIndex:0];
+//    _menuOfHeadView.frame = CGRectMake(270, 70, 57, 210);
+    _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
     [transparentByForMenu addSubview:_menuOfHeadView];
     _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
     

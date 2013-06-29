@@ -13,12 +13,20 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "VankeConfig.h"
+#import "NoticeViewController.h"
+#import "ChatViewController.h"
+#import "SettingViewController.h"
 
 @interface IndexViewController ()
 
 @end
 
 @implementation IndexViewController
+
+@synthesize navView = _navView;
+
+@synthesize menuOfHeadView = _menuOfHeadView;
+@synthesize menuOfCustomWindow = _menuOfCustomWindow;
 
 @synthesize btnIndexRun = _btnIndexRun;
 @synthesize btnIndexVanke = _btnIndexVanke;
@@ -38,17 +46,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    float height = [UIScreen mainScreen].bounds.size.height - 20;
+    
     //nav bar
     _navView = [[PCustomNavigationBarView alloc] initWithTitle:[UserSessionManager GetInstance].currentRunUser.nickname bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
-//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-//    [_navView.rightButton setHidden:NO];
+    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-//    [_navView.messageTipImageView setImage:messageTip];
+    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+    [_navView.messageTipImageView setImage:messageTip];
 //    [_navView.messageTipImageView setHidden:NO];
+    
+    //menu of head
+    UIView *transparentByForMenu = [[UIView alloc] init];
+    transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
+    UITapGestureRecognizer *tapViewForMenu = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchOutOfMenuAction:)];
+    tapViewForMenu.cancelsTouchesInView = NO;
+    [transparentByForMenu addGestureRecognizer:tapViewForMenu];
+    
+    _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
+    [transparentByForMenu addSubview:_menuOfHeadView];
+    _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
+    
+    //menu of head 1
+    [_menuOfHeadView.btnMenu1 addTarget:self action:@selector(touchHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu2 addTarget:self action:@selector(touchChatAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu3 addTarget:self action:@selector(touchNoticeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu4 addTarget:self action:@selector(touchSettingAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //
 //    [self getUnreadDataFromServerByHttp];
@@ -61,6 +89,91 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)touchMenuAction:(id)sender{
+    
+    NSLog(@"touchMenuAction...");
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        _menuOfHeadView.hidden = NO;
+        _menuOfHeadView.alpha = 1.0f;
+        _menuOfHeadView.btnMenu1.alpha = 1.0f;
+        _menuOfHeadView.btnMenu2.alpha = 1.0f;
+        _menuOfHeadView.btnMenu3.alpha = 1.0f;
+        _menuOfHeadView.btnMenu4.alpha = 1.0f;
+        CGRect menuframe = _menuOfHeadView.frame;
+        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
+        
+        [_menuOfCustomWindow show];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+
+-(void)touchOutOfMenuAction:(id)sender{
+    
+    NSLog(@"touchOutOfMenuAction...");
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        _menuOfHeadView.alpha = 0.0f;
+        _menuOfHeadView.btnMenu1.alpha = 0.0f;
+        _menuOfHeadView.btnMenu2.alpha = 0.0f;
+        _menuOfHeadView.btnMenu3.alpha = 0.0f;
+        _menuOfHeadView.btnMenu4.alpha = 0.0f;
+        CGRect menuframe = _menuOfHeadView.frame;
+        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        _menuOfCustomWindow.hidden = YES;
+        _menuOfHeadView.hidden = YES;
+        [_menuOfCustomWindow close];
+        
+    }];
+    
+}
+
+-(void)touchHomeAction:(id)sender{
+    
+    NSLog(@"touchHomeAction...");
+    
+}
+
+-(void)touchNoticeAction:(id)sender{
+    
+    NSLog(@"touchNoticeAction...");
+    
+    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
+    [self.navigationController pushViewController:noticeViewController animated:YES];
+    
+}
+
+-(void)touchChatAction:(id)sender{
+    
+    NSLog(@"touchChatAction...");
+    
+    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+    [chatViewController setChatType:chatTypeDefault];
+    [self.navigationController pushViewController:chatViewController animated:YES];
+    
+}
+
+-(void)touchSettingAction:(id)sender{
+    
+    NSLog(@"touchSettingAction...");
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+    [settingViewController setMemberid:[memberid longLongValue]];
+    [self.navigationController pushViewController:settingViewController animated:YES];
+    
+}
+
+//
 
 -(IBAction)doIndexRun:(id)sender{
     
@@ -84,8 +197,9 @@
     NSLog(@"getUnreadUrl: %@", getUnreadUrl);
     
     NSURL *url = [NSURL URLWithString:getUnreadUrl];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60 * 30];
-    [request setValue:@"1" forKey:@"keep-alive"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:60 * 30];
+    [request setValue:@"wsdl2objc" forHTTPHeaderField:@"User-Agent"];
+    [request setValue:url.host forHTTPHeaderField:@"Host"];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"getUnreadDataFromServerByHttp success: %@", JSON);
         NSDictionary *dicResult = JSON;

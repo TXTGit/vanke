@@ -18,6 +18,7 @@
 #import "BMapKit.h"
 #import "OBShapedButton.h"
 #import "PMusicPlayerControllerView.h"
+#import "PDropdownMenuView.h"
 
 @interface RunViewController : UIViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate>
 
@@ -25,7 +26,8 @@
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
-@property (nonatomic, retain) MenuOfHeadView *menuOfHeadView;
+//@property (nonatomic, retain) MenuOfHeadView *menuOfHeadView;
+@property (nonatomic, retain) PDropdownMenuView *menuOfHeadView;
 @property (nonatomic, retain) CustomWindow *menuOfCustomWindow;
 
 @property (nonatomic, retain) IBOutlet UIView *runMenuView;
