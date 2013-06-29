@@ -27,6 +27,7 @@
 		16164665176C132000349EAD /* BusPointCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16164664176C132000349EAD /* BusPointCell.xib */; };
 		16164667176C319700349EAD /* task_gift_has_done.png in Resources */ = {isa = PBXBuildFile; fileRef = 16164666176C319700349EAD /* task_gift_has_done.png */; };
 		16164678176C616600349EAD /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 16164677176C616600349EAD /* Song.m */; };
+		161F78C4177E768A003C2A6A /* run_user_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 161F78C3177E768A003C2A6A /* run_user_pic.png */; };
 		163BCDFD177C6F2F008656D1 /* NewsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BCDFC177C6F2F008656D1 /* NewsInfo.m */; };
 		163BCE00177C77CE008656D1 /* button_login_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFE177C77CE008656D1 /* button_login_27.png */; };
 		163BCE01177C77CE008656D1 /* button_use_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFF177C77CE008656D1 /* button_use_27.png */; };
@@ -358,6 +359,7 @@
 		16164666176C319700349EAD /* task_gift_has_done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = task_gift_has_done.png; sourceTree = "<group>"; };
 		16164676176C616600349EAD /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
 		16164677176C616600349EAD /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		161F78C3177E768A003C2A6A /* run_user_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run_user_pic.png; sourceTree = "<group>"; };
 		163BCDFB177C6F2F008656D1 /* NewsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsInfo.h; sourceTree = "<group>"; };
 		163BCDFC177C6F2F008656D1 /* NewsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsInfo.m; sourceTree = "<group>"; };
 		163BCDFE177C77CE008656D1 /* button_login_27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_login_27.png; sourceTree = "<group>"; };
@@ -1362,6 +1364,7 @@
 		165C8FF21764E93900DEF452 /* Run */ = {
 			isa = PBXGroup;
 			children = (
+				161F78C3177E768A003C2A6A /* run_user_pic.png */,
 				160DAC82176ACB030016F0F5 /* circle_process.png */,
 				165AE0351766FA6800B15416 /* run_record_cell_bg.png */,
 				16F114961765BE8B00CC1D3B /* dropdown_menu */,
@@ -1933,6 +1936,7 @@
 				163BCE00177C77CE008656D1 /* button_login_27.png in Resources */,
 				163BCE01177C77CE008656D1 /* button_use_27.png in Resources */,
 				163BCE06177C8084008656D1 /* NoticeCell.xib in Resources */,
+				161F78C4177E768A003C2A6A /* run_user_pic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2106,8 +2110,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2125,8 +2129,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2135,8 +2139,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2154,8 +2158,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

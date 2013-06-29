@@ -67,6 +67,9 @@
             if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"weight"]]) {
                 runner.weight = [[dict objectForKey:@"weight"] floatValue];
             }
+            if (runner.weight < 10) {
+                runner.weight = 60;//如果小于10kg，默认修改为60kg
+            }
             if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"height"]]) {
                 runner.tall = [[dict objectForKey:@"height"] floatValue];
             }
