@@ -17,6 +17,9 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "IndexViewController.h"
+#import "NoticeViewController.h"
+#import "ChatViewController.h"
+#import "SettingViewController.h"
 
 @interface RunRecordListViewController ()
 
@@ -25,6 +28,9 @@
 @implementation RunRecordListViewController
 
 @synthesize navView = _navView;
+@synthesize menuOfHeadView = _menuOfHeadView;
+@synthesize menuOfCustomWindow = _menuOfCustomWindow;
+
 @synthesize runRecordTableView = _runRecordTableView;
 @synthesize indicatorView = _indicatorView;
 
@@ -60,13 +66,31 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-//    [_navView.rightButton setHidden:NO];
-//    
-//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-//    [_navView.messageTipImageView setImage:messageTip];
+    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setHidden:NO];
+//    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+    [_navView.messageTipImageView setImage:messageTip];
 //    [_navView.messageTipImageView setHidden:NO];
+    
+    //menu of head
+    UIView *transparentByForMenu = [[UIView alloc] init];
+    transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
+    UITapGestureRecognizer *tapViewForMenu = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchOutOfMenuAction:)];
+    tapViewForMenu.cancelsTouchesInView = NO;
+    [transparentByForMenu addGestureRecognizer:tapViewForMenu];
+    
+    _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
+    [transparentByForMenu addSubview:_menuOfHeadView];
+    _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
+    
+    //menu of head 1
+    [_menuOfHeadView.btnMenu1 addTarget:self action:@selector(touchHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu2 addTarget:self action:@selector(touchChatAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu3 addTarget:self action:@selector(touchNoticeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_menuOfHeadView.btnMenu4 addTarget:self action:@selector(touchSettingAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
@@ -90,6 +114,91 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)touchMenuAction:(id)sender{
+    
+    NSLog(@"touchMenuAction...");
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        _menuOfHeadView.hidden = NO;
+        _menuOfHeadView.alpha = 1.0f;
+        _menuOfHeadView.btnMenu1.alpha = 1.0f;
+        _menuOfHeadView.btnMenu2.alpha = 1.0f;
+        _menuOfHeadView.btnMenu3.alpha = 1.0f;
+        _menuOfHeadView.btnMenu4.alpha = 1.0f;
+        CGRect menuframe = _menuOfHeadView.frame;
+        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
+        
+        [_menuOfCustomWindow show];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+
+-(void)touchOutOfMenuAction:(id)sender{
+    
+    NSLog(@"touchOutOfMenuAction...");
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        _menuOfHeadView.alpha = 0.0f;
+        _menuOfHeadView.btnMenu1.alpha = 0.0f;
+        _menuOfHeadView.btnMenu2.alpha = 0.0f;
+        _menuOfHeadView.btnMenu3.alpha = 0.0f;
+        _menuOfHeadView.btnMenu4.alpha = 0.0f;
+        CGRect menuframe = _menuOfHeadView.frame;
+        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        _menuOfCustomWindow.hidden = YES;
+        _menuOfHeadView.hidden = YES;
+        [_menuOfCustomWindow close];
+        
+    }];
+    
+}
+
+-(void)touchHomeAction:(id)sender{
+    
+    NSLog(@"touchHomeAction...");
+    
+}
+
+-(void)touchNoticeAction:(id)sender{
+    
+    NSLog(@"touchNoticeAction...");
+    
+    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
+    [self.navigationController pushViewController:noticeViewController animated:YES];
+    
+}
+
+-(void)touchChatAction:(id)sender{
+    
+    NSLog(@"touchChatAction...");
+    
+    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+    [chatViewController setChatType:chatTypeDefault];
+    [self.navigationController pushViewController:chatViewController animated:YES];
+    
+}
+
+-(void)touchSettingAction:(id)sender{
+    
+    NSLog(@"touchSettingAction...");
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+    [settingViewController setMemberid:[memberid longLongValue]];
+    [self.navigationController pushViewController:settingViewController animated:YES];
+    
+}
+
+//
 
 -(void)initData{
     

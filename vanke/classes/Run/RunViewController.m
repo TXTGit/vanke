@@ -415,6 +415,8 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+            [_weekRunList removeAllObjects];
+            
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
@@ -456,7 +458,6 @@
                 [_weekRunList addObject:runInfoOfWeek];
             }
             
-//            [self doUpdateWeekData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -474,58 +475,6 @@
         NSLog(@"failure: %@", error);
     }];
     [operation start];
-    
-}
-
--(void)doUpdateWeekData{
-    
-    int weekRunListCount = [_weekRunList count];
-    for (int i=0; i<weekRunListCount; i++) {
-        RunInfoOfWeek *runInfoOfWeek = [_weekRunList objectAtIndex:i];
-        
-        if (runInfoOfWeek.beginTime) {
-            
-            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-            NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyy-MM-dd"];
-            NSDate *tempdate = [formatter dateFromString:runInfoOfWeek.beginTime];
-            NSDateComponents *comps = [calendar components:unitFlags fromDate:tempdate];
-            NSInteger week = comps.weekday;
-            NSLog(@"week: %d", week);
-            
-            int tempweek = [PCommonUtil getWeekFromTime:runInfoOfWeek.beginTime];
-            switch (tempweek) {
-                case 1:
-                    _lblMonday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 2:
-                    _lblTuesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 3:
-                    _lblWednesday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 4:
-                    _lblThursday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 5:
-                    _lblFriday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 6:
-                    _lblSaturday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                case 7:
-                    _lblSunday.text = [NSString stringWithFormat:@"%.1fkm", runInfoOfWeek.mileage];
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-        }
-        
-    }
     
 }
 
