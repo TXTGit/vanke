@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString *sendTime;
 @property (nonatomic, retain) NSString *receiveTime;
 @property (nonatomic, retain) NSString *inviteID;
+@property (nonatomic, assign) int isRead;
+@property (nonatomic, retain) NSString *readTime;
 
 +(ChatMessage *)initWithNSDictionary:(NSDictionary *)dict;
 

@@ -7,6 +7,7 @@
 //
 
 #import "ChatMessage.h"
+#import "PCommonUtil.h"
 
 @implementation ChatMessage
 
@@ -18,6 +19,8 @@
 @synthesize sendTime = _sendTime;
 @synthesize receiveTime = _receiveTime;
 @synthesize inviteID = _inviteID;
+@synthesize isRead = _isRead;
+@synthesize readTime = _readTime;
 
 +(ChatMessage *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -29,11 +32,13 @@
             chatmessage.msgID = [[dict objectForKey:@"msgID"] longValue];
             chatmessage.fromMemberID = [[dict objectForKey:@"fromMemberID"] longValue];
             chatmessage.memberID = [[dict objectForKey:@"memberID"] longValue];
-            chatmessage.msgText = [dict objectForKey:@"msgText"];
+            chatmessage.msgText = [PCommonUtil checkDataIsNull:[dict objectForKey:@"msgText"]];
             chatmessage.isReceive = [[dict objectForKey:@"isReceive"] intValue];
             chatmessage.sendTime = [dict objectForKey:@"sendTime"];
             chatmessage.receiveTime = [dict objectForKey:@"receiveTime"];
             chatmessage.inviteID = [dict objectForKey:@"inviteID"];
+            chatmessage.isRead = [[dict objectForKey:@"isRead"] intValue];
+            chatmessage.readTime = [PCommonUtil checkDataIsNull:[dict objectForKey:@"readTime"]];
         }
     }
     @catch (NSException *exception) {
