@@ -175,8 +175,9 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-                [_chatMessageList addObject:chatmessage];
-                if (i == datalistCount - 1) {
+//                [_chatMessageList addObject:chatmessage];
+                [_chatMessageList insertObject:chatmessage atIndex:0];
+                if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
                 }
             }
@@ -279,9 +280,10 @@
 //                chatmessage.fromMemberID = [[dicrecord objectForKey:@"memberID"] longValue];
 //                chatmessage.memberID = [[dicrecord objectForKey:@"fromMemberID"] longValue];
                 chatmessage.msgText = [NSString stringWithFormat:@"来自%@的邀请：%@",[dicrecord objectForKey:@"fromNickName"],[dicrecord objectForKey:@"inviteText"]];
-                NSLog(@"chatMessageRecord:%@",dicrecord);
-                [_chatMessageList addObject:chatmessage];
-                if (i == datalistCount - 1) {
+//                NSLog(@"chatMessageRecord:%@",dicrecord);
+//                [_chatMessageList addObject:chatmessage];
+                [_chatMessageList insertObject:chatmessage atIndex:0];
+                if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
                 }
             }
@@ -355,6 +357,12 @@
     chatmessage.fromMemberID = (long)tomemberid;
     [_chatMessageList addObject:chatmessage];
     [_chatTableView reloadData];
+//    NSIndexPath *indexPath = [[NSIndexPath alloc]initWithIndex:[_chatMessageList count]-1];
+//    [_chatTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    NSIndexPath *lastRow = [NSIndexPath indexPathForRow:([_chatMessageList count]-1) inSection:0];
+    [_chatTableView scrollToRowAtIndexPath:lastRow
+                                atScrollPosition:UITableViewScrollPositionBottom
+                                        animated:YES];
     
     //发送后清理
     _messageField.text = @"";
@@ -403,9 +411,25 @@
     [_messageField resignFirstResponder];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+//}
+#pragma textfield delegate
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    float height = [UIScreen mainScreen].bounds.size.height - 20;
+    _chatTableView.frame = CGRectMake(0, 0, 320, height - 210);
+    
+    NSIndexPath *lastRow = [NSIndexPath indexPathForRow:([_chatMessageList count]-1) inSection:0];
+    [_chatTableView scrollToRowAtIndexPath:lastRow
+                          atScrollPosition:UITableViewScrollPositionBottom
+                                  animated:YES];
+}
+
+-(IBAction)resiginTextField:(id)sender{
+    float height = [UIScreen mainScreen].bounds.size.height - 20;
+    _chatTableView.frame = CGRectMake(0, 20, 320, height);
 }
 
 #pragma mark -

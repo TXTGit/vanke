@@ -28,8 +28,6 @@
 @synthesize ivIsAutoLogin = _ivIsAutoLogin;
 @synthesize btnIsRecordAccount = _btnIsRecordAccount;
 @synthesize btnCreateAccount = _btnCreateAccount;
-@synthesize IsAutoLogin;
-@synthesize IsRemember;
 
 @synthesize HUD = _HUD;
 

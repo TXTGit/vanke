@@ -11,6 +11,10 @@
 #import "MBProgressHUD.h"
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate, AutoLoginDelegate, MBProgressHUDDelegate>
+{
+    BOOL IsRemember;
+    BOOL IsAutoLogin;
+}
 
 @property (nonatomic, retain) IBOutlet UITextField *usernameField;
 @property (nonatomic, retain) IBOutlet UITextField *passwordField;
@@ -23,8 +27,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnCreateAccount;
 
 @property (nonatomic, retain) MBProgressHUD *HUD;
-@property (nonatomic,assign) BOOL IsRemember;
-@property (nonatomic,assign) BOOL IsAutoLogin;
 
 -(IBAction)doLogin:(id)sender;
 -(IBAction)doUse:(id)sender;

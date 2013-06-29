@@ -285,8 +285,7 @@
  list：跑友列表，字段isFan为1代表好友，字段distance代表距离，单位米
  */
 +(NSString *)getLbsCommunityList:(NSString *)memberid communityID:(int)communityid gpsData:(NSString *)gps radius:(long)radius{
-    
-    return [NSString stringWithFormat:@"%@?type=getLbsCommunityList&memberID=%@&communityID=%d&gps=%@&radius=%ld", VANKE_DOMAIN, memberid, communityid, gps, radius];
+    return [NSString stringWithFormat:@"%@?type=getCommunityLbsList&memberID=%@&communityID=%d&gps=%@&radius=%ld", VANKE_DOMAIN, memberid, communityid, gps, radius];
 }
 
 /*
@@ -421,7 +420,7 @@
 
 +(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid page:(NSInteger)page rows:(NSInteger)rows
 {
-    return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld&page=%d&rows=%d", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid,page,rows];
+    return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid];
 }
 
 /*
