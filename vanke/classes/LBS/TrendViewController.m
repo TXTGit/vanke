@@ -49,9 +49,9 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIImage *indexHeadBg = [UIImage imageWithName:@"run_share" type:@"png"];
-//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-//    [_navView.rightButton setHidden:NO];
+    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setHidden:NO];
     
     //bg
     float height = [UIScreen mainScreen].bounds.size.height - 20;

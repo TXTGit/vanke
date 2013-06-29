@@ -68,6 +68,10 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
+    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setHidden:NO];
+    
     //current show data
     [self updateCurrentArraw];
     
