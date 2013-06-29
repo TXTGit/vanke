@@ -253,11 +253,21 @@
         //圆盘进度
         [self updateRunningProcessByDistance:1];
         
+        //未跑步时，显示跑步次数
+        [self getTotalRunCountFromDatabase];
+    } else {
+        
+        //更新显示内容背景图片
+        _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
+        //跑步时间
+        long currentRecordTime = [[NSDate date] timeIntervalSince1970];
+        long tempShowRunningTime = currentRecordTime - _nStartTime;
+        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
     }
     
     //显示本地数据
     [self getTotalRunDistanceFromDatabase];
-    [self getTotalRunCountFromDatabase];
+    
     [self getTotalRuningSpeedFromDatabase];
     
     //刷新一周记录
@@ -743,7 +753,7 @@
 -(void)timerStart{
     
     [self timerStop];
-    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
+    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
     
 }
 
@@ -764,17 +774,21 @@
     
     @synchronized(_currentLocation){
         
-        [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:NULL usingBlock:^(CMTime time) {
-            //获取当前时间
-            CMTime currentTime = _player.currentItem.currentTime;
-            //转成秒数
-            CGFloat currentPlayTime = (CGFloat)currentTime.value/currentTime.timescale;
-            float playProcess = _totalSongDuration / currentPlayTime;
-            [_musicPlayerControllerView updatePlayingProcess:playProcess];
-            
-        }];
+        //播放器时间
+        
+        //获取当前时间
+        CMTime tempCurrentTime = _player.currentItem.currentTime;
+        //转成秒数
+        CGFloat currentPlayTime = (CGFloat)tempCurrentTime.value/tempCurrentTime.timescale;
+        float playProcess = currentPlayTime/_totalSongDuration;
+        [_musicPlayerControllerView updatePlayingProcess:playProcess];
         
         NSLog(@"--------------runningTimerFunction start--------------");
+        
+        //跑步时间
+        long currentRecordTime = [[NSDate date] timeIntervalSince1970];
+        long tempShowRunningTime = currentRecordTime - _nStartTime;
+        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
         
         if (!_lastLocation || !_currentLocation) {
             return;
@@ -811,7 +825,7 @@
         _currentLocation = nil;                     //新的位置清零，直到新d移动位置
         
         //记录此次移动所有的时间
-        long currentRecordTime = [[NSDate date] timeIntervalSince1970];
+//        long currentRecordTime = [[NSDate date] timeIntervalSince1970];
         long tempMoveTime = currentRecordTime - _nLastRecordTime;
         tempMoveTime = (tempMoveTime > 0) ? tempMoveTime : 10000;//如果时间过短就延长时间，忽略速度
         _nLastRecordTime = currentRecordTime;

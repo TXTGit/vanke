@@ -114,6 +114,10 @@
 
 -(void)updatePlayingProcess:(float)playProcess{
     
+    if (playProcess < 0.1) {
+        playProcess = 0.1;
+    }
+    
     float width = 65.0f;
     float height = 65.0f;
     CGSize imageSize = CGSizeMake(width, height);
