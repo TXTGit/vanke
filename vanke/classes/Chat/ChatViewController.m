@@ -34,11 +34,14 @@
 
 @synthesize chatType = _chatType;
 
+@synthesize isChatViewShow = _isChatViewShow;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -115,6 +118,7 @@
     _lastMessageId = 0;
     
     //
+    _isChatViewShow = YES;
     [self initData];
 }
 
@@ -131,6 +135,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+    
+    _isChatViewShow = NO;
     
     [self timerStop];
     
@@ -185,23 +191,29 @@
                 [_chatTableView reloadData];
             }
         }else{
-            NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            NSString *errMsg = [dicResult objectForKey:@"msg"];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
         }
         
-        [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
+        if (_isChatViewShow) {
+            [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
+        }
+        
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
-        [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
+        if (_isChatViewShow) {
+            [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
+        }
+        
     }];
     [operation start];
 }

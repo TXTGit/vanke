@@ -27,6 +27,8 @@
 @property (nonatomic, retain) NSTimer *getMsgTimer;
 @property (nonatomic, assign) ChatType chatType;
 
+@property (nonatomic, assign) BOOL isChatViewShow;
+
 -(void)doBack;
 -(void)initData;
 
