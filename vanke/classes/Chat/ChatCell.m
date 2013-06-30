@@ -109,7 +109,7 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             [sender setHidden:YES];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -121,7 +121,7 @@
             [hud hide:YES afterDelay:2];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -151,7 +151,7 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             [sender setHidden:YES];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -163,7 +163,7 @@
             [hud hide:YES afterDelay:2];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;

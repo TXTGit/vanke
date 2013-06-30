@@ -106,7 +106,7 @@
             [_trendTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;

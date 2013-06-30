@@ -158,7 +158,7 @@
 -(void)getDefaultData{
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
-    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:memberid fromMemberID:tomemberid lastMsgId:_lastMessageId page:1 rows:10];
+    NSString *msgListUrl = [VankeAPI getGetMsgListUrl:memberid fromMemberID:tomemberid lastMsgId:_lastMessageId];
     NSLog(@"msgList:%@",msgListUrl);
     NSURL *url = [NSURL URLWithString:msgListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -186,7 +186,7 @@
             }
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -197,11 +197,11 @@
             [hud hide:YES afterDelay:2];
         }
         
-        [self performSelector:@selector(initData) withObject:nil afterDelay:5.0f];
+        [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
-        [self performSelector:@selector(initData) withObject:nil afterDelay:5.0f];
+        [self performSelector:@selector(initData) withObject:nil afterDelay:8.0f];
     }];
     [operation start];
 }
@@ -230,7 +230,7 @@
 //            [self.navigationController pushViewController:chatViewController animated:YES];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -291,7 +291,7 @@
             [_chatTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
@@ -334,7 +334,7 @@
             
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
             hud.mode = MBProgressHUDModeText;
