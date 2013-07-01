@@ -422,6 +422,22 @@
 {
     return [NSString stringWithFormat:@"%@?type=getMsgList&memberID=%@&fromMemberID=%@&lastMsgID=%ld", VANKE_DOMAIN, memberid, fromMemberID, lastmsgid];
 }
+/*
+ 28.	获取历史聊天记录列表（2013-6-27）
+ 	地址：
+ http://www.4000757888.com:880/i.aspx?type=getMsgHistoryList&memberID=23&fromMemberID=33&page=1&rows=5
+ 	参数：
+ memberID：自己会员ID
+ fromMemberID：对方会员ID
+ page：当前页数
+ rows：每页显示记录数
+ 	返回：
+ list：历史聊天记录列表
+*/
++(NSString *)getMsgHistoryList:(NSString *)memberid fromMemberID:(NSString *)fromMemberID page:(NSInteger)page rows:(NSInteger)rows
+{
+    return [NSString stringWithFormat:@"%@?type=getMsgHistoryList&memberID=%@&fromMemberID=%@&page=%d&rows=%d", VANKE_DOMAIN, memberid,fromMemberID, page, rows];
+}
 
 /*
  获取好友排名列表
@@ -500,7 +516,18 @@
     return [NSString stringWithFormat:@"%@?type=unread&memberID=%@", VANKE_DOMAIN, memberid];
 }
 
-
-
+/*
+ 26.	获取所有未读信息的好友列表
+ 	地址：
+ http://www.4000757888.com:880/i.aspx?type=getUnreadList&memberID=23
+ 	参数：
+ memberID：会员ID
+ 	返回：
+ list：所有未读信息的好友列表
+*/
++(NSString *)getUnreadList:(NSString *)memberid{
+    
+    return [NSString stringWithFormat:@"%@?type=getUnreadList&memberID=%@", VANKE_DOMAIN, memberid];
+}
 
 @end

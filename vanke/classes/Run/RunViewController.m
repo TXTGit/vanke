@@ -23,6 +23,7 @@
 #import "Song.h"
 #import "MBProgressHUD.h"
 #import "RunInfoOfWeek.h"
+#import "ChatlistViewController.h"
 
 #define RECORD_RUN_DATA_INTERVAL 60.0
 
@@ -650,10 +651,12 @@
     
     NSLog(@"touchChatAction...");
     
-    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-    [chatViewController setChatType:chatTypeDefault];
-    [self.navigationController pushViewController:chatViewController animated:YES];
+//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//    [chatViewController setChatType:chatTypeDefault];
+//    [self.navigationController pushViewController:chatViewController animated:YES];
     
+    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+    [self.navigationController pushViewController:chatListViewController animated:YES];
 }
 
 -(void)touchSettingAction:(id)sender{

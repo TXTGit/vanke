@@ -323,6 +323,8 @@
 		186839EA176EC7A50042CB34 /* UnreadMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839E9176EC7A50042CB34 /* UnreadMessage.m */; };
 		186839ED176ECC7D0042CB34 /* RankInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839EC176ECC7D0042CB34 /* RankInfo.m */; };
 		186839F0176ECFD80042CB34 /* RankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839EF176ECFD80042CB34 /* RankCell.m */; };
+		18E5E1CC1781256300C52E6B /* ChatlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5E1CA1781256300C52E6B /* ChatlistViewController.m */; };
+		18E5E1CD1781256300C52E6B /* ChatlistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E5E1CB1781256300C52E6B /* ChatlistViewController.xib */; };
 		CE8AF8791775273C0037C402 /* touxiang_headBg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8AF8781775273C0037C402 /* touxiang_headBg.png */; };
 		CE8BFCFC17733FB6001AFAA9 /* share_list_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFCF317733FB6001AFAA9 /* share_list_bg.png */; };
 		CE8BFCFD17733FB6001AFAA9 /* share_list_vline.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFCF417733FB6001AFAA9 /* share_list_vline.png */; };
@@ -779,6 +781,9 @@
 		186839EC176ECC7D0042CB34 /* RankInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankInfo.m; sourceTree = "<group>"; };
 		186839EE176ECFD80042CB34 /* RankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankCell.h; sourceTree = "<group>"; };
 		186839EF176ECFD80042CB34 /* RankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankCell.m; sourceTree = "<group>"; };
+		18E5E1C91781256300C52E6B /* ChatlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatlistViewController.h; sourceTree = "<group>"; };
+		18E5E1CA1781256300C52E6B /* ChatlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatlistViewController.m; sourceTree = "<group>"; };
+		18E5E1CB1781256300C52E6B /* ChatlistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatlistViewController.xib; sourceTree = "<group>"; };
 		CE8AF8781775273C0037C402 /* touxiang_headBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touxiang_headBg.png; sourceTree = "<group>"; };
 		CE8BFCF317733FB6001AFAA9 /* share_list_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_list_bg.png; sourceTree = "<group>"; };
 		CE8BFCF417733FB6001AFAA9 /* share_list_vline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_list_vline.png; sourceTree = "<group>"; };
@@ -1582,6 +1587,9 @@
 				1672DA84176997600040D644 /* ChatCell.h */,
 				1672DA85176997600040D644 /* ChatCell.m */,
 				1672DA87176997700040D644 /* ChatCell.xib */,
+				18E5E1C91781256300C52E6B /* ChatlistViewController.h */,
+				18E5E1CA1781256300C52E6B /* ChatlistViewController.m */,
+				18E5E1CB1781256300C52E6B /* ChatlistViewController.xib */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1970,6 +1978,7 @@
 				16BCFD87177EB60A0037C42C /* run_begin_29.png in Resources */,
 				16BCFD8F177EC3610037C42C /* run_begin_yellow130_1.png in Resources */,
 				16BCFD93177EC3AC0037C42C /* run_begin_black.png in Resources */,
+				18E5E1CD1781256300C52E6B /* ChatlistViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2068,6 +2077,7 @@
 				163BCE04177C8044008656D1 /* NoticeCell.m in Sources */,
 				183E759E177D77D90098B3C8 /* PDropdownMenuView.m in Sources */,
 				182A6B95178116C300E1F5D7 /* EGORefreshTableHeaderView.m in Sources */,
+				18E5E1CC1781256300C52E6B /* ChatlistViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2144,8 +2154,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2163,8 +2173,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2173,8 +2183,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2192,8 +2202,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

@@ -13,7 +13,8 @@
 typedef enum {
     chatTypeDefault,
     chatTypeInvite,
-    chatTYpeInviteCheck
+    chatTypeInviteCheck,
+    chtTypeList
 }ChatType;
 
 @interface ChatCell : UITableViewCell

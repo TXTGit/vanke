@@ -16,6 +16,7 @@
 #import "NoticeViewController.h"
 #import "ChatViewController.h"
 #import "SettingViewController.h"
+#import "ChatlistViewController.h"
 
 @interface IndexViewController ()
 
@@ -156,10 +157,12 @@
     
     NSLog(@"touchChatAction...");
     
-    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-    [chatViewController setChatType:chatTypeDefault];
-    [self.navigationController pushViewController:chatViewController animated:YES];
+//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//    [chatViewController setChatType:chatTypeDefault];
+//    [self.navigationController pushViewController:chatViewController animated:YES];
     
+    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+    [self.navigationController pushViewController:chatListViewController animated:YES];
 }
 
 -(void)touchSettingAction:(id)sender{

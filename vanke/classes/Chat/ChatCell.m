@@ -71,7 +71,7 @@
         }
     }
     
-    if (_chatType == chatTYpeInviteCheck) {
+    if (_chatType == chatTypeInviteCheck) {
         UIButton *btnAccept = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 5, _textBgImageView.frame.size.height + 10, 49, 21)];
         [btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         [btnAccept setBackgroundColor:[UIColor grayColor]];

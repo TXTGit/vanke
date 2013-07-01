@@ -34,6 +34,9 @@
 @property (nonatomic, retain) EGORefreshTableHeaderView *egoRefreshHeaderView;
 @property (nonatomic, assign) BOOL reloading;
 
+@property (nonatomic,assign) NSInteger currentPage;
+@property (nonatomic,assign) NSInteger rows;
+
 -(void)doBack;
 -(void)initData;
 

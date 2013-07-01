@@ -92,7 +92,8 @@
 +(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid;
 //获取聊天记录列表（2013-6-27）
 +(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid page:(NSInteger)page rows:(NSInteger)rows;
-
+//获取聊天历史记录
++(NSString *)getMsgHistoryList:(NSString *)memberid fromMemberID:(NSString *)fromMemberID page:(NSInteger)page rows:(NSInteger)rows;
 //获取好友排名列表（2013-6-17）
 +(NSString *)getGetFanRankListUrl:(NSString *)memberid rankType:(int)ranktype;
 
@@ -107,7 +108,8 @@
 
 //长轮询通知接口（2013-6-17）
 +(NSString *)getUnreadUrl:(NSString *)memberid;
-
+//获取未读消息的好友列表（2013-6-30)
++(NSString *)getUnreadList:(NSString *)memberid;
 
 
 

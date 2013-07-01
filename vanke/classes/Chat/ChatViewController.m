@@ -39,6 +39,9 @@
 @synthesize egoRefreshHeaderView = _egoRefreshHeaderView;
 @synthesize reloading = _reloading;
 
+@synthesize currentPage = _currentPage;
+@synthesize rows = _rows;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -77,7 +80,7 @@
         case chatTypeInvite:
             title = @"约跑";
             break;
-        case chatTYpeInviteCheck:
+        case chatTypeInviteCheck:
             title = @"查看约跑记录";
             break;
         default:
@@ -90,14 +93,6 @@
     [_navView.leftButton setBackgroundImage:indexBack forState:UIControlStateNormal];
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
-    
-//    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-//    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-//    [_navView.rightButton setHidden:NO];
-//    
-//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-//    [_navView.messageTipImageView setImage:messageTip];
-//    [_navView.messageTipImageView setHidden:NO];
     
     //bg
     UIImageView *bgImageView = [[UIImageView alloc] init];
@@ -129,13 +124,16 @@
     //
     _isChatViewShow = YES;
     [self initData];
+    
+    _currentPage = 1;
+    _rows = 10;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    if (_chatType!=chatTYpeInviteCheck) {
+    if (_chatType!=chatTypeInviteCheck) {
 //        [self timerStart];
         [self getInviteData];
     }
@@ -166,7 +164,7 @@
 }
 
 -(void)initData{
-    if(_chatType == chatTYpeInviteCheck){
+    if(_chatType == chatTypeInviteCheck){
         [self showInviteData];
     }else if(_chatType == chatTypeDefault)
     {
@@ -194,8 +192,7 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-//                [_chatMessageList addObject:chatmessage];
-                [_chatMessageList insertObject:chatmessage atIndex:0];
+                [_chatMessageList addObject:chatmessage];
                 if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
                 }
@@ -277,7 +274,7 @@
     NSLog(@"buttonIndex:%d",buttonIndex);
     if (buttonIndex==1) {
         ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-        [chatViewController setChatType:chatTYpeInviteCheck];
+        [chatViewController setChatType:chatTypeInviteCheck];
         [self.navigationController pushViewController:chatViewController animated:YES];
     }
 }
@@ -534,8 +531,61 @@
 	
 	//  should be calling your tableviews data source model to reload
 	//  put here just for demo
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *tomemberid = [NSString stringWithFormat:@"%ld", _friendInfo.fromMemberID];
+    NSString *msgHistoryListUrl = [VankeAPI getMsgHistoryList:memberid fromMemberID:tomemberid page:_currentPage rows:_rows];
+    NSLog(@"msgHistoryListUrl:%@",msgHistoryListUrl);
+    NSURL *url = [NSURL URLWithString:msgHistoryListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            for (int i=0; i<datalistCount; i++) {
+                NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                
+                ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
+                [_chatMessageList insertObject:chatmessage atIndex:0];
+            }
+            if (datalistCount>0) {
+                [_chatTableView reloadData];
+                _currentPage +=1;
+            }else{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+                // Configure for text only and offset down
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = @"没有更多历史消息";
+                hud.margin = 10.f;
+                hud.yOffset = 150.0f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:2];
+            }
+        }else if([status isEqual:@"1"]){
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+        [self doneLoadingTableViewData];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        [self doneLoadingTableViewData];
+    }];
+    [operation start];
+    
 	_reloading = YES;
-	
 }
 
 - (void)doneLoadingTableViewData{
@@ -543,7 +593,6 @@
 	//  model should call this when its done loading
 	_reloading = NO;
 	[_egoRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_chatTableView];
-	
 }
 
 
@@ -551,15 +600,11 @@
 #pragma mark UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	
 	[_egoRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-	
 	[_egoRefreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-	
 }
 
 
@@ -569,7 +614,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+//	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
 	
 }
 
