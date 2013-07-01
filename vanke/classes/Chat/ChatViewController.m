@@ -36,6 +36,9 @@
 
 @synthesize isChatViewShow = _isChatViewShow;
 
+@synthesize egoRefreshHeaderView = _egoRefreshHeaderView;
+@synthesize reloading = _reloading;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -108,6 +111,12 @@
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.frame = CGRectMake(0, 44, 320, height - 44 - 45);
     
+    //下拉刷新
+    EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f-_chatTableView.bounds.size.height, self.view.frame.size.width, _chatTableView.bounds.size.height)];
+    view.delegate = self;
+    [_chatTableView addSubview:view];
+    _egoRefreshHeaderView = view;
+    
     //send view
     _sendMessageView.frame = CGRectMake(0, height - 45, 320, 45);
     [self.view addSubview:_sendMessageView];
@@ -140,6 +149,10 @@
     
     [self timerStop];
     
+}
+
+- (void)viewDidUnload {
+	_egoRefreshHeaderView=nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -512,6 +525,64 @@
             _getMsgTimer = nil;
         }
     }
+}
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to reload
+	//  put here just for demo
+	_reloading = YES;
+	
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_egoRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_chatTableView];
+	
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	[_egoRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_egoRefreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
 }
 
 @end

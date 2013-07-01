@@ -10,8 +10,9 @@
 #import "PCustomNavigationBarView.h"
 #import "FriendInfo.h"
 #import "ChatCell.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface ChatViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface ChatViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
@@ -29,9 +30,17 @@
 
 @property (nonatomic, assign) BOOL isChatViewShow;
 
+//下拉刷新
+@property (nonatomic, retain) EGORefreshTableHeaderView *egoRefreshHeaderView;
+@property (nonatomic, assign) BOOL reloading;
+
 -(void)doBack;
 -(void)initData;
 
 -(IBAction)doSend:(id)sender;
+
+//下拉刷新方法
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
 
 @end
