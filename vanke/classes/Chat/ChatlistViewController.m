@@ -47,7 +47,7 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"未读消息好友列表" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"未读消息列表" bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];

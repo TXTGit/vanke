@@ -15,6 +15,7 @@
 #import "AFJSONRequestOperation.h"
 #import "NewsInfo.h"
 #import "VankeAPI.h"
+#import "ChatlistViewController.h"
 
 @interface NoticeViewController ()
 
@@ -181,9 +182,11 @@
     
     NSLog(@"touchChatAction...");
     
-    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-    [self.navigationController pushViewController:chatViewController animated:YES];
+//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//    [self.navigationController pushViewController:chatViewController animated:YES];
     
+    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+    [self.navigationController pushViewController:chatListViewController animated:YES];
 }
 
 -(void)touchSettingAction:(id)sender{
