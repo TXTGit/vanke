@@ -599,7 +599,7 @@
     [UIView setAnimationDelegate:self];
     
     _menuOfHeadView.hidden = NO;
-    _menuOfHeadView.alpha = 1.0f;
+//    _menuOfHeadView.alpha = 1.0f;
     CGRect menuframe = _menuOfHeadView.frame;
     _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
     
@@ -617,7 +617,7 @@
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
     
-    _menuOfHeadView.alpha = 0.0f;
+//    _menuOfHeadView.alpha = 0.0f;
     CGRect menuframe = _menuOfHeadView.frame;
     _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
     

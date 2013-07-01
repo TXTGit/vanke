@@ -56,7 +56,7 @@
     UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     [_navView.rightButton setHidden:NO];
-//    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
