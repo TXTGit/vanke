@@ -64,6 +64,10 @@
 @synthesize btnLogout = _btnLogout;
 
 @synthesize memberid = _memberid;
+@synthesize runner = _runner;
+
+@synthesize achtionSheet = _achtionSheet;
+@synthesize currentSelectedItem = _currentSelectedItem;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -396,6 +400,102 @@
 -(IBAction)doJiFen:(id)sender{
     
     NSLog(@"doJiFen...");
+    
+    _currentSelectedItem = 1;
+    
+    _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
+    [pickerView setBackgroundColor:[UIColor blueColor]];
+    pickerView.tag = 101;
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    pickerView.showsSelectionIndicator = YES;
+    
+    [_achtionSheet addSubview:pickerView];
+    
+    UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
+    [button setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [button setFrame:CGRectMake(270, 20, 50, 30)];
+    [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:button];
+    
+    [_achtionSheet showInView:self.view];
+    [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
+    [_achtionSheet setBackgroundColor:[UIColor whiteColor]];
+    
+}
+
+-(void)segmentAction:(UISegmentedControl *)seg{
+    NSInteger index = seg.selectedSegmentIndex;
+    NSLog(@"index: %d, currentSelectedItem: %d", index, _currentSelectedItem);
+    [_achtionSheet dismissWithClickedButtonIndex:index animated:YES];
+    
+    [self doAddScore:_currentSelectedItem];
+}
+
+-(void)doAddScore:(int)tscore{
+    
+    NSLog(@"doAddScore...");
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *addScoreUrl = [VankeAPI getAddScoreUrl:memberid score:tscore];
+    NSURL *url = [NSURL URLWithString:addScoreUrl];
+    NSLog(@"addScoreUrl: %@",url);
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+    }];
+    [operation start];
+    
+}
+
+#pragma delegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    NSLog(@"actionSheet clickedButtonAtIndex...");
+    
+}
+
+#pragma delegate
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return 5;//1-5分,5个选项
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [NSString stringWithFormat:@"%d", (row + 1)];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    _currentSelectedItem = row + 1;
     
 }
 

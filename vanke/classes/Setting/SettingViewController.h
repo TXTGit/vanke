@@ -11,7 +11,7 @@
 #import "RunUser.h"
 #import "EGOImageButton.h"
 
-@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,EGOImageButtonDelegate>{
+@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,EGOImageButtonDelegate,UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
     BOOL changeHeadImg;
 }
 
@@ -47,6 +47,9 @@
 
 @property (nonatomic, assign) long memberid;
 @property (nonatomic, retain) RunUser *runner;
+
+@property (nonatomic, retain) UIActionSheet *achtionSheet;
+@property (nonatomic, assign) int currentSelectedItem;
 
 -(void)initData;
 
