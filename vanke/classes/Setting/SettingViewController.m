@@ -51,7 +51,8 @@
 
 @synthesize tallField = _tallField;
 @synthesize weightField = _weightField;
-@synthesize areaField = _areaField;
+//@synthesize areaField = _areaField;
+@synthesize lblArea = _lblArea;
 @synthesize addressField = _addressField;
 @synthesize telField = _telField;
 
@@ -118,7 +119,7 @@
         
         [self.tallField setEnabled:YES];
         [self.weightField setEnabled:YES];
-        [self.areaField setEnabled:YES];
+//        [self.areaField setEnabled:YES];
         [self.addressField setEnabled:YES];
         [self.telField setEnabled:YES];
     }else{
@@ -172,7 +173,7 @@
         
         [self.tallField setEnabled:NO];
         [self.weightField setEnabled:NO];
-        [self.areaField setEnabled:NO];
+//        [self.areaField setEnabled:NO];
         [self.addressField setEnabled:NO];
         [self.telField setEnabled:NO];
     }
@@ -229,7 +230,7 @@
                 _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
                 
                 _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
-                _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程0km"];
+                _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", _runner.mileage];
                 
                 _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];
                 _lblHaoYou.text = [NSString stringWithFormat:@"%d", _runner.fanCount];
@@ -238,7 +239,7 @@
                 
                 _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
                 _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
-                _areaField.text = _runner.communityName;
+                _lblArea.text = _runner.communityName;
                 _addressField.text = _runner.gpsAddress;
                 _telField.text = _runner.tel;
                 
@@ -501,8 +502,6 @@
     
     if (textField == _tallField || textField == _weightField) {
         [_tempScroll scrollRectToVisible:CGRectMake(0, 200, 320, height - 210) animated:YES];
-    } else if (textField == _areaField) {
-        [_tempScroll scrollRectToVisible:CGRectMake(0, 230, 320, height - 210) animated:YES];
     } else if (textField == _addressField) {
         [_tempScroll scrollRectToVisible:CGRectMake(0, 260, 320, height - 210) animated:YES];
     } else if (textField == _telField) {
@@ -513,7 +512,7 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     float height = [UIScreen mainScreen].bounds.size.height - 20;
-    _tempScroll.frame = CGRectMake(0, 0, 320, height);
+//    _tempScroll.frame = CGRectMake(0, 0, 320, height);
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -521,8 +520,6 @@
     if (textField == _tallField) {
         [_weightField becomeFirstResponder];
     } else if (textField == _weightField) {
-        [_areaField becomeFirstResponder];
-    } else if (textField == _areaField) {
         [_addressField becomeFirstResponder];
     } else if (textField == _addressField) {
         [_telField becomeFirstResponder];
@@ -545,7 +542,6 @@
     
     [_tallField resignFirstResponder];
     [_weightField resignFirstResponder];
-    [_areaField resignFirstResponder];
     [_addressField resignFirstResponder];
     [_telField resignFirstResponder];
     

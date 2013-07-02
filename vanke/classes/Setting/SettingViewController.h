@@ -35,7 +35,8 @@
 
 @property (nonatomic, retain) IBOutlet UITextField *tallField;
 @property (nonatomic, retain) IBOutlet UITextField *weightField;
-@property (nonatomic, retain) IBOutlet UITextField *areaField;
+//@property (nonatomic, retain) IBOutlet UITextField *areaField;
+@property (nonatomic, retain) IBOutlet UILabel *lblArea;
 @property (nonatomic, retain) IBOutlet UITextField *addressField;
 @property (nonatomic, retain) IBOutlet UITextField *telField;
 
