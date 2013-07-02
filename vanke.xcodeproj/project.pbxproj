@@ -28,6 +28,11 @@
 		16164667176C319700349EAD /* task_gift_has_done.png in Resources */ = {isa = PBXBuildFile; fileRef = 16164666176C319700349EAD /* task_gift_has_done.png */; };
 		16164678176C616600349EAD /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 16164677176C616600349EAD /* Song.m */; };
 		161F78C4177E768A003C2A6A /* run_user_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 161F78C3177E768A003C2A6A /* run_user_pic.png */; };
+		16340B3417830F3200231554 /* ScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16340B3217830F3200231554 /* ScoreListViewController.m */; };
+		16340B3517830F3200231554 /* ScoreListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16340B3317830F3200231554 /* ScoreListViewController.xib */; };
+		16340B391783109C00231554 /* ScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16340B381783109C00231554 /* ScoreCell.m */; };
+		16340B3B178310AF00231554 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16340B3A178310AF00231554 /* ScoreCell.xib */; };
+		16340B3E178316FC00231554 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16340B3D178316FC00231554 /* ScoreInfo.m */; };
 		163BCDFD177C6F2F008656D1 /* NewsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BCDFC177C6F2F008656D1 /* NewsInfo.m */; };
 		163BCE00177C77CE008656D1 /* button_login_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFE177C77CE008656D1 /* button_login_27.png */; };
 		163BCE01177C77CE008656D1 /* button_use_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFF177C77CE008656D1 /* button_use_27.png */; };
@@ -368,6 +373,14 @@
 		16164676176C616600349EAD /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
 		16164677176C616600349EAD /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
 		161F78C3177E768A003C2A6A /* run_user_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run_user_pic.png; sourceTree = "<group>"; };
+		16340B3117830F3200231554 /* ScoreListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreListViewController.h; sourceTree = "<group>"; };
+		16340B3217830F3200231554 /* ScoreListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreListViewController.m; sourceTree = "<group>"; };
+		16340B3317830F3200231554 /* ScoreListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreListViewController.xib; sourceTree = "<group>"; };
+		16340B371783109C00231554 /* ScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCell.h; sourceTree = "<group>"; };
+		16340B381783109C00231554 /* ScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCell.m; sourceTree = "<group>"; };
+		16340B3A178310AF00231554 /* ScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
+		16340B3C178316FC00231554 /* ScoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreInfo.h; sourceTree = "<group>"; };
+		16340B3D178316FC00231554 /* ScoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreInfo.m; sourceTree = "<group>"; };
 		163BCDFB177C6F2F008656D1 /* NewsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsInfo.h; sourceTree = "<group>"; };
 		163BCDFC177C6F2F008656D1 /* NewsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsInfo.m; sourceTree = "<group>"; };
 		163BCDFE177C77CE008656D1 /* button_login_27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_login_27.png; sourceTree = "<group>"; };
@@ -1128,6 +1141,8 @@
 				CE8BFD0D177347E2001AFAA9 /* TrendInfo.m */,
 				163BCDFB177C6F2F008656D1 /* NewsInfo.h */,
 				163BCDFC177C6F2F008656D1 /* NewsInfo.m */,
+				16340B3C178316FC00231554 /* ScoreInfo.h */,
+				16340B3D178316FC00231554 /* ScoreInfo.m */,
 			);
 			path = DataStruct;
 			sourceTree = "<group>";
@@ -1600,6 +1615,12 @@
 				16F1152917661C9B00CC1D3B /* SettingViewController.h */,
 				16F1152A17661C9B00CC1D3B /* SettingViewController.m */,
 				16F1152B17661C9B00CC1D3B /* SettingViewController.xib */,
+				16340B3117830F3200231554 /* ScoreListViewController.h */,
+				16340B3217830F3200231554 /* ScoreListViewController.m */,
+				16340B3317830F3200231554 /* ScoreListViewController.xib */,
+				16340B371783109C00231554 /* ScoreCell.h */,
+				16340B381783109C00231554 /* ScoreCell.m */,
+				16340B3A178310AF00231554 /* ScoreCell.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1979,6 +2000,8 @@
 				16BCFD8F177EC3610037C42C /* run_begin_yellow130_1.png in Resources */,
 				16BCFD93177EC3AC0037C42C /* run_begin_black.png in Resources */,
 				18E5E1CD1781256300C52E6B /* ChatlistViewController.xib in Resources */,
+				16340B3517830F3200231554 /* ScoreListViewController.xib in Resources */,
+				16340B3B178310AF00231554 /* ScoreCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2078,6 +2101,9 @@
 				183E759E177D77D90098B3C8 /* PDropdownMenuView.m in Sources */,
 				182A6B95178116C300E1F5D7 /* EGORefreshTableHeaderView.m in Sources */,
 				18E5E1CC1781256300C52E6B /* ChatlistViewController.m in Sources */,
+				16340B3417830F3200231554 /* ScoreListViewController.m in Sources */,
+				16340B391783109C00231554 /* ScoreCell.m in Sources */,
+				16340B3E178316FC00231554 /* ScoreInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

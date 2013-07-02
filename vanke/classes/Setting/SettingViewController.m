@@ -25,6 +25,8 @@
 #import "VankeConfig.h"
 #import "LoginViewController.h"
 
+#import "ScoreListViewController.h"
+
 @interface SettingViewController ()
 
 @end
@@ -409,6 +411,9 @@
 -(IBAction)doDuiHuan:(id)sender{
     
     NSLog(@"doDuiHuan...");
+    
+    ScoreListViewController *scoreListViewController = [[ScoreListViewController alloc] initWithNibName:@"ScoreListViewController" bundle:nil];
+    [self.navigationController pushViewController:scoreListViewController animated:YES];
     
 }
 

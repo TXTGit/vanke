@@ -500,6 +500,36 @@
 }
 
 /*
+ 兑换积分addScore（2013-7-2）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=addScore&memberID=23&score=2
+ •	参数：
+ memberID：会员ID
+ score：分数
+ •	返回：
+ */
++(NSString *)getAddScoreUrl:(NSString *)memberid score:(int)score{
+    
+    return [NSString stringWithFormat:@"%@?type=addScore&memberID=%@&score=%d", VANKE_DOMAIN, memberid, score];
+}
+
+/*
+ 获取兑换记录列表getScoreList（2013-7-2）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getScoreList&memberID=23&page=1&rows=5
+ •	参数：
+ memberID：会员ID
+ page：当前页数
+ rows：每页显示记录数
+ •	返回：
+ list：兑换记录列表
+ */
++(NSString *)getGetScoreListUrl:(NSString *)memberid page:(int)page rows:(int)rows{
+    
+    return [NSString stringWithFormat:@"%@?type=getScoreList&memberID=%@&page=%d&rows=%d", VANKE_DOMAIN, memberid, page, rows];
+}
+
+/*
  长轮询通知接口
  •	地址：
  http://www.4000757888.com:880/comet.aspx?type=unread&memberID=23

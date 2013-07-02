@@ -106,6 +106,12 @@
 //获取活动内容（2013-6-27）
 +(NSString *)getGetActivitysUrl:(int)activityid;
 
+//兑换积分addScore（2013-7-2）
++(NSString *)getAddScoreUrl:(NSString *)memberid score:(int)score;
+
+//获取兑换记录列表getScoreList（2013-7-2）
++(NSString *)getGetScoreListUrl:(NSString *)memberid page:(int)page rows:(int)rows;
+
 //长轮询通知接口（2013-6-17）
 +(NSString *)getUnreadUrl:(NSString *)memberid;
 //获取未读消息的好友列表（2013-6-30)
