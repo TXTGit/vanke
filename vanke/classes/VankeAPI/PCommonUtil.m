@@ -326,7 +326,7 @@ static double DEF_R =6370693.5; // radius of earth
 +(BOOL) isValidateIdentityCard:(NSString *)IdCard
 {
     //手机号以13， 15，18开头，八个 \d 数字字符
-    NSString *IdCardRegex = @"(^\\d{15}$)|(^\\d{17}([0-9]|X)$)";
+    NSString *IdCardRegex = @"(^\\d{15}$)|(^\\d{17}([0-9]|X|x)$)";
     NSPredicate *IdCardTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",IdCardRegex];
     //    NSLog(@"phoneTest is %@",phoneTest);
     return [IdCardTest evaluateWithObject:IdCard];
