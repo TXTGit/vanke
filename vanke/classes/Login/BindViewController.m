@@ -36,6 +36,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _currentSelectedCommunityId = 2;
+        
     }
     return self;
 }

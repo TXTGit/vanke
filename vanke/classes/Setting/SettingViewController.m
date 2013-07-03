@@ -213,6 +213,8 @@
 -(void)initData{
     
     NSString *memberUrl = [VankeAPI getGetMemberDetailUrl:[NSString stringWithFormat:@"%ld", _memberid]];
+    NSLog(@"memberUrl: %@", memberUrl);
+    
     NSURL *url = [NSURL URLWithString:memberUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -236,7 +238,7 @@
                 _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
                 
                 _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
-                float tempCanUseMileage = _runner.mileage = _runner.mileageUsed;
+                float tempCanUseMileage = _runner.mileage - _runner.mileageUsed;
                 _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", tempCanUseMileage];
                 
                 _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];

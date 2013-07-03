@@ -452,8 +452,10 @@
 -(void)getWeekRunRecordList{
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *fanListUrl = [VankeAPI getGetWeekRunListUrl:memberid];
-    NSURL *url = [NSURL URLWithString:fanListUrl];
+    NSString *getWeekRunListUrl = [VankeAPI getGetWeekRunListUrl:memberid];
+    NSLog(@"getWeekRunListUrl: %@", getWeekRunListUrl);
+    
+    NSURL *url = [NSURL URLWithString:getWeekRunListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"getWeekRunRecordList: %@", JSON);

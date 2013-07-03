@@ -243,14 +243,20 @@
         if ([status isEqual:@"0"]) {
             
             NSString *imgpath = [dicResult objectForKey:@"imgPath"];
-            NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
-            RunUser *runner = [RunUser initWithNSDictionary:dicEnt];
-            runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
-            [UserSessionManager GetInstance].currentRunUser = runner;
-            NSLog(@"headImg: %@", runner.headImg);
-            
-            //show nickname
-            _navView.titleLabel.text = runner.nickname;
+//            NSDictionary *dicEnt = [dicResult objectForKey:@"ent"];
+            NSArray *entList = [dicResult objectForKey:@"ent"];
+            if (entList && [entList count] > 0) {
+                
+                NSDictionary *dicEnt0 = [entList objectAtIndex:0];
+                
+                RunUser *runner = [RunUser initWithNSDictionary:dicEnt0];
+                runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
+                [UserSessionManager GetInstance].currentRunUser = runner;
+                NSLog(@"headImg: %@", runner.headImg);
+                
+                //show nickname
+                _navView.titleLabel.text = runner.nickname;
+            }
             
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
