@@ -259,6 +259,14 @@
                 _addressField.text = _runner.gpsAddress;
                 _telField.text = _runner.tel;
                 
+                if (_runner.isPublic > 0) {
+                    _switchPublic.selected = YES;
+                }
+                
+                if (_runner.isPosition > 0) {
+                    _switchPosition.selected = YES;
+                }
+                
             }else{
                 NSString *errMsg = [dicResult objectForKey:@"msg"];
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];

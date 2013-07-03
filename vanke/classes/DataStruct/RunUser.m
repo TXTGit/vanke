@@ -46,6 +46,8 @@
 @synthesize runTimes = _runTimes;
 @synthesize fanCount = _fanCount;
 @synthesize mileageUsed = _mileageUsed;
+@synthesize isPublic = _isPublic;
+@synthesize isPosition = _isPosition;
 
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -119,7 +121,20 @@
             if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"mileageUsed"]]) {
                 runner.mileageUsed = [[dict objectForKey:@"mileageUsed"] floatValue];
             }
-        
+            
+            id tempispublic = [PCommonUtil checkDataIsNull:[dict objectForKey:@"isPublic"]];
+            if (tempispublic) {
+                runner.isPublic = [tempispublic intValue];
+            } else {
+                runner.isPublic = 0;
+            }
+            
+            id tempisposition = [PCommonUtil checkDataIsNull:[dict objectForKey:@"isPosition"]];
+            if (tempisposition) {
+                runner.isPosition = [tempisposition intValue];
+            } else {
+                runner.isPosition = 0;
+            }
             
         }
     }

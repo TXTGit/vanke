@@ -45,6 +45,8 @@
 @property (nonatomic, assign) int runTimes;
 @property (nonatomic, assign) int fanCount;
 @property (nonatomic, assign) float mileageUsed;
+@property (nonatomic, assign) int isPublic;
+@property (nonatomic, assign) int isPosition;
 
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict;
 
