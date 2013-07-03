@@ -111,6 +111,21 @@
 }
 
 /*
+ 设置是否公开个人信息和位置setting（2013-7-2）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=setting&memberID=23&isPublic=1&isPosition=1
+ •	参数：
+ memberID：会员ID
+ isPublic：是否公开个人信息，公开=1，不公开=0
+ isPosition：是否公开位置信息，公开=1，不公开=0
+ •	返回：
+ */
++(NSString *)getSettingUrl:(NSString *)memberid isPublic:(int)isPublic isPosition:(int)isPosition{
+    
+    return [NSString stringWithFormat:@"%@?type=setting&memberID=%@&isPublic=%d&isPosition=%d", VANKE_DOMAIN, isPublic, isPosition];
+}
+
+/*
  获取会员资料（2013-6-22）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getMember&memberID=23

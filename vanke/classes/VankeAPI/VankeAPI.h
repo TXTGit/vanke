@@ -28,6 +28,9 @@
 //设置个人信息
 +(NSString *)getSetInfoUrl:(NSString *)memberid height:(NSString *)height weight:(NSString *)weight birthday:(NSString *)birthday;
 
+//设置是否公开个人信息和位置setting（2013-7-2）
++(NSString *)getSettingUrl:(NSString *)memberid isPublic:(int)isPublic isPosition:(int)isPosition;
+
 //获取会员资料（2013-6-22）
 +(NSString *)getGetMemberUrl:(NSString *)memberid;
 
