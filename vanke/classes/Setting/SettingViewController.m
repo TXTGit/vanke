@@ -69,6 +69,9 @@
 @synthesize achtionSheet = _achtionSheet;
 @synthesize currentSelectedItem = _currentSelectedItem;
 
+@synthesize switchPublic = _switchPublic;
+@synthesize switchPosition = _switchPosition;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -182,6 +185,10 @@
 //        [self.areaField setEnabled:NO];
         [self.addressField setEnabled:NO];
         [self.telField setEnabled:NO];
+        
+        _switchPublic.hidden = YES;
+        _switchPosition.hidden = YES;
+        
     }
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
@@ -374,6 +381,43 @@
         
         [operation start];
     }
+    
+    //设置位置是否公开，个人信息是否公开
+    [self doSettingPublicAndPosition];
+    
+}
+
+-(void)doSettingPublicAndPosition{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    int temppublic = 0;
+    if (_switchPublic.isOn) {
+        temppublic = 1;
+    }
+    int tempposition = 0;
+    if (_switchPosition.isOn) {
+        tempposition = 1;
+    }
+    
+    NSString *setInfoUrl = [VankeAPI getSettingUrl:memberid isPublic:temppublic isPosition:tempposition];
+    NSURL *url = [NSURL URLWithString:setInfoUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSLog(@"SetInfo successful...");
+            
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+    
 }
 
 -(void)doGotoInvite:(id)sender{
@@ -655,6 +699,24 @@
     [_weightField resignFirstResponder];
     [_addressField resignFirstResponder];
     [_telField resignFirstResponder];
+    
+}
+
+-(IBAction)doPublicSwitchAction:(id)sender{
+    
+    NSLog(@"doPublicSwitchAction...");
+    
+    UISwitch *tempswitch = sender;
+    BOOL isButtonOn = [tempswitch isOn];
+    if (isButtonOn) {
+        //
+    }
+    
+}
+
+-(IBAction)doPositionSwitchAction:(id)sender{
+    
+    NSLog(@"doPositionSwitchAction...");
     
 }
 

@@ -122,7 +122,7 @@
  */
 +(NSString *)getSettingUrl:(NSString *)memberid isPublic:(int)isPublic isPosition:(int)isPosition{
     
-    return [NSString stringWithFormat:@"%@?type=setting&memberID=%@&isPublic=%d&isPosition=%d", VANKE_DOMAIN, isPublic, isPosition];
+    return [NSString stringWithFormat:@"%@?type=setting&memberID=%@&isPublic=%d&isPosition=%d", VANKE_DOMAIN, memberid, isPublic, isPosition];
 }
 
 /*

@@ -51,6 +51,9 @@
 @property (nonatomic, retain) UIActionSheet *achtionSheet;
 @property (nonatomic, assign) int currentSelectedItem;
 
+@property (nonatomic, retain) IBOutlet UISwitch *switchPublic;
+@property (nonatomic, retain) IBOutlet UISwitch *switchPosition;
+
 -(void)initData;
 
 -(void)doBack;
@@ -65,5 +68,10 @@
 -(IBAction)doLogout:(id)sender;
 
 -(IBAction)resiginTextField:(id)sender;
+
+-(IBAction)doPublicSwitchAction:(id)sender;
+-(IBAction)doPositionSwitchAction:(id)sender;
+
+-(void)doSettingPublicAndPosition;
 
 @end
