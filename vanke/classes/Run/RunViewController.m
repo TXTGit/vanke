@@ -741,7 +741,7 @@
         //更新显示内容背景图片
         _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
         //本次跑步时间
-        _lblRunCount.text = [NSString stringWithFormat:@"0"];
+        _lblRunCount.text = [NSString stringWithFormat:@"00:00:00"];
         
         //处理底部菜单
         _isMenuOfBottomShowing = YES;
@@ -801,7 +801,7 @@
 -(void)timerStart{
     
     [self timerStop];
-    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
+    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
     
 }
 
@@ -836,7 +836,22 @@
         //跑步时间
         long currentRecordTime = [[NSDate date] timeIntervalSince1970];
         long tempShowRunningTime = currentRecordTime - _nStartTime;
-        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
+        
+        NSString *temphh = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 3600];
+        if (temphh.length == 1) {
+            temphh = [NSString stringWithFormat:@"0%@", temphh];
+        }
+        
+        NSString *tempmm = [NSString stringWithFormat:@"%ld", (tempShowRunningTime / 60) % 60];
+        if (tempmm.length == 1) {
+            tempmm = [NSString stringWithFormat:@"0%@", tempmm];
+        }
+        
+        NSString *tempss = [NSString stringWithFormat:@"%ld", tempShowRunningTime % 60];
+        if (tempss.length == 1) {
+            tempss = [NSString stringWithFormat:@"0%@", tempss];
+        }
+        _lblRunCount.text = [NSString stringWithFormat:@"%@:%@:%@", temphh, tempmm, tempss];
         
         if (!_lastLocation || !_currentLocation) {
             return;
