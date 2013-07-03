@@ -614,19 +614,19 @@
 						<string key="NSFrame">{{13, 534}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="348198420"/>
+						<reference key="NSNextKeyView" ref="1014017522"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">           退出登陆</string>
 						<reference key="IBUIHighlightedTitleColor" ref="919576795"/>
-						<object class="NSColor" key="IBUINormalTitleColor" id="1055010406">
+						<object class="NSColor" key="IBUINormalTitleColor" id="327866489">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="648942936"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="826111897">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="186297447">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">setting_btn_arrow.png</string>
 						</object>
@@ -684,25 +684,25 @@
 						<reference key="IBUIFont" ref="658311388"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
-					<object class="IBUIImageView" id="348198420">
+					<object class="IBUIImageView" id="1014017522">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{13, 582}, {295, 45}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="848698420"/>
+						<reference key="NSNextKeyView" ref="1018034453"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<reference key="IBUIImage" ref="826111897"/>
+						<reference key="IBUIImage" ref="186297447"/>
 					</object>
-					<object class="IBUISwitch" id="751559837">
+					<object class="IBUISwitch" id="790482935">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{208, 591}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="663526460"/>
+						<reference key="NSNextKeyView" ref="97269744"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -710,13 +710,13 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
 					</object>
-					<object class="IBUILabel" id="848698420">
+					<object class="IBUILabel" id="1018034453">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{55, 594}, {149, 21}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="751559837"/>
+						<reference key="NSNextKeyView" ref="790482935"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -724,14 +724,14 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">是否公开个人信息</string>
-						<reference key="IBUITextColor" ref="1055010406"/>
+						<reference key="IBUITextColor" ref="327866489"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<reference key="IBUIFontDescription" ref="727666731"/>
 						<reference key="IBUIFont" ref="658311388"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
-					<object class="IBUIImageView" id="663526460">
+					<object class="IBUIImageView" id="97269744">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{13, 635}, {295, 40}}</string>
@@ -740,9 +740,9 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<reference key="IBUIImage" ref="826111897"/>
+						<reference key="IBUIImage" ref="186297447"/>
 					</object>
-					<object class="IBUISwitch" id="978193065">
+					<object class="IBUISwitch" id="524209014">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{208, 641}, {94, 27}}</string>
@@ -755,7 +755,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
 					</object>
-					<object class="IBUILabel" id="368294583">
+					<object class="IBUILabel" id="5763451">
 						<reference key="NSNextResponder" ref="1039775317"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{55, 644}, {150, 21}}</string>
@@ -768,7 +768,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">是否公开位置</string>
-						<reference key="IBUITextColor" ref="1055010406"/>
+						<reference key="IBUITextColor" ref="327866489"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<reference key="IBUIFontDescription" ref="727666731"/>
@@ -1117,12 +1117,12 @@
 							<reference ref="40877755"/>
 							<reference ref="840570028"/>
 							<reference ref="341186010"/>
-							<reference ref="348198420"/>
-							<reference ref="751559837"/>
-							<reference ref="848698420"/>
-							<reference ref="663526460"/>
-							<reference ref="978193065"/>
-							<reference ref="368294583"/>
+							<reference ref="1014017522"/>
+							<reference ref="790482935"/>
+							<reference ref="1018034453"/>
+							<reference ref="97269744"/>
+							<reference ref="524209014"/>
+							<reference ref="5763451"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1268,32 +1268,32 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">97</int>
-						<reference key="object" ref="348198420"/>
+						<reference key="object" ref="1014017522"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
-						<reference key="object" ref="751559837"/>
+						<reference key="object" ref="790482935"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">99</int>
-						<reference key="object" ref="848698420"/>
+						<reference key="object" ref="1018034453"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100</int>
-						<reference key="object" ref="663526460"/>
+						<reference key="object" ref="97269744"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">101</int>
-						<reference key="object" ref="978193065"/>
+						<reference key="object" ref="524209014"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">102</int>
-						<reference key="object" ref="368294583"/>
+						<reference key="object" ref="5763451"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
 				</array>
@@ -1365,6 +1365,7 @@
 						<string key="doDuoBao:">id</string>
 						<string key="doJiFen:">id</string>
 						<string key="doLogout:">id</string>
+						<string key="doSelectHeadImg:">id</string>
 						<string key="doSina:">id</string>
 						<string key="doTel:">id</string>
 						<string key="resiginTextField:">id</string>
@@ -1384,6 +1385,10 @@
 						</object>
 						<object class="IBActionInfo" key="doLogout:">
 							<string key="name">doLogout:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doSelectHeadImg:">
+							<string key="name">doSelectHeadImg:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doSina:">
