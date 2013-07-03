@@ -44,6 +44,7 @@
 @property (nonatomic, assign) float energy;
 @property (nonatomic, assign) int runTimes;
 @property (nonatomic, assign) int fanCount;
+@property (nonatomic, assign) float mileageUsed;
 
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict;
 

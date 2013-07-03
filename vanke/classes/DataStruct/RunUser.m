@@ -45,6 +45,7 @@
 @synthesize energy = _energy;
 @synthesize runTimes = _runTimes;
 @synthesize fanCount = _fanCount;
+@synthesize mileageUsed = _mileageUsed;
 
 +(RunUser *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -113,6 +114,10 @@
             id tempfancount = [PCommonUtil checkDataIsNull:[dict objectForKey:@"fanCount"]];
             if (tempfancount) {
                 runner.fanCount = [tempfancount intValue];
+            }
+            
+            if ([PCommonUtil checkDataIsNull:[dict objectForKey:@"mileageUsed"]]) {
+                runner.mileageUsed = [[dict objectForKey:@"mileageUsed"] floatValue];
             }
         
             

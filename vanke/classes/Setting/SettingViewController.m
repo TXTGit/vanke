@@ -236,7 +236,8 @@
                 _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
                 
                 _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
-                _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", _runner.mileage];
+                float tempCanUseMileage = _runner.mileage = _runner.mileageUsed;
+                _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", tempCanUseMileage];
                 
                 _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];
                 _lblHaoYou.text = [NSString stringWithFormat:@"%d", _runner.fanCount];
@@ -450,6 +451,9 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
+            
+            //刷新数据
+            [self initData];
             
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
