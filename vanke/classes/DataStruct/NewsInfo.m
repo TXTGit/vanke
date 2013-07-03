@@ -11,6 +11,7 @@
 @implementation NewsInfo
 
 @synthesize classID = _classID;
+@synthesize newsID = _newsID;
 @synthesize title = _title;
 @synthesize subTitle = _subTitle;
 @synthesize smallText = _smallText;
@@ -27,6 +28,7 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             newsInfo = [[NewsInfo alloc] init];
             newsInfo.classID = [[dict objectForKey:@"classID"] intValue];
+            newsInfo.newsID = [[dict objectForKey:@"newsID"] intValue];
             newsInfo.title = [dict objectForKey:@"title"];
             newsInfo.subTitle = [dict objectForKey:@"subTitle"];
             newsInfo.smallText = [dict objectForKey:@"smallText"];

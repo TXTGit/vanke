@@ -10,8 +10,9 @@
 #import "PCustomNavigationBarView.h"
 #import "MenuOfHeadView.h"
 #import "CustomWindow.h"
+#import "EGOImageView.h"
 
-@interface NoticeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface NoticeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, EGOImageViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 

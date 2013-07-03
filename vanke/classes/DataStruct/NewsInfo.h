@@ -11,6 +11,7 @@
 @interface NewsInfo : NSObject
 
 @property (nonatomic, assign) int classID;
+@property (nonatomic, assign) int newsID;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subTitle;
 @property (nonatomic, retain) NSString *smallText;

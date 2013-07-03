@@ -16,6 +16,7 @@
 #import "NewsInfo.h"
 #import "VankeAPI.h"
 #import "ChatlistViewController.h"
+#import "VankeConfig.h"
 
 @interface NoticeViewController ()
 
@@ -215,11 +216,14 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+            NSString *imgPath = [dicResult objectForKey:@"imgPath"];
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                
                 NewsInfo *newsInfo = [NewsInfo initWithNSDictionary:dicrecord];
+                newsInfo.titleImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAIN, imgPath, newsInfo.titleImg];
                 [_activityList addObject:newsInfo];
             }
             
@@ -249,13 +253,18 @@
         
         NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"NoticeCell" owner:self options:nil];
         cell = (NoticeCell *)[nibContents objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
     
     NewsInfo *newsinfo = [_activityList objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = newsinfo.title;
+    cell.lblTime.text = newsinfo.newsTime;
+    cell.egoTitleImg.delegate = self;
+    cell.egoTitleImg.tag = newsinfo.newsID;
+//    cell.egoTitleImg.imageURL = [NSURL URLWithString:newsinfo.titleImg];
+    cell.lblSmallText.text = newsinfo.smallText;
+    cell.lblTitle.text = newsinfo.title;
     
     NSLog(@"cell.frame.size.height: %f", cell.frame.size.height);
     
@@ -264,7 +273,15 @@
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 57;
+    return 200;
+}
+
+#pragma EGOImageViewDelegate
+
+- (void)imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error{
+    
+    imageView.image = [UIImage imageNamed:@"news_title_default_image.png"];
+    
 }
 
 @end

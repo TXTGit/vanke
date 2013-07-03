@@ -10,11 +10,17 @@
 
 @implementation NoticeCell
 
+@synthesize lblTime = _lblTime;
+@synthesize egoTitleImg = _egoTitleImg;
+@synthesize lblSmallText = _lblSmallText;
+@synthesize lblTitle = _lblTitle;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
     }
     return self;
 }
@@ -24,6 +30,7 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    
 }
 
 @end

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 
 @interface NoticeCell : UITableViewCell
+
+@property (nonatomic, retain) IBOutlet UILabel *lblTime;
+@property (nonatomic, retain) IBOutlet EGOImageView *egoTitleImg;
+@property (nonatomic, retain) IBOutlet UILabel *lblSmallText;
+@property (nonatomic, retain) IBOutlet UILabel *lblTitle;
 
 @end
