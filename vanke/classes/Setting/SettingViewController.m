@@ -90,12 +90,12 @@
     [bgImageView setImage:[UIImage imageWithName:@"setting_bg" type:@"png"]];
     [self.view addSubview:bgImageView];
     
-    _broadView.frame = CGRectMake(0, 0, 320, 588);
+    _broadView.frame = CGRectMake(0, 0, 320, 688);
     
     _tempScroll = [[UIScrollView alloc] init];
     _tempScroll.frame = CGRectMake(0, 0, 320, height);
     _tempScroll.scrollEnabled = YES;
-    _tempScroll.contentSize = CGSizeMake(320, 588);
+    _tempScroll.contentSize = CGSizeMake(320, 688);
     _tempScroll.delegate = self;
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
