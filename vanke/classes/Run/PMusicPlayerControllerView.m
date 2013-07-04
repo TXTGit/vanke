@@ -55,22 +55,28 @@
         [self addSubview:_btnLast];
         
         //start
-        _startBgImageView = [[UIImageView alloc] init];
-        _startBgImageView.frame = CGRectMake(124, 0, 72, 72);
-        UIImage *startBgImage = [UIImage imageNamed:@"run_begin_black.png"];
-        _startBgImageView.image = startBgImage;
-        [self addSubview:_startBgImageView];
-        
-        _playProcessImageView = [[UIImageView alloc] init];
-        _playProcessImageView.frame = CGRectMake(128, 4, 65, 65);
-        UIImage *playProcessImage = [UIImage imageNamed:@"run_begin_yellow130_1.png"];
-        _playProcessImageView.image = playProcessImage;
-        [self addSubview:_playProcessImageView];
+//        _startBgImageView = [[UIImageView alloc] init];
+//        _startBgImageView.frame = CGRectMake(124, 0, 72, 72);
+//        UIImage *startBgImage = [UIImage imageNamed:@"run_begin_black.png"];
+//        _startBgImageView.image = startBgImage;
+//        [self addSubview:_startBgImageView];
+//        
+//        _playProcessImageView = [[UIImageView alloc] init];
+//        _playProcessImageView.frame = CGRectMake(128, 4, 65, 65);
+//        UIImage *playProcessImage = [UIImage imageNamed:@"run_begin_yellow130_1.png"];
+//        _playProcessImageView.image = playProcessImage;
+//        [self addSubview:_playProcessImageView];
+//        
+//        _btnStart = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _btnStart.frame = CGRectMake(130, 7, 60, 60);
+//        UIImage *startImage = [UIImage imageNamed:@"run_begin_29.png"];
+//        [_btnStart setImage:startImage forState:UIControlStateNormal];
+//        [self addSubview:_btnStart];
         
         _btnStart = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnStart.frame = CGRectMake(130, 7, 60, 60);
-        UIImage *startImage = [UIImage imageNamed:@"run_begin_29.png"];
-        [_btnStart setImage:startImage forState:UIControlStateNormal];
+        _btnStart.frame = CGRectMake(124, 0, 72, 72);
+        UIImage *palyImage = [UIImage imageNamed:@"run_player_play.png"];
+        [_btnStart setImage:palyImage forState:UIControlStateNormal];
         [self addSubview:_btnStart];
         
         //next

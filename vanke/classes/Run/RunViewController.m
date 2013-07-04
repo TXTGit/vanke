@@ -173,7 +173,6 @@
     [_musicPlayerControllerView.btnMusic addTarget:self action:@selector(pickerIPodLib) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.btnSound addTarget:self action:@selector(showVolume) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.sliderVolume addTarget:self action:@selector(volumeSet:) forControlEvents:UIControlEventValueChanged];
-    [_musicPlayerControllerView updatePlayingProcess:0.0f];//设置歌曲播放进度为0
     
     [self.view addSubview:_musicPlayerControllerView];
     
@@ -685,6 +684,10 @@
             if (_player) {
                 [_player pause];
                 _player = nil;
+                
+                UIImage *palyImage = [UIImage imageNamed:@"run_player_play.png"];
+                [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
+                
             }
             
             //释放掉对playItem的观察
@@ -733,6 +736,9 @@
                 //因为slider的值是小数，要转成float，当前时间和总时间相除才能得到小数,因为5/10=0
                 _totalSongDuration = totalTime.value / totalTime.timescale;
                 NSLog(@"_totalSongDuration: %f", _totalSongDuration);
+                
+                UIImage *palyImage = [UIImage imageNamed:@"run_player_pause.png"];
+                [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
                 
                 //添加视频播放完成的notifation
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -803,7 +809,7 @@
 -(void)timerStart{
     
     [self timerStop];
-    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
+    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
     
 }
 
@@ -823,15 +829,6 @@
 -(void)runningTimerFunction{
     
     @synchronized(_currentLocation){
-        
-        //播放器时间
-        
-        //获取当前时间
-        CMTime tempCurrentTime = _player.currentItem.currentTime;
-        //转成秒数
-        CGFloat currentPlayTime = (CGFloat)tempCurrentTime.value/tempCurrentTime.timescale;
-        float playProcess = currentPlayTime/_totalSongDuration;
-        [_musicPlayerControllerView updatePlayingProcess:playProcess];
         
         NSLog(@"--------------runningTimerFunction start--------------");
         
@@ -1087,6 +1084,10 @@
             if (_player) {
                 [_player pause];
                 _player = nil;
+                
+                UIImage *palyImage = [UIImage imageNamed:@"run_player_play.png"];
+                [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
+                
             } else {
                 Song *tempsong = [_locationSongList objectAtIndex:_currentSongIndex];
 //                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
@@ -1103,7 +1104,8 @@
                 _totalSongDuration = totalTime.value / totalTime.timescale;
                 NSLog(@"_totalSongDuration: %f", _totalSongDuration);
                 
-                [_musicPlayerControllerView updatePlayingProcess:0.0f];
+                UIImage *palyImage = [UIImage imageNamed:@"run_player_pause.png"];
+                [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
                 
             }
         }
@@ -1139,7 +1141,6 @@
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
             
-            [_musicPlayerControllerView updatePlayingProcess:0.0f];
             
         }
     }
@@ -1176,7 +1177,6 @@
             _totalSongDuration = totalTime.value / totalTime.timescale;
             NSLog(@"_totalSongDuration: %f", _totalSongDuration);
             
-            [_musicPlayerControllerView updatePlayingProcess:0.0f];
             
         }
     }
@@ -1232,6 +1232,9 @@
         }
         _player = [[AVPlayer alloc] initWithURL:url];
         [_player play];
+        
+        UIImage *palyImage = [UIImage imageNamed:@"run_player_pause.png"];
+        [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
         
     }
     
