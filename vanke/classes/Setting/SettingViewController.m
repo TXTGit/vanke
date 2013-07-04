@@ -261,15 +261,15 @@
                 _telField.text = _runner.tel;
                 
                 if (_runner.isPublic > 0) {
-                    _switchPublic.selected = YES;
+                    [_switchPublic setOn:YES animated:YES];
                 } else {
-                    _switchPublic.selected = NO;
+                    [_switchPublic setOn:NO animated:YES];
                 }
                 
                 if (_runner.isPosition > 0) {
-                    _switchPosition.selected = YES;
+                    [_switchPosition setOn:YES animated:YES];
                 } else {
-                    _switchPosition.selected = NO;
+                    [_switchPosition setOn:NO animated:YES];
                 }
                 
             }else{
@@ -416,7 +416,7 @@
     NSURL *url = [NSURL URLWithString:setInfoUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"App.net Global Stream: %@", JSON);
+        NSLog(@"doSettingPublicAndPosition: %@", JSON);
         NSDictionary *dicResult = JSON;
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
