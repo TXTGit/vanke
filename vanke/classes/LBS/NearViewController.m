@@ -14,6 +14,7 @@
 #import "AFJSONRequestOperation.h"
 #import "NearFriend.h"
 #import "PCommonUtil.h"
+#import "SettingViewController.h"
 
 @interface NearViewController ()
 
@@ -282,6 +283,10 @@
     }
     
     NSLog(@"nearfriend.nickName: %@", nearfriend.nickName);
+    
+    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+    [settingViewController setMemberid:nearfriend.memberID];
+    [self.navigationController pushViewController:settingViewController animated:YES];
     
 }
 
