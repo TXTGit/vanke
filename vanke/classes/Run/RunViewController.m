@@ -281,8 +281,6 @@
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
     
-    [self configNowPlayingInfoCenter];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -715,6 +713,7 @@
         //开始时，清理旧数据
         [_locationList removeAllObjects];
         
+        /*
         @synchronized(_player) {
             if (_locationSongList && [_locationSongList count]>0) {
                 if (_player) {
@@ -723,8 +722,6 @@
                 }
                 
                 Song *tempsong = [_locationSongList objectAtIndex:_currentSongIndex];
-//                _player = [[AVPlayer alloc] initWithURL:tempsong.musicUrl];
-//                [_player play];
                 
                 //使用playerItem获取视频的信息，当前播放时间，总时间等
                 AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:tempsong.musicUrl];
@@ -745,6 +742,7 @@
                 
             }
         }
+        */
         
         //更新显示内容背景图片
         _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
@@ -809,7 +807,7 @@
 -(void)timerStart{
     
     [self timerStop];
-    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
+    _runningTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runningTimerFunction) userInfo:nil repeats:YES];
     
 }
 
