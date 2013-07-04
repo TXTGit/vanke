@@ -84,13 +84,40 @@
     
     //show data
     _lblRunDistance.text = [NSString stringWithFormat:@"%.2f", _runRecord.mileage];
-    _lblRunTime.text = [NSString stringWithFormat:@"%ld", _runRecord.minute];
+    
+    //run time
+    long tempShowRunningTime = _runRecord.minute * 60;
+    NSString *temphh = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 3600];
+    if (temphh.length == 1) {
+        temphh = [NSString stringWithFormat:@"0%@", temphh];
+    }
+    NSString *tempmm = [NSString stringWithFormat:@"%ld", (tempShowRunningTime / 60) % 60];
+    if (tempmm.length == 1) {
+        tempmm = [NSString stringWithFormat:@"0%@", tempmm];
+    }
+    NSString *tempss = [NSString stringWithFormat:@"%ld", tempShowRunningTime % 60];
+    if (tempss.length == 1) {
+        tempss = [NSString stringWithFormat:@"0%@", tempss];
+    }
+    _lblRunTime.text = [NSString stringWithFormat:@"%@:%@:%@", temphh, tempmm, tempss];
+    
+    //calorie
     _lblCalorie.text = [NSString stringWithFormat:@"%.2f", _runRecord.calorie];
     
+    //speed
     float secondPerMileage = (_runRecord.mileage > 0.0001) ? _runRecord.secondOfRunning / _runRecord.mileage : 0;
     int tempMinute = secondPerMileage / 60;
     int tempSecond = secondPerMileage - tempMinute * 60;
-    _lblSpead.text = [NSString stringWithFormat:@"%d'%d\"", tempMinute, tempSecond];
+    
+    NSString *tempspeedmm = [NSString stringWithFormat:@"%d", tempMinute];
+    if (tempspeedmm.length == 1) {
+        tempspeedmm = [NSString stringWithFormat:@"0%@", tempspeedmm];
+    }
+    NSString *tempspeedss = [NSString stringWithFormat:@"%d", tempSecond];
+    if (tempspeedss.length == 1) {
+        tempspeedss = [NSString stringWithFormat:@"0%@", tempspeedss];
+    }
+    _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
     
     //显示线路图
     int locationCount = _runRecord.locationList.count;
