@@ -74,7 +74,7 @@
 						<string key="NSFrame">{{0, 44}, {160, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="536705758"/>
+						<reference key="NSNextKeyView" ref="206998811"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -106,7 +106,7 @@
 						<string key="NSFrame">{{160, 45}, {160, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="72567337"/>
+						<reference key="NSNextKeyView" ref="572673459"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -125,6 +125,7 @@
 						<string key="NSFrame">{{0, 89}, {320, 459}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="149787247"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="851246893"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -148,6 +149,33 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIStyle">0</int>
 						<reference key="IBUIColor" ref="851246893"/>
+					</object>
+					<object class="IBUIImageView" id="206998811">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{130, 63}, {8, 6}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="536705758"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage" id="653090124">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">lbs_rank_type_arraw.png</string>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="572673459">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{290, 63}, {8, 6}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="72567337"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<reference key="IBUIImage" ref="653090124"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -207,6 +235,22 @@
 					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">nearTipImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="206998811"/>
+					</object>
+					<int key="connectionID">20</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">communityTipImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="572673459"/>
+					</object>
+					<int key="connectionID">21</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">doNearFriend:</string>
 						<reference key="source" ref="1003533546"/>
@@ -259,6 +303,8 @@
 							<reference ref="536705758"/>
 							<reference ref="72567337"/>
 							<reference ref="149787247"/>
+							<reference ref="206998811"/>
+							<reference ref="572673459"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -303,6 +349,16 @@
 						<reference key="object" ref="149787247"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="206998811"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">19</int>
+						<reference key="object" ref="572673459"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -312,6 +368,8 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -324,7 +382,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">21</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -348,8 +406,10 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="btnCommunityFriend">UIButton</string>
 						<string key="btnNearFriend">UIButton</string>
+						<string key="communityTipImageView">UIImageView</string>
 						<string key="friendTableView">UITableView</string>
 						<string key="indicatorView">UIActivityIndicatorView</string>
+						<string key="nearTipImageView">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="btnCommunityFriend">
@@ -360,6 +420,10 @@
 							<string key="name">btnNearFriend</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="communityTipImageView">
+							<string key="name">communityTipImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="friendTableView">
 							<string key="name">friendTableView</string>
 							<string key="candidateClassName">UITableView</string>
@@ -367,6 +431,10 @@
 						<object class="IBToOneOutletInfo" key="indicatorView">
 							<string key="name">indicatorView</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="nearTipImageView">
+							<string key="name">nearTipImageView</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -382,6 +450,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="lbs_friend_type_bg.png">{640, 89}</string>
+			<string key="lbs_rank_type_arraw.png">{16, 12}</string>
 			<string key="run_bg.png">{640, 1136}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1930</string>

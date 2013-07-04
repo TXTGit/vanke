@@ -25,7 +25,9 @@
 @synthesize navView = _navView;
 
 @synthesize btnNearFriend = _btnNearFriend;
+@synthesize nearTipImageView = _nearTipImageView;
 @synthesize btnCommunityFriend = _btnCommunityFriend;
+@synthesize communityTipImageView = _communityTipImageView;
 @synthesize friendTableView = _friendTableView;
 @synthesize indicatorView = _indicatorView;
 
@@ -74,6 +76,9 @@
     //data
     _nearfriendlist = [[NSMutableArray alloc] init];
     _communitylist = [[NSMutableArray alloc] init];
+    
+    _nearTipImageView.hidden = NO;
+    _communityTipImageView.hidden = YES;
     
     //from net
     [self initData];
@@ -212,6 +217,8 @@
     NSLog(@"doNearFriend...");
     
     _isShowNearFriend = YES;
+    _nearTipImageView.hidden = NO;
+    _communityTipImageView.hidden = YES;
     [_friendTableView reloadData];
     
 }
@@ -221,6 +228,8 @@
     NSLog(@"doCommunityFriend...");
     
     _isShowNearFriend = NO;
+    _nearTipImageView.hidden = YES;
+    _communityTipImageView.hidden = NO;
     [_friendTableView reloadData];
     
 }

@@ -14,7 +14,9 @@
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
 @property (nonatomic, retain) IBOutlet UIButton *btnNearFriend;
+@property (nonatomic, retain) IBOutlet UIImageView *nearTipImageView;
 @property (nonatomic, retain) IBOutlet UIButton *btnCommunityFriend;
+@property (nonatomic, retain) IBOutlet UIImageView *communityTipImageView;
 @property (nonatomic, retain) IBOutlet UITableView *friendTableView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicatorView;
 
