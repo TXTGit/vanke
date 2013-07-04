@@ -47,15 +47,24 @@
 @synthesize lblNengLiang = _lblNengLiang;
 @synthesize lblDeFen = _lblDeFen;
 
+@synthesize settingBodyMenuImageView = _settingBodyMenuImageView;
+
 @synthesize btnJiFen = _btnJiFen;
 @synthesize btnDuoBao = _btnDuoBao;
 @synthesize btnDuiHuanRecord = _btnDuiHuanRecord;
 
 @synthesize tallField = _tallField;
+@synthesize lblTallDesc = _lblTallDesc;
+@synthesize lblTallCM = _lblTallCM;
 @synthesize weightField = _weightField;
+@synthesize lblWeightDesc = _lblWeightDesc;
+@synthesize lblWeightKG = _lblWeightKG;
 //@synthesize areaField = _areaField;
+@synthesize lblAreaDesc = _lblAreaDesc;
 @synthesize lblArea = _lblArea;
+@synthesize lblAddressDesc = _lblAddressDesc;
 @synthesize addressField = _addressField;
+@synthesize lblTelDesc = _lblTelDesc;
 @synthesize telField = _telField;
 
 @synthesize btnSina = _btnSina;
@@ -69,7 +78,11 @@
 @synthesize achtionSheet = _achtionSheet;
 @synthesize currentSelectedItem = _currentSelectedItem;
 
+@synthesize publicBgImageView = _publicBgImageView;
+@synthesize lblPublic = _lblPublic;
 @synthesize switchPublic = _switchPublic;
+@synthesize positionBgImageView = _positionBgImageView;
+@synthesize lblPosition = _lblPosition;
 @synthesize switchPosition = _switchPosition;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -187,8 +200,31 @@
         [self.addressField setEnabled:NO];
         [self.telField setEnabled:NO];
         
+        //隐藏
+        _settingBodyMenuImageView.hidden = YES;
+        _btnJiFen.hidden = YES;
+        _btnDuoBao.hidden = YES;
+        _btnDuiHuanRecord.hidden = YES;
+        _lblTallDesc.hidden = YES;
+        _tallField.hidden = YES;
+        _lblTallCM.hidden = YES;
+        _lblWeightDesc.hidden = YES;
+        _weightField.hidden = YES;
+        _lblWeightKG.hidden = YES;
+        _lblArea.hidden = YES;
+        _addressField.hidden = YES;
+        _telField.hidden = YES;
+        _btnSina.hidden = YES;
+        _btnTel.hidden = YES;
+        _publicBgImageView.hidden = YES;
+        _lblPublic.hidden = YES;
         _switchPublic.hidden = YES;
+        _positionBgImageView.hidden = YES;
+        _lblPosition.hidden = YES;
         _switchPosition.hidden = YES;
+        _btnLogout.hidden = YES;
+        
+        _tempScroll.scrollEnabled = NO;
         
     }
     

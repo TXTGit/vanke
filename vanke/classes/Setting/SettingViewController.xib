@@ -983,6 +983,78 @@
 					<int key="connectionID">105</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">settingBodyMenuImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="128496616"/>
+					</object>
+					<int key="connectionID">107</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">publicBgImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="949548289"/>
+					</object>
+					<int key="connectionID">108</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">positionBgImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="99352814"/>
+					</object>
+					<int key="connectionID">109</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblPublic</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="809481886"/>
+					</object>
+					<int key="connectionID">110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblPosition</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="420166908"/>
+					</object>
+					<int key="connectionID">111</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblTallDesc</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="353668742"/>
+					</object>
+					<int key="connectionID">112</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblTallCM</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="840570028"/>
+					</object>
+					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblWeightDesc</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="84337699"/>
+					</object>
+					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblWeightKG</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="341186010"/>
+					</object>
+					<int key="connectionID">115</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">doTel:</string>
 						<reference key="source" ref="808901780"/>
@@ -1381,7 +1453,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">106</int>
+			<int key="maxID">115</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1456,14 +1528,26 @@
 						<string key="btnLogout">UIButton</string>
 						<string key="btnSina">UIButton</string>
 						<string key="btnTel">UIButton</string>
+						<string key="lblAddressDesc">UILabel</string>
 						<string key="lblArea">UILabel</string>
+						<string key="lblAreaDesc">UILabel</string>
 						<string key="lblDeFen">UILabel</string>
 						<string key="lblDuiHuanDistance">UILabel</string>
 						<string key="lblHaoYou">UILabel</string>
 						<string key="lblMingCi">UILabel</string>
 						<string key="lblNengLiang">UILabel</string>
+						<string key="lblPosition">UILabel</string>
+						<string key="lblPublic">UILabel</string>
+						<string key="lblTallCM">UILabel</string>
+						<string key="lblTallDesc">UILabel</string>
+						<string key="lblTelDesc">UILabel</string>
 						<string key="lblTotalDistance">UILabel</string>
+						<string key="lblWeightDesc">UILabel</string>
+						<string key="lblWeightKG">UILabel</string>
 						<string key="logoutImageView">UIImageView</string>
+						<string key="positionBgImageView">UIImageView</string>
+						<string key="publicBgImageView">UIImageView</string>
+						<string key="settingBodyMenuImageView">UIImageView</string>
 						<string key="switchPosition">UISwitch</string>
 						<string key="switchPublic">UISwitch</string>
 						<string key="tallField">UITextField</string>
@@ -1511,8 +1595,16 @@
 							<string key="name">btnTel</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lblAddressDesc">
+							<string key="name">lblAddressDesc</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="lblArea">
 							<string key="name">lblArea</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblAreaDesc">
+							<string key="name">lblAreaDesc</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lblDeFen">
@@ -1535,12 +1627,52 @@
 							<string key="name">lblNengLiang</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lblPosition">
+							<string key="name">lblPosition</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblPublic">
+							<string key="name">lblPublic</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblTallCM">
+							<string key="name">lblTallCM</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblTallDesc">
+							<string key="name">lblTallDesc</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblTelDesc">
+							<string key="name">lblTelDesc</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="lblTotalDistance">
 							<string key="name">lblTotalDistance</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lblWeightDesc">
+							<string key="name">lblWeightDesc</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblWeightKG">
+							<string key="name">lblWeightKG</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="logoutImageView">
 							<string key="name">logoutImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="positionBgImageView">
+							<string key="name">positionBgImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="publicBgImageView">
+							<string key="name">publicBgImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="settingBodyMenuImageView">
+							<string key="name">settingBodyMenuImageView</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="switchPosition">

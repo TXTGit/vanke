@@ -29,15 +29,24 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblNengLiang;            //能量
 @property (nonatomic, retain) IBOutlet UILabel *lblDeFen;                //得分
 
+@property (nonatomic, retain) IBOutlet UIImageView *settingBodyMenuImageView;
+
 @property (nonatomic, retain) IBOutlet UIButton *btnJiFen;
 @property (nonatomic, retain) IBOutlet UIButton *btnDuoBao;
 @property (nonatomic, retain) IBOutlet UIButton *btnDuiHuanRecord;
 
 @property (nonatomic, retain) IBOutlet UITextField *tallField;
+@property (nonatomic, retain) IBOutlet UILabel *lblTallDesc;
+@property (nonatomic, retain) IBOutlet UILabel *lblTallCM;
 @property (nonatomic, retain) IBOutlet UITextField *weightField;
+@property (nonatomic, retain) IBOutlet UILabel *lblWeightDesc;
+@property (nonatomic, retain) IBOutlet UILabel *lblWeightKG;
 //@property (nonatomic, retain) IBOutlet UITextField *areaField;
+@property (nonatomic, retain) IBOutlet UILabel *lblAreaDesc;
 @property (nonatomic, retain) IBOutlet UILabel *lblArea;
+@property (nonatomic, retain) IBOutlet UILabel *lblAddressDesc;
 @property (nonatomic, retain) IBOutlet UITextField *addressField;
+@property (nonatomic, retain) IBOutlet UILabel *lblTelDesc;
 @property (nonatomic, retain) IBOutlet UITextField *telField;
 
 @property (nonatomic, retain) IBOutlet UIButton *btnSina;                //
@@ -51,7 +60,11 @@
 @property (nonatomic, retain) UIActionSheet *achtionSheet;
 @property (nonatomic, assign) int currentSelectedItem;
 
+@property (nonatomic, retain) IBOutlet UIImageView *publicBgImageView;
+@property (nonatomic, retain) IBOutlet UILabel *lblPublic;
 @property (nonatomic, retain) IBOutlet UISwitch *switchPublic;
+@property (nonatomic, retain) IBOutlet UIImageView *positionBgImageView;
+@property (nonatomic, retain) IBOutlet UILabel *lblPosition;
 @property (nonatomic, retain) IBOutlet UISwitch *switchPosition;
 
 -(void)initData;
