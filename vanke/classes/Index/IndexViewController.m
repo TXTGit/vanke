@@ -24,6 +24,8 @@
 
 @implementation IndexViewController
 
+@synthesize mapView = _mapView;
+
 @synthesize navView = _navView;
 
 @synthesize menuOfHeadView = _menuOfHeadView;
@@ -83,6 +85,31 @@
 //    [self getUnreadDataFromServerByHttp];
     
     [self doGetMemberInfo:[UserSessionManager GetInstance].currentRunUser.userid];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    //百度
+    [_mapView viewWillAppear];
+    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    
+    //baidu
+    _mapView.showsUserLocation = YES;
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    [_mapView viewWillDisappear];
+    _mapView.delegate = nil; // 不用时，置nil
+    
+    //baidu
+    _mapView.showsUserLocation = NO;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -278,6 +305,53 @@
     }];
     [operation start];
     
+}
+
+#pragma map view delegate
+
+/**
+ *在地图View将要启动定位时，会调用此函数
+ *@param mapView 地图View
+ */
+- (void)mapViewWillStartLocatingUser:(BMKMapView *)mapView
+{
+	NSLog(@"start locate");
+}
+
+/**
+ *用户位置更新后，会调用此函数
+ *@param mapView 地图View
+ *@param userLocation 新的用户位置
+ */
+
+- (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
+{
+	if (userLocation != nil) {
+        
+        NSString *templocation = [NSString stringWithFormat:@"%f,%f", userLocation.coordinate.latitude, userLocation.coordinate.longitude];
+        NSLog(@"templocation: %@", templocation);
+        
+        _mapView.showsUserLocation = NO;
+        
+	}
+	
+}
+/**
+ *在地图View停止定位后，会调用此函数
+ *@param mapView 地图View
+ */
+- (void)mapViewDidStopLocatingUser:(BMKMapView *)mapView
+{
+    NSLog(@"stop locate");
+}
+/**
+ *定位失败后，会调用此函数
+ *@param mapView 地图View
+ *@param error 错误号，参考CLError.h中定义的错误号
+ */
+- (void)mapView:(BMKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    NSLog(@"location error");
 }
 
 @end

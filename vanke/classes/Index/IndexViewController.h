@@ -11,8 +11,11 @@
 #import "EGOImageView.h"
 #import "PDropdownMenuView.h"
 #import "CustomWindow.h"
+#import "BMapKit.h"
 
-@interface IndexViewController : UIViewController
+@interface IndexViewController : UIViewController<BMKMapViewDelegate>
+
+@property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 
