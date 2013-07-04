@@ -418,9 +418,9 @@
 }
 
 //总的平均速度
--(long)getTotalRuningSpeedFromDatabase{
+-(double)getTotalRuningSpeedFromDatabase{
     
-    long totaldistance = 0;
+    double totaldistance = 0;
     long tataltime = 0;
     
     //总的平均速度
@@ -430,7 +430,7 @@
     
     while ([rs next]) {
         
-        totaldistance = [rs longForColumn:@"totaldistance"];
+        totaldistance = [rs doubleForColumn:@"totaldistance"];
         tataltime = [rs longForColumn:@"tataltime"];
         
         break;
@@ -439,7 +439,7 @@
     [rs close];
     [_database close];
     
-    NSLog(@"totaldistance: %ld, tataltime: %ld", totaldistance, tataltime);
+    NSLog(@"totaldistance: %f, tataltime: %ld", totaldistance, tataltime);
     
     _lblSpead.text = [NSString stringWithFormat:@"%.2f", (float)(totaldistance / tataltime)];
     

@@ -99,7 +99,7 @@
 //从本地获得总的跑步次数
 -(void)getTotalRunCountFromDatabase;
 //总的平均速度
--(long)getTotalRuningSpeedFromDatabase;
+-(double)getTotalRuningSpeedFromDatabase;
 
 //从服务器获取一周跑步记录
 -(void)getWeekRunRecordList;
