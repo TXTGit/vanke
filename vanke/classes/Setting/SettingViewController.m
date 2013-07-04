@@ -132,9 +132,6 @@
         [self.addressField setEnabled:YES];
         [self.telField setEnabled:YES];
         
-        _switchPublic.tintColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
-        _switchPosition.tintColor = [UIColor colorWithRed:249.0f/255.0f green:66.0f/255.0f blue:3.0f/255.0f alpha:1.0f];
-        
     }else{
         NSString *setIsFanUrl = [VankeAPI getIsFanUrl:[UserSessionManager GetInstance].currentRunUser.userid :[NSString stringWithFormat:@"%ld",_memberid]];
         NSURL *url = [NSURL URLWithString:setIsFanUrl];
@@ -582,6 +579,15 @@
 -(IBAction)doSina:(id)sender{
     
     NSLog(@"doSina...");
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud boolForKey:@"BindSina"]) {
+        [ud setBool:NO forKey:@"BindSina"];
+        [ud synchronize];
+    } else {
+        [ud setBool:YES forKey:@"BindSina"];
+        [ud synchronize];
+    }
     
 }
 
