@@ -262,10 +262,14 @@
                 
                 if (_runner.isPublic > 0) {
                     _switchPublic.selected = YES;
+                } else {
+                    _switchPublic.selected = NO;
                 }
                 
                 if (_runner.isPosition > 0) {
                     _switchPosition.selected = YES;
+                } else {
+                    _switchPosition.selected = NO;
                 }
                 
             }else{
