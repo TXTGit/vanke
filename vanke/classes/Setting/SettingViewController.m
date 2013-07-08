@@ -600,6 +600,25 @@
     NSLog(@"index: %d, currentSelectedItem: %d", index, _currentSelectedItem);
     [_achtionSheet dismissWithClickedButtonIndex:index animated:YES];
     
+    if (_runner) {
+        int duihuanMileage = _runner.mileage - _runner.mileageUsed;
+        if (duihuanMileage < 2 * _currentSelectedItem) {
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"您的可兑换里程不足";
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+            
+            return;
+        }
+        
+    }
+    
     [self doAddScore:_currentSelectedItem];
 }
 
