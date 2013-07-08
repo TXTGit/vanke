@@ -346,6 +346,7 @@
 		CE8BFD09177341A3001AFAA9 /* TrendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8BFD08177341A3001AFAA9 /* TrendCell.m */; };
 		CE8BFD0B177341E0001AFAA9 /* TrendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFD0A177341E0001AFAA9 /* TrendCell.xib */; };
 		CE8BFD0E177347E2001AFAA9 /* TrendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8BFD0D177347E2001AFAA9 /* TrendInfo.m */; };
+		CE94068D178B129F00F53636 /* setting_btn_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CE94068C178B129F00F53636 /* setting_btn_chat.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -817,6 +818,7 @@
 		CE8BFD0A177341E0001AFAA9 /* TrendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendCell.xib; sourceTree = "<group>"; };
 		CE8BFD0C177347E2001AFAA9 /* TrendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendInfo.h; sourceTree = "<group>"; };
 		CE8BFD0D177347E2001AFAA9 /* TrendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendInfo.m; sourceTree = "<group>"; };
+		CE94068C178B129F00F53636 /* setting_btn_chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_chat.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -935,6 +937,7 @@
 		165AE0AE1767286E00B15416 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				CE94068C178B129F00F53636 /* setting_btn_chat.png */,
 				16BCFD82177EA3300037C42C /* button_logout.png */,
 				160CC0321776F1DE005E5BDA /* header_red_circle.png */,
 				160CC00D1776BD58005E5BDA /* setting_header_bg_check.png */,
@@ -2010,6 +2013,7 @@
 				16340B3B178310AF00231554 /* ScoreCell.xib in Resources */,
 				1837D179178538EC00776570 /* run_player_pause.png in Resources */,
 				1837D17A178538EC00776570 /* run_player_play.png in Resources */,
+				CE94068D178B129F00F53636 /* setting_btn_chat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

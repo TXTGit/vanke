@@ -132,7 +132,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
 //        [_navView.rightButton setTitle:@"保存" forState:UIControlStateNormal];
         [_navView.rightButton setHidden:NO];
-        [_navView.rightButton setFrame:CGRectMake(250, 7, 56, 29)];
+        [_navView.rightButton setFrame:CGRectMake(258, 7, 56, 29)];
         [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.btnJiFen setEnabled:YES];
@@ -159,11 +159,11 @@
             if ([status isEqual:@"0"]) {
                 NSLog(@"isFan：%d",[[dicResult objectForKey:@"isFan"] intValue]);
                 if ([[dicResult objectForKey:@"isFan"] intValue] == 1) {
-                    UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_invit" type:@"png"];
+                    UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_chat" type:@"png"];
                     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-                    [_navView.rightButton setTitle:@"聊天" forState:UIControlStateNormal];
+//                    [_navView.rightButton setTitle:@"聊天" forState:UIControlStateNormal];
                     [_navView.rightButton setHidden:NO];
-                    [_navView.rightButton setFrame:CGRectMake(272, 9, 24, 25)];
+                    [_navView.rightButton setFrame:CGRectMake(258, 9, 56, 29)];
                     [_navView.rightButton addTarget:self action:@selector(doGotoChat:) forControlEvents:UIControlEventTouchUpInside];
                 }else{
                     UIImage *indexHeadBg = [UIImage imageWithName:@"setting_btn_invit" type:@"png"];
