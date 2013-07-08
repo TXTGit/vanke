@@ -106,12 +106,12 @@
     [bgImageView setImage:[UIImage imageWithName:@"setting_bg" type:@"png"]];
     [self.view addSubview:bgImageView];
     
-    _broadView.frame = CGRectMake(0, 0, 320, 688);
+    _broadView.frame = CGRectMake(0, 0, 320, 590);//688
     
     _tempScroll = [[UIScrollView alloc] init];
     _tempScroll.frame = CGRectMake(0, 0, 320, height);
     _tempScroll.scrollEnabled = YES;
-    _tempScroll.contentSize = CGSizeMake(320, 688);
+    _tempScroll.contentSize = CGSizeMake(320, 590);//688
     _tempScroll.delegate = self;
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
@@ -283,10 +283,15 @@
                 }
                 
                 NSString *imgpath = [dicResult objectForKey:@"imgPath"];
-                _runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, _runner.headImg];
+                if (_runner.headImg) {
+                    _runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, _runner.headImg];
+                }
+                
                 NSLog(@"headImg: %@", _runner.headImg);
                 _btnHeadImg.delegate = self;
-                _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
+                if (_runner.headImg) {
+                    _btnHeadImg.imageURL = [NSURL URLWithString:_runner.headImg];
+                }
                 
                 _lblTotalDistance.text = [NSString stringWithFormat:@"%.2f", _runner.mileage];
                 float tempCanUseMileage = _runner.mileage - _runner.mileageUsed;
@@ -301,7 +306,7 @@
                 _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
                 _lblArea.text = _runner.communityName;
                 _addressField.text = _runner.gpsAddress;
-                _telField.text = _runner.tel;
+                _telField.text = _runner.phone;//_runner.tel;
                 
                 if (_runner.isPublic > 0) {
                     [_switchPublic setOn:YES animated:YES];
