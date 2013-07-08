@@ -346,7 +346,22 @@
     
     cell.lblRunDistance.text = [NSString stringWithFormat:@"%.2f km", record.mileage];
     cell.lblCalorie.text = [NSString stringWithFormat:@"%.2f", record.calorie];
-    cell.lblSpead.text = [NSString stringWithFormat:@"%.2f", record.speed];
+//    cell.lblSpead.text = [NSString stringWithFormat:@"%.2f", record.speed];
+    
+    //平均速度
+    float secondPerMileage = (record.mileage > 0.0001) ? record.minute * 60 / record.mileage : 0;
+    int tempMinute = secondPerMileage / 60;
+    int tempSecond = secondPerMileage - tempMinute * 60;
+    
+    NSString *tempspeedmm = [NSString stringWithFormat:@"%d", tempMinute];
+    if (tempspeedmm.length == 1) {
+        tempspeedmm = [NSString stringWithFormat:@"0%@", tempspeedmm];
+    }
+    NSString *tempspeedss = [NSString stringWithFormat:@"%d", tempSecond];
+    if (tempspeedss.length == 1) {
+        tempspeedss = [NSString stringWithFormat:@"0%@", tempspeedss];
+    }
+    cell.lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
     
     NSLog(@"cell.frame.size.height: %f", cell.frame.size.height);
     
