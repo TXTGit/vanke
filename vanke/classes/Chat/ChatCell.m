@@ -25,6 +25,9 @@
 
 @synthesize chatType = _chatType;
 
+#define btnAcceptTag 101
+#define btnRejectTag 102
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -73,16 +76,18 @@
     
     if (_chatType == chatTypeInviteCheck) {
         UIButton *btnAccept = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 5, _textBgImageView.frame.size.height + 10, 49, 21)];
+        btnAccept.tag = btnAcceptTag;
         [btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         [btnAccept setBackgroundColor:[UIColor grayColor]];
         [btnAccept addTarget:self action:@selector(acceptInvit:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnAccept];
         
-        UIButton *btnReply = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 10, 49, 21)];
-        [btnReply setTitle:@"拒绝" forState:UIControlStateNormal];
-        [btnReply setBackgroundColor:[UIColor grayColor]];
-        [btnReply addTarget:self action:@selector(rejectInvite:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:btnReply];
+        UIButton *btnReject = [[UIButton alloc]initWithFrame:CGRectMake(_textBgImageView.frame.origin.x + 60, _textBgImageView.frame.size.height + 10, 49, 21)];
+        btnReject.tag = btnRejectTag;
+        [btnReject setTitle:@"拒绝" forState:UIControlStateNormal];
+        [btnReject setBackgroundColor:[UIColor grayColor]];
+        [btnReject addTarget:self action:@selector(rejectInvite:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btnReject];
         
         CGRect bgFrame = self.textBgImageView.frame;
         bgFrame.size.height = bgFrame.size.height + 31;
@@ -109,6 +114,8 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             [sender setHidden:YES];
+            UIView *view = [self viewWithTag:btnRejectTag];
+            [view setHidden:YES];
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
@@ -151,6 +158,8 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             [sender setHidden:YES];
+            UIView *view = [self viewWithTag:btnAcceptTag];
+            [view setHidden:YES];
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down

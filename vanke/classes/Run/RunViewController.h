@@ -20,6 +20,8 @@
 #import "PMusicPlayerControllerView.h"
 #import "PDropdownMenuView.h"
 
+#import "MenuBottomView.h"
+
 @interface RunViewController : UIViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
@@ -79,6 +81,7 @@
 @property (weak, nonatomic) IBOutlet OBShapedButton *btnMenuFourth;
 @property (weak, nonatomic) IBOutlet OBShapedButton *btnMenuCenter;
 @property (weak, nonatomic) IBOutlet UIImageView *ivMenuBg;
+@property (weak, nonatomic) IBOutlet MenuBottomView *menuBottomView;
 
 @property (nonatomic, retain) PMusicPlayerControllerView *musicPlayerControllerView;
 

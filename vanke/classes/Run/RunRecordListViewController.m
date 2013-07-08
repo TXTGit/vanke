@@ -363,6 +363,7 @@
     RunRecord *record = [_recordList objectAtIndex:indexPath.row];
     
     RunResultViewController *runResultViewController = [[RunResultViewController alloc] initWithNibName:@"RunResultViewController" bundle:nil];
+    record.secondOfRunning = record.minute * 60;
     [runResultViewController setRunRecord:record];
     [runResultViewController setIsHistory:YES];
     [self.navigationController pushViewController:runResultViewController animated:YES];

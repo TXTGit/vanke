@@ -91,6 +91,8 @@
 @synthesize btnMenuCenter = _btnMenuCenter;
 @synthesize ivMenuBg = _ivMenuBg;
 
+@synthesize menuBottomView = _menuBottomView;
+
 @synthesize musicPlayerControllerView = _musicPlayerControllerView; //new view
 
 @synthesize locationSongList = _locationSongList;
@@ -174,7 +176,7 @@
     [_musicPlayerControllerView.btnSound addTarget:self action:@selector(showVolume) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.sliderVolume addTarget:self action:@selector(volumeSet:) forControlEvents:UIControlEventValueChanged];
     
-    [self.view addSubview:_musicPlayerControllerView];
+    [self.view insertSubview:_musicPlayerControllerView belowSubview:_menuBottomView];
     
     _locationSongList = [[NSMutableArray alloc] init];
     _currentSongIndex = 0;
@@ -1364,7 +1366,7 @@
         self.btnMenuFourth.hidden = YES;
         _isMenuOfBottomShowing = NO;
         
-        _musicPlayerControllerView.hidden = YES;
+//        _musicPlayerControllerView.hidden = YES;
         
     } else {
         self.ivMenuBg.hidden = NO;
@@ -1509,6 +1511,7 @@
     [self setBtnMenuFourth:nil];
     [self setBtnMenuCenter:nil];
     [self setIvMenuBg:nil];
+    [self setMenuBottomView:nil];
     [super viewDidUnload];
 }
 @end

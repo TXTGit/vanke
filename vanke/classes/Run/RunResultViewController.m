@@ -117,7 +117,11 @@
     if (tempspeedss.length == 1) {
         tempspeedss = [NSString stringWithFormat:@"0%@", tempspeedss];
     }
-    _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
+//    if (_runRecord.speed>0) {
+//        _lblSpead.text = [NSString stringWithFormat:@"%f",_runRecord.speed];
+//    }else{
+        _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
+//    }
     
     //显示线路图
     int locationCount = _runRecord.locationList.count;

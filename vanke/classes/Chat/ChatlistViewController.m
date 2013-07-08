@@ -73,6 +73,58 @@
     
     //from net
     [self initData];
+    [self getInviteData];
+}
+
+-(void)getInviteData{
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
+    NSLog(@"msgList:%@",msgListUrl);
+    NSURL *url = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            if (datalistCount>0) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+                [alert show];
+            }
+            
+            //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+            //            [chatViewController setChatType:chatTYpeInviteCheck];
+            //            [self.navigationController pushViewController:chatViewController animated:YES];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%d",buttonIndex);
+    if (buttonIndex==1) {
+        ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+        [chatViewController setChatType:chatTypeInviteCheck];
+        [self.navigationController pushViewController:chatViewController animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning

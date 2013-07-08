@@ -458,13 +458,18 @@
         }
         
         //创建搭载自定义calloutview的annotation
-        _calloutMapAnnotation = [[CalloutMapAnnotation alloc] initWithLatitude:view.annotation.coordinate.latitude andLongitude:view.annotation.coordinate.longitude];
+//        _calloutMapAnnotation = [[CalloutMapAnnotation alloc] initWithLatitude:view.annotation.coordinate.latitude andLongitude:view.annotation.coordinate.longitude];
+//        
+//        //把通过marker(ZNBCPointAnnotation)设置的pointCalloutInfo信息赋值给CalloutMapAnnotation
+//        _calloutMapAnnotation.nearFriend = annn.nearFriend;
+//        
+//        [_mapView addAnnotation:_calloutMapAnnotation];
+//        [_mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
         
-        //把通过marker(ZNBCPointAnnotation)设置的pointCalloutInfo信息赋值给CalloutMapAnnotation
-        _calloutMapAnnotation.nearFriend = annn.nearFriend;
-        
-        [_mapView addAnnotation:_calloutMapAnnotation];
-        [_mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
+        //直接打开个人信息页
+        SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+        [settingViewController setMemberid:annn.nearFriend.memberID];
+        [self.navigationController pushViewController:settingViewController animated:YES];
     }
     
 }

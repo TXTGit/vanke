@@ -150,6 +150,7 @@
         NSURL *url = [NSURL URLWithString:setIsFanUrl];
         NSLog(@"isFan:%@",setIsFanUrl);
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             NSLog(@"App.net Global Stream: %@", JSON);
             NSDictionary *dicResult = JSON;
@@ -274,6 +275,12 @@
                 
                 NSDictionary *dicEnt0 = [entList objectAtIndex:0];
                 _runner = [RunUser initWithNSDictionary:dicEnt0];
+                
+                long long currentMemberid = [[UserSessionManager GetInstance].currentRunUser.userid longLongValue];
+                //如果不是登录者，则Title改为用户昵称
+                if (currentMemberid != _memberid) {
+                    _navView.titleLabel.text = _runner.nickname;
+                }
                 
                 NSString *imgpath = [dicResult objectForKey:@"imgPath"];
                 _runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, _runner.headImg];
@@ -472,13 +479,55 @@
 -(void)doGotoInvite:(id)sender{
     NSLog(@"doGotoInvite...");
     
-    FriendInfo *friendinfo = [[FriendInfo alloc]init];
-    friendinfo.fromMemberID = [_runner.userid longLongValue];
+//    FriendInfo *friendinfo = [[FriendInfo alloc]init];
+//    friendinfo.fromMemberID = [_runner.userid longLongValue];
+//    
+//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//    [chatViewController setFriendInfo:friendinfo];
+//    [chatViewController setChatType:chatTypeInvite];
+//    [self.navigationController pushViewController:chatViewController animated:YES];
     
-    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-    [chatViewController setFriendInfo:friendinfo];
-    [chatViewController setChatType:chatTypeInvite];
-    [self.navigationController pushViewController:chatViewController animated:YES];
+    //直接发送好友邀请，邀请内容为：一起跑步好吗？
+    NSString *msgText = @"一起跑步好吗？";
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *tomemberid = [NSString stringWithFormat:@"%ld",_memberid];
+    NSString *msgListUrl = [VankeAPI getSendInviteUrl:memberid toMemberId:tomemberid msgText:msgText];
+    
+    NSURL *url = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"您已成功发送好友邀请！";
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
 }
 
 -(void)doGotoChat:(id)sender{
@@ -511,16 +560,34 @@
     
     [_achtionSheet addSubview:pickerView];
     
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 12, 180, 30)];
+    [label setText:@"2公里兑换1分，每日最多兑换5分"];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setFont:[UIFont systemFontOfSize:12.0f]];
+    [label setTextColor:[UIColor whiteColor]];
+    [_achtionSheet addSubview:label];
+    
     UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
     [button setSegmentedControlStyle:UISegmentedControlStyleBar];
-    [button setFrame:CGRectMake(270, 20, 50, 30)];
+    [button setFrame:CGRectMake(270, 12, 50, 30)];
     [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [_achtionSheet addSubview:button];
+    
+    UISegmentedControl *cancellButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"取消", nil]];
+    [cancellButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [cancellButton setFrame:CGRectMake(208, 12, 50, 30)];
+    [cancellButton addTarget:self action:@selector(cancellAction) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:cancellButton];
     
     [_achtionSheet showInView:self.view];
     [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
     [_achtionSheet setBackgroundColor:[UIColor whiteColor]];
     
+}
+
+-(void)cancellAction
+{
+    [_achtionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 -(void)segmentAction:(UISegmentedControl *)seg{
@@ -549,6 +616,16 @@
             
             //刷新数据
             [self initData];
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"兑换成功";
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
             
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
