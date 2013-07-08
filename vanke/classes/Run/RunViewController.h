@@ -104,6 +104,9 @@
 //总的平均速度
 -(double)getTotalRuningSpeedFromDatabase;
 
+//获取用户的个人数据纪录
+-(void)getMemberDetailInfo:(NSString *)memberid;
+
 //从服务器获取一周跑步记录
 -(void)getWeekRunRecordList;
 

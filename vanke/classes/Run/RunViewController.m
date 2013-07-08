@@ -176,7 +176,8 @@
     [_musicPlayerControllerView.btnSound addTarget:self action:@selector(showVolume) forControlEvents:UIControlEventTouchUpInside];
     [_musicPlayerControllerView.sliderVolume addTarget:self action:@selector(volumeSet:) forControlEvents:UIControlEventValueChanged];
     
-    [self.view insertSubview:_musicPlayerControllerView belowSubview:_menuBottomView];
+    [self.view addSubview:_musicPlayerControllerView];
+//    [self.view insertSubview:_musicPlayerControllerView belowSubview:_menuBottomView];
     
     _locationSongList = [[NSMutableArray alloc] init];
     _currentSongIndex = 0;
@@ -249,14 +250,14 @@
         //更新显示内容背景图片
         _runingDataBgImageView.image = [UIImage imageWithName:@"run_his" type:@"png"];
         
-        //刷新里程
-        _lblRunDistance.text = @"0.0";
-        
         //圆盘进度
         [self updateRunningProcessByDistance:1];
         
+        //获取用户个人数据
+        [self getMemberDetailInfo:[UserSessionManager GetInstance].currentRunUser.userid];
+        
         //未跑步时，显示跑步次数
-        [self getTotalRunCountFromDatabase];
+//        [self getTotalRunCountFromDatabase];
     } else {
         
         //更新显示内容背景图片
@@ -266,11 +267,6 @@
         long tempShowRunningTime = currentRecordTime - _nStartTime;
         _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
     }
-    
-    //显示本地数据
-    [self getTotalRunDistanceFromDatabase];
-    
-    [self getTotalRuningSpeedFromDatabase];
     
     //刷新一周记录
     [self getWeekRunRecordList];
@@ -365,36 +361,6 @@
     
 }
 
-//从本地获得总的跑步距离
--(double)getTotalRunDistanceFromDatabase{
-    
-    double runTotalDistance = 0;
-    
-    [_database open];
-    
-    FMResultSet *rs = [_database executeQuery:@"select sum(distance) as totaldistance from RUN_RECORD_DATA"];
-    
-    while ([rs next]) {
-        
-        runTotalDistance = [rs doubleForColumn:@"totaldistance"];
-        
-        break;
-    }
-    
-    [rs close];
-    [_database close];
-    
-    _nTotalDistance = runTotalDistance;
-    
-    //计算卡路里
-    float tempRunnerWeight = [UserSessionManager GetInstance].currentRunUser.weight;
-    NSLog(@"runTotalDistance: %f, tempRunnerWeight: %f", runTotalDistance, tempRunnerWeight);
-    double tempCalorie = [PCommonUtil calcCalorie:tempRunnerWeight distance:runTotalDistance];
-    _lblCalorie.text = [NSString stringWithFormat:@"%.2f", tempCalorie];
-    
-    return runTotalDistance;
-}
-
 //从本地数据库获得总的跑步次数
 -(void)getTotalRunCountFromDatabase{
     
@@ -419,33 +385,59 @@
     
 }
 
-//总的平均速度
--(double)getTotalRuningSpeedFromDatabase{
+//获取用户的个人数据纪录
+-(void)getMemberDetailInfo:(NSString *)memberid{
     
-    double totaldistance = 0;
-    long tataltime = 0;
-    
-    //总的平均速度
-    [_database open];
-    
-    FMResultSet *rs = [_database executeQuery:@"select sum(distance) as totaldistance, sum(runtime) as tataltime from RUN_RECORD_DATA"];
-    
-    while ([rs next]) {
+    NSString *memberDetailUrl = [VankeAPI getGetMemberDetailUrl:memberid];
+    NSLog(@"memberDetailUrl: %@",memberDetailUrl);
+    NSURL *url = [NSURL URLWithString:memberDetailUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSString *imgpath = [dicResult objectForKey:@"imgPath"];
+            NSArray *entList = [dicResult objectForKey:@"ent"];
+            if (entList && [entList count] > 0) {
+                
+                NSDictionary *dicEnt0 = [entList objectAtIndex:0];
+                RunUser *runner = [RunUser initWithNSDictionary:dicEnt0];
+                
+                //总的卡路里
+                _lblCalorie.text = [NSString stringWithFormat:@"%.2f", runner.calorie];
+                
+                //总跑步次数
+                _lblRunCount.text = [NSString stringWithFormat:@"%d", runner.runTimes];
+                
+                //总的平均速度
+                float secondPerMileage = (runner.mileage > 0.0001) ? runner.minute * 60 / runner.mileage : 0;
+                int tempMinute = secondPerMileage / 60;
+                int tempSecond = secondPerMileage - tempMinute * 60;
+                
+                NSString *tempspeedmm = [NSString stringWithFormat:@"%d", tempMinute];
+                if (tempspeedmm.length == 1) {
+                    tempspeedmm = [NSString stringWithFormat:@"0%@", tempspeedmm];
+                }
+                NSString *tempspeedss = [NSString stringWithFormat:@"%d", tempSecond];
+                if (tempspeedss.length == 1) {
+                    tempspeedss = [NSString stringWithFormat:@"0%@", tempspeedss];
+                }
+                _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
+                
+            }
+            
+        }//if
         
-        totaldistance = [rs doubleForColumn:@"totaldistance"];
-        tataltime = [rs longForColumn:@"tataltime"];
         
-        break;
-    }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+    }];
+    [operation start];
     
-    [rs close];
-    [_database close];
-    
-    NSLog(@"totaldistance: %f, tataltime: %ld", totaldistance, tataltime);
-    
-    _lblSpead.text = [NSString stringWithFormat:@"%.2f", (float)(totaldistance / tataltime)];
-    
-    return totaldistance;
 }
 
 -(void)getWeekRunRecordList{
@@ -897,7 +889,6 @@
         [self insertRunRecord:tempMoveTime distance:tempOneDistance/1000 oldLatitude:strOldLatitude oldLongitude:strOldLongitude newLatitude:strNewLatitude newLongitude:strNewLongitude speed:tempSpeed runingOneTimeId:_nRuningOneTimeId];
         
         _nDistance += tempOneDistance;//本次跑步距离
-        _nTotalDistance += tempOneDistance;//总跑步距离
         
         //刷新里程
         _lblRunDistance.text = [NSString stringWithFormat:@"%.3f",(float)_nDistance/1000];
@@ -905,14 +896,27 @@
         //刷新圆盘进度
         [self updateRunningProcessByDistance:_nDistance];
         
-        //计算卡路里
+        //计算本次跑步卡路里
         float tempRunnerWeight = [UserSessionManager GetInstance].currentRunUser.weight;
-        NSLog(@"runTotalDistance: %f m, runnerWeight: %f kg", _nTotalDistance, tempRunnerWeight);
-        double tempCalorie = [PCommonUtil calcCalorie:tempRunnerWeight distance:_nTotalDistance/1000];
+        NSLog(@"runTotalDistance: %f m, _nDistance: %f m, runnerWeight: %f kg", _nTotalDistance, _nDistance, tempRunnerWeight);
+        double tempCalorie = [PCommonUtil calcCalorie:tempRunnerWeight distance:_nDistance/1000];
         _lblCalorie.text = [NSString stringWithFormat:@"%.2f", tempCalorie];
         
         //计算速度
-        [self getTotalRuningSpeedFromDatabase];
+        float tempMileage = _nDistance/1000;
+        float secondPerMileage = (tempMileage > 0.0001) ? tempMoveTime / tempMileage : 0;
+        int tempMinute = secondPerMileage / 60;
+        int tempSecond = secondPerMileage - tempMinute * 60;
+        
+        NSString *tempspeedmm = [NSString stringWithFormat:@"%d", tempMinute];
+        if (tempspeedmm.length == 1) {
+            tempspeedmm = [NSString stringWithFormat:@"0%@", tempspeedmm];
+        }
+        NSString *tempspeedss = [NSString stringWithFormat:@"%d", tempSecond];
+        if (tempspeedss.length == 1) {
+            tempspeedss = [NSString stringWithFormat:@"0%@", tempspeedss];
+        }
+        _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
         
         //2分钟更新一次移动坐标
         NSDate *nowDate = [NSDate date];
@@ -1356,6 +1360,11 @@
 -(void)touchCenterMenuOfBottom:(id)sender{
     
     NSLog(@"touchCenterMenuOfBottom...");
+    
+    //跑步时，取消点击
+    if (_isRunning) {
+        return;
+    }
     
     if (_isMenuOfBottomShowing) {
         
