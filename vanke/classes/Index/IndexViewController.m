@@ -277,7 +277,9 @@
                 NSDictionary *dicEnt0 = [entList objectAtIndex:0];
                 
                 RunUser *runner = [RunUser initWithNSDictionary:dicEnt0];
-                runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
+                if (runner.headImg) {
+                    runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
+                }
                 [UserSessionManager GetInstance].currentRunUser = runner;
                 NSLog(@"headImg: %@", runner.headImg);
                 
