@@ -170,7 +170,7 @@
                     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
                     //        [_navView.rightButton setTitle:@"约跑" forState:UIControlStateNormal];
                     [_navView.rightButton setHidden:NO];
-                    [_navView.rightButton setFrame:CGRectMake(272, 9, 24, 25)];
+                    [_navView.rightButton setFrame:CGRectMake(285, 9, 24, 25)];
                     [_navView.rightButton addTarget:self action:@selector(doGotoInvite:) forControlEvents:UIControlEventTouchUpInside];
                 }
             }else{
