@@ -50,12 +50,12 @@
     
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
-    _broadView.frame = CGRectMake(0, 0, 320, 548);
+    _broadView.frame = CGRectMake(0, 0, 320, 415);
     
     _tempScroll = [[UIScrollView alloc] init];
     _tempScroll.frame = CGRectMake(0, 20, 320, height);
     _tempScroll.scrollEnabled = YES;
-    _tempScroll.contentSize = CGSizeMake(320, 548);
+    _tempScroll.contentSize = CGSizeMake(320, 415);
     [_tempScroll addSubview:_broadView];
     [self.view addSubview:_tempScroll];
     
