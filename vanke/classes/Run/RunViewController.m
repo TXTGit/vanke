@@ -731,8 +731,12 @@
         
         //更新显示内容背景图片
         _runingDataBgImageView.image = [UIImage imageWithName:@"run_his_running" type:@"png"];
+        //本次跑步卡路里
+        _lblCalorie.text = [NSString stringWithFormat:@"0.0"];
         //本次跑步时间
         _lblRunCount.text = [NSString stringWithFormat:@"00:00:00"];
+        //本次跑步速度
+        _lblSpead.text = [NSString stringWithFormat:@"00'00\""];
         
         //处理底部菜单
         _isMenuOfBottomShowing = YES;
