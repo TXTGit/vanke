@@ -256,8 +256,6 @@
         //获取用户个人数据
         [self getMemberDetailInfo:[UserSessionManager GetInstance].currentRunUser.userid];
         
-        //未跑步时，显示跑步次数
-//        [self getTotalRunCountFromDatabase];
     } else {
         
         //更新显示内容背景图片
@@ -265,7 +263,24 @@
         //跑步时间
         long currentRecordTime = [[NSDate date] timeIntervalSince1970];
         long tempShowRunningTime = currentRecordTime - _nStartTime;
-        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
+//        _lblRunCount.text = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 60];
+        
+        NSString *temphh = [NSString stringWithFormat:@"%ld", tempShowRunningTime / 3600];
+        if (temphh.length == 1) {
+            temphh = [NSString stringWithFormat:@"0%@", temphh];
+        }
+        
+        NSString *tempmm = [NSString stringWithFormat:@"%ld", (tempShowRunningTime / 60) % 60];
+        if (tempmm.length == 1) {
+            tempmm = [NSString stringWithFormat:@"0%@", tempmm];
+        }
+        
+        NSString *tempss = [NSString stringWithFormat:@"%ld", tempShowRunningTime % 60];
+        if (tempss.length == 1) {
+            tempss = [NSString stringWithFormat:@"0%@", tempss];
+        }
+        _lblRunCount.text = [NSString stringWithFormat:@"%@:%@:%@", temphh, tempmm, tempss];
+        
     }
     
     //刷新一周记录
@@ -358,30 +373,6 @@
     [_database open];
     [_database executeUpdate:@"create table if not exists RUN_RECORD_DATA (dataid integer, runtime integer, oldlatitude text, oldlongitude text, newlatitude text, newlongitude text, distance integer, speed integer, datacreatetime integer, runingOneTimeId integer)"];
     [_database close];
-    
-}
-
-//从本地数据库获得总的跑步次数
--(void)getTotalRunCountFromDatabase{
-    
-    int runcount = 0;
-    
-    [_database open];
-    
-    FMResultSet *rs = [_database executeQuery:@"select count(1) as runcount from (select runingOneTimeId from RUN_RECORD_DATA group by runingOneTimeId)"];
-    
-    while ([rs next]) {
-        
-        runcount = [rs intForColumn:@"runcount"];
-        NSLog(@"runcount: %d", runcount);
-        
-        break;
-    }
-    
-    [rs close];
-    [_database close];
-    
-    _lblRunCount.text = [NSString stringWithFormat:@"%d", runcount];
     
 }
 
