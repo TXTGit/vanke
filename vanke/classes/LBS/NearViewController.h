@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
+#import "BMapKit.h"
 
-@interface NearViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface NearViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate>
+
+@property (nonatomic, retain) IBOutlet BMKMapView *mapView;
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 

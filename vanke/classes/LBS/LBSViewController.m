@@ -139,7 +139,6 @@
     NSLog(@"doLeftMenu...");
     
     NearViewController *nearViewController = [[NearViewController alloc] initWithNibName:@"NearViewController" bundle:nil];
-    [nearViewController setCurrentLocation:_currentLocation];
     [self.navigationController pushViewController:nearViewController animated:YES];
     
 }
