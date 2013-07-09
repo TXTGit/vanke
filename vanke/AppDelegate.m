@@ -19,6 +19,7 @@
 #import "GTMBase64.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
+#import "VankeAPI.h"
 
 #import "SinaWeibo.h"
 
@@ -30,6 +31,7 @@
 @synthesize mapManager = _mapManager;
 
 @synthesize sinaweibo = _sinaweibo;
+@synthesize getUnreadTimer = _getUnreadTimer;
 
 //for crash
 -(void)installUncaughtExceptionHandler
@@ -143,6 +145,54 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)timerStart{
+    
+    [self timerStop];
+    _getUnreadTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getUnreadList) userInfo:nil repeats:YES];
+    
+}
+
+-(void)timerStop{
+    
+    @synchronized(self){
+        if (_getUnreadTimer != nil) {
+            if ([_getUnreadTimer isValid]) {
+                [_getUnreadTimer invalidate];
+            }
+            _getUnreadTimer = nil;
+        }
+    }
+    
+}
+
+-(void)getUnreadList{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *unreadListUrl = [VankeAPI getUnreadList:memberid];
+    NSLog(@"unreadListUrl:%@",unreadListUrl);
+    NSURL *url = [NSURL URLWithString:unreadListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            [UserSessionManager GetInstance].unreadMessageCount = datalistCount;
+            
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+    }];
+    [operation start];
+    
 }
 
 #pragma something
