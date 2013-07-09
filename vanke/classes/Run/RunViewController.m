@@ -405,6 +405,11 @@
             NSArray *entList = [dicResult objectForKey:@"ent"];
             if (entList && [entList count] > 0) {
                 
+                //如果已经开始跑步，就不显示
+                if (_isRunning) {
+                    return;
+                }
+                
                 NSDictionary *dicEnt0 = [entList objectAtIndex:0];
                 RunUser *runner = [RunUser initWithNSDictionary:dicEnt0];
                 
@@ -791,7 +796,7 @@
     RunRecord *runRecord = [[RunRecord alloc] init];
     runRecord.memberID = [memberid longLongValue];
     runRecord.mileage = _nDistance / 1000;
-    runRecord.minute = nRunSecond / 60;
+    runRecord.minute = (float)nRunSecond / 60.0f;
     runRecord.secondOfRunning = nRunSecond;
     runRecord.calorie = [PCommonUtil calcCalorie:tempRunnerWeight distance:runRecord.mileage];
     runRecord.speed = (nRunSecond > 0) ? _nDistance / nRunSecond : 0;//m/s

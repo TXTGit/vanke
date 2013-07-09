@@ -41,7 +41,7 @@
 +(NSString *)getSetHeadImgUrl:(NSString*)memberid;
 
 //跑步（2013-6-22）
-+(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(int)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime;
++(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(float)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime;
 
 //分享（2013-6-22）
 +(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;

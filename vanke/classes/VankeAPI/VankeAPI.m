@@ -182,12 +182,12 @@
  line：路线，多个gps点之间用分号分割，用Post方式提交
  •	返回：
  */
-+(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(int)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime{
++(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(float)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime{
     
     NSString *tempRunTime = [PCommonUtil encodeUrlParameter:runtime];
     
 //    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%d&speed=%f&calorie=%f&line=%@&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, line, tempRunTime];
-    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%d&speed=%f&calorie=%f&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, tempRunTime];
+    return [NSString stringWithFormat:@"%@?type=run&memberID=%@&mileage=%@&minute=%f&speed=%f&calorie=%f&runTime=%@", VANKE_DOMAIN, memberid, mileage, minute, speed, calorie, tempRunTime];
 }
 
 /*

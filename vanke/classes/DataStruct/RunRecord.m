@@ -40,7 +40,7 @@
             record = [[RunRecord alloc] init];
             record.runingOneTimeId = [[dict objectForKey:@"runID"] longValue];
             record.mileage = [[dict objectForKey:@"mileage"] floatValue];
-            record.minute = [[dict objectForKey:@"minute"] longValue];
+            record.minute = [[dict objectForKey:@"minute"] floatValue];
             record.speed = [[dict objectForKey:@"speed"] floatValue];
             record.calorie = [[dict objectForKey:@"calorie"] floatValue];
             record.energy = [[dict objectForKey:@"energy"] floatValue];

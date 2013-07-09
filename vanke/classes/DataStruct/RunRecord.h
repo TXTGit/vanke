@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSMutableArray *locationList;
 @property (nonatomic, assign) long memberID;
 @property (nonatomic, assign) float mileage;
-@property (nonatomic, assign) long minute;
+@property (nonatomic, assign) float minute;
 @property (nonatomic, assign) long runId;
 @property (nonatomic, retain) NSString *runTime;
 @property (nonatomic, assign) float speed;
