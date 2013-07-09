@@ -11,6 +11,8 @@
 #import "GTMBase64.h"
 #import "VankeConfig.h"
 
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
 @implementation PCommonUtil
 
 +(NSString *)md5Encode:(NSString *)str{
@@ -374,6 +376,18 @@ static double DEF_R =6370693.5; // radius of earth
 +(NSString*)getHeadImgUrl:(NSString*)headImg
 {
     return [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, @"/upload/head/", headImg];
+}
+
+#pragma mark 判断是否IPhone5
++ (BOOL)isIPhone5
+{
+    if(iPhone5){
+        //***具体操作
+        return YES;
+    }else{
+        //***具体操作
+        return NO;
+    }
 }
 
 @end

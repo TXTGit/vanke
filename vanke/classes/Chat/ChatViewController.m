@@ -81,7 +81,7 @@
             title = @"约跑";
             break;
         case chatTypeInviteCheck:
-            title = @"查看约跑记录";
+            title = @"信箱";
             break;
         default:
             break;
@@ -104,13 +104,20 @@
     _chatTableView.backgroundColor = [UIColor clearColor];
     _chatTableView.backgroundView = bgImageView;
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _chatTableView.frame = CGRectMake(0, 44, 320, height - 44 - 45);
     
-    //下拉刷新
-    EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f-_chatTableView.bounds.size.height, self.view.frame.size.width, _chatTableView.bounds.size.height)];
-    view.delegate = self;
-    [_chatTableView addSubview:view];
-    _egoRefreshHeaderView = view;
+    //如果是邀请列表页，则隐藏发送窗口
+    if (_chatType == chatTypeInviteCheck) {
+        [self.sendMessageView setHidden:YES];
+        _chatTableView.frame = CGRectMake(0, 44, 320, height - 44);
+    }else{
+        _chatTableView.frame = CGRectMake(0, 44, 320, height - 44 - 45);
+        
+        //下拉刷新
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f-_chatTableView.bounds.size.height, self.view.frame.size.width, _chatTableView.bounds.size.height)];
+        view.delegate = self;
+        [_chatTableView addSubview:view];
+        _egoRefreshHeaderView = view;
+    }
     
     //send view
     _sendMessageView.frame = CGRectMake(0, height - 45, 320, 45);
@@ -122,7 +129,6 @@
     _lastMessageId = 0;
     
     //
-    _isChatViewShow = YES;
     [self initData];
     
     _currentPage = 1;
@@ -137,6 +143,7 @@
 //        [self timerStart];
         [self getInviteData];
     }
+    _isChatViewShow = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -188,6 +195,7 @@
             
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
+            NSMutableArray *tempListArray = [[NSMutableArray alloc]init];
             for (int i=0; i<datalistCount; i++) {
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
@@ -198,13 +206,18 @@
                     NSPredicate *inputPredicate=[NSPredicate predicateWithFormat:@"%K == %ld",@"msgID", chatmessage.msgID];
                     NSMutableArray *newMutableArray = [NSMutableArray arrayWithArray:[_chatMessageList filteredArrayUsingPredicate:inputPredicate]];
                     if ([newMutableArray count]<=0) {
-                        [_chatMessageList insertObject:chatmessage atIndex:0];
+                        [tempListArray insertObject:chatmessage atIndex:0];
                     }
                 }else{
-                    [_chatMessageList insertObject:chatmessage atIndex:0];
+                    [tempListArray insertObject:chatmessage atIndex:0];
                 }
                 if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
+                }
+            }
+            if ([tempListArray count]>0) {
+                for (ChatMessage *chatmessage in tempListArray) {
+                    [_chatMessageList addObject:chatmessage];
                 }
             }
             if (datalistCount>0) {

@@ -51,4 +51,6 @@
 +(int)getWeekFromTime:(NSString *)strTime;
 
 +(NSString*)getHeadImgUrl:(NSString*)headImg;
+//判断是否Iphone5
++ (BOOL)isIPhone5;
 @end

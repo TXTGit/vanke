@@ -9,6 +9,7 @@
 #import "GuideViewController.h"
 #import "UIImage+PImageCategory.h"
 #import "LoginViewController.h"
+#import "PCommonUtil.h"
 
 @interface GuideViewController ()
 
@@ -33,28 +34,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    float height = [UIScreen mainScreen].bounds.size.height - 20;
+//    float height = [UIScreen mainScreen].bounds.size.height - 20;
     int photoCount = 4;
     
     _guideScrollView = [[UIScrollView alloc] init];
-    _guideScrollView.frame = CGRectMake(0, 0, 320, height);
+    if ([PCommonUtil isIPhone5]) {
+        _guideScrollView.frame = CGRectMake(0, 0, 320, 568);
+    }else{
+        _guideScrollView.frame = CGRectMake(0, -30, 320, 568);
+    }
     _guideScrollView.scrollEnabled = YES;
     _guideScrollView.showsHorizontalScrollIndicator = NO;
     _guideScrollView.pagingEnabled = YES;
     _guideScrollView.delegate = self;
     
-    _guideScrollView.contentSize = CGSizeMake(320 * photoCount, height);
+    _guideScrollView.contentSize = CGSizeMake(320 * photoCount, 568);
     for (int i=0; i<photoCount; i++) {
         
         NSString *fsImageName = [NSString stringWithFormat:@"fs0%d", i];
         UIImageView *fsImageView = [[UIImageView alloc] init];
-        fsImageView.frame = CGRectMake(320 * i, 0, 320, height);
+        fsImageView.frame = CGRectMake(320 * i, 0, 320, 568);
         fsImageView.image = [UIImage imageWithName:fsImageName type:@"png"];
         [_guideScrollView addSubview:fsImageView];
     }
     
     UIButton *btnStart = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnStart.frame = CGRectMake(320 * 3 + 60, height - 150, 200, 100);
+    btnStart.frame = CGRectMake(320 * 3 + 60, 568 - 150, 200, 100);
     btnStart.backgroundColor = [UIColor clearColor];
     btnStart.alpha = 0.4f;
     [btnStart addTarget:self action:@selector(gotoNextView) forControlEvents:UIControlEventTouchUpInside];
@@ -63,7 +68,7 @@
     [self.view addSubview:_guideScrollView];
     
     _guidePageControl = [[UIPageControl alloc] init];
-    _guidePageControl.frame = CGRectMake(0, height - 40, 320, 16);
+    _guidePageControl.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 40, 320, 16);
     _guidePageControl.numberOfPages = photoCount;
     _guidePageControl.currentPage = 0;
     _guidePageControl.backgroundColor = [UIColor clearColor];

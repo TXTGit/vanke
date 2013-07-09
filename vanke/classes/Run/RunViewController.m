@@ -222,17 +222,22 @@
 }
 
 //是否第一次进入,提示设置身高体重
+//修改为如果身高体重小于10，则提醒设置身高体重
 -(void)firstEnterRunningShowTip{
-    
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    if (![ud boolForKey:@"FirstEnterRunning"]) {
-        
-        [ud setBool:YES forKey:@"FirstEnterRunning"];
+    if ([UserSessionManager GetInstance].currentRunUser.tall<10 || [UserSessionManager GetInstance].currentRunUser.weight<10) {
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
-        
     }
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    if (![ud boolForKey:@"FirstEnterRunning"]) {
+//        
+//        [ud setBool:YES forKey:@"FirstEnterRunning"];
+//        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//        [alertView show];
+//        
+//    }
     
 }
 

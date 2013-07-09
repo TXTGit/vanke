@@ -116,6 +116,9 @@
             [sender setHidden:YES];
             UIView *view = [self viewWithTag:btnRejectTag];
             [view setHidden:YES];
+            
+            [self doSend:[NSString stringWithFormat:@"%@已接受您的邀请",[UserSessionManager GetInstance].currentRunUser.nickname]];
+            
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
@@ -145,6 +148,48 @@
     [operation start];
 }
 
+
+-(IBAction)doSend:(NSString*)sendText{
+    
+    //    NSLog(@"doSend: %@", _messageField.text);
+    if ([sendText isEqualToString:@""]) {
+        return;
+    }
+    
+    NSString *msgText = sendText;
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *tomemberid = [NSString stringWithFormat:@"%ld", _chatmessage.fromMemberID];
+    NSString *msgListUrl = [VankeAPI getSendMsgUrl:memberid toMemberId:tomemberid msgText:msgText];
+
+    NSURL *url = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+        }else if([status isEqual:@"0"]){
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+    
+}
+
 -(IBAction)rejectInvite:(id)sender
 {
     NSString *rejectInviteUrl = [VankeAPI getRejectInviteUrl:_chatmessage.inviteID];
@@ -160,6 +205,9 @@
             [sender setHidden:YES];
             UIView *view = [self viewWithTag:btnAcceptTag];
             [view setHidden:YES];
+            
+            [self doSend:[NSString stringWithFormat:@"%@已拒绝您的邀请",[UserSessionManager GetInstance].currentRunUser.nickname]];
+            
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             
             // Configure for text only and offset down
