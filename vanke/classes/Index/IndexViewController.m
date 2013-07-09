@@ -18,6 +18,7 @@
 #import "SettingViewController.h"
 #import "ChatlistViewController.h"
 #import "PCommonUtil.h"
+#import "AppDelegate.h"
 
 @interface IndexViewController ()
 
@@ -69,7 +70,12 @@
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
-//    [_navView.messageTipImageView setHidden:NO];
+    
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
     
     //menu of head
     UIView *transparentByForMenu = [[UIView alloc] init];
@@ -90,6 +96,9 @@
     
     //
 //    [self getUnreadDataFromServerByHttp];
+    
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appdelegate timerStart];
     
     [self doGetMemberInfo:[UserSessionManager GetInstance].currentRunUser.userid];
 }

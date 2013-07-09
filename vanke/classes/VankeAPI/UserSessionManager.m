@@ -12,6 +12,7 @@
 
 @synthesize currentRunUser = _currentRunUser;
 @synthesize isLoggedIn = _isLoggedIn;
+@synthesize unreadMessageCount = _unreadMessageCount;
 
 +(UserSessionManager *)GetInstance{
     

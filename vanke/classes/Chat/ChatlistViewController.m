@@ -77,6 +77,9 @@
     //data
     _unReadFriendList = [[NSMutableArray alloc] init];
     
+    //清零
+    [UserSessionManager GetInstance].unreadMessageCount = 0;
+    
     //from net
     [self initData];
     [self getInviteData];
