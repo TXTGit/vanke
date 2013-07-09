@@ -28,9 +28,8 @@
 #elif (1 == IS_DEBUG_SERVER)
 
 //#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
-#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
 #define VANKE_DOMAINBase                    @"http://www.4000757888.com:880/"
-
+#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
 #endif
 
 //若返回：{result=”-1”,msg=”服务器异常的提示信息”}，则表示服务器异常

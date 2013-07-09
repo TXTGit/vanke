@@ -192,7 +192,7 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-                [_chatMessageList addObject:chatmessage];
+                [_chatMessageList insertObject:chatmessage atIndex:0];
                 if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
                 }

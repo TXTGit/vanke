@@ -149,9 +149,9 @@
     [_indicatorView startAnimating];
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *fanListUrl = [VankeAPI getUnreadList:memberid];
-//    NSLog(@"fanListUrl:%@",fanListUrl);
-    NSURL *url = [NSURL URLWithString:fanListUrl];
+    NSString *unreadListUrl = [VankeAPI getUnreadList:memberid];
+    NSLog(@"unreadListUrl:%@",unreadListUrl);
+    NSURL *url = [NSURL URLWithString:unreadListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"App.net Global Stream: %@", JSON);

@@ -575,4 +575,21 @@
     return [NSString stringWithFormat:@"%@?type=getUnreadList&memberID=%@", VANKE_DOMAIN, memberid];
 }
 
+/*
+ 36.	长轮询通知接口
+ 	地址：
+ http://www.4000757888.com:880/comet.aspx?type=unread&memberID=23
+ 	说明：
+ 客户端独立线程发送请求，当服务器有新消息提示的时候，将会返回结果，如果没有新消息，则一直挂起，直到有新消息为止。
+ 客户端接收到返回结果后隔1秒再从新发送请求。
+ 当服务器返回结果，结果里的unread表示你有多少的未读信息（比如10条），然后调用getUnreadList接口，这个接口结果表示你的所有未读信息分别是哪个人给你发的（比如10条信息里，A给你发了3条，B给你发了7条），然后调用getMsgList接口，可以获取指定跑友的聊天记录（A给你发了3条未读信息，查看A的聊天记录）
+ 	参数：
+ memberID：自己会员ID
+ 	返回：
+ unread：提示消息数目，可以调用getUnreadList接口来获取具体信息*/
++(NSString *)getCometUnreadList:(NSString *)memberid{
+    
+    return [NSString stringWithFormat:@"%@comet.aspx?type=unread&memberID=%@", VANKE_DOMAINBase, memberid];
+}
+
 @end

@@ -119,7 +119,7 @@
 +(NSString *)getUnreadUrl:(NSString *)memberid;
 //获取未读消息的好友列表（2013-6-30)
 +(NSString *)getUnreadList:(NSString *)memberid;
-
-
+//长轮询获
++(NSString *)getCometUnreadList:(NSString *)memberid;
 
 @end
