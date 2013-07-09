@@ -279,6 +279,9 @@
     } else {
         cell.isFriendImageView.hidden = YES;
     }
+    if ([PCommonUtil checkDataIsNull:nearfriend.headImg] && ![nearfriend.headImg isEqualToString:@""]) {
+        cell.headImageView.imageURL = [NSURL URLWithString:[PCommonUtil getHeadImgUrl:nearfriend.headImg]];
+    }
     
 	return cell;
 }

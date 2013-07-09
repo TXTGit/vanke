@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString *fromLoginTime;
 @property (nonatomic, retain) NSString *toNickName;
 @property (nonatomic, retain) NSString *toLoginTime;
+@property (nonatomic, retain) NSString *fromHeadImg;
 
 +(FriendInfo *)initWithNSDictionary:(NSDictionary *)dict;
 

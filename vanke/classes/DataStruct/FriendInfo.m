@@ -18,6 +18,7 @@
 @synthesize fromLoginTime = _fromLoginTime;
 @synthesize toNickName = _toNickName;
 @synthesize toLoginTime = _toLoginTime;
+@synthesize fromHeadImg = _fromHeadImg;
 
 +(FriendInfo *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -34,7 +35,7 @@
             friendInfo.fromLoginTime = [dict objectForKey:@"fromLoginTime"];
             friendInfo.toNickName = [dict objectForKey:@"toNickName"];
             friendInfo.toLoginTime = [dict objectForKey:@"toLoginTime"];
-            
+            friendInfo.fromHeadImg = [dict objectForKey:@"fromHeadImg"];
         }
     }
     @catch (NSException *exception) {

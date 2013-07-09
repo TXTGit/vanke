@@ -420,6 +420,9 @@
             //开始设置添加marker时的赋值
             long memberid = ann.nearFriend.memberID;
             calloutannotationview.busInfoView.btnUserTip.tag = memberid;
+            if (ann.nearFriend.headImg && ![ann.nearFriend.headImg isEqualToString:@""]) {
+                calloutannotationview.busInfoView.btnUserTip.imageURL = [NSURL URLWithString:ann.nearFriend.headImg];
+            }
             [calloutannotationview.busInfoView.btnUserTip addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
             if ([PCommonUtil checkDataIsNull:ann.nearFriend.nickName]) {
                 calloutannotationview.busInfoView.lblNickName.text = ann.nearFriend.nickName;

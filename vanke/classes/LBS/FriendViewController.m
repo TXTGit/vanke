@@ -175,6 +175,9 @@
     cell.btnChat.tag = indexPath.row;
     [cell.btnChat addTarget:self action:@selector(doGotoChat:) forControlEvents:UIControlEventTouchUpInside];
     
+    if ([PCommonUtil checkDataIsNull:friendinfo.fromHeadImg] && ![friendinfo.fromHeadImg isEqualToString:@""]) {
+        cell.headImageView.imageURL = [NSURL URLWithString:[PCommonUtil getHeadImgUrl:friendinfo.fromHeadImg]];
+    }
 	return cell;
 }
 
