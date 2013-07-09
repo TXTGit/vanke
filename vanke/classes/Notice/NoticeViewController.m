@@ -17,6 +17,8 @@
 #import "VankeAPI.h"
 #import "ChatlistViewController.h"
 #import "VankeConfig.h"
+#import "UserSessionManager.h"
+#import "PCommonUtil.h"
 
 @interface NoticeViewController ()
 
@@ -58,8 +60,14 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+    if (headImg && ![headImg isEqualToString:@""]) {
+        NSURL *headUrl = [NSURL URLWithString:headImg];
+        [_navView.rightButton setImageURL:headUrl];
+    }else{
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    }
     [_navView.rightButton setHidden:NO];
 //    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     

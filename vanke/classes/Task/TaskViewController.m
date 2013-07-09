@@ -12,6 +12,7 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "TaskInfo.h"
+#import "PCommonUtil.h"
 
 @interface TaskViewController ()
 
@@ -95,8 +96,14 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+    if (headImg && ![headImg isEqualToString:@""]) {
+        NSURL *headUrl = [NSURL URLWithString:headImg];
+        [_navView.rightButton setImageURL:headUrl];
+    }else{
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    }
     [_navView.rightButton setHidden:NO];
     
 //    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];

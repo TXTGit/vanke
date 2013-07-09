@@ -17,6 +17,7 @@
 #import "ChatViewController.h"
 #import "SettingViewController.h"
 #import "ChatlistViewController.h"
+#import "PCommonUtil.h"
 
 @interface IndexViewController ()
 
@@ -55,8 +56,14 @@
     _navView = [[PCustomNavigationBarView alloc] initWithTitle:[UserSessionManager GetInstance].currentRunUser.nickname bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+    if (headImg && ![headImg isEqualToString:@""]) {
+        NSURL *headUrl = [NSURL URLWithString:headImg];
+        [_navView.rightButton setImageURL:headUrl];
+    }else{
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    }
     [_navView.rightButton setHidden:NO];
     [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     

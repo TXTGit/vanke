@@ -50,4 +50,5 @@
 
 +(int)getWeekFromTime:(NSString *)strTime;
 
++(NSString*)getHeadImgUrl:(NSString*)headImg;
 @end

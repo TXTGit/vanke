@@ -9,6 +9,7 @@
 #import "PCommonUtil.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "GTMBase64.h"
+#import "VankeConfig.h"
 
 @implementation PCommonUtil
 
@@ -367,6 +368,12 @@ static double DEF_R =6370693.5; // radius of earth
     NSLog(@"weekday: %d", weekday);
     
     return weekday;
+}
+
+#pragma mark 获取头像完整URL
++(NSString*)getHeadImgUrl:(NSString*)headImg
+{
+    return [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, @"/upload/head/", headImg];
 }
 
 @end

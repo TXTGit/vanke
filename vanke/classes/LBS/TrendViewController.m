@@ -13,6 +13,7 @@
 #import "TrendCell.h"
 #import "VankeAPI.h"
 #import "TrendInfo.h"
+#import "PCommonUtil.h"
 
 @interface TrendViewController ()
 
@@ -49,8 +50,14 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+    if (headImg && ![headImg isEqualToString:@""]) {
+        NSURL *headUrl = [NSURL URLWithString:headImg];
+        [_navView.rightButton setImageURL:headUrl];
+    }else{
+        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    }
     [_navView.rightButton setHidden:NO];
     
     //bg

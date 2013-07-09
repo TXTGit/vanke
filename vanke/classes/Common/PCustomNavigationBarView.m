@@ -58,7 +58,7 @@
         [_leftButton setHidden:YES];
         [self addSubview:_leftButton];
         
-        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightButton = [EGOImageButton buttonWithType:UIButtonTypeCustom];
         [_rightButton setFrame:CGRectMake(274, 2, 40, 40)];
         [_rightButton setHidden:YES];
         [self addSubview:_rightButton];
