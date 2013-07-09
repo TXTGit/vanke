@@ -745,6 +745,10 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:NO forKey:@"IsAutoLogin"];
     
+    //清除Session中用户信息
+//    UserSessionManager = nil;
+    [UserSessionManager CleanInstance];
+    
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [self.navigationController pushViewController:loginViewController animated:YES];
     

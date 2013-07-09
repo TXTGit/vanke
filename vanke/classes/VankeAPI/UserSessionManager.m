@@ -25,4 +25,8 @@
     return instance;
 }
 
++(void)CleanInstance{
+    [self GetInstance].currentRunUser = [[RunUser alloc] init];;
+}
+
 @end

@@ -15,5 +15,5 @@
 @property (nonatomic, assign) BOOL isLoggedIn;
 
 +(UserSessionManager *)GetInstance;
-
++(void)CleanInstance;
 @end
