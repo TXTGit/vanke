@@ -287,6 +287,7 @@
                 if (runner.headImg) {
                     runner.headImg = [NSString stringWithFormat:@"%@%@%@", VANKE_DOMAINBase, imgpath, runner.headImg];
                 }
+                runner.userid = [UserSessionManager GetInstance].currentRunUser.userid;
                 [UserSessionManager GetInstance].currentRunUser = runner;
                 NSLog(@"headImg: %@", runner.headImg);
                 
