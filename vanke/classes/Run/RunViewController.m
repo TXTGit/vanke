@@ -910,7 +910,8 @@
         
         //计算速度
         float tempMileage = _nDistance/1000;
-        float secondPerMileage = (tempMileage > 0.0001) ? tempMoveTime / tempMileage : 0;
+        long tempRunningTime = currentRecordTime - _nStartTime;
+        float secondPerMileage = (tempMileage > 0.0001) ? tempRunningTime / tempMileage : 0;
         int tempMinute = secondPerMileage / 60;
         int tempSecond = secondPerMileage - tempMinute * 60;
         
