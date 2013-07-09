@@ -145,11 +145,6 @@
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        [_navView.messageTipImageView setHidden:NO];
-    } else {
-        [_navView.messageTipImageView setHidden:YES];
-    }
     
     //menu of head
     UIView *transparentByForMenu = [[UIView alloc] init];
@@ -259,6 +254,12 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
+    
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
     
     if (!_isRunning) {
         _musicPlayerControllerView.hidden = YES;
@@ -836,6 +837,12 @@
 -(void)runningTimerFunction{
     
     @synchronized(_currentLocation){
+        
+        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+            [_navView.messageTipImageView setHidden:NO];
+        } else {
+            [_navView.messageTipImageView setHidden:YES];
+        }
         
         NSLog(@"--------------runningTimerFunction start--------------");
         

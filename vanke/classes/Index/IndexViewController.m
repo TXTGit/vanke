@@ -71,12 +71,6 @@
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
     
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        [_navView.messageTipImageView setHidden:NO];
-    } else {
-        [_navView.messageTipImageView setHidden:YES];
-    }
-    
     //menu of head
     UIView *transparentByForMenu = [[UIView alloc] init];
     transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
@@ -106,6 +100,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+    
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
     
     //百度
     [_mapView viewWillAppear];
