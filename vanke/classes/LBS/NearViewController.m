@@ -148,6 +148,8 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+            [_nearfriendlist removeAllObjects];
+            
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
@@ -199,6 +201,8 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
+            
+            [_communitylist removeAllObjects];
             
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
