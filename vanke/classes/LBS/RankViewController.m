@@ -15,6 +15,7 @@
 #import "RankCell.h"
 #import "SettingViewController.h"
 #import "PCommonUtil.h"
+#import "AppDelegate.h"
 
 @interface RankViewController ()
 
@@ -467,6 +468,32 @@
 
 -(void)doGotoChat:(id)sender{
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
+    
+    [self updateUnreadTips];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UpdateUnreadMessageCount object:nil];
+}
+
+-(void)updateUnreadTips
+{
+    [[AppDelegate App] getUnreadList];
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
 }
 
 @end

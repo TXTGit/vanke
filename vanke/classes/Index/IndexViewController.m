@@ -91,8 +91,9 @@
     //
 //    [self getUnreadDataFromServerByHttp];
     
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appdelegate timerStart];
+//    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [appdelegate timerStart];
+    [[AppDelegate App] timerStart];
     
     [self doGetMemberInfo:[UserSessionManager GetInstance].currentRunUser.userid];
 }
@@ -114,6 +115,8 @@
     //baidu
     _mapView.showsUserLocation = YES;
     
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -125,7 +128,17 @@
     
     //baidu
     _mapView.showsUserLocation = NO;
-    
+    [[NSNotificationCenter defaultCenter]removeObserver:self  name:UpdateUnreadMessageCount object:nil];
+}
+
+-(void)updateUnreadTips
+{
+    [[AppDelegate App] getUnreadList];
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning

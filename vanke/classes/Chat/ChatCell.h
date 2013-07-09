@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FriendInfo.h"
 #import "ChatMessage.h"
+#import "EGOImageView.h"
 
 typedef enum {
     chatTypeDefault,
@@ -19,8 +20,8 @@ typedef enum {
 
 @interface ChatCell : UITableViewCell
 
-@property (nonatomic, retain) IBOutlet UIImageView *leftHeadImageView;
-@property (nonatomic, retain) IBOutlet UIImageView *rightHeadImageView;
+@property (nonatomic, retain) IBOutlet EGOImageView *leftHeadImageView;
+@property (nonatomic, retain) IBOutlet EGOImageView *rightHeadImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *textBgImageView;
 @property (nonatomic, retain) IBOutlet UILabel *lblChatText;
 @property (nonatomic, assign) ChatType chatType;

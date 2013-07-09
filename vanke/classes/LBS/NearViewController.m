@@ -15,6 +15,7 @@
 #import "NearFriend.h"
 #import "PCommonUtil.h"
 #import "SettingViewController.h"
+#import "AppDelegate.h"
 
 @interface NearViewController ()
 
@@ -101,6 +102,10 @@
     //baidu
     _mapView.showsUserLocation = YES;
     
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
+    
+    [self updateUnreadTips];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -381,6 +386,22 @@
 - (void)mapView:(BMKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     NSLog(@"location error");
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UpdateUnreadMessageCount object:nil];
+}
+
+-(void)updateUnreadTips
+{
+    [[AppDelegate App] getUnreadList];
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
 }
 
 @end

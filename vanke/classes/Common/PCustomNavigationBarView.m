@@ -7,6 +7,7 @@
 //
 
 #import "PCustomNavigationBarView.h"
+#import "UIImage+PImageCategory.h"
 
 @implementation PCustomNavigationBarView
 
@@ -65,6 +66,8 @@
         
         _messageTipImageView = [[UIImageView alloc] init];
         [_messageTipImageView setFrame:CGRectMake(300, 2, 18, 18)];
+        UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+        [_messageTipImageView setImage:messageTip];
         [_messageTipImageView setHidden:YES];
         [self addSubview:_messageTipImageView];
         

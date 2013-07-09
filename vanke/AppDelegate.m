@@ -23,6 +23,8 @@
 
 #import "SinaWeibo.h"
 
+#import "PCommonUtil.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -185,6 +187,7 @@
             int datalistCount = [datalist count];
             [UserSessionManager GetInstance].unreadMessageCount = datalistCount;
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:UpdateUnreadMessageCount object:nil userInfo:nil];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -238,6 +241,12 @@
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         NSLog(@"resp.errCode: %d, resp.description: %@", resp.errCode, resp.description);
     }
+}
+
+
++(AppDelegate*)App
+{
+    return (AppDelegate *)[[UIApplication sharedApplication]delegate];
 }
 
 @end

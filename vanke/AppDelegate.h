@@ -28,4 +28,6 @@
 -(void)timerStop;
 -(void)getUnreadList;
 
++(AppDelegate*)App;
+
 @end

@@ -12,6 +12,7 @@
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
 #import "ChatMessage.h"
+#import "PCommonUtil.h"
 
 @interface ChatViewController ()
 
@@ -219,6 +220,7 @@
                 for (ChatMessage *chatmessage in tempListArray) {
                     [_chatMessageList addObject:chatmessage];
                 }
+                [UserSessionManager GetInstance].unreadMessageCount = 0;
             }
             if (datalistCount>0) {
                 [_chatTableView reloadData];
@@ -440,6 +442,14 @@
 //    NSLog(@"%ld,%ld",tempmessage.fromMemberID,tempmessage.toMemberID);
     cell.chatmessage = tempmessage;
     cell.friendinfo = _friendInfo;
+    
+    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+    if (headImg && ![headImg isEqual:@""]) {
+        cell.rightHeadImageView.imageURL = [NSURL URLWithString:headImg];
+    }
+    if ([PCommonUtil checkDataIsNull:_friendInfo.fromHeadImg] && ![_friendInfo.fromHeadImg isEqualToString:@""]) {
+        cell.leftHeadImageView.imageURL = [NSURL URLWithString:[PCommonUtil getHeadImgUrl:_friendInfo.fromHeadImg]];
+    }
     
     [cell updateView];
 	return cell;

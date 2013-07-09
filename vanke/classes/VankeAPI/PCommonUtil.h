@@ -12,6 +12,8 @@
 
 #define EARTH_RADIUS 6378.137   //地球半径km
 
+#define UpdateUnreadMessageCount @"UpdateUnreadMessageCount"
+
 @interface PCommonUtil : NSObject
 
 +(NSString *)md5Encode:(NSString *)str;

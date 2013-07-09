@@ -24,6 +24,7 @@
 #import "MBProgressHUD.h"
 #import "RunInfoOfWeek.h"
 #import "ChatlistViewController.h"
+#import "AppDelegate.h"
 
 #define RECORD_RUN_DATA_INTERVAL 60.0
 
@@ -143,9 +144,6 @@
     [_navView.rightButton setHidden:NO];
     [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-    [_navView.messageTipImageView setImage:messageTip];
-    
     //menu of head
     UIView *transparentByForMenu = [[UIView alloc] init];
     transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
@@ -214,16 +212,12 @@
     [self initLocalDatabase];
     
     _locationList = [[NSMutableArray alloc] init];
-    
-    //是否第一次进入
-    [self firstEnterRunningShowTip];
-    
 }
 
 //是否第一次进入,提示设置身高体重
 //修改为如果身高体重小于10，则提醒设置身高体重
 -(void)firstEnterRunningShowTip{
-    if ([UserSessionManager GetInstance].currentRunUser.tall<10 || [UserSessionManager GetInstance].currentRunUser.weight<10) {
+    if (![[UserSessionManager GetInstance].currentRunUser.nickname isEqualToString:@""] && ([UserSessionManager GetInstance].currentRunUser.tall<10 || [UserSessionManager GetInstance].currentRunUser.weight<10)) {
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
@@ -251,15 +245,19 @@
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    
-    [super viewDidAppear:animated];
-    
+-(void)updateUnreadTips
+{
+    [[AppDelegate App] getUnreadList];
     if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
         [_navView.messageTipImageView setHidden:NO];
     } else {
         [_navView.messageTipImageView setHidden:YES];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
     
     if (!_isRunning) {
         _musicPlayerControllerView.hidden = YES;
@@ -310,6 +308,23 @@
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
     
+    //进入后等3秒判断是否设置了身高体重，先等服务器的数据返回。
+    [self performSelector:@selector(firstEnterRunningShowTip) withObject:nil afterDelay:3.0f];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
+    
+    [self updateUnreadTips];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UpdateUnreadMessageCount object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -838,11 +853,11 @@
     
     @synchronized(_currentLocation){
         
-        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-            [_navView.messageTipImageView setHidden:NO];
-        } else {
-            [_navView.messageTipImageView setHidden:YES];
-        }
+//        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+//            [_navView.messageTipImageView setHidden:NO];
+//        } else {
+//            [_navView.messageTipImageView setHidden:YES];
+//        }
         
         NSLog(@"--------------runningTimerFunction start--------------");
         

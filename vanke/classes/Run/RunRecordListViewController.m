@@ -21,6 +21,7 @@
 #import "ChatViewController.h"
 #import "SettingViewController.h"
 #import "ChatlistViewController.h"
+#import "AppDelegate.h"
 
 @interface RunRecordListViewController ()
 
@@ -389,6 +390,32 @@
     [runResultViewController setIsHistory:YES];
     [self.navigationController pushViewController:runResultViewController animated:YES];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
+    
+    [self updateUnreadTips];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UpdateUnreadMessageCount object:nil];
+}
+
+-(void)updateUnreadTips
+{
+    [[AppDelegate App] getUnreadList];
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [_navView.messageTipImageView setHidden:NO];
+    } else {
+        [_navView.messageTipImageView setHidden:YES];
+    }
 }
 
 @end

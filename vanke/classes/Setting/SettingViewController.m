@@ -310,6 +310,7 @@
                 
                 if (_runner.isPublic > 0) {
                     [_switchPublic setOn:YES animated:YES];
+                    [self showAllInfo];
                 } else {
                     [_switchPublic setOn:NO animated:YES];
                 }
@@ -339,7 +340,25 @@
         NSLog(@"failure: %@", error);
     }];
     [operation start];
-    
+}
+
+#pragma mark 公开个人信息
+-(void)showAllInfo
+{
+    _settingBodyMenuImageView.hidden = NO;
+    _btnJiFen.hidden = NO;
+    _btnDuoBao.hidden = NO;
+    _btnDuiHuanRecord.hidden = NO;
+    _lblTallDesc.hidden = NO;
+    _tallField.hidden = NO;
+    _lblTallCM.hidden = NO;
+    _lblWeightDesc.hidden = NO;
+    _weightField.hidden = NO;
+    _lblWeightKG.hidden = NO;
+    _lblArea.hidden = NO;
+    _addressField.hidden = NO;
+    _telField.hidden = NO;
+    _tempScroll.scrollEnabled = NO;
 }
 
 -(void)doBack{
