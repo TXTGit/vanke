@@ -192,7 +192,17 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-                [_chatMessageList insertObject:chatmessage atIndex:0];
+                
+                if (_chatMessageList && [_chatMessageList count]>0) {
+                    //过滤相同的MSGID，显示过的消息不再显示
+                    NSPredicate *inputPredicate=[NSPredicate predicateWithFormat:@"%K == %ld",@"msgID", chatmessage.msgID];
+                    NSMutableArray *newMutableArray = [NSMutableArray arrayWithArray:[_chatMessageList filteredArrayUsingPredicate:inputPredicate]];
+                    if ([newMutableArray count]<=0) {
+                        [_chatMessageList insertObject:chatmessage atIndex:0];
+                    }
+                }else{
+                    [_chatMessageList insertObject:chatmessage atIndex:0];
+                }
                 if (i == 0) {
                     _lastMessageId = chatmessage.msgID;
                 }
@@ -550,7 +560,18 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 
                 ChatMessage *chatmessage = [ChatMessage initWithNSDictionary:dicrecord];
-                [_chatMessageList insertObject:chatmessage atIndex:0];
+                
+                //过滤相同的MSGID，显示过的消息不再显示
+                if (_chatMessageList && [_chatMessageList count]>0) {
+                    NSPredicate *inputPredicate=[NSPredicate predicateWithFormat:@"%K == %ld",@"msgID", chatmessage.msgID];
+                    NSMutableArray *newMutableArray = [NSMutableArray arrayWithArray:[_chatMessageList filteredArrayUsingPredicate:inputPredicate]];
+                    
+                    if ([newMutableArray count]<=0) {
+                        [_chatMessageList insertObject:chatmessage atIndex:0];
+                    }
+                }else{
+                    [_chatMessageList insertObject:chatmessage atIndex:0];
+                }
             }
             if (datalistCount>0) {
                 [_chatTableView reloadData];

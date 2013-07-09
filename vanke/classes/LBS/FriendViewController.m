@@ -171,7 +171,9 @@
     if ([PCommonUtil checkDataIsNull:friendinfo.fromNickName]) {
         cell.lblNickname.text = friendinfo.fromNickName;
     }
-    cell.lblTime.text = friendinfo.fromLoginTime;
+    if ([PCommonUtil checkDataIsNull:friendinfo.fromLoginTime]) {
+        cell.lblTime.text = friendinfo.fromLoginTime;
+    }
     cell.btnChat.tag = indexPath.row;
     [cell.btnChat addTarget:self action:@selector(doGotoChat:) forControlEvents:UIControlEventTouchUpInside];
     
