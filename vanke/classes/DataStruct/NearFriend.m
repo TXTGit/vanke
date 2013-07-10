@@ -7,6 +7,7 @@
 //
 
 #import "NearFriend.h"
+#import "PCommonUtil.h"
 
 @implementation NearFriend
 
@@ -33,7 +34,9 @@
             nearfriend.isFan = [[dict objectForKey:@"isFan"] boolValue];
             nearfriend.gps = [dict objectForKey:@"gps"];
             nearfriend.loginTime = [dict objectForKey:@"loginTime"];
-            nearfriend.distance = [[dict objectForKey:@"distance"] longValue];
+            
+            id tempdistance = [PCommonUtil checkDataIsNull:[dict objectForKey:@"distance"]];
+            nearfriend.distance = (tempdistance != nil) ? [tempdistance longValue] : 0;
             
         }
     }
