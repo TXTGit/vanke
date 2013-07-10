@@ -67,6 +67,12 @@
     NSError *activationError = nil;
     [session setActive:YES error:&activationError];
     
+    //首次打开APP 创建缓存文件夹
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"firstLaunch"]==nil) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:pathInCacheDirectory(@"com.vanke") withIntermediateDirectories:YES attributes:nil error:nil];
+        [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithBool:YES] forKey:@"firstLaunch"];
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     

@@ -393,7 +393,7 @@
                         [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
                     }else
                     {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",nil];
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",annotation,@"BMKPin",nil];
                         [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
                     }
                 }
@@ -407,7 +407,7 @@
                         [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
                     }else
                     {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",nil];
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",annotation,@"BMKPin",nil];
                         [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
                     }
                 }
@@ -623,6 +623,7 @@
         NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
         NearFriend *tempnearfriend = [[NearFriend alloc] init];
         tempnearfriend.nickName = [UserSessionManager GetInstance].currentRunUser.nickname;
+        tempnearfriend.headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
         tempnearfriend.distance = 0;
         NSDate *currrentDate = [NSDate date];
         tempnearfriend.loginTime = [PCommonUtil formatDate:currrentDate formatter:@"yyyy-MM-dd HH:mm"];

@@ -8,6 +8,7 @@
 
 #import "ImageCacher.h"
 #import "BMKPinAnnotationView.h"
+#import "UIImage+PImageCategory.h"
 
 @implementation ImageCacher
 
@@ -62,6 +63,21 @@ static ImageCacher *defaultCacher=nil;
 //    return NSUIntegerMax;
 //}
 
+//合并图片
+-(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
+    
+    CGSize imageSize = CGSizeMake(79, 73);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(4, 8, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
 -(void)cacheImage:(NSDictionary*)aDic
 {
     NSURL *aURL=[aDic objectForKey:@"url"];
@@ -69,6 +85,17 @@ static ImageCacher *defaultCacher=nil;
     NSFileManager *fileManager=[NSFileManager defaultManager];
     NSData *data=[NSData dataWithContentsOfURL:aURL] ;
     UIImage *image=[UIImage imageWithData:data];
+    NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+    
+    UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(38, 38)];
+    NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+    
+//    UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+//    NSLog(@"defaultImage.size.width: %f, defaultImage.size.height: %f", defaultImage.size.width, defaultImage.size.height);
+//    
+//    image = [self mergerImage:defaultImage secodImage:avatarImage];
+//    NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+    
     if (image==nil) {
         return;
     }
