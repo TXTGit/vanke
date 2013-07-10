@@ -401,6 +401,13 @@
             annotationview.animatesDrop = YES;
             annotationview.canShowCallout = NO;
             
+            //下载头像图片
+            CustomPointAnnotation *ann = annotation;
+            if (ann.nearFriend.headImg) {
+                NSURL *photoUrl = [NSURL URLWithString:ann.nearFriend.headImg];
+                [[EGOImageLoader sharedImageLoader] loadImageForURL:photoUrl observer:self];
+            }
+            
             return annotationview;
         } else if ([annotation isKindOfClass:[CalloutMapAnnotation class]]) {
             
@@ -630,6 +637,19 @@
 - (void)mapView:(BMKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     NSLog(@"location error");
+}
+
+#pragma EGOImageLoaderObserver
+-(void)imageLoaderDidFailToLoad:(NSNotification *)notification{
+    
+    NSLog(@"imageLoaderDidFailToLoad...%@", notification);
+    
+}
+
+-(void)imageLoaderDidLoad:(NSNotification *)notification{
+    
+    NSLog(@"imageLoaderDidLoad...%@", notification);
+    
 }
 
 @end
