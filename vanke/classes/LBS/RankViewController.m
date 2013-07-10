@@ -127,6 +127,8 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+            [_fanRankList removeAllObjects];
+            
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
@@ -179,6 +181,8 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
+            
+            [_communityRankList removeAllObjects];
             
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
@@ -233,13 +237,15 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
+            [_totalRankList removeAllObjects];
+            
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
             for (int i=0; i<datalistCount; i++) {
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 RankInfo *rankinfo = [RankInfo initWithNSDictionary:dicrecord];
                 
-                [_communityRankList addObject:rankinfo];
+                [_totalRankList addObject:rankinfo];
             }
             
             [_rankTableView reloadData];
@@ -298,7 +304,7 @@
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
             
-            [_totalRankList removeAllObjects];
+            NSMutableArray *tempRankList = [[NSMutableArray alloc] init];
             
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
@@ -306,7 +312,18 @@
                 NSDictionary *dicrecord = [datalist objectAtIndex:i];
                 RankInfo *rankinfo = [RankInfo initWithNSDictionary:dicrecord];
                 
-                [_totalRankList addObject:rankinfo];
+                [tempRankList addObject:rankinfo];
+            }
+            
+            if (currentShowRankType == 1) {
+                [_fanRankList removeAllObjects];
+                [_fanRankList addObjectsFromArray:tempRankList];
+            } else if (currentShowRankType == 2) {
+                [_communityRankList removeAllObjects];
+                [_communityRankList addObjectsFromArray:tempRankList];
+            } else if (currentShowRankType == 3) {
+                [_totalRankList removeAllObjects];
+                [_totalRankList addObjectsFromArray:tempRankList];
             }
             
             [_rankTableView reloadData];
@@ -482,27 +499,10 @@
     @try {
         
         NSLog(@"buttonIndex: %d", buttonIndex);
-        switch (buttonIndex) {
-            case 0:
-            {
-                [_totalRankList removeAllObjects];
-                [_totalRankList addObjectsFromArray:_fanRankList];
-                [_rankTableView reloadData];
-            }
-                break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                [self showRanklist:_showRankType rankType:buttonIndex+1];
-                break;
-            case 6:
-                break;
-                
-            default:
-                break;
+        if (buttonIndex >= 6) {
+            return;
         }
+        [self showRanklist:_showRankType rankType:buttonIndex+1];
         
     }
     @catch (NSException *exception) {
