@@ -305,6 +305,8 @@
 		16F1153217661E2F00CC1D3B /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1153017661E2F00CC1D3B /* NoticeViewController.m */; };
 		16F1153317661E2F00CC1D3B /* NoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F1153117661E2F00CC1D3B /* NoticeViewController.xib */; };
 		16F115361766275800CC1D3B /* AutoLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F115351766275600CC1D3B /* AutoLogin.m */; };
+		1823986C178D5E2700F5F7E3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823986A178D5E2700F5F7E3 /* Icon.png */; };
+		1823986D178D5E2700F5F7E3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823986B178D5E2700F5F7E3 /* Icon@2x.png */; };
 		1824030B1779B28C00A55B7F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 182403011779B28C00A55B7F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		1824030C1779B28C00A55B7F /* SinaWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 182403031779B28C00A55B7F /* SinaWeibo.bundle */; };
 		1824030D1779B28C00A55B7F /* SinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 182403051779B28C00A55B7F /* SinaWeibo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
@@ -759,6 +761,8 @@
 		16F1153117661E2F00CC1D3B /* NoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeViewController.xib; sourceTree = "<group>"; };
 		16F115341766275600CC1D3B /* AutoLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLogin.h; sourceTree = "<group>"; };
 		16F115351766275600CC1D3B /* AutoLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLogin.m; sourceTree = "<group>"; };
+		1823986A178D5E2700F5F7E3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1823986B178D5E2700F5F7E3 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		182403001779B28C00A55B7F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		182403011779B28C00A55B7F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		182403031779B28C00A55B7F /* SinaWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinaWeibo.bundle; sourceTree = "<group>"; };
@@ -1077,6 +1081,8 @@
 		165C8EAE1764A57900DEF452 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1823986A178D5E2700F5F7E3 /* Icon.png */,
+				1823986B178D5E2700F5F7E3 /* Icon@2x.png */,
 				165C8EAF1764A57900DEF452 /* vanke-Info.plist */,
 				165C8EB01764A57900DEF452 /* InfoPlist.strings */,
 				165C8EB31764A57900DEF452 /* main.m */,
@@ -2014,6 +2020,8 @@
 				1837D179178538EC00776570 /* run_player_pause.png in Resources */,
 				1837D17A178538EC00776570 /* run_player_play.png in Resources */,
 				CE94068D178B129F00F53636 /* setting_btn_chat.png in Resources */,
+				1823986C178D5E2700F5F7E3 /* Icon.png in Resources */,
+				1823986D178D5E2700F5F7E3 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2192,8 +2200,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2211,8 +2219,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2221,8 +2229,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2240,8 +2248,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
