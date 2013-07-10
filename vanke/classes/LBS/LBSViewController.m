@@ -393,7 +393,7 @@
                         [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
                     }else
                     {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",@"79",@"imageHeight",@"73",@"imageWidth",annotation,@"BMKPin",nil];
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
                         [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
                     }
                 }
@@ -407,7 +407,7 @@
                         [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
                     }else
                     {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",@"79",@"imageHeight",@"73",@"imageWidth",annotation,@"BMKPin",nil];
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
                         [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
                     }
                 }

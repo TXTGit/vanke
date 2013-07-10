@@ -104,42 +104,15 @@ static ImageCacher *defaultCacher=nil;
     } else {
         NSLog(@"failure...");
     }
-
     
     if (image==nil) {
         return;
     }
-    CGSize origImageSize= [image size];
     
-    CGRect newRect;
-    newRect.origin= CGPointZero;
-    //拉伸到多大
-//    newRect.size.width=80;
-//    newRect.size.height=80;
-    newRect.size.width = [[aDic objectForKey:@"imageWidth"] floatValue];
-    newRect.size.height = [[aDic objectForKey:@"imageHeight"] floatValue];
-    
-    //缩放倍数
-    float ratio = MIN(newRect.size.width/origImageSize.width, newRect.size.height/origImageSize.height);
-
-    UIGraphicsBeginImageContext(newRect.size);
-
-    CGRect projectRect;
-    projectRect.size.width =ratio * origImageSize.width;
-    projectRect.size.height=ratio * origImageSize.height;
-    projectRect.origin.x= (newRect.size.width -projectRect.size.width)/2.0;
-    projectRect.origin.y= (newRect.size.height-projectRect.size.height)/2.0;
-
-    [image drawInRect:projectRect];
-    
-
-    UIImage *small = UIGraphicsGetImageFromCurrentImageContext();
-   
-    //压缩比例
-    NSData *smallData=UIImageJPEGRepresentation(small, 0.5);
+    NSData *smallData = UIImagePNGRepresentation(image);
     
     if (smallData) {
-//        [fileManager createFileAtPath:pathForURL(aURL) contents:smallData attributes:nil];
+        [fileManager createFileAtPath:pathForURL(aURL) contents:smallData attributes:nil];
     }
     
     UIView *imageView=[aDic objectForKey:@"imageView"];
@@ -156,8 +129,10 @@ static ImageCacher *defaultCacher=nil;
         
         [imageView.layer addAnimation:transtion forKey:@"transtionKey"];
         
-        [(UIImageView*)imageView setImage:small];
+        [(UIImageView*)imageView setImage:image];
+        
     }else if(btnView!=nil){
+        
         CATransition *transtion = [CATransition animation];
         transtion.duration = 0.5;
         [transtion setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
@@ -166,13 +141,14 @@ static ImageCacher *defaultCacher=nil;
         
         [btnView.layer addAnimation:transtion forKey:@"transtionKey"];
         
-        [(UIButton*)btnView setImage:small forState:UIControlStateNormal];
-    }else if(bmkPin)
-    {
-        [(BMKPinAnnotationView*)bmkPin setImage:small];
+        [(UIButton*)btnView setImage:image forState:UIControlStateNormal];
+        
+    }else if(bmkPin){
+        
+        [(BMKPinAnnotationView*)bmkPin setImage:image];
+        
     }
-    UIGraphicsEndImageContext();
+    
 }
-
 
 @end
