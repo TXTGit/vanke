@@ -245,15 +245,6 @@
     
 }
 
--(void)updateUnreadTips
-{
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        [_navView.messageTipImageView setHidden:NO];
-    } else {
-        [_navView.messageTipImageView setHidden:YES];
-    }
-}
-
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
@@ -311,19 +302,12 @@
     [self performSelector:@selector(firstEnterRunningShowTip) withObject:nil afterDelay:3.0f];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
-    
+    //更新未读提醒
     [[AppDelegate App] getUnreadList];
-}
-
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:UpdateUnreadMessageCount object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

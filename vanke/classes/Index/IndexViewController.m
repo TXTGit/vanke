@@ -114,10 +114,7 @@
     
     //baidu
     _mapView.showsUserLocation = YES;
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
-    
+    //更新未读提醒
     [[AppDelegate App] getUnreadList];
 }
 
@@ -130,16 +127,6 @@
     
     //baidu
     _mapView.showsUserLocation = NO;
-    [[NSNotificationCenter defaultCenter]removeObserver:self  name:UpdateUnreadMessageCount object:nil];
-}
-
--(void)updateUnreadTips
-{
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        [_navView.messageTipImageView setHidden:NO];
-    } else {
-        [_navView.messageTipImageView setHidden:YES];
-    }
 }
 
 - (void)didReceiveMemoryWarning

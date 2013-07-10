@@ -8,6 +8,8 @@
 
 #import "PCustomNavigationBarView.h"
 #import "UIImage+PImageCategory.h"
+#import "PCommonUtil.h"
+#import "UserSessionManager.h"
 
 @implementation PCustomNavigationBarView
 
@@ -71,8 +73,26 @@
         [_messageTipImageView setHidden:YES];
         [self addSubview:_messageTipImageView];
         
+        //添加监听，判断是否有未读消息
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
     }
     return self;
+}
+
+-(void)updateUnreadTips
+{
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        [self.messageTipImageView setHidden:NO];
+    } else {
+        [self.messageTipImageView setHidden:YES];
+    }
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:UpdateUnreadMessageCount object:nil];
 }
 
 @end
