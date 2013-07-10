@@ -25,6 +25,8 @@
 
 #import "AppDelegate.h"
 
+#import "ImageCacher.h"
+
 @interface LBSViewController ()
 
 @end
@@ -380,11 +382,35 @@
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation{
     @try {
         if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+            CustomPointAnnotation *customAnn = (CustomPointAnnotation*)annotation;
             BMKPinAnnotationView *newAnnotation = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
             if (annotation.title && [annotation.title isEqualToString:@"Runner"]) {
                 newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+                
+                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
+                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
+                    if (hasCachedImage(imgUrl)) {
+                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
+                    }else
+                    {
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",nil];
+                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
+                    }
+                }
+                
             } else if (annotation.title && [annotation.title isEqualToString:@"Owner"]) {
                 newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+                
+                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
+                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
+                    if (hasCachedImage(imgUrl)) {
+                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
+                    }else
+                    {
+                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",newAnnotation,@"imageView",nil];
+                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
+                    }
+                }
             }
             
             newAnnotation.animatesDrop = YES;

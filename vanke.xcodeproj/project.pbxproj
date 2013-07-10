@@ -350,6 +350,8 @@
 		CE8BFD0B177341E0001AFAA9 /* TrendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFD0A177341E0001AFAA9 /* TrendCell.xib */; };
 		CE8BFD0E177347E2001AFAA9 /* TrendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8BFD0D177347E2001AFAA9 /* TrendInfo.m */; };
 		CE94068D178B129F00F53636 /* setting_btn_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CE94068C178B129F00F53636 /* setting_btn_chat.png */; };
+		CE959960178DAE0A00E188B1 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95995D178DAE0A00E188B1 /* FileHelpers.m */; };
+		CE959961178DAE0A00E188B1 /* ImageCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95995F178DAE0A00E188B1 /* ImageCacher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -825,6 +827,10 @@
 		CE8BFD0C177347E2001AFAA9 /* TrendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendInfo.h; sourceTree = "<group>"; };
 		CE8BFD0D177347E2001AFAA9 /* TrendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendInfo.m; sourceTree = "<group>"; };
 		CE94068C178B129F00F53636 /* setting_btn_chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_chat.png; sourceTree = "<group>"; };
+		CE95995C178DAE0A00E188B1 /* FileHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelpers.h; sourceTree = "<group>"; };
+		CE95995D178DAE0A00E188B1 /* FileHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelpers.m; sourceTree = "<group>"; };
+		CE95995E178DAE0A00E188B1 /* ImageCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCacher.h; sourceTree = "<group>"; };
+		CE95995F178DAE0A00E188B1 /* ImageCacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCacher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1278,6 +1284,10 @@
 		165C8F0C1764B51700DEF452 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CE95995C178DAE0A00E188B1 /* FileHelpers.h */,
+				CE95995D178DAE0A00E188B1 /* FileHelpers.m */,
+				CE95995E178DAE0A00E188B1 /* ImageCacher.h */,
+				CE95995F178DAE0A00E188B1 /* ImageCacher.m */,
 				167C4EF41768479900F63119 /* OBShapedButton.h */,
 				167C4EF51768479900F63119 /* OBShapedButton.m */,
 				167C4EF61768479900F63119 /* UIImage+ColorAtPixel.h */,
@@ -2128,6 +2138,8 @@
 				16340B3417830F3200231554 /* ScoreListViewController.m in Sources */,
 				16340B391783109C00231554 /* ScoreCell.m in Sources */,
 				16340B3E178316FC00231554 /* ScoreInfo.m in Sources */,
+				CE959960178DAE0A00E188B1 /* FileHelpers.m in Sources */,
+				CE959961178DAE0A00E188B1 /* ImageCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

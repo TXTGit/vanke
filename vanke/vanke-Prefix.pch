@@ -12,6 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "MBProgressHUD.h"
+    #import "FileHelpers.h"
 #endif
 
 #ifndef __MY_MACROS_H___
