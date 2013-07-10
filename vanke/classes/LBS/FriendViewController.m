@@ -217,7 +217,7 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
     
-    [self updateUnreadTips];
+    [[AppDelegate App] getUnreadList];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -228,7 +228,6 @@
 
 -(void)updateUnreadTips
 {
-    [[AppDelegate App] getUnreadList];
     if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
         [_navView.messageTipImageView setHidden:NO];
     } else {

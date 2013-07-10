@@ -358,7 +358,6 @@
     _lblArea.hidden = NO;
     _addressField.hidden = NO;
     _telField.hidden = NO;
-    _tempScroll.scrollEnabled = NO;
 }
 
 -(void)doBack{

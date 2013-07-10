@@ -152,7 +152,7 @@
 -(void)timerStart{
     
     [self timerStop];
-    _getUnreadTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(getUnreadList) userInfo:nil repeats:YES];
+    _getUnreadTimer = [NSTimer scheduledTimerWithTimeInterval:90 target:self selector:@selector(getUnreadList) userInfo:nil repeats:YES];
     
 }
 
