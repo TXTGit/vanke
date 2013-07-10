@@ -30,9 +30,9 @@
             nearfriend.memberID = [[dict objectForKey:@"memberID"] longValue];
             nearfriend.nickName = [dict objectForKey:@"nickName"];
             nearfriend.fullName = [dict objectForKey:@"fullName"];
-            nearfriend.headImg = [dict objectForKey:@"headImg"];
+            nearfriend.headImg = [PCommonUtil checkDataIsNull:[dict objectForKey:@"headImg"]];
             nearfriend.isFan = [[dict objectForKey:@"isFan"] boolValue];
-            nearfriend.gps = [dict objectForKey:@"gps"];
+            nearfriend.gps = [PCommonUtil checkDataIsNull:[dict objectForKey:@"gps"]];
             nearfriend.loginTime = [dict objectForKey:@"loginTime"];
             
             id tempdistance = [PCommonUtil checkDataIsNull:[dict objectForKey:@"distance"]];

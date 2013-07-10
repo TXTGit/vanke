@@ -7,6 +7,7 @@
 //
 
 #import "RunRecord.h"
+#import "PCommonUtil.h"
 
 @implementation RunRecord
 
@@ -45,24 +46,33 @@
             record.calorie = [[dict objectForKey:@"calorie"] floatValue];
             record.energy = [[dict objectForKey:@"energy"] floatValue];
             
-            NSMutableArray *locationList = [[NSMutableArray alloc] init];
-            NSString *line = [dict objectForKey:@"line"];
-            NSArray *locations = [line componentsSeparatedByString:@";"];
-            int locationCount = [locations count];
-            for (int i=0; i<locationCount; i++) {
-                NSString *templocation = [locations objectAtIndex:i];
-                if (templocation && templocation.length > 10) {
-                    [locationList addObject:templocation];
+            id templine = [PCommonUtil checkDataIsNull:[dict objectForKey:@"line"]];
+            if (templine) {
+                
+                NSMutableArray *locationList = [[NSMutableArray alloc] init];
+                NSArray *locations = [templine componentsSeparatedByString:@";"];
+                int locationCount = [locations count];
+                for (int i=0; i<locationCount; i++) {
+                    NSString *templocation = [locations objectAtIndex:i];
+                    if (templocation && templocation.length > 10) {
+                        [locationList addObject:templocation];
+                    }
+                    
                 }
-            
+                record.locationList = locationList;
+                
             }
-            record.locationList = locationList;
-            record.runTime = [dict objectForKey:@"runTime"];
             
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"YYYY-MM-DD"];
-            NSDate *rundate = [formatter dateFromString:record.runTime];
-            record.dataCreateTime = [rundate timeIntervalSince1970];
+            id tempruntime = [PCommonUtil checkDataIsNull:[dict objectForKey:@"runTime"]];
+            if (tempruntime) {
+                record.runTime = tempruntime;
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-DD"];
+                NSDate *rundate = [formatter dateFromString:record.runTime];
+                record.dataCreateTime = [rundate timeIntervalSince1970];
+                
+            }
             
         }
     }
