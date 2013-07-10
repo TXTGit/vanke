@@ -97,10 +97,14 @@
 +(NSString *)getGetMsgListUrl:(NSString *)memberid fromMemberID:(NSString *)fromMemberID lastMsgId:(long)lastmsgid page:(NSInteger)page rows:(NSInteger)rows;
 //获取聊天历史记录
 +(NSString *)getMsgHistoryList:(NSString *)memberid fromMemberID:(NSString *)fromMemberID page:(NSInteger)page rows:(NSInteger)rows;
-//获取好友排名列表（2013-6-17）
+
+//获取总排名列表getTotalRankList（2013-7-10）
++(NSString *)getGetTotalRankListUrl:(NSString *)memberid rankType:(int)ranktype;
+
+//获取好友排名列表getFanRankList（2013-7-10）
 +(NSString *)getGetFanRankListUrl:(NSString *)memberid rankType:(int)ranktype;
 
-//获取社区排名列表（2013-6-17）
+//获取社区排名列表getCommunityRankList（2013-7-10）
 +(NSString *)getGetCommunityRankListUrl:(NSString *)memberid rankType:(int)ranktype;
 
 //获取活动列表（2013-6-27）

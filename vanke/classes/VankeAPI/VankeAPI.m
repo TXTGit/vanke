@@ -455,12 +455,27 @@
 }
 
 /*
- 获取好友排名列表
+ 获取总排名列表getTotalRankList（2013-7-10）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getTotalRankList&memberID=23&rankType=4
+ •	参数：
+ memberID：自己会员ID
+ rankType：排名类型，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
+ •	返回：
+ list：好友排名列表
+ */
++(NSString *)getGetTotalRankListUrl:(NSString *)memberid rankType:(int)ranktype{
+    
+    return [NSString stringWithFormat:@"%@?type=getTotalRankList&memberID=%@&rankType=%d", VANKE_DOMAIN, memberid, ranktype];
+}
+
+/*
+ 获取好友排名列表getFanRankList（2013-7-10）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getFanRankList&memberID=23&rankType=4
  •	参数：
  memberID：自己会员ID
- rankType：排名类型，总排名=1，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
+ rankType：排名类型，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
  •	返回：
  list：好友排名列表
  */
@@ -470,12 +485,12 @@
 }
 
 /*
- 获取社区排名列表
+ 获取社区排名列表getCommunityRankList（2013-7-10）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getCommunityRankList&memberID=23&rankType=4
  •	参数：
  memberID：自己会员ID
- rankType：排名类型，总排名=1，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
+ rankType：排名类型，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
  •	返回：
  list：社区排名列表
  */

@@ -40,7 +40,6 @@
 @synthesize totalRankList = _totalRankList;
 
 @synthesize showRankType = _showRankType;
-@synthesize isCommunity = _isCommunity;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,7 +47,6 @@
     if (self) {
         // Custom initialization
         _showRankType = 1;
-        _isCommunity = NO;
         
     }
     return self;
@@ -70,14 +68,9 @@
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
-    if (headImg && ![headImg isEqualToString:@""]) {
-        NSURL *headUrl = [NSURL URLWithString:headImg];
-        [_navView.rightButton setImageURL:headUrl];
-    }else{
-        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    }
+    UIImage *indexHeadBg = [UIImage imageWithName:@"lbs_rank_selected_arraw" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton addTarget:self action:@selector(doShowRankSelect:) forControlEvents:UIControlEventTouchUpInside];
     [_navView.rightButton setHidden:NO];
     
     //current show data
@@ -116,6 +109,7 @@
     
     [self getFanRankListByType:1];
     [self getCommunityRankListByType:1];
+    [self getTotalRankListByType:1];
     
 }
 
@@ -225,21 +219,80 @@
     
 }
 
--(void)getTotalRanklistByType:(BOOL)isCommunity rankType:(int)rankType{
+//获取总排名列表getTotalRankList（2013-7-10）
+-(void)getTotalRankListByType:(int)rankType{
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *totalRankListUrl = [VankeAPI getGetTotalRankListUrl:memberid rankType:rankType];
+    NSURL *url = [NSURL URLWithString:totalRankListUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"getGetTotalRankListUrl: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            for (int i=0; i<datalistCount; i++) {
+                NSDictionary *dicrecord = [datalist objectAtIndex:i];
+                RankInfo *rankinfo = [RankInfo initWithNSDictionary:dicrecord];
+                
+                [_communityRankList addObject:rankinfo];
+            }
+            
+            [_rankTableView reloadData];
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        
+        if(_indicatorView.isAnimating){
+            [_indicatorView stopAnimating];
+        }
+        
+    }];
+    [operation start];
+    
+}
+
+-(void)showRanklist:(int)currentShowRankType rankType:(int)rankType{
     
     [_indicatorView startAnimating];
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *rankListUrl = [VankeAPI getGetFanRankListUrl:memberid rankType:rankType];
-    if (isCommunity) {
+    NSString *rankListUrl = nil;
+    if (currentShowRankType == 1) {
+        rankListUrl = [VankeAPI getGetFanRankListUrl:memberid rankType:rankType];
+    } else if (currentShowRankType == 2) {
         rankListUrl = [VankeAPI getGetCommunityRankListUrl:memberid rankType:rankType];
+    } else if (currentShowRankType == 3) {
+        rankListUrl = [VankeAPI getGetTotalRankListUrl:memberid rankType:rankType];
+    } else {
+        rankListUrl = [VankeAPI getGetFanRankListUrl:memberid rankType:rankType];
     }
     NSLog(@"rankListUrl: %@", rankListUrl);
     
     NSURL *url = [NSURL URLWithString:rankListUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"getTotalRanklistByType: %@", JSON);
+        NSLog(@"showRanklist: %@", JSON);
         NSDictionary *dicResult = JSON;
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
@@ -390,7 +443,6 @@
     NSLog(@"doShowFanRank...");
     
     _showRankType = 1;
-    _isCommunity = NO;
     [self updateCurrentArraw];
     [_rankTableView reloadData];
     
@@ -401,7 +453,6 @@
     NSLog(@"doShowCommunityRank...");
     
     _showRankType = 2;
-    _isCommunity = YES;
     [self updateCurrentArraw];
     [_rankTableView reloadData];
     
@@ -413,6 +464,11 @@
     
     _showRankType = 3;
     [self updateCurrentArraw];
+    [_rankTableView reloadData];
+    
+}
+
+-(IBAction)doShowRankSelect:(id)sender{
     
     //rankType：排名类型，总排名=1，年度排名=2，季度排名=3，月排名=4，周排名=5，日排名=6
     UIActionSheet *showActionSheet = [[UIActionSheet alloc] initWithTitle:@"排名选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"总排名", @"年度排名", @"季度排名", @"月排名", @"周排名", @"日排名", nil];
@@ -439,7 +495,7 @@
             case 3:
             case 4:
             case 5:
-                [self getTotalRanklistByType:_isCommunity rankType:buttonIndex+1];
+                [self showRanklist:_showRankType rankType:buttonIndex+1];
                 break;
             case 6:
                 break;

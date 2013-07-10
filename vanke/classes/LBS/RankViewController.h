@@ -28,18 +28,19 @@
 @property (nonatomic, retain) NSMutableArray *totalRankList;                //总排名显示数据
 
 @property (nonatomic, assign) int showRankType;     //显示排名类型，1-跑友圈排名，2-社区排名，3-总排名
-@property (nonatomic, assign) BOOL isCommunity;     //是否是社区排行
 
 -(void)doBack;
 -(void)initData;
 -(void)getFanRankListByType:(int)rankType;//跑友圈
 -(void)getCommunityRankListByType:(int)rankType;//社区
--(void)getTotalRanklistByType:(BOOL)isCommunity rankType:(int)rankType;//根据跑友圈还是社区，显示类别排名
+-(void)getTotalRankListByType:(int)rankType;//获取总排名列表getTotalRankList（2013-7-10）
+-(void)showRanklist:(int)currentShowRankType rankType:(int)rankType;//根据跑友圈、社区、总排名，显示类别排名
 -(void)updateCurrentArraw;
 
--(IBAction)doShowFanRank:(id)sender;
--(IBAction)doShowCommunityRank:(id)sender;
--(IBAction)doShowTotalRank:(id)sender;
+-(IBAction)doShowFanRank:(id)sender;//跑友圈
+-(IBAction)doShowCommunityRank:(id)sender;//社区
+-(IBAction)doShowTotalRank:(id)sender;//总排名
+-(IBAction)doShowRankSelect:(id)sender;//选择排名显示菜单
 
 -(void)doGotoSetting:(id)sender;
 -(void)doGotoChat:(id)sender;
