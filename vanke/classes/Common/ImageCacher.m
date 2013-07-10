@@ -70,7 +70,7 @@ static ImageCacher *defaultCacher=nil;
     UIGraphicsBeginImageContext(imageSize);
     
     [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
-    [secondImage drawInRect:CGRectMake(4, 8, secondImage.size.width, secondImage.size.height)];
+    [secondImage drawInRect:CGRectMake(6, 4, secondImage.size.width, secondImage.size.height)];
     
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -90,11 +90,21 @@ static ImageCacher *defaultCacher=nil;
     UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(38, 38)];
     NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
     
-//    UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
-//    NSLog(@"defaultImage.size.width: %f, defaultImage.size.height: %f", defaultImage.size.width, defaultImage.size.height);
-//    
-//    image = [self mergerImage:defaultImage secodImage:avatarImage];
-//    NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+    UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+    NSLog(@"defaultImage.size.width: %f, defaultImage.size.height: %f", defaultImage.size.width, defaultImage.size.height);
+    
+    image = [self mergerImage:defaultImage secodImage:avatarImage];
+    NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+    
+    NSDate *nowDate = [NSDate date];
+    long forImageName = [nowDate timeIntervalSince1970];
+    NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+    if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
+        NSLog(@"Successful...");
+    } else {
+        NSLog(@"failure...");
+    }
+
     
     if (image==nil) {
         return;
@@ -129,7 +139,7 @@ static ImageCacher *defaultCacher=nil;
     NSData *smallData=UIImageJPEGRepresentation(small, 0.5);
     
     if (smallData) {
-        [fileManager createFileAtPath:pathForURL(aURL) contents:smallData attributes:nil];
+//        [fileManager createFileAtPath:pathForURL(aURL) contents:smallData attributes:nil];
     }
     
     UIView *imageView=[aDic objectForKey:@"imageView"];
