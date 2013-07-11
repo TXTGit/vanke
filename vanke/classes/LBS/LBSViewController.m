@@ -387,30 +387,59 @@
             if (annotation.title && [annotation.title isEqualToString:@"Runner"]) {
                 newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
                 
-                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
-                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
-                    if (hasCachedImage(imgUrl)) {
-                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
-                    }else
-                    {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
-                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
-                    }
-                }
+//                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
+//                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
+//                    if (hasCachedImage(imgUrl)) {
+//                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
+//                    }else
+//                    {
+//                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
+//                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
+//                    }
+//                }
                 
             } else if (annotation.title && [annotation.title isEqualToString:@"Owner"]) {
                 newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
                 
-                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
-                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
-                    if (hasCachedImage(imgUrl)) {
-                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
-                    }else
-                    {
-                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
-                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
-                    }
-                }
+//                if (customAnn.nearFriend.headImg && ![customAnn.nearFriend.headImg isEqualToString:@""]) {
+//                    NSURL *imgUrl=[NSURL URLWithString:customAnn.nearFriend.headImg];
+//                    if (hasCachedImage(imgUrl)) {
+//                        [newAnnotation setImage:[UIImage imageWithContentsOfFile:pathForURL(imgUrl)]];
+//                    }else
+//                    {
+//                        NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"url",@"79",@"imageHeight",@"73",@"imageWidth",newAnnotation,@"BMKPin",nil];
+//                        [NSThread detachNewThreadSelector:@selector(cacheImage:) toTarget:[ImageCacher defaultCacher] withObject:dic];
+//                    }
+//                }
+            }
+            
+            //显示头像图片
+            UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            
+            NSURL *avatarUrl = [NSURL URLWithString:customAnn.nearFriend.headImg];
+            UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:avatarUrl shouldLoadWithObserver:nil];
+            if (anImage) {
+                
+                UIImage *avatarImage = [UIImage scaleImage:anImage scaleToSize:CGSizeMake(38, 38)];
+                NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+                
+                avatarImage = [self mergerImage:defaultImage secodImage:avatarImage];
+                
+                EGOImageButton *avatarImageView = [[EGOImageButton alloc] initWithPlaceholderImage:avatarImage];
+                avatarImageView.frame = newAnnotation.frame;
+                avatarImageView.delegate = self;
+                [avatarImageView addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
+                [newAnnotation addSubview:avatarImageView];
+                
+            } else {
+                
+                EGOImageButton *avatarImageView = [[EGOImageButton alloc] initWithPlaceholderImage:defaultImage];
+                avatarImageView.frame = newAnnotation.frame;
+                avatarImageView.delegate = self;
+                avatarImageView.imageURL = [NSURL URLWithString:customAnn.nearFriend.headImg];
+                [avatarImageView addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
+                [newAnnotation addSubview:avatarImageView];
+                
             }
             
             newAnnotation.animatesDrop = YES;
@@ -426,13 +455,6 @@
             annotationview.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
             annotationview.animatesDrop = YES;
             annotationview.canShowCallout = NO;
-            
-            //下载头像图片
-            CustomPointAnnotation *ann = annotation;
-            if (ann.nearFriend.headImg) {
-                NSURL *photoUrl = [NSURL URLWithString:ann.nearFriend.headImg];
-                [[EGOImageLoader sharedImageLoader] loadImageForURL:photoUrl observer:self];
-            }
             
             return annotationview;
         } else if ([annotation isKindOfClass:[CalloutMapAnnotation class]]) {
@@ -666,16 +688,57 @@
     NSLog(@"location error");
 }
 
-#pragma EGOImageLoaderObserver
--(void)imageLoaderDidFailToLoad:(NSNotification *)notification{
+#pragma EGOImageButtonDelegate
+
+//合并图片
+-(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
     
-    NSLog(@"imageLoaderDidFailToLoad...%@", notification);
+    CGSize imageSize = CGSizeMake(79, 73);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(6, 4, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
+- (void)imageButtonLoadedImage:(EGOImageButton*)imageButton{
+    
+    if (imageButton) {
+        
+        UIImage *image = [imageButton imageForState:UIControlStateNormal];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(38, 38)];
+        NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+        
+        UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+        NSLog(@"defaultImage.size.width: %f, defaultImage.size.height: %f", defaultImage.size.width, defaultImage.size.height);
+        
+        image = [self mergerImage:defaultImage secodImage:avatarImage];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        NSDate *nowDate = [NSDate date];
+        long forImageName = [nowDate timeIntervalSince1970];
+        NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+        if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
+            NSLog(@"Successful...");
+        } else {
+            NSLog(@"failure...");
+        }
+        [imageButton setImage:image forState:UIControlStateNormal];
+        
+    }
     
 }
 
--(void)imageLoaderDidLoad:(NSNotification *)notification{
+- (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
     
-    NSLog(@"imageLoaderDidLoad...%@", notification);
+    UIImage *defaultAvatarImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+    [imageButton setImage:defaultAvatarImage forState:UIControlStateNormal];
     
 }
 
