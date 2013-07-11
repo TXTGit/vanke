@@ -64,6 +64,7 @@
         _rightButton = [EGOImageButton buttonWithType:UIButtonTypeCustom];
         [_rightButton setFrame:CGRectMake(274, 2, 40, 40)];
         [_rightButton setHidden:YES];
+        _rightButton.delegate = self;
         [self addSubview:_rightButton];
         
         _messageTipImageView = [[UIImageView alloc] init];
@@ -93,6 +94,52 @@
 {
     [[NSNotificationCenter defaultCenter]
      removeObserver:self name:UpdateUnreadMessageCount object:nil];
+}
+
+#pragma EGOImageButtonDelegate
+
+//合并图片
+-(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
+    
+    CGSize imageSize = CGSizeMake(90, 90);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(-1.5, -1.5, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
+- (void)imageButtonLoadedImage:(EGOImageButton*)imageButton{
+    
+    if (imageButton) {
+        
+        UIImage *image = [imageButton imageForState:UIControlStateNormal];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(90, 90)];
+        NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+        
+        UIImage *whiteCircle = [UIImage imageWithName:@"white_circle" type:@"png"];
+        NSLog(@"whiteCircle.size.width: %f, whiteCircle.size.height: %f", whiteCircle.size.width, whiteCircle.size.height);
+        
+        image = [self mergerImage:avatarImage secodImage:whiteCircle];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        [imageButton setImage:image forState:UIControlStateNormal];
+        
+    }
+    
+}
+
+- (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
+    
+    UIImage *defaultAvatarImage = [UIImage imageWithName:@"main_head" type:@"png"];
+    [imageButton setImage:defaultAvatarImage forState:UIControlStateNormal];
+    
 }
 
 @end

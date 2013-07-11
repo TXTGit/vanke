@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EGOImageButton.h"
 
-@interface PCustomNavigationBarView : UIView
+@interface PCustomNavigationBarView : UIView<EGOImageButtonDelegate>
 
 @property (nonatomic, retain) UIImageView *bgImageView;
 @property (nonatomic, retain) UILabel *titleLabel;

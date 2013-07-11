@@ -13,7 +13,7 @@
 #import "CustomWindow.h"
 #import "BMapKit.h"
 
-@interface IndexViewController : UIViewController<BMKMapViewDelegate>
+@interface IndexViewController : UIViewController<BMKMapViewDelegate, EGOImageButtonDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 
