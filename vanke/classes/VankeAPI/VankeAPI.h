@@ -58,8 +58,11 @@
 //获取本周跑步记录列表（2013-6-17）
 +(NSString *)getGetWeekRunListUrl:(NSString *)memberid;
 
-//获取任务列表（2013-6-22）
+//获取任务列表getTaskList（2013-7-11）
 +(NSString *)getGetTaskListUrl:(NSString *)memberid;
+
+//领取夺宝奖品pickGift（2013-7-11）
++(NSString *)getPickGiftUrl:(NSString *)memberid taskID:(int)taskID;
 
 //获取附近跑友列表（2013-6-22）
 +(NSString *)getGetLbsListUrl:(NSString *)memberid gpsData:(NSString *)gps radius:(long)radius;

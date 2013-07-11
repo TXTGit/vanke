@@ -258,17 +258,32 @@
 }
 
 /*
- 获取任务列表（2013-6-22）
+ 获取任务列表getTaskList（2013-7-11）
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getTaskList&memberID=23
  •	参数：
  memberID：会员ID
  •	返回：
- list：任务列表，字段taskStatus代表状态，已完成=1，已申领=2，已领取=3
+ list：任务列表，字段taskStatus代表状态，可领取=1，已领取=2，已结束=3
  */
 +(NSString *)getGetTaskListUrl:(NSString *)memberid{
     
     return [NSString stringWithFormat:@"%@?type=getTaskList&memberID=%@", VANKE_DOMAIN, memberid];
+}
+
+/*
+ 领取夺宝奖品pickGift（2013-7-11）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=pickGift&memberID=23&taskID=11
+ •	参数：
+ memberID：会员ID
+ taskID：任务ID
+ •	返回：
+ address：领取奖品地址
+ */
++(NSString *)getPickGiftUrl:(NSString *)memberid taskID:(int)taskID{
+    
+    return [NSString stringWithFormat:@"%@?type=pickGift&memberID=%@&taskID=%d", VANKE_DOMAIN, memberid, taskID];
 }
 
 /*
