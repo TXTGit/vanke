@@ -721,14 +721,14 @@
         image = [self mergerImage:defaultImage secodImage:avatarImage];
         NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
         
-        NSDate *nowDate = [NSDate date];
-        long forImageName = [nowDate timeIntervalSince1970];
-        NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
-        if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
-            NSLog(@"Successful...");
-        } else {
-            NSLog(@"failure...");
-        }
+//        NSDate *nowDate = [NSDate date];
+//        long forImageName = [nowDate timeIntervalSince1970];
+//        NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+//        if ([UIImagePNGRepresentation(image) writeToFile:path atomically:YES]) {
+//            NSLog(@"Successful...");
+//        } else {
+//            NSLog(@"failure...");
+//        }
         [imageButton setImage:image forState:UIControlStateNormal];
         
     }
