@@ -51,5 +51,6 @@
 -(void)doBack;
 -(void)initData;
 -(void)updateTaskState;
+-(IBAction)doChange:(id)sender;
 
 @end

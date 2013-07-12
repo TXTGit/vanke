@@ -122,6 +122,26 @@
     _btnTaskCanTask8.hidden = YES;
     _btnTaskCanTask9.hidden = YES;
     
+    _btnTaskCanTask1.tag = 11;
+    _btnTaskCanTask2.tag = 12;
+    _btnTaskCanTask3.tag = 13;
+    _btnTaskCanTask4.tag = 14;
+    _btnTaskCanTask5.tag = 15;
+    _btnTaskCanTask6.tag = 16;
+    _btnTaskCanTask7.tag = 17;
+    _btnTaskCanTask8.tag = 18;
+    _btnTaskCanTask9.tag = 19;
+    
+    [_btnTaskCanTask1 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask2 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask3 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask4 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask5 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask6 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask7 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask8 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnTaskCanTask9 addTarget:self action:@selector(doChange:) forControlEvents:UIControlEventTouchUpInside];
+    
     //
     _taskList = [[NSMutableArray alloc] init];
     
@@ -144,7 +164,7 @@
 -(void)initData{
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *taskListUrl = [VankeAPI getGetTaskListUrl:memberid];
+    NSString *taskListUrl = [VankeAPI getGetTaskListUrl:@"23"];
     NSLog(@"taskListUrl: %@", taskListUrl);
     
     NSURL *url = [NSURL URLWithString:taskListUrl];
@@ -187,20 +207,6 @@
     
 }
 
--(void)doUpdateTaskStatus:(UIImageView *)iceImageView taskTextImageView:(UIImageView *)textImageView taskCanTake:(UIButton *)btnStatus status:(int)taskStatus{
-    
-    if (taskStatus == 1) {
-        iceImageView.hidden = YES;
-        textImageView.hidden = YES;
-        btnStatus.hidden = NO;
-    } else if (taskStatus == 2) {
-        [iceImageView setImage:[UIImage imageNamed:@"task_has_done.png"]];
-        textImageView.hidden = NO;
-        btnStatus.hidden = YES;
-    }
-    
-}
-
 -(void)updateTaskState{
     
     @try {
@@ -212,8 +218,6 @@
             if (taskinfo.taskStatus) {
                 tempTaskStatus = [taskinfo.taskStatus intValue];
             }
-            
-            //        [self doUpdateTaskStatus:_ivTask1 taskTextImageView:_ivTaskText1 taskCanTake:_btnTaskCanTask1 status:2];
             
             if (tempTaskStatus == 1) {
                 
@@ -269,7 +273,7 @@
                         break;
                 }//switch
                 
-            } else if (tempTaskStatus == 2 || tempTaskStatus == 3) {
+            } else if (tempTaskStatus == 2) {
                 
                 int temptaskid = taskinfo.taskID;
                 switch (temptaskid) {
@@ -331,6 +335,50 @@
     @catch (NSException *exception) {
         NSLog(@"updateTaskState failed...");
     }
+    
+}
+
+-(IBAction)doChange:(id)sender{
+    
+    UIButton *btnCanChange = sender;
+    int tempTaskId = btnCanChange.tag;
+    NSLog(@"tempTaskId: %d", tempTaskId);
+    
+    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+    NSString *pickGiftUrl = [VankeAPI getPickGiftUrl:@"23" taskID:tempTaskId];
+    NSLog(@"pickGiftUrl: %@", pickGiftUrl);
+    
+    NSURL *url = [NSURL URLWithString:pickGiftUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"Pick Gift : %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            
+            NSString *tempAddress = [dicResult objectForKey:@"address"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请到以下地址领取礼品:" message:tempAddress delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+            
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = errMsg;
+            hud.margin = 10.f;
+            hud.yOffset = 150.0f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+    }];
+    [operation start];
+    
     
 }
 
