@@ -427,7 +427,16 @@
     }//end if
     if (changeHeadImg) {
         
-        NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
+        //处理头像，增加白色圆圈 20130712
+        UIImage *srcHeadImage = self.btnHeadImg.imageView.image;
+        NSLog(@"srcHeadImage.size.width: %f, srcHeadImage.size.height: %f", srcHeadImage.size.width, srcHeadImage.size.height);
+        
+        UIImage *srcWhiteCircle = [UIImage imageWithName:@"white_circle" type:@"png"];
+        UIImage *tempWhiteCircle = [UIImage scaleImage:srcWhiteCircle scaleToSize:srcHeadImage.size];
+        UIImage *avatarImage = [PCommonUtil mergerImage:srcHeadImage secodImage:tempWhiteCircle];
+        NSData *headData = UIImagePNGRepresentation(avatarImage);
+        
+//        NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
         NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:headData] encoding:NSUTF8StringEncoding];
         
 //        NSLog(@"base64data: %@", base64data);

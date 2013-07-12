@@ -55,4 +55,8 @@
 +(NSString*)getHeadImgUrl:(NSString*)headImg;
 //判断是否Iphone5
 + (BOOL)isIPhone5;
+
+//合并图片
++(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage;
+
 @end
