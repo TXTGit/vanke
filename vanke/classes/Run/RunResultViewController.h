@@ -14,8 +14,9 @@
 #import "VankeConfig.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
+#import "EGOImageButton.h"
 
-@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate,SinaWeiboDelegate, SinaWeiboRequestDelegate>
+@interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate,SinaWeiboDelegate, SinaWeiboRequestDelegate, EGOImageButtonDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *runResultBgImageView;
 @property (nonatomic, retain) PCustomNavigationBarView *navView;

@@ -174,6 +174,35 @@
         } else if ([annotation.title isEqualToString:@"终点"]) {
             newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
         }
+        
+        //显示头像图片
+        UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+        
+        NSString *currentUserHeadImage = [UserSessionManager GetInstance].currentRunUser.headImg;
+        NSURL *avatarUrl = [NSURL URLWithString:currentUserHeadImage];
+        UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:avatarUrl shouldLoadWithObserver:nil];
+        if (anImage) {
+            
+            UIImage *avatarImage = [UIImage scaleImage:anImage scaleToSize:CGSizeMake(38, 38)];
+            NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+            
+            avatarImage = [self mergerAvatarImage:defaultImage secodImage:avatarImage];
+            
+            EGOImageButton *avatarImageView = [[EGOImageButton alloc] initWithPlaceholderImage:avatarImage];
+            avatarImageView.frame = newAnnotation.frame;
+            avatarImageView.delegate = self;
+            [newAnnotation addSubview:avatarImageView];
+            
+        } else {
+            
+            EGOImageButton *avatarImageView = [[EGOImageButton alloc] initWithPlaceholderImage:defaultImage];
+            avatarImageView.frame = newAnnotation.frame;
+            avatarImageView.delegate = self;
+            avatarImageView.imageURL = [NSURL URLWithString:currentUserHeadImage];
+            [newAnnotation addSubview:avatarImageView];
+            
+        }
+        
         newAnnotation.animatesDrop = YES;
         newAnnotation.canShowCallout = YES;
         newAnnotation.calloutOffset = CGPointMake(0,0);
@@ -729,6 +758,52 @@
         NSLog(@"Post image status \"%@\" succeed!", [result objectForKey:@"text"]);
     }
 
+}
+
+#pragma EGOImageButtonDelegate
+
+//合并图片
+-(UIImage *)mergerAvatarImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
+    
+    CGSize imageSize = CGSizeMake(79, 73);
+    UIGraphicsBeginImageContext(imageSize);
+    
+    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
+    [secondImage drawInRect:CGRectMake(6, 4, secondImage.size.width, secondImage.size.height)];
+    
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
+- (void)imageButtonLoadedImage:(EGOImageButton*)imageButton{
+    
+    if (imageButton) {
+        
+        UIImage *image = [imageButton imageForState:UIControlStateNormal];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(38, 38)];
+        NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
+        
+        UIImage *defaultImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+        NSLog(@"defaultImage.size.width: %f, defaultImage.size.height: %f", defaultImage.size.width, defaultImage.size.height);
+        
+        image = [self mergerAvatarImage:defaultImage secodImage:avatarImage];
+        NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
+        
+        [imageButton setImage:image forState:UIControlStateNormal];
+        
+    }
+    
+}
+
+- (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
+    
+    UIImage *defaultAvatarImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+    [imageButton setImage:defaultAvatarImage forState:UIControlStateNormal];
+    
 }
 
 @end
