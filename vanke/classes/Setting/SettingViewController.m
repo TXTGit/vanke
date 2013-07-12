@@ -434,6 +434,17 @@
         UIImage *srcWhiteCircle = [UIImage imageWithName:@"white_circle" type:@"png"];
         UIImage *tempWhiteCircle = [UIImage scaleImage:srcWhiteCircle scaleToSize:srcHeadImage.size];
         UIImage *avatarImage = [PCommonUtil mergerImage:srcHeadImage secodImage:tempWhiteCircle];
+        
+        NSDate *nowDate = [NSDate date];
+        long forImageName = [nowDate timeIntervalSince1970];
+        NSString *path = [NSHomeDirectory() stringByAppendingFormat:@"/%ld.png", forImageName];
+        if ([UIImagePNGRepresentation(avatarImage) writeToFile:path atomically:YES]) {
+            NSLog(@"Successful...");
+        } else {
+            NSLog(@"failure...");
+        }
+
+        
         NSData *headData = UIImagePNGRepresentation(avatarImage);
         
 //        NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
