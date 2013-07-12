@@ -404,7 +404,7 @@
             NSLog(@"status: %@", status);
             if ([status isEqual:@"0"]) {
                 NSLog(@"SetInfo successful...");
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 
                 // Configure for text only and offset down
                 hud.mode = MBProgressHUDModeText;
