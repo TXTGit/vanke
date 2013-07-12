@@ -391,7 +391,7 @@ static double DEF_R =6370693.5; // radius of earth
 }
 
 //合并图片
--(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
++(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
     
     UIGraphicsBeginImageContext(firstImage.size);
     
