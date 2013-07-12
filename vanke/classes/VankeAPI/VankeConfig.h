@@ -30,6 +30,10 @@
 //#define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
 #define VANKE_DOMAINBase                    @"http://www.4000757888.com:880/"
 #define VANKE_DOMAIN                        @"http://www.4000757888.com:880/i.aspx"
+
+#define VANKE_VANKE_URL                     @"http://125.64.17.11:8350/vanke.html"          //万里挑一
+#define VANKE_STORE_URL                     @"http://125.64.17.11:8350/vanke_index.html"    //万客会
+
 #endif
 
 //若返回：{result=”-1”,msg=”服务器异常的提示信息”}，则表示服务器异常

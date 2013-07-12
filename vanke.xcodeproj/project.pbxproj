@@ -328,6 +328,10 @@
 		18380FEA1771AD0A00584B10 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18380FE81771AD0A00584B10 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		183E759E177D77D90098B3C8 /* PDropdownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E759D177D77D90098B3C8 /* PDropdownMenuView.m */; };
 		185042A1177856CF001E352C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850429D177856CF001E352C /* libWeChatSDK.a */; };
+		18524E1A178FBB7B00426BC1 /* VankeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18524E18178FBB7B00426BC1 /* VankeViewController.m */; };
+		18524E1B178FBB7B00426BC1 /* VankeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18524E19178FBB7B00426BC1 /* VankeViewController.xib */; };
+		18524E20178FBBBC00426BC1 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18524E1E178FBBBC00426BC1 /* StoreViewController.m */; };
+		18524E21178FBBBC00426BC1 /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18524E1F178FBBBC00426BC1 /* StoreViewController.xib */; };
 		1864DB40177437DB00993EE5 /* setting_btn_invit.png in Resources */ = {isa = PBXBuildFile; fileRef = 1864DB3E177437DB00993EE5 /* setting_btn_invit.png */; };
 		1864DB41177437DB00993EE5 /* setting_btn_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 1864DB3F177437DB00993EE5 /* setting_btn_save.png */; };
 		186839EA176EC7A50042CB34 /* UnreadMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 186839E9176EC7A50042CB34 /* UnreadMessage.m */; };
@@ -799,6 +803,12 @@
 		1850429D177856CF001E352C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		1850429F177856CF001E352C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		185042A0177856CF001E352C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		18524E17178FBB7B00426BC1 /* VankeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VankeViewController.h; sourceTree = "<group>"; };
+		18524E18178FBB7B00426BC1 /* VankeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VankeViewController.m; sourceTree = "<group>"; };
+		18524E19178FBB7B00426BC1 /* VankeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VankeViewController.xib; sourceTree = "<group>"; };
+		18524E1D178FBBBC00426BC1 /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
+		18524E1E178FBBBC00426BC1 /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
+		18524E1F178FBBBC00426BC1 /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
 		1864DB3E177437DB00993EE5 /* setting_btn_invit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_invit.png; sourceTree = "<group>"; };
 		1864DB3F177437DB00993EE5 /* setting_btn_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_save.png; sourceTree = "<group>"; };
 		186839E8176EC7A50042CB34 /* UnreadMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadMessage.h; sourceTree = "<group>"; };
@@ -1105,6 +1115,8 @@
 		165C8ECC1764AF4C00DEF452 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				18524E1C178FBBAF00426BC1 /* Store */,
+				18524E16178FBB6200426BC1 /* Vanke */,
 				182A6B92178116C300E1F5D7 /* RefreshTableHeaderView */,
 				182402FE1779B28C00A55B7F /* sinaweibo_ios_sdk */,
 				185042A317786221001E352C /* Share */,
@@ -1120,8 +1132,6 @@
 				16F1152217661C7900CC1D3B /* Chat */,
 				16F1152317661C7A00CC1D3B /* Setting */,
 				165C8F7F1764DE3A00DEF452 /* Run */,
-				165C8F801764DE3A00DEF452 /* Store */,
-				165C8F811764DE3B00DEF452 /* Vanke */,
 				165C8F601764D5AC00DEF452 /* Index */,
 				165C8F0C1764B51700DEF452 /* Common */,
 				165C8ECD1764AF4C00DEF452 /* DataStruct */,
@@ -1405,20 +1415,6 @@
 				1672DA7E17697A360040D644 /* PMusicPlayerControllerView.m */,
 			);
 			path = Run;
-			sourceTree = "<group>";
-		};
-		165C8F801764DE3A00DEF452 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
-		165C8F811764DE3B00DEF452 /* Vanke */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vanke;
 			sourceTree = "<group>";
 		};
 		165C8FF21764E93900DEF452 /* Run */ = {
@@ -1735,6 +1731,26 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		18524E16178FBB6200426BC1 /* Vanke */ = {
+			isa = PBXGroup;
+			children = (
+				18524E17178FBB7B00426BC1 /* VankeViewController.h */,
+				18524E18178FBB7B00426BC1 /* VankeViewController.m */,
+				18524E19178FBB7B00426BC1 /* VankeViewController.xib */,
+			);
+			path = Vanke;
+			sourceTree = "<group>";
+		};
+		18524E1C178FBBAF00426BC1 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				18524E1D178FBBBC00426BC1 /* StoreViewController.h */,
+				18524E1E178FBBBC00426BC1 /* StoreViewController.m */,
+				18524E1F178FBBBC00426BC1 /* StoreViewController.xib */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		CE8BFCF217733F12001AFAA9 /* share */ = {
 			isa = PBXGroup;
 			children = (
@@ -2036,6 +2052,8 @@
 				1823986C178D5E2700F5F7E3 /* Icon.png in Resources */,
 				1823986D178D5E2700F5F7E3 /* Icon@2x.png in Resources */,
 				18239870178D677E00F5F7E3 /* lbs_rank_selected_arraw.png in Resources */,
+				18524E1B178FBB7B00426BC1 /* VankeViewController.xib in Resources */,
+				18524E21178FBBBC00426BC1 /* StoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2140,6 +2158,8 @@
 				16340B3E178316FC00231554 /* ScoreInfo.m in Sources */,
 				CE959960178DAE0A00E188B1 /* FileHelpers.m in Sources */,
 				CE959961178DAE0A00E188B1 /* ImageCacher.m in Sources */,
+				18524E1A178FBB7B00426BC1 /* VankeViewController.m in Sources */,
+				18524E20178FBBBC00426BC1 /* StoreViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

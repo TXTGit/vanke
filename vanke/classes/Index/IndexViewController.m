@@ -19,6 +19,8 @@
 #import "ChatlistViewController.h"
 #import "PCommonUtil.h"
 #import "AppDelegate.h"
+#import "VankeViewController.h"
+#import "StoreViewController.h"
 
 @interface IndexViewController ()
 
@@ -230,11 +232,21 @@
 }
 
 -(IBAction)doIndexVanke:(id)sender{
+    
     NSLog(@"doIndexVanke...");
+    
+    VankeViewController *vankeViewController = [[VankeViewController alloc] initWithNibName:@"VankeViewController" bundle:nil];
+    [self.navigationController pushViewController:vankeViewController animated:YES];
+    
 }
 
 -(IBAction)doIndexStore:(id)sender{
+    
     NSLog(@"doIndexStore...");
+    
+    StoreViewController *storeViewController = [[StoreViewController alloc] initWithNibName:@"StoreViewController" bundle:nil];
+    [self.navigationController pushViewController:storeViewController animated:YES];
+    
 }
 
 -(void)getUnreadDataFromServerByHttp{
