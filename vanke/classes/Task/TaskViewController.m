@@ -164,7 +164,7 @@
 -(void)initData{
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *taskListUrl = [VankeAPI getGetTaskListUrl:@"23"];
+    NSString *taskListUrl = [VankeAPI getGetTaskListUrl:memberid];
     NSLog(@"taskListUrl: %@", taskListUrl);
     
     NSURL *url = [NSURL URLWithString:taskListUrl];
@@ -345,7 +345,7 @@
     NSLog(@"tempTaskId: %d", tempTaskId);
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *pickGiftUrl = [VankeAPI getPickGiftUrl:@"23" taskID:tempTaskId];
+    NSString *pickGiftUrl = [VankeAPI getPickGiftUrl:memberid taskID:tempTaskId];
     NSLog(@"pickGiftUrl: %@", pickGiftUrl);
     
     NSURL *url = [NSURL URLWithString:pickGiftUrl];
