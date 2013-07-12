@@ -38,6 +38,8 @@
 		163BCE01177C77CE008656D1 /* button_use_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 163BCDFF177C77CE008656D1 /* button_use_27.png */; };
 		163BCE04177C8044008656D1 /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BCE03177C8044008656D1 /* NoticeCell.m */; };
 		163BCE06177C8084008656D1 /* NoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163BCE05177C8084008656D1 /* NoticeCell.xib */; };
+		1652445D17904FE000595255 /* white_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 1652445C17904FE000595255 /* white_circle.png */; };
+		1652445F1790590F00595255 /* setting_body_menu_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1652445E1790590F00595255 /* setting_body_menu_mark.png */; };
 		165ADFED1766B21D00B15416 /* PCommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFEC1766B21D00B15416 /* PCommonUtil.m */; };
 		165ADFF01766B55900B15416 /* RunUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFEF1766B55900B15416 /* RunUser.m */; };
 		165ADFF31766B5AC00B15416 /* UserSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 165ADFF21766B5AC00B15416 /* UserSessionManager.m */; };
@@ -400,6 +402,8 @@
 		163BCE02177C8044008656D1 /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		163BCE03177C8044008656D1 /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
 		163BCE05177C8084008656D1 /* NoticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeCell.xib; sourceTree = "<group>"; };
+		1652445C17904FE000595255 /* white_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_circle.png; sourceTree = "<group>"; };
+		1652445E1790590F00595255 /* setting_body_menu_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_body_menu_mark.png; sourceTree = "<group>"; };
 		165ADFEA1766B20100B15416 /* VankeConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VankeConfig.h; sourceTree = "<group>"; };
 		165ADFEB1766B21D00B15416 /* PCommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCommonUtil.h; sourceTree = "<group>"; };
 		165ADFEC1766B21D00B15416 /* PCommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCommonUtil.m; sourceTree = "<group>"; };
@@ -959,6 +963,7 @@
 		165AE0AE1767286E00B15416 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				1652445E1790590F00595255 /* setting_body_menu_mark.png */,
 				CE94068C178B129F00F53636 /* setting_btn_chat.png */,
 				16BCFD82177EA3300037C42C /* button_logout.png */,
 				160CC0321776F1DE005E5BDA /* header_red_circle.png */,
@@ -1365,6 +1370,7 @@
 		165C8F611764D5B300DEF452 /* Index */ = {
 			isa = PBXGroup;
 			children = (
+				1652445C17904FE000595255 /* white_circle.png */,
 				165C8FEB1764E52200DEF452 /* main_back.png */,
 				165C8F871764E3E200DEF452 /* main_head.png */,
 				165C8F621764D5B300DEF452 /* index_0009_Hi!-mey.png */,
@@ -2054,6 +2060,8 @@
 				18239870178D677E00F5F7E3 /* lbs_rank_selected_arraw.png in Resources */,
 				18524E1B178FBB7B00426BC1 /* VankeViewController.xib in Resources */,
 				18524E21178FBBBC00426BC1 /* StoreViewController.xib in Resources */,
+				1652445D17904FE000595255 /* white_circle.png in Resources */,
+				1652445F1790590F00595255 /* setting_body_menu_mark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2236,8 +2244,8 @@
 		165C8EC21764A57900DEF452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2255,8 +2263,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2265,8 +2273,8 @@
 		165C8EC31764A57900DEF452 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SU Qigang (CJ2Y8NYYSN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianhua Ming (5VGP7E5QS3)";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vanke/vanke-Prefix.pch";
@@ -2284,8 +2292,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E9FE80D-9D81-4498-AC75-16DDE5BC673B";
+				PROVISIONING_PROFILE = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F17324B8-F4E7-45F6-9E0D-D0F3DEB35AFF";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
