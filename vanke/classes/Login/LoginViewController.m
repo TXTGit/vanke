@@ -226,6 +226,8 @@
         [self.navigationController pushViewController:indexViewController animated:YES];
     }
     [self.btnLogin setEnabled:YES];
+    //设置万科Cookie
+    [self SetVankeCookie];
 }
 
 -(IBAction)resiginTextField:(id)sender{
@@ -280,5 +282,27 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+}
+
+-(void)SetVankeCookie
+{
+    NSURL *cookieHost = [NSURL URLWithString:@"http://125.64.17.11:8350/"];
+    NSHTTPCookie *cookieName = [NSHTTPCookie cookieWithProperties:
+                            [NSDictionary dictionaryWithObjectsAndKeys:
+                             [cookieHost host], NSHTTPCookieDomain,
+                             [cookieHost path], NSHTTPCookiePath,
+                             @"username",  NSHTTPCookieName,
+                             self.usernameField.text, NSHTTPCookieValue,
+                             nil]];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookieName];
+    
+    NSHTTPCookie *cookiePassword = [NSHTTPCookie cookieWithProperties:
+                            [NSDictionary dictionaryWithObjectsAndKeys:
+                             [cookieHost host], NSHTTPCookieDomain,
+                             [cookieHost path], NSHTTPCookiePath,
+                             @"password",  NSHTTPCookieName,
+                             self.passwordField.text, NSHTTPCookieValue,
+                             nil]];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookiePassword];
 }
 @end
