@@ -82,12 +82,16 @@
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     
-    [_indicatorView stopAnimating];
+    if(_indicatorView.isAnimating){
+        [_indicatorView stopAnimating];
+    }
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
-    [_indicatorView stopAnimating];
+    if(_indicatorView.isAnimating){
+        [_indicatorView stopAnimating];
+    }
     
 }
 
