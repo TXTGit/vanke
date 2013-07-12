@@ -48,6 +48,7 @@
     
     self.view.frame = CGRectMake(0, 0, 320, height - 20);
     _vankeWebView.frame = CGRectMake(0, 44, 320, height - 20 - 44);
+    _vankeWebView.scrollView.bounces = NO;
     
     [self initData];
     
