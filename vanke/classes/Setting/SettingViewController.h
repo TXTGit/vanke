@@ -28,6 +28,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblHaoYou;               //好友
 @property (nonatomic, retain) IBOutlet UILabel *lblNengLiang;            //能量
 @property (nonatomic, retain) IBOutlet UILabel *lblDeFen;                //得分
+@property (nonatomic, retain) IBOutlet UIImageView *menuMarkImageView;      //覆盖菜单图片
 
 @property (nonatomic, retain) IBOutlet UIImageView *settingBodyMenuImageView;
 

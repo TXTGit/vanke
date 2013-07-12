@@ -243,7 +243,7 @@
 						<string key="NSFrame">{{154, 156}, {154, 21}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="128496616"/>
+						<reference key="NSNextKeyView" ref="180383809"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -588,7 +588,6 @@
 						<string key="NSFrame">{{13, 636}, {295, 40}}</string>
 						<reference key="NSSuperview" ref="1039775317"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -777,6 +776,21 @@
 						<reference key="IBUIFontDescription" ref="727666731"/>
 						<reference key="IBUIFont" ref="658311388"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+					</object>
+					<object class="IBUIImageView" id="180383809">
+						<reference key="NSNextResponder" ref="1039775317"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{0, 204}, {320, 63}}</string>
+						<reference key="NSSuperview" ref="1039775317"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="128496616"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">setting_body_menu_mark.png</string>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 590}</string>
@@ -1001,14 +1015,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">positionBgImageView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="99352814"/>
-					</object>
-					<int key="connectionID">109</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lblPublic</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="809481886"/>
@@ -1054,6 +1060,22 @@
 						<reference key="destination" ref="341186010"/>
 					</object>
 					<int key="connectionID">115</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">menuMarkImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="180383809"/>
+					</object>
+					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">positionBgImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="99352814"/>
+					</object>
+					<int key="connectionID">119</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1232,6 +1254,7 @@
 							<reference ref="657816474"/>
 							<reference ref="420166908"/>
 							<reference ref="840570028"/>
+							<reference ref="180383809"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1405,6 +1428,11 @@
 						<reference key="object" ref="420166908"/>
 						<reference key="parent" ref="1039775317"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">116</int>
+						<reference key="object" ref="180383809"/>
+						<reference key="parent" ref="1039775317"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1416,6 +1444,7 @@
 				<string key="100.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="101.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="102.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="116.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1454,7 +1483,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">115</int>
+			<int key="maxID">119</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1476,6 +1505,7 @@
 						<string key="doLogout:">id</string>
 						<string key="doPositionSwitchAction:">id</string>
 						<string key="doPublicSwitchAction:">id</string>
+						<string key="doSelectHeadImg:">id</string>
 						<string key="doSina:">id</string>
 						<string key="doTel:">id</string>
 						<string key="resiginTextField:">id</string>
@@ -1503,6 +1533,10 @@
 						</object>
 						<object class="IBActionInfo" key="doPublicSwitchAction:">
 							<string key="name">doPublicSwitchAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doSelectHeadImg:">
+							<string key="name">doSelectHeadImg:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doSina:">
@@ -1546,6 +1580,7 @@
 						<string key="lblWeightDesc">UILabel</string>
 						<string key="lblWeightKG">UILabel</string>
 						<string key="logoutImageView">UIImageView</string>
+						<string key="menuMarkImageView">UIImageView</string>
 						<string key="positionBgImageView">UIImageView</string>
 						<string key="publicBgImageView">UIImageView</string>
 						<string key="settingBodyMenuImageView">UIImageView</string>
@@ -1664,6 +1699,10 @@
 							<string key="name">logoutImageView</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="menuMarkImageView">
+							<string key="name">menuMarkImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="positionBgImageView">
 							<string key="name">positionBgImageView</string>
 							<string key="candidateClassName">UIImageView</string>
@@ -1712,6 +1751,7 @@
 			<string key="header_red_circle.png">{200, 200}</string>
 			<string key="setting_bg.png">{640, 1136}</string>
 			<string key="setting_body_menu.png">{640, 468}</string>
+			<string key="setting_body_menu_mark.png">{640, 125}</string>
 			<string key="setting_body_sina.png">{592, 81}</string>
 			<string key="setting_body_tel.png">{592, 81}</string>
 			<string key="setting_btn_arrow.png">{592, 81}</string>

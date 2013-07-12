@@ -234,6 +234,7 @@
 //    [_navView.messageTipImageView setHidden:NO];
     
     //show data
+    _menuMarkImageView.hidden = YES;
     [self initData];
     
 }
@@ -358,6 +359,13 @@
     _lblArea.hidden = NO;
     _addressField.hidden = NO;
     _telField.hidden = NO;
+    
+    if (_memberid != [[UserSessionManager GetInstance].currentRunUser.userid longLongValue]) {
+        _menuMarkImageView.hidden = NO;
+    } else {
+        _menuMarkImageView.hidden = YES;
+    }
+    
 }
 
 -(void)doBack{
