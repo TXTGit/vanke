@@ -15,6 +15,7 @@
 @property (nonatomic, retain) UIButton *btnMenu2;
 @property (nonatomic, retain) UIButton *btnMenu3;
 @property (nonatomic, retain) UIButton *btnMenu4;
+@property (nonatomic, retain) UIImageView *redDotImageView;
 
 -(id)initDropdownMenuOfHead:(CGRect)frame;
 

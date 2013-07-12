@@ -15,6 +15,7 @@
 @synthesize btnMenu2 = _btnMenu2;
 @synthesize btnMenu3 = _btnMenu3;
 @synthesize btnMenu4 = _btnMenu4;
+@synthesize redDotImageView = _redDotImageView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,6 +44,12 @@
         UIImage *secondImage = [UIImage imageNamed:@"dropdown_menu2.png"];
         [_btnMenu2 setImage:secondImage forState:UIControlStateNormal];
         [self addSubview:_btnMenu2];
+        
+        _redDotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 58, 18, 18)];
+        UIImage *redDotImage = [UIImage imageNamed:@"index_button_new.png"];
+        _redDotImageView.image = redDotImage;
+        [self addSubview:_redDotImageView];
+        _redDotImageView.hidden = YES;
         
         _btnMenu3 = [[UIButton alloc] initWithFrame:CGRectMake(8, 105, 40, 40)];
         UIImage *thirdImage = [UIImage imageNamed:@"dropdown_menu3.png"];

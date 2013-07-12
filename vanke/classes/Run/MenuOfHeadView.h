@@ -14,5 +14,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnMenu2;
 @property (nonatomic, retain) IBOutlet UIButton *btnMenu3;
 @property (nonatomic, retain) IBOutlet UIButton *btnMenu4;
+@property (nonatomic, retain) IBOutlet UIImageView *redDotImageView;
 
 @end

@@ -14,6 +14,7 @@
 @synthesize btnMenu2 = _btnMenu2;
 @synthesize btnMenu3 = _btnMenu3;
 @synthesize btnMenu4 = _btnMenu4;
+@synthesize redDotImageView = _redDotImageView;
 
 - (id)initWithFrame:(CGRect)frame
 {

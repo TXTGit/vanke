@@ -151,9 +151,6 @@
     tapViewForMenu.cancelsTouchesInView = NO;
     [transparentByForMenu addGestureRecognizer:tapViewForMenu];
     
-//    NSArray *menuOfHeadNibContents = [[NSBundle mainBundle] loadNibNamed:@"MenuOfHead" owner:nil options:nil];
-//    _menuOfHeadView = (MenuOfHeadView *)[menuOfHeadNibContents objectAtIndex:0];
-//    _menuOfHeadView.frame = CGRectMake(270, 70, 57, 210);
     _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
     [transparentByForMenu addSubview:_menuOfHeadView];
     _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
@@ -602,7 +599,11 @@
     [UIView setAnimationDelegate:self];
     
     _menuOfHeadView.hidden = NO;
-//    _menuOfHeadView.alpha = 1.0f;
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        _menuOfHeadView.redDotImageView.hidden = NO;
+    } else {
+        _menuOfHeadView.redDotImageView.hidden = YES;
+    }
     CGRect menuframe = _menuOfHeadView.frame;
     _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
     
