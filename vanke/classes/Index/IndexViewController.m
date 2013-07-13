@@ -331,10 +331,10 @@
                     UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:avatarUrl shouldLoadWithObserver:nil];
                     if (anImage) {
                         
-                        UIImage *avatarImage = [UIImage scaleImage:anImage scaleToSize:CGSizeMake(88, 88)];
-                        UIImage *whiteCircle = [UIImage imageWithName:@"white_circle" type:@"png"];
                         
-                        avatarImage = [self mergerImage:avatarImage secodImage:whiteCircle];
+                        UIImage *srcWhiteCircle = [UIImage imageWithName:@"white_circle" type:@"png"];
+                        UIImage *tempWhiteCircle = [UIImage scaleImage:srcWhiteCircle scaleToSize:anImage.size];
+                        UIImage *avatarImage = [PCommonUtil mergerImage:anImage secodImage:tempWhiteCircle];
                         
                         [_navView.rightButton setImage:avatarImage forState:UIControlStateNormal];
                         
@@ -417,20 +417,5 @@
 #pragma EGOImageButtonDelegate
 //- (void)imageButtonLoadedImage:(EGOImageButton*)imageButton;
 //- (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error;
-
-//合并图片
--(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
-    
-    CGSize imageSize = CGSizeMake(88, 88);
-    UIGraphicsBeginImageContext(imageSize);
-    
-    [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
-    [secondImage drawInRect:CGRectMake(0, 0, secondImage.size.width, secondImage.size.height)];
-    
-    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return resultImage;
-}
 
 @end
