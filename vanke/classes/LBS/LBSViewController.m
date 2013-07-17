@@ -435,6 +435,7 @@
                 
                 EGOImageButton *avatarImageView = [[EGOImageButton alloc] initWithPlaceholderImage:defaultImage];
                 avatarImageView.frame = newAnnotation.frame;
+                avatarImageView.tag = customAnn.nearFriend.memberID;
                 avatarImageView.delegate = self;
                 avatarImageView.imageURL = [NSURL URLWithString:customAnn.nearFriend.headImg];
                 [avatarImageView addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
@@ -618,7 +619,7 @@
 
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-	if (userLocation != nil) {
+	if (userLocation != nil && _currentLocation==nil) {
         
         NSString *templocation = [NSString stringWithFormat:@"%f,%f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude];
         NSLog(@"templocation: %@", templocation);

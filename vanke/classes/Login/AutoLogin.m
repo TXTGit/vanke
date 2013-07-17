@@ -75,7 +75,7 @@
     //搞个事件来同步下
     NSCondition *itlock = [[NSCondition alloc] init];
     
-    NSString *memberUrl = [VankeAPI getGetMemberUrl:memberid];
+    NSString *memberUrl = [VankeAPI getGetMemberDetailUrl:memberid];
     NSLog(@"memberUrl:%@",memberUrl);
     NSURL *url = [NSURL URLWithString:memberUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
