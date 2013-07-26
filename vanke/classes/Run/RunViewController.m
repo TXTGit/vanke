@@ -943,6 +943,10 @@
         float tempSpeed = (float)(tempOneDistance / tempMoveTime);
         [self insertRunRecord:tempMoveTime distance:tempOneDistance/1000 oldLatitude:strOldLatitude oldLongitude:strOldLongitude newLatitude:strNewLatitude newLongitude:strNewLongitude speed:tempSpeed runingOneTimeId:_nRuningOneTimeId];
         
+        //作弊过滤－超过20km/h不计算 by 20130726
+        if (tempSpeed > 5.56) {
+            tempOneDistance = 0;
+        }
         _nDistance += tempOneDistance;//本次跑步距离
         
         //刷新里程
