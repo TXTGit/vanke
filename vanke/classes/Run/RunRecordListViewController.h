@@ -12,7 +12,9 @@
 #import "PDropdownMenuView.h"
 #import "CustomWindow.h"
 
-@interface RunRecordListViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+#import "BaseViewController.h"
+
+@interface RunRecordListViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (nonatomic, retain) PDropdownMenuView *menuOfHeadView;

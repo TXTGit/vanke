@@ -22,7 +22,9 @@
 
 #import "MenuBottomView.h"
 
-@interface RunViewController : UIViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate, UIAlertViewDelegate>
+#import "BaseViewController.h"
+
+@interface RunViewController : BaseViewController<BMKMapViewDelegate, MPMediaPickerControllerDelegate, UIAlertViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 

@@ -77,7 +77,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
-//    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
     [_navView.messageTipImageView setImage:messageTip];
@@ -123,90 +123,90 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)touchMenuAction:(id)sender{
-    
-    NSLog(@"touchMenuAction...");
-    
-    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
-        
-        _menuOfHeadView.hidden = NO;
-        _menuOfHeadView.alpha = 1.0f;
-        _menuOfHeadView.btnMenu1.alpha = 1.0f;
-        _menuOfHeadView.btnMenu2.alpha = 1.0f;
-        _menuOfHeadView.btnMenu3.alpha = 1.0f;
-        _menuOfHeadView.btnMenu4.alpha = 1.0f;
-        CGRect menuframe = _menuOfHeadView.frame;
-        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
-        
-        [_menuOfCustomWindow show];
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-}
+//-(void)touchMenuAction:(id)sender{
+//    
+//    NSLog(@"touchMenuAction...");
+//    
+//    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+//        
+//        _menuOfHeadView.hidden = NO;
+//        _menuOfHeadView.alpha = 1.0f;
+//        _menuOfHeadView.btnMenu1.alpha = 1.0f;
+//        _menuOfHeadView.btnMenu2.alpha = 1.0f;
+//        _menuOfHeadView.btnMenu3.alpha = 1.0f;
+//        _menuOfHeadView.btnMenu4.alpha = 1.0f;
+//        CGRect menuframe = _menuOfHeadView.frame;
+//        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
+//        
+//        [_menuOfCustomWindow show];
+//        
+//    } completion:^(BOOL finished) {
+//        
+//    }];
+//    
+//}
+//
+//-(void)touchOutOfMenuAction:(id)sender{
+//    
+//    NSLog(@"touchOutOfMenuAction...");
+//    
+//    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
+//        
+//        _menuOfHeadView.alpha = 0.0f;
+//        _menuOfHeadView.btnMenu1.alpha = 0.0f;
+//        _menuOfHeadView.btnMenu2.alpha = 0.0f;
+//        _menuOfHeadView.btnMenu3.alpha = 0.0f;
+//        _menuOfHeadView.btnMenu4.alpha = 0.0f;
+//        CGRect menuframe = _menuOfHeadView.frame;
+//        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        _menuOfCustomWindow.hidden = YES;
+//        _menuOfHeadView.hidden = YES;
+//        [_menuOfCustomWindow close];
+//        
+//    }];
+//    
+//}
 
--(void)touchOutOfMenuAction:(id)sender{
-    
-    NSLog(@"touchOutOfMenuAction...");
-    
-    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
-        
-        _menuOfHeadView.alpha = 0.0f;
-        _menuOfHeadView.btnMenu1.alpha = 0.0f;
-        _menuOfHeadView.btnMenu2.alpha = 0.0f;
-        _menuOfHeadView.btnMenu3.alpha = 0.0f;
-        _menuOfHeadView.btnMenu4.alpha = 0.0f;
-        CGRect menuframe = _menuOfHeadView.frame;
-        _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        _menuOfCustomWindow.hidden = YES;
-        _menuOfHeadView.hidden = YES;
-        [_menuOfCustomWindow close];
-        
-    }];
-    
-}
-
--(void)touchHomeAction:(id)sender{
-    
-    NSLog(@"touchHomeAction...");
-    
-}
-
--(void)touchNoticeAction:(id)sender{
-    
-    NSLog(@"touchNoticeAction...");
-    
-    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
-    [self.navigationController pushViewController:noticeViewController animated:YES];
-    
-}
-
--(void)touchChatAction:(id)sender{
-    
-    NSLog(@"touchChatAction...");
-    
-//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-//    [chatViewController setChatType:chatTypeDefault];
-//    [self.navigationController pushViewController:chatViewController animated:YES];
-    
-    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
-    [self.navigationController pushViewController:chatListViewController animated:YES];
-}
-
--(void)touchSettingAction:(id)sender{
-    
-    NSLog(@"touchSettingAction...");
-    
-    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-    [settingViewController setMemberid:[memberid longLongValue]];
-    [self.navigationController pushViewController:settingViewController animated:YES];
-    
-}
+//-(void)touchHomeAction:(id)sender{
+//    
+//    NSLog(@"touchHomeAction...");
+//    
+//}
+//
+//-(void)touchNoticeAction:(id)sender{
+//    
+//    NSLog(@"touchNoticeAction...");
+//    
+//    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
+//    [self.navigationController pushViewController:noticeViewController animated:YES];
+//    
+//}
+//
+//-(void)touchChatAction:(id)sender{
+//    
+//    NSLog(@"touchChatAction...");
+//    
+////    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+////    [chatViewController setChatType:chatTypeDefault];
+////    [self.navigationController pushViewController:chatViewController animated:YES];
+//    
+//    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+//    [self.navigationController pushViewController:chatListViewController animated:YES];
+//}
+//
+//-(void)touchSettingAction:(id)sender{
+//    
+//    NSLog(@"touchSettingAction...");
+//    
+//    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+//    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+//    [settingViewController setMemberid:[memberid longLongValue]];
+//    [self.navigationController pushViewController:settingViewController animated:YES];
+//    
+//}
 
 //
 

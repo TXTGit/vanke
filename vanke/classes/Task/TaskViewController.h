@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
+#import "BaseViewController.h"
 
-@interface TaskViewController : UIViewController
+@interface TaskViewController : BaseViewController
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 

@@ -76,6 +76,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //tableview
     _friendTableView.backgroundColor = [UIColor clearColor];

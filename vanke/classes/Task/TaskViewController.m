@@ -89,7 +89,8 @@
     [self.view addSubview:_tempScroll];
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"夺宝" bgImageView:@"index_nav_bg"];
+    NSString *title = [NSString stringWithFormat:@"能量值：%.2f",[UserSessionManager GetInstance].currentRunUser.energy];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:title bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
@@ -106,6 +107,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
 //    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
 //    [_navView.messageTipImageView setImage:messageTip];

@@ -7,6 +7,7 @@
 //
 
 #import "FriendCell.h"
+#import "PCommonUtil.h"
 
 @implementation FriendCell
 
@@ -20,6 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        [self.lblTime setFont:MainFont(12.0f)];
     }
     return self;
 }

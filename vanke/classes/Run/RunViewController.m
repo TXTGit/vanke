@@ -28,6 +28,8 @@
 
 #define RECORD_RUN_DATA_INTERVAL 60.0
 
+#define StopRunAlertTag 100
+
 @interface RunViewController ()
 
 @end
@@ -209,6 +211,24 @@
     [self initLocalDatabase];
     
     _locationList = [[NSMutableArray alloc] init];
+    
+    [self initFont];
+}
+
+#pragma mark 初始化字体
+-(void)initFont
+{
+    [self.lblRunDistance setFont:MainFont(17.0f)];
+    [self.lblCalorie setFont:MainFont(16.0f)];
+    [self.lblRunCount setFont:MainFont(16.0f)];
+    [self.lblSpead setFont:MainFont(16.0f)];
+    [self.lblMonday setFont:MainFont(10.0f)];
+    [self.lblTuesday setFont:MainFont(10.0f)];
+    [self.lblWednesday setFont:MainFont(10.0f)];
+    [self.lblThursday setFont:MainFont(10.0f)];
+    [self.lblFriday setFont:MainFont(10.0f)];
+    [self.lblSaturday setFont:MainFont(10.f)];
+    [self.lblSunday setFont:MainFont(10.0f)];
 }
 
 //是否第一次进入,提示设置身高体重
@@ -235,9 +255,15 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     NSLog(@"buttonIndex: %d", buttonIndex);
-    
-    if (1 == buttonIndex) {
-        [self touchSettingAction:nil];
+    if (alertView.tag==StopRunAlertTag) {
+        if (buttonIndex==1) {
+            [self stopRun];
+        }
+    }else
+    {
+        if (1 == buttonIndex) {
+            [self touchSettingAction:nil];
+        }
     }
     
 }
@@ -590,45 +616,45 @@
     
 }
 
--(void)touchMenuAction:(id)sender{
-    
-    NSLog(@"touchMenuAction...");
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    
-    _menuOfHeadView.hidden = NO;
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        _menuOfHeadView.redDotImageView.hidden = NO;
-    } else {
-        _menuOfHeadView.redDotImageView.hidden = YES;
-    }
-    CGRect menuframe = _menuOfHeadView.frame;
-    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
-    
-    [_menuOfCustomWindow show];
-    
-    [UIView commitAnimations];
-    
-}
-
--(void)touchOutOfMenuAction:(id)sender{
-    
-    NSLog(@"touchOutOfMenuAction...");
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    
-//    _menuOfHeadView.alpha = 0.0f;
-    CGRect menuframe = _menuOfHeadView.frame;
-    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
-    
-    [UIView setAnimationDidStopSelector:@selector(hiddenMenuAfterAnimation)];
-    [UIView commitAnimations];
-    
-}
+//-(void)touchMenuAction:(id)sender{
+//    
+//    NSLog(@"touchMenuAction...");
+//    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.3];
+//    [UIView setAnimationDelegate:self];
+//    
+//    _menuOfHeadView.hidden = NO;
+//    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+//        _menuOfHeadView.redDotImageView.hidden = NO;
+//    } else {
+//        _menuOfHeadView.redDotImageView.hidden = YES;
+//    }
+//    CGRect menuframe = _menuOfHeadView.frame;
+//    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
+//    
+//    [_menuOfCustomWindow show];
+//    
+//    [UIView commitAnimations];
+//    
+//}
+//
+//-(void)touchOutOfMenuAction:(id)sender{
+//    
+//    NSLog(@"touchOutOfMenuAction...");
+//    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.3];
+//    [UIView setAnimationDelegate:self];
+//    
+////    _menuOfHeadView.alpha = 0.0f;
+//    CGRect menuframe = _menuOfHeadView.frame;
+//    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
+//    
+//    [UIView setAnimationDidStopSelector:@selector(hiddenMenuAfterAnimation)];
+//    [UIView commitAnimations];
+//    
+//}
 
 -(void)hiddenMenuAfterAnimation{
     _menuOfCustomWindow.hidden = YES;
@@ -636,80 +662,53 @@
     [_menuOfCustomWindow close];
 }
 
--(void)touchHomeAction:(id)sender{
-    
-    [self doBack];
-    
-}
+//-(void)touchHomeAction:(id)sender{
+//    
+//    [self doBack];
+//    
+//}
+//
+//-(void)touchNoticeAction:(id)sender{
+//    
+//    NSLog(@"touchNoticeAction...");
+//    
+//    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
+//    [self.navigationController pushViewController:noticeViewController animated:YES];
+//    
+//}
+//
+//-(void)touchChatAction:(id)sender{
+//    
+//    NSLog(@"touchChatAction...");
+//    
+////    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+////    [chatViewController setChatType:chatTypeDefault];
+////    [self.navigationController pushViewController:chatViewController animated:YES];
+//    
+//    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+//    [self.navigationController pushViewController:chatListViewController animated:YES];
+//}
+//
+//-(void)touchSettingAction:(id)sender{
+//    
+//    NSLog(@"touchSettingAction...");
+//    
+//    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+//    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+//    [settingViewController setMemberid:[memberid longLongValue]];
+//    [self.navigationController pushViewController:settingViewController animated:YES];
+//    
+//}
 
--(void)touchNoticeAction:(id)sender{
-    
-    NSLog(@"touchNoticeAction...");
-    
-    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
-    [self.navigationController pushViewController:noticeViewController animated:YES];
-    
-}
-
--(void)touchChatAction:(id)sender{
-    
-    NSLog(@"touchChatAction...");
-    
-//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-//    [chatViewController setChatType:chatTypeDefault];
-//    [self.navigationController pushViewController:chatViewController animated:YES];
-    
-    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
-    [self.navigationController pushViewController:chatListViewController animated:YES];
-}
-
--(void)touchSettingAction:(id)sender{
-    
-    NSLog(@"touchSettingAction...");
-    
-    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-    [settingViewController setMemberid:[memberid longLongValue]];
-    [self.navigationController pushViewController:settingViewController animated:YES];
-    
-}
-
+#pragma mark 开始或结束跑步
 -(IBAction)doStartOrStop:(id)sender{
     
     [_aaplayer playerPlayPause];
     
     if (_isRunning) {
-        
-        NSLog(@"doStop...");
-        
-        @synchronized(_player) {
-            
-            if (_player) {
-                [_player pause];
-                _player = nil;
-                
-                UIImage *palyImage = [UIImage imageNamed:@"run_player_play.png"];
-                [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
-                
-            }
-            
-            //释放掉对playItem的观察
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-            
-        }
-        
-        //baidu
-        _mapView.showsUserLocation = NO;
-        
-        UIImage *showRunStartImage = [UIImage imageWithName:@"run_start" type:@"png"];
-        [_btnStart setImage:showRunStartImage forState:UIControlStateNormal];
-        
-        [self timerStop];
-        
-        _isRunning = NO;
-        
-        //显示跑步记录
-        [self doGotoRunResult];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"是否要结束跑步？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert setTag:StopRunAlertTag];
+        [alert show];
         
     } else {
         
@@ -787,6 +786,41 @@
         
     }
     
+}
+
+-(void)stopRun
+{
+    
+    NSLog(@"doStop...");
+    
+    @synchronized(_player) {
+        
+        if (_player) {
+            [_player pause];
+            _player = nil;
+            
+            UIImage *palyImage = [UIImage imageNamed:@"run_player_play.png"];
+            [_musicPlayerControllerView.btnStart setImage:palyImage forState:UIControlStateNormal];
+            
+        }
+        
+        //释放掉对playItem的观察
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+        
+    }
+    
+    //baidu
+    _mapView.showsUserLocation = NO;
+    
+    UIImage *showRunStartImage = [UIImage imageWithName:@"run_start" type:@"png"];
+    [_btnStart setImage:showRunStartImage forState:UIControlStateNormal];
+    
+    [self timerStop];
+    
+    _isRunning = NO;
+    
+    //显示跑步记录
+    [self doGotoRunResult];
 }
 
 -(void)doGotoRunResult{

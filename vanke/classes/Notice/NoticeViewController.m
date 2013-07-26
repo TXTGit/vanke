@@ -70,7 +70,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
-//    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
 //    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
 //    [_navView.messageTipImageView setImage:messageTip];
@@ -131,41 +131,41 @@
     
 }
 
--(void)touchMenuAction:(id)sender{
-    
-    NSLog(@"touchMenuAction...");
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    
-    _menuOfHeadView.hidden = NO;
-    _menuOfHeadView.alpha = 1.0f;
-    CGRect menuframe = _menuOfHeadView.frame;
-    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
-    
-    [_menuOfCustomWindow show];
-    
-    [UIView commitAnimations];
-    
-}
+//-(void)touchMenuAction:(id)sender{
+//    
+//    NSLog(@"touchMenuAction...");
+//    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.3];
+//    [UIView setAnimationDelegate:self];
+//    
+//    _menuOfHeadView.hidden = NO;
+//    _menuOfHeadView.alpha = 1.0f;
+//    CGRect menuframe = _menuOfHeadView.frame;
+//    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 210);
+//    
+//    [_menuOfCustomWindow show];
+//    
+//    [UIView commitAnimations];
+//    
+//}
 
--(void)touchOutOfMenuAction:(id)sender{
-    
-    NSLog(@"touchOutOfMenuAction...");
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    
-    _menuOfHeadView.alpha = 0.0f;
-    CGRect menuframe = _menuOfHeadView.frame;
-    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
-    
-    [UIView setAnimationDidStopSelector:@selector(hiddenMenuAfterAnimation)];
-    [UIView commitAnimations];
-    
-}
+//-(void)touchOutOfMenuAction:(id)sender{
+//    
+//    NSLog(@"touchOutOfMenuAction...");
+//    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.3];
+//    [UIView setAnimationDelegate:self];
+//    
+//    _menuOfHeadView.alpha = 0.0f;
+//    CGRect menuframe = _menuOfHeadView.frame;
+//    _menuOfHeadView.frame = CGRectMake(menuframe.origin.x, menuframe.origin.y, menuframe.size.width, 0);
+//    
+//    [UIView setAnimationDidStopSelector:@selector(hiddenMenuAfterAnimation)];
+//    [UIView commitAnimations];
+//    
+//}
 
 -(void)hiddenMenuAfterAnimation{
     _menuOfCustomWindow.hidden = YES;
@@ -173,40 +173,40 @@
     [_menuOfCustomWindow close];
 }
 
--(void)touchHomeAction:(id)sender{
-    
-    [self doBack];
-    
-}
-
--(void)touchNoticeAction:(id)sender{
-    
-    NSLog(@"touchNoticeAction...");
-    
-    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
-    [self.navigationController pushViewController:noticeViewController animated:YES];
-    
-}
-
--(void)touchChatAction:(id)sender{
-    
-    NSLog(@"touchChatAction...");
-    
-//    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-//    [self.navigationController pushViewController:chatViewController animated:YES];
-    
-    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
-    [self.navigationController pushViewController:chatListViewController animated:YES];
-}
-
--(void)touchSettingAction:(id)sender{
-    
-    NSLog(@"touchSettingAction...");
-    
-    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-    [self.navigationController pushViewController:settingViewController animated:YES];
-    
-}
+//-(void)touchHomeAction:(id)sender{
+//    
+//    [self doBack];
+//    
+//}
+//
+//-(void)touchNoticeAction:(id)sender{
+//    
+//    NSLog(@"touchNoticeAction...");
+//    
+//    NoticeViewController *noticeViewController = [[NoticeViewController alloc] initWithNibName:@"NoticeViewController" bundle:nil];
+//    [self.navigationController pushViewController:noticeViewController animated:YES];
+//    
+//}
+//
+//-(void)touchChatAction:(id)sender{
+//    
+//    NSLog(@"touchChatAction...");
+//    
+////    ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+////    [self.navigationController pushViewController:chatViewController animated:YES];
+//    
+//    ChatlistViewController *chatListViewController = [[ChatlistViewController alloc]initWithNibName:@"ChatlistViewController" bundle:nil];
+//    [self.navigationController pushViewController:chatListViewController animated:YES];
+//}
+//
+//-(void)touchSettingAction:(id)sender{
+//    
+//    NSLog(@"touchSettingAction...");
+//    
+//    SettingViewController *settingViewController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+//    [self.navigationController pushViewController:settingViewController animated:YES];
+//    
+//}
 
 //
 -(void)getActivitysListUrl:(int)page rows:(int)rows{

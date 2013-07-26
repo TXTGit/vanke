@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 
-@interface ChatlistViewController : UIViewController
+#import "BaseViewController.h"
+
+@interface ChatlistViewController : BaseViewController
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (nonatomic, retain) IBOutlet UITableView *friendTableView;

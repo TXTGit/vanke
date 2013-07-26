@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
 
-@interface FriendViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+#import "BaseViewController.h"
+
+@interface FriendViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (nonatomic, retain) IBOutlet UITableView *friendTableView;

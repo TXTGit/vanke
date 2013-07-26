@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PCommonUtil.h"
 
 @interface RunRecordCell : UITableViewCell
 

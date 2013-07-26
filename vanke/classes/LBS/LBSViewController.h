@@ -13,7 +13,9 @@
 #import "CalloutMapAnnotation.h"
 #import "EGOImageButton.h"
 
-@interface LBSViewController : UIViewController<BMKMapViewDelegate, EGOImageButtonDelegate>
+#import "BaseViewController.h"
+
+@interface LBSViewController : BaseViewController<BMKMapViewDelegate, EGOImageButtonDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 @property (nonatomic, retain) PCustomNavigationBarView *navView;

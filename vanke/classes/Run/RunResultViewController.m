@@ -58,8 +58,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
-    
     //bg
     _runResultBgImageView.hidden = YES;
     UIImageView *resultBg = [[UIImageView alloc] init];
@@ -120,6 +118,7 @@
     _lblSpead.text = [NSString stringWithFormat:@"%@'%@\"", tempspeedmm, tempspeedss];
     
     //显示线路图
+    
     int locationCount = _runRecord.locationList.count;
     CLLocationCoordinate2D coors[locationCount];
     for (int i=0; i<locationCount; i++) {
@@ -136,8 +135,18 @@
         }
         
         if (i == locationCount / 2) {
+//            [_mapView setZoomLevel:18];
             CLLocationCoordinate2D center = coors[i];
-            [_mapView setCenterCoordinate:center animated:YES];
+//            [_mapView setCenterCoordinate:center animated:YES];
+            
+            BMKCoordinateRegion region;
+            region.center = center;
+            BMKCoordinateSpan span;
+            span.latitudeDelta = _runRecord.mileage/100;
+            span.longitudeDelta = _runRecord.mileage/100;
+            region.span = span;
+            
+            [_mapView setRegion:region];
         }
         
         if (i == locationCount - 1) {
@@ -151,8 +160,6 @@
     BMKPolyline* polyline = [BMKPolyline polylineWithCoordinates:coors count:locationCount];
     [_mapView addOverlay:polyline];
     
-    [_mapView setZoomLevel:11];
-    
     //提交数据
     if (locationCount > 0 && !_isHistory) {
         //最新的gps坐标位置
@@ -164,6 +171,16 @@
         
     }
     
+    [self initFont];
+}
+
+#pragma mark 初始化字体
+-(void)initFont
+{
+    [self.lblRunDistance setFont:MainFont(24.0f)];
+    [self.lblCalorie setFont:MainFont(15.0f)];
+    [self.lblRunTime setFont:MainFont(14.0f)];
+    [self.lblSpead setFont:MainFont(15.0f)];
 }
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation{
@@ -279,7 +296,7 @@
 #pragma mark 分享
 -(void)doShareAction{
     
-    UIActionSheet *showActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享到微信朋友圈", @"分享到新浪微博", nil];
+    UIActionSheet *showActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享到微信朋友圈", @"分享到新浪微博",@"分享到跑友动态", nil];
     showActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [showActionSheet showInView:self.view];
     
@@ -318,7 +335,11 @@
                 [self doShare];
             }
                 break;
-                
+            case 2:
+            {
+                //分享到自己的服务器
+                [self doShare];
+            }
             default:
                 break;
         }

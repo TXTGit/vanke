@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
+#import "BaseViewController.h"
 
-@interface ScoreListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ScoreListViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (weak, nonatomic) IBOutlet UITableView *scoreTableView;

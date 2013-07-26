@@ -236,7 +236,21 @@
     //show data
     _menuMarkImageView.hidden = YES;
     [self initData];
-    
+    [self initFont];
+}
+
+#pragma mark 初始化字体
+-(void)initFont
+{
+    [self.lblTotalDistance setFont:MainFont(36.0f)];
+    [self.lblDuiHuanDistance setFont:MainFont(13.0f)];
+    [self.lblMingCi setFont:MainFont(12.0f)];
+    [self.lblHaoYou setFont:MainFont(12.0f)];
+    [self.lblNengLiang setFont:MainFont(12.0f)];
+    [self.lblDeFen setFont:MainFont(12.0f)];
+    [self.tallField setFont:MainFont(14.0f)];
+    [self.weightField setFont:MainFont(14.0f)];
+    [self.telField setFont:MainFont(14.0f)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -307,7 +321,7 @@
                 _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
                 _lblArea.text = _runner.communityName;
                 _addressField.text = _runner.gpsAddress;
-                _telField.text = _runner.phone;//_runner.tel;
+                _telField.text = _runner.tel;//_runner.tel;
                 
                 if (_runner.isPublic > 0) {
                     [_switchPublic setOn:YES animated:YES];

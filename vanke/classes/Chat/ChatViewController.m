@@ -72,29 +72,6 @@
     
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
-    //nav bar
-    NSString *title = [[NSString alloc]init];
-    switch (_chatType) {
-        case chatTypeDefault:
-            title = @"聊天";
-            break;
-        case chatTypeInvite:
-            title = @"约跑";
-            break;
-        case chatTypeInviteCheck:
-            title = @"信箱";
-            break;
-        default:
-            break;
-    }
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:title bgImageView:@"index_nav_bg"];
-    [self.view addSubview:_navView];
-    
-    UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
-    [_navView.leftButton setBackgroundImage:indexBack forState:UIControlStateNormal];
-    [_navView.leftButton setHidden:NO];
-    [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
-    
     //bg
     UIImageView *bgImageView = [[UIImageView alloc] init];
     [bgImageView setFrame:CGRectMake(0, 44, 320, height - 44)];
@@ -133,7 +110,31 @@
     [self initData];
     
     _currentPage = 1;
-    _rows = 10;
+    _rows = 5;
+    
+    //nav bar
+    NSString *title = [[NSString alloc]init];
+    switch (_chatType) {
+        case chatTypeDefault:
+            title = @"聊天";
+            [self reloadTableViewDataSource];
+            break;
+        case chatTypeInvite:
+            title = @"约跑";
+            break;
+        case chatTypeInviteCheck:
+            title = @"信箱";
+            break;
+        default:
+            break;
+    }
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:title bgImageView:@"index_nav_bg"];
+    [self.view addSubview:_navView];
+    
+    UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
+    [_navView.leftButton setBackgroundImage:indexBack forState:UIControlStateNormal];
+    [_navView.leftButton setHidden:NO];
+    [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -11,7 +11,9 @@
 #import "RunUser.h"
 #import "EGOImageButton.h"
 
-@interface SettingViewController : UIViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,EGOImageButtonDelegate,UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
+#import "BaseViewController.h"
+
+@interface SettingViewController : BaseViewController<UITextFieldDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,EGOImageButtonDelegate,UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
     BOOL changeHeadImg;
 }
 

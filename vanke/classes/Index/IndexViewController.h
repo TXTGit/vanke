@@ -6,14 +6,14 @@
 //  Copyright (c) 2013年 pig. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "PCustomNavigationBarView.h"
 #import "EGOImageView.h"
 #import "PDropdownMenuView.h"
 #import "CustomWindow.h"
 #import "BMapKit.h"
 
-@interface IndexViewController : UIViewController<BMKMapViewDelegate, EGOImageButtonDelegate>
+@interface IndexViewController : BaseViewController<BMKMapViewDelegate, EGOImageButtonDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView* mapView;
 

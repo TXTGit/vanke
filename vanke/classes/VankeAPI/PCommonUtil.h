@@ -14,6 +14,8 @@
 
 #define UpdateUnreadMessageCount @"UpdateUnreadMessageCount"
 
+#define MainFont(s) [UIFont fontWithName:@"Bebas" size:s]
+
 @interface PCommonUtil : NSObject
 
 +(NSString *)md5Encode:(NSString *)str;

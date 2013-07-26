@@ -10,7 +10,9 @@
 #import "PCustomNavigationBarView.h"
 #import "BMapKit.h"
 
-@interface NearViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate>
+#import "BaseViewController.h"
+
+@interface NearViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate>
 
 @property (nonatomic, retain) IBOutlet BMKMapView *mapView;
 

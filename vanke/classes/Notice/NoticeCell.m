@@ -7,6 +7,7 @@
 //
 
 #import "NoticeCell.h"
+#import "PCommonUtil.h"
 
 @implementation NoticeCell
 
@@ -20,7 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
+        [self.lblTime setFont:MainFont(17.0f)];
     }
     return self;
 }

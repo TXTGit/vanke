@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view from its nib.
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"动态信息圈" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"跑友动态" bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
@@ -60,6 +60,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //bg
     float height = [UIScreen mainScreen].bounds.size.height - 20;

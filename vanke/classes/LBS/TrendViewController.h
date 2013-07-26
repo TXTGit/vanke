@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PCustomNavigationBarView.h"
+#import "BaseViewController.h"
 
-@interface TrendViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface TrendViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (weak, nonatomic) IBOutlet UITableView *trendTableView;

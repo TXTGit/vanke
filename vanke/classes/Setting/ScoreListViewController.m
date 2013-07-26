@@ -62,6 +62,7 @@
         [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
     }
     [_navView.rightButton setHidden:NO];
+    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *bgImageView = [[UIImageView alloc] init];
     [bgImageView setFrame:CGRectMake(0, 44, 320, height - 44)];
