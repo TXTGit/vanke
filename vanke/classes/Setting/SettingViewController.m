@@ -298,10 +298,10 @@
                 float tempCanUseMileage = _runner.mileage - _runner.mileageUsed;
                 _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", tempCanUseMileage];
                 
-                _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];
-                _lblHaoYou.text = [NSString stringWithFormat:@"%d", _runner.fanCount];
-                _lblNengLiang.text = [NSString stringWithFormat:@"%.2f", _runner.energy];
-                _lblDeFen.text = [NSString stringWithFormat:@"%ld", _runner.score];
+                _lblMingCi.text = [NSString stringWithFormat:@"%d名次", _runner.rank];
+                _lblHaoYou.text = [NSString stringWithFormat:@"%d好友", _runner.fanCount];
+                _lblNengLiang.text = [NSString stringWithFormat:@"%.2f能量", _runner.energy];
+                _lblDeFen.text = [NSString stringWithFormat:@"%ld积分", _runner.score];
                 
                 _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
                 _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
