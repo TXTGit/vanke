@@ -328,6 +328,9 @@
                     
                     //显示头像图片
                     NSURL *avatarUrl = [NSURL URLWithString:headImg];
+                    [_navView.rightButton setImageURL:avatarUrl];
+                    
+                    /*
                     UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:avatarUrl shouldLoadWithObserver:nil];
                     if (anImage) {
                         
@@ -341,7 +344,7 @@
                     } else {
                         [_navView.rightButton setImageURL:avatarUrl];
                     }
-                    
+                    */
                 }
             }
             

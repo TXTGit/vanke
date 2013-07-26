@@ -119,7 +119,7 @@
         
         UIImage *image = [imageButton imageForState:UIControlStateNormal];
         NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
-        
+        /*
         UIImage *avatarImage = [UIImage scaleImage:image scaleToSize:CGSizeMake(90, 90)];
         NSLog(@"avatarImage.size.width: %f, avatarImage.size.height: %f", avatarImage.size.width, avatarImage.size.height);
         
@@ -128,7 +128,7 @@
         
         image = [self mergerImage:avatarImage secodImage:whiteCircle];
         NSLog(@"image.size.width: %f, image.size.height: %f", image.size.width, image.size.height);
-        
+        */
         [imageButton setImage:image forState:UIControlStateNormal];
         
     }
