@@ -191,17 +191,21 @@
 }
 
 /*
- 分享（2013-6-22）
+ 分享share（2013-7-26）
  •	地址：
- http://www.4000757888.com:880/i.aspx?type=share&memberID=23&shareContent=我是一只小青蛙，呱呱呱呱呱&shareImg=Post的Base64字符串
+ http://www.4000757888.com:880/i.aspx?type=share&memberID=23&mileage=5&minute=5&speed=5&calorie=5&shareContent=我是一只小青蛙，呱呱呱呱呱&shareImg=Post的Base64字符串
  •	参数：
  memberID：会员ID
+ mileage：里程
+ minute：分钟
+ speed：速度
+ calorie：卡路里
  shareContent：分享内容
  shareImg：图片文件转换成Base64字符串，用Post方式提交
  •	返回：
  */
-+(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent{
-    return [NSString stringWithFormat:@"%@?type=share&memberID=%@&shareContent=%@",VANKE_DOMAIN,memberid,[PCommonUtil encodeUrlParameter:shareContent]];
++(NSString *)getSendShareUrl:(NSString*)memberid mileage:(float)mileage minute:(float)minute calorie:(float)calorie shareContent:(NSString*)shareContent{
+    return [NSString stringWithFormat:@"%@?type=share&memberID=%@&mileage=%f&minute=%f&calorie=%f&shareContent=%@",VANKE_DOMAIN,memberid,mileage,minute,calorie,[PCommonUtil encodeUrlParameter:shareContent]];
 }
 
 /*

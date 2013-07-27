@@ -44,7 +44,7 @@
 +(NSString *)getRunUrl:(NSString *)memberid mileage:(NSString *)mileage minute:(float)minute speed:(float)speed calorie:(float)calorie line:(NSString *)line runTime:(NSString *)runtime;
 
 //分享（2013-6-22）
-+(NSString *)getSendShareUrl:(NSString*)memberid shareContent:(NSString*)shareContent;
++(NSString *)getSendShareUrl:(NSString*)memberid mileage:(float)mileage minute:(float)minute calorie:(float)calorie shareContent:(NSString*)shareContent;
 
 //获取分享列表（2013-6-22）
 +(NSString *)getShareListUrl:(NSString*)memberid page:(NSInteger)page rows:(NSInteger)pageCount;
