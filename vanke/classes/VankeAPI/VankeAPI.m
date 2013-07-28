@@ -248,6 +248,22 @@
 }
 
 /*
+ 获取跑步记录列表（2013-6-22）
+ •	地址：
+ http://www.4000757888.com:880/i.aspx?type=getRunList&memberID=23&date=20130701
+ •	参数：
+ memberID：会员ID
+ page：当前页数
+ rows：每页显示记录数
+ •	返回：
+ list：当前页的跑步记录列表
+ */
++(NSString *)getGetRunListUrl:(NSString *)memberid date:(NSString*)date{
+    
+    return [NSString stringWithFormat:@"%@?type=getRunList&memberID=%@&date=%@", VANKE_DOMAIN, memberid, date];
+}
+
+/*
  获取本周跑步记录列表
  •	地址：
  http://www.4000757888.com:880/i.aspx?type=getWeekRunList&memberID=23
@@ -532,6 +548,20 @@
 +(NSString *)getGetActivitysListUrl:(int)page rows:(int)rows{
     
     return [NSString stringWithFormat:@"%@?type=getNewsList&page=%d&rows=%d", VANKE_DOMAIN, page, rows];
+}
+
+/*
+ 获取活动内容getNews（2013-6-27）
+	地址：
+http://www.4000757888.com:880/i.aspx?type=getNews&newsID=2
+	参数：
+newsID：活动ID
+	返回：
+ent：活动实体
+ */
++(NSString*)getNewsUrl:(NSString*)newsID
+{
+    return [NSString stringWithFormat:@"%@?type=getNews&newsID=%@", VANKE_DOMAIN, newsID];
 }
 
 /*

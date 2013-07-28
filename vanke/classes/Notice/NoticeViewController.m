@@ -20,6 +20,7 @@
 #import "UserSessionManager.h"
 #import "PCommonUtil.h"
 #import "AppDelegate.h"
+#import "NoticeDetailViewController.h"
 
 @interface NoticeViewController ()
 
@@ -278,6 +279,14 @@
     NSLog(@"cell.frame.size.height: %f", cell.frame.size.height);
     
 	return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsInfo *newsinfo = [_activityList objectAtIndex:indexPath.row];
+    NoticeDetailViewController *noticeDetail = [[NoticeDetailViewController alloc]initWithNibName:@"NoticeDetailViewController" bundle:nil];
+    [noticeDetail setNewsInfo:newsinfo];
+    [self.navigationController pushViewController:noticeDetail animated:YES];
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

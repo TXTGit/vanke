@@ -20,6 +20,9 @@
 @synthesize headImg = _headImg;
 @synthesize loginTime = _loginTime;
 @synthesize isFan = _isFan;
+@synthesize minute = _minute;
+@synthesize calorie = _calorie;
+@synthesize mileage = _mileage;
 
 +(TrendInfo *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -37,6 +40,9 @@
             trendInfo.headImg = [dict objectForKey:@"headImg"];
             trendInfo.loginTime = [dict objectForKey:@"loginTiem"];
             trendInfo.isFan = [[dict objectForKey:@"isFan"] intValue];
+            trendInfo.minute = [[dict objectForKey:@"minute"] floatValue];
+            trendInfo.calorie = [[dict objectForKey:@"calorie"] floatValue];
+            trendInfo.mileage = [[dict objectForKey:@"mileage"] floatValue];
         }
     }
     @catch (NSException *exception) {

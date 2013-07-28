@@ -19,6 +19,9 @@
 @property (nonatomic, retain) NSString *headImg;
 @property (nonatomic, retain) NSString *loginTime;
 @property (nonatomic, assign) int isFan;
+@property (nonatomic, assign) float minute;
+@property (nonatomic, assign) float calorie;
+@property (nonatomic, assign) float mileage;
 
 //排名信息
 +(TrendInfo *)initWithNSDictionary:(NSDictionary *)dict;

@@ -14,7 +14,7 @@
 
 #import "BaseViewController.h"
 
-@interface RunRecordListViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface RunRecordListViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource,UIActionSheetDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property (nonatomic, retain) PCustomNavigationBarView *navView;
 @property (nonatomic, retain) PDropdownMenuView *menuOfHeadView;
@@ -27,6 +27,9 @@
 @property (nonatomic, retain) FMDatabase *database;
 
 @property (nonatomic, assign) BOOL isComeFromRunResultView;
+
+@property (nonatomic, retain) UIActionSheet *achtionSheet;
+@property (nonatomic, assign) int currentSelectedItem;
 
 -(void)touchMenuAction:(id)sender;
 -(void)touchOutOfMenuAction:(id)sender;

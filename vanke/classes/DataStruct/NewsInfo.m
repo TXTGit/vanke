@@ -19,6 +19,7 @@
 @synthesize titleImg = _titleImg;
 @synthesize newsTime = _newsTime;
 @synthesize className = _className;
+@synthesize newsText = _newsText;
 
 +(NewsInfo *)initWithNSDictionary:(NSDictionary *)dict{
     
@@ -36,6 +37,7 @@
             newsInfo.titleImg = [dict objectForKey:@"titleImg"];
             newsInfo.newsTime = [dict objectForKey:@"newsTime"];
             newsInfo.className = [dict objectForKey:@"className"];
+            newsInfo.newsText = [dict objectForKey:@"newsText"];
         }
     }
     @catch (NSException *exception) {

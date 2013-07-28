@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString *titleImg;
 @property (nonatomic, retain) NSString *newsTime;
 @property (nonatomic, retain) NSString *className;
+@property (nonatomic, retain) NSString *newsText;
 
 //活动信息
 +(NewsInfo *)initWithNSDictionary:(NSDictionary *)dict;

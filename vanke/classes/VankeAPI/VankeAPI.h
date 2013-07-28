@@ -54,6 +54,7 @@
 
 //获取跑步记录列表（2013-6-22）
 +(NSString *)getGetRunListUrl:(NSString *)memberid page:(int)page rows:(int)rows;
++(NSString *)getGetRunListUrl:(NSString *)memberid date:(NSString*)date;
 
 //获取本周跑步记录列表（2013-6-17）
 +(NSString *)getGetWeekRunListUrl:(NSString *)memberid;
@@ -112,6 +113,8 @@
 
 //获取活动列表（2013-6-27）
 +(NSString *)getGetActivitysListUrl:(int)page rows:(int)rows;
+//获取新闻内容(2013-7-28)
++(NSString*)getNewsUrl:(NSString*)newsID;
 
 //获取活动内容（2013-6-27）
 +(NSString *)getGetActivitysUrl:(int)activityid;

@@ -39,6 +39,9 @@
 @synthesize recordList = _recordList;
 @synthesize database = _database;
 
+@synthesize achtionSheet = _achtionSheet;
+@synthesize currentSelectedItem = _currentSelectedItem;
+
 @synthesize isComeFromRunResultView = _isComeFromRunResultView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -57,53 +60,68 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //nav bar
     _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"跑步记录列表" bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    
+    _currentSelectedItem = [dateComponent month];
+    
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
     [_navView.leftButton setBackgroundImage:indexBack forState:UIControlStateNormal];
     [_navView.leftButton setHidden:NO];
     [_navView.leftButton addTarget:self action:@selector(doBack) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
-    if (headImg && ![headImg isEqualToString:@""]) {
-        NSURL *headUrl = [NSURL URLWithString:headImg];
-        [_navView.rightButton setImageURL:headUrl];
-    }else{
-        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
-        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    }
+    UIImage *indexHeadBg = [UIImage imageWithName:@"btn_bg" type:@"png"];
+    [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentSelectedItem] forState:UIControlStateNormal];
     [_navView.rightButton setHidden:NO];
-    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightButton setFrame:CGRectMake(258, 7, 56, 29)];
+    [_navView.rightButton addTarget:self action:@selector(doSelectMonth:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
-    [_navView.messageTipImageView setImage:messageTip];
+//    NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+//    if (headImg && ![headImg isEqualToString:@""]) {
+//        NSURL *headUrl = [NSURL URLWithString:headImg];
+//        [_navView.rightButton setImageURL:headUrl];
+//    }else{
+//        UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+//        [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+//    }
+//    [_navView.rightButton setHidden:NO];
+//    [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIImage *messageTip = [UIImage imageWithName:@"index_button_new" type:@"png"];
+//    [_navView.messageTipImageView setImage:messageTip];
 //    [_navView.messageTipImageView setHidden:NO];
     
     //menu of head
-    UIView *transparentByForMenu = [[UIView alloc] init];
-    transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
-    UITapGestureRecognizer *tapViewForMenu = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchOutOfMenuAction:)];
-    tapViewForMenu.cancelsTouchesInView = NO;
-    [transparentByForMenu addGestureRecognizer:tapViewForMenu];
-    
-    _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
-    [transparentByForMenu addSubview:_menuOfHeadView];
-    _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
-    
-    //menu of head 1
-    [_menuOfHeadView.btnMenu1 addTarget:self action:@selector(touchHomeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_menuOfHeadView.btnMenu2 addTarget:self action:@selector(touchChatAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_menuOfHeadView.btnMenu3 addTarget:self action:@selector(touchNoticeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_menuOfHeadView.btnMenu4 addTarget:self action:@selector(touchSettingAction:) forControlEvents:UIControlEventTouchUpInside];
+//    UIView *transparentByForMenu = [[UIView alloc] init];
+//    transparentByForMenu.frame = CGRectMake(0, 0, 320, height);
+//    UITapGestureRecognizer *tapViewForMenu = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchOutOfMenuAction:)];
+//    tapViewForMenu.cancelsTouchesInView = NO;
+//    [transparentByForMenu addGestureRecognizer:tapViewForMenu];
+//    
+//    _menuOfHeadView = [[PDropdownMenuView alloc] initDropdownMenuOfHead:CGRectMake(270, 70, 57, 210)];
+//    [transparentByForMenu addSubview:_menuOfHeadView];
+//    _menuOfCustomWindow = [[CustomWindow alloc] initWithView:transparentByForMenu];
+//    
+//    //menu of head 1
+//    [_menuOfHeadView.btnMenu1 addTarget:self action:@selector(touchHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [_menuOfHeadView.btnMenu2 addTarget:self action:@selector(touchChatAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [_menuOfHeadView.btnMenu3 addTarget:self action:@selector(touchNoticeAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [_menuOfHeadView.btnMenu4 addTarget:self action:@selector(touchSettingAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
     [bgImageView setFrame:CGRectMake(0, 0, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"run_bg" type:@"png"]];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
     _runRecordTableView.backgroundColor = [UIColor clearColor];
     _runRecordTableView.backgroundView = bgImageView;
     _runRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -115,6 +133,55 @@
     //from net
     [self initData];
     
+}
+
+-(IBAction)doSelectMonth:(id)sender
+{
+    NSLog(@"touchMenuAction...");
+    _currentSelectedItem = 1;
+    
+    _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
+    [pickerView setBackgroundColor:[UIColor blueColor]];
+    pickerView.tag = 101;
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    pickerView.showsSelectionIndicator = YES;
+    
+    [_achtionSheet addSubview:pickerView];
+    
+    UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
+    [button setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [button setFrame:CGRectMake(270, 12, 50, 30)];
+    [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:button];
+    
+    UISegmentedControl *cancellButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"取消", nil]];
+    [cancellButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [cancellButton setFrame:CGRectMake(208, 12, 50, 30)];
+    [cancellButton addTarget:self action:@selector(cancellAction) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:cancellButton];
+    
+    [_achtionSheet showInView:self.view];
+    [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
+    [_achtionSheet setBackgroundColor:[UIColor whiteColor]];
+}
+
+-(void)cancellAction
+{
+    [_achtionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)segmentAction:(UISegmentedControl *)seg{
+    NSInteger index = seg.selectedSegmentIndex;
+    NSLog(@"index: %d, currentSelectedItem: %d", index, _currentSelectedItem);
+    [_achtionSheet dismissWithClickedButtonIndex:index animated:YES];
+    
+    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentSelectedItem] forState:UIControlStateNormal];
+    
+    [self getRunList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -221,8 +288,18 @@
     
     [_indicatorView startAnimating];
     
+    [_recordList removeAllObjects];
+    
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *memberUrl = [VankeAPI getGetRunListUrl:memberid page:1 rows:20];
+    
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    
+    NSString *date = [NSString stringWithFormat:@"%d%0*d01",[dateComponent year],2,_currentSelectedItem];
+    
+    NSString *memberUrl = [VankeAPI getGetRunListUrl:memberid date:date];
     NSURL *url = [NSURL URLWithString:memberUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -397,6 +474,32 @@
     [super viewWillAppear:animated];
     //更新未读提醒
     [[AppDelegate App] getUnreadList];
+}
+
+#pragma delegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    NSLog(@"actionSheet clickedButtonAtIndex...");
+    
+}
+
+#pragma delegate
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return 12;//1-5分,5个选项
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [NSString stringWithFormat:@"%d月", (row + 1)];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    _currentSelectedItem = row + 1;
+    
 }
 
 @end

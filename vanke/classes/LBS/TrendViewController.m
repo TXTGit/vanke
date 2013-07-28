@@ -172,7 +172,7 @@
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TrendCell *cell = (TrendCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    //    NSLog(@"cell.frame.size.height: %f", cell.frame.size.height);
+    NSLog(@"cell.frame.size.height: %f", cell.frame.size.height);
     return cell.frame.size.height;
     
     //    return 57;

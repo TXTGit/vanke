@@ -423,7 +423,7 @@
     
 //    NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.mobile,_lblRunDistance.text]];
     
-    NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] mileage:_runRecord.mileage minute:_runRecord.minute calorie:_runRecord.calorie shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.mobile,_lblRunDistance.text]];
+    NSString *setShareUrl = [VankeAPI getSendShareUrl:[NSString stringWithFormat:@"%ld", _runRecord.memberID] mileage:_runRecord.mileage minute:_runRecord.minute calorie:_runRecord.calorie shareContent:[NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.nickname,_lblRunDistance.text]];
     
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:imageData] encoding:NSUTF8StringEncoding];
