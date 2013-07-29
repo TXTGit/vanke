@@ -29,7 +29,11 @@
 @property (nonatomic, assign) BOOL isComeFromRunResultView;
 
 @property (nonatomic, retain) UIActionSheet *achtionSheet;
-@property (nonatomic, assign) int currentSelectedItem;
+@property (nonatomic, assign) NSInteger currentYear;
+@property (nonatomic, assign) NSInteger currentMonth;
+
+@property (nonatomic, retain) UISegmentedControl *cancellButton;
+@property (nonatomic, retain) UISegmentedControl *completeButton;
 
 -(void)touchMenuAction:(id)sender;
 -(void)touchOutOfMenuAction:(id)sender;

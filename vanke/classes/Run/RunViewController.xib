@@ -240,7 +240,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="992054142">
 								<reference key="NSNextResponder" ref="252598917"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">-2147483374</int>
 								<string key="NSFrameSize">{320, 160}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSNextKeyView" ref="980047283"/>
@@ -255,7 +255,7 @@
 							<object class="IBUIButton" id="980047283">
 								<reference key="NSNextResponder" ref="252598917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{32, 82}, {143, 78}}</string>
+								<string key="NSFrame">{{33, 84}, {143, 78}}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSNextKeyView" ref="86170901"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -280,7 +280,7 @@
 							<object class="IBUIButton" id="86170901">
 								<reference key="NSNextResponder" ref="252598917"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{73, 50}, {102, 96}}</string>
+								<string key="NSFrame">{{74, 49}, {102, 104}}</string>
 								<reference key="NSSuperview" ref="252598917"/>
 								<reference key="NSNextKeyView" ref="679078659"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -486,6 +486,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{10, 406}, {300, 17}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1109,11 +1110,6 @@
 						<reference key="parent" ref="252598917"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">54</int>
-						<reference key="object" ref="86170901"/>
-						<reference key="parent" ref="252598917"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
 						<reference key="object" ref="524458407"/>
 						<reference key="parent" ref="252598917"/>
@@ -1173,6 +1169,11 @@
 						<reference key="object" ref="679078659"/>
 						<reference key="parent" ref="252598917"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">54</int>
+						<reference key="object" ref="86170901"/>
+						<reference key="parent" ref="252598917"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1229,7 +1230,266 @@
 			<nil key="sourceID"/>
 			<int key="maxID">97</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AAPlayerController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">playerPlayPause</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">playerPlayPause</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">playerPlayPause</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AAPlayerController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BMKMapView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BMKMapView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BaseViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BaseViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MenuBottomView</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="btnMenuCenter">UIButton</string>
+						<string key="btnMenuFirst">UIButton</string>
+						<string key="btnMenuFourth">UIButton</string>
+						<string key="btnMenuSecond">UIButton</string>
+						<string key="btnMenuThird">UIButton</string>
+						<string key="ivMenuBg">UIImageView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="btnMenuCenter">
+							<string key="name">btnMenuCenter</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuFirst">
+							<string key="name">btnMenuFirst</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuFourth">
+							<string key="name">btnMenuFourth</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuSecond">
+							<string key="name">btnMenuSecond</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuThird">
+							<string key="name">btnMenuThird</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivMenuBg">
+							<string key="name">ivMenuBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MenuBottomView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">OBShapedButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/OBShapedButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RunViewController</string>
+					<string key="superclassName">BaseViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="doShowOrHideRunRecord:">id</string>
+						<string key="doStartOrStop:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="doShowOrHideRunRecord:">
+							<string key="name">doShowOrHideRunRecord:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doStartOrStop:">
+							<string key="name">doStartOrStop:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="aaplayer">AAPlayerController</string>
+						<string key="btnDownUpArrow">UIButton</string>
+						<string key="btnMenu">UIButton</string>
+						<string key="btnMenuCenter">OBShapedButton</string>
+						<string key="btnMenuFirst">OBShapedButton</string>
+						<string key="btnMenuFourth">OBShapedButton</string>
+						<string key="btnMenuSecond">OBShapedButton</string>
+						<string key="btnMenuThird">OBShapedButton</string>
+						<string key="btnStart">UIButton</string>
+						<string key="ivCircleProcess">UIImageView</string>
+						<string key="ivMenuBg">UIImageView</string>
+						<string key="ivRunProcess">UIImageView</string>
+						<string key="ivRunProcessPoint">UIImageView</string>
+						<string key="ivRunRecordOfWeek">UIImageView</string>
+						<string key="lblCalorie">UILabel</string>
+						<string key="lblFriday">UILabel</string>
+						<string key="lblMonday">UILabel</string>
+						<string key="lblRunCount">UILabel</string>
+						<string key="lblRunDistance">UILabel</string>
+						<string key="lblSaturday">UILabel</string>
+						<string key="lblSpead">UILabel</string>
+						<string key="lblSunday">UILabel</string>
+						<string key="lblThursday">UILabel</string>
+						<string key="lblTuesday">UILabel</string>
+						<string key="lblWednesday">UILabel</string>
+						<string key="mapView">BMKMapView</string>
+						<string key="menuBottomView">MenuBottomView</string>
+						<string key="runMenuView">UIView</string>
+						<string key="runingDataBgImageView">UIImageView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="aaplayer">
+							<string key="name">aaplayer</string>
+							<string key="candidateClassName">AAPlayerController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnDownUpArrow">
+							<string key="name">btnDownUpArrow</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenu">
+							<string key="name">btnMenu</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuCenter">
+							<string key="name">btnMenuCenter</string>
+							<string key="candidateClassName">OBShapedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuFirst">
+							<string key="name">btnMenuFirst</string>
+							<string key="candidateClassName">OBShapedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuFourth">
+							<string key="name">btnMenuFourth</string>
+							<string key="candidateClassName">OBShapedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuSecond">
+							<string key="name">btnMenuSecond</string>
+							<string key="candidateClassName">OBShapedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnMenuThird">
+							<string key="name">btnMenuThird</string>
+							<string key="candidateClassName">OBShapedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnStart">
+							<string key="name">btnStart</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivCircleProcess">
+							<string key="name">ivCircleProcess</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivMenuBg">
+							<string key="name">ivMenuBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivRunProcess">
+							<string key="name">ivRunProcess</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivRunProcessPoint">
+							<string key="name">ivRunProcessPoint</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ivRunRecordOfWeek">
+							<string key="name">ivRunRecordOfWeek</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblCalorie">
+							<string key="name">lblCalorie</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblFriday">
+							<string key="name">lblFriday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblMonday">
+							<string key="name">lblMonday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblRunCount">
+							<string key="name">lblRunCount</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblRunDistance">
+							<string key="name">lblRunDistance</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblSaturday">
+							<string key="name">lblSaturday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblSpead">
+							<string key="name">lblSpead</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblSunday">
+							<string key="name">lblSunday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblThursday">
+							<string key="name">lblThursday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblTuesday">
+							<string key="name">lblTuesday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblWednesday">
+							<string key="name">lblWednesday</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mapView">
+							<string key="name">mapView</string>
+							<string key="candidateClassName">BMKMapView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuBottomView">
+							<string key="name">menuBottomView</string>
+							<string key="candidateClassName">MenuBottomView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="runMenuView">
+							<string key="name">runMenuView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="runingDataBgImageView">
+							<string key="name">runingDataBgImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/RunViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -1241,7 +1501,7 @@
 			<string key="index_welcome.png">{154, 31}</string>
 			<string key="login_bg.png">{640, 1102}</string>
 			<string key="menu_bottom_bg.png">{640, 320}</string>
-			<string key="run_circle_menu_11.png">{281, 160}</string>
+			<string key="run_circle_menu_11.png">{286, 159}</string>
 			<string key="run_circle_menu_20.png">{239, 244}</string>
 			<string key="run_circle_menu_30.png">{220, 242}</string>
 			<string key="run_circle_menu_40.png">{280, 144}</string>

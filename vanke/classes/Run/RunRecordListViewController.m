@@ -40,7 +40,11 @@
 @synthesize database = _database;
 
 @synthesize achtionSheet = _achtionSheet;
-@synthesize currentSelectedItem = _currentSelectedItem;
+@synthesize currentYear = _currentYear;
+@synthesize currentMonth = _currentMonth;
+
+@synthesize completeButton = _completeButton;
+@synthesize cancellButton = _cancellButton;
 
 @synthesize isComeFromRunResultView = _isComeFromRunResultView;
 
@@ -72,7 +76,9 @@
     NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
     
-    _currentSelectedItem = [dateComponent month];
+//    _currentSelectedItem = [NSString stringWithFormat:@"%d%d",[dateComponent year],[dateComponent month]];
+    _currentYear = [dateComponent year];
+    _currentMonth = [dateComponent month];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
     [_navView.leftButton setBackgroundImage:indexBack forState:UIControlStateNormal];
@@ -81,7 +87,7 @@
     
     UIImage *indexHeadBg = [UIImage imageWithName:@"btn_bg" type:@"png"];
     [_navView.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
-    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentSelectedItem] forState:UIControlStateNormal];
+    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentMonth] forState:UIControlStateNormal];
     [_navView.rightButton setHidden:NO];
     [_navView.rightButton setFrame:CGRectMake(258, 7, 56, 29)];
     [_navView.rightButton addTarget:self action:@selector(doSelectMonth:) forControlEvents:UIControlEventTouchUpInside];
@@ -138,31 +144,32 @@
 -(IBAction)doSelectMonth:(id)sender
 {
     NSLog(@"touchMenuAction...");
-    _currentSelectedItem = 1;
+//    _currentSelectedItem = 1;
+    if (!_achtionSheet) {
+        _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+        
+        UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
+        [pickerView setBackgroundColor:[UIColor blueColor]];
+        pickerView.tag = 101;
+        pickerView.delegate = self;
+        pickerView.dataSource = self;
+        pickerView.showsSelectionIndicator = YES;
+        
+        [_achtionSheet addSubview:pickerView];
+    }
     
-    _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    _completeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
+    [_completeButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [_completeButton setFrame:CGRectMake(270, 12, 50, 30)];
+    [_completeButton addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:_completeButton];
     
-    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
-    [pickerView setBackgroundColor:[UIColor blueColor]];
-    pickerView.tag = 101;
-    pickerView.delegate = self;
-    pickerView.dataSource = self;
-    pickerView.showsSelectionIndicator = YES;
-    
-    [_achtionSheet addSubview:pickerView];
-    
-    UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
-    [button setSegmentedControlStyle:UISegmentedControlStyleBar];
-    [button setFrame:CGRectMake(270, 12, 50, 30)];
-    [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    [_achtionSheet addSubview:button];
-    
-    UISegmentedControl *cancellButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"取消", nil]];
-    [cancellButton setSegmentedControlStyle:UISegmentedControlStyleBar];
-    [cancellButton setFrame:CGRectMake(208, 12, 50, 30)];
-    [cancellButton addTarget:self action:@selector(cancellAction) forControlEvents:UIControlEventValueChanged];
-    [_achtionSheet addSubview:cancellButton];
+    _cancellButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"取消", nil]];
+    [_cancellButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [_cancellButton setFrame:CGRectMake(208, 12, 50, 30)];
+    [_cancellButton addTarget:self action:@selector(cancellAction) forControlEvents:UIControlEventValueChanged];
+    [_achtionSheet addSubview:_cancellButton];
     
     [_achtionSheet showInView:self.view];
     [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
@@ -176,10 +183,10 @@
 
 -(void)segmentAction:(UISegmentedControl *)seg{
     NSInteger index = seg.selectedSegmentIndex;
-    NSLog(@"index: %d, currentSelectedItem: %d", index, _currentSelectedItem);
+    
     [_achtionSheet dismissWithClickedButtonIndex:index animated:YES];
     
-    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentSelectedItem] forState:UIControlStateNormal];
+    [_navView.rightButton setTitle:[NSString stringWithFormat:@"%d月",_currentMonth] forState:UIControlStateNormal];
     
     [self getRunList];
 }
@@ -292,12 +299,7 @@
     
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     
-    NSDate *now = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
-    
-    NSString *date = [NSString stringWithFormat:@"%d%0*d01",[dateComponent year],2,_currentSelectedItem];
+    NSString *date = [NSString stringWithFormat:@"%d%0*d01",_currentYear,2,_currentMonth];
     
     NSString *memberUrl = [VankeAPI getGetRunListUrl:memberid date:date];
     NSURL *url = [NSURL URLWithString:memberUrl];
@@ -463,6 +465,7 @@
     
     RunResultViewController *runResultViewController = [[RunResultViewController alloc] initWithNibName:@"RunResultViewController" bundle:nil];
     record.secondOfRunning = record.minute * 60;
+    [record setMemberID:[[UserSessionManager GetInstance].currentRunUser.userid longLongValue]];
     [runResultViewController setRunRecord:record];
     [runResultViewController setIsHistory:YES];
     [self.navigationController pushViewController:runResultViewController animated:YES];
@@ -493,13 +496,35 @@
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%d月", (row + 1)];
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    float temp = [dateComponent month] - row;
+    if (temp>0) {
+        return [NSString stringWithFormat:@"%d年%.0f月", [dateComponent year], temp];
+    }else{
+        return [NSString stringWithFormat:@"%d年%.0f月", [dateComponent year] - 1, temp+12];
+    }
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
-    _currentSelectedItem = row + 1;
-    
+//    _currentSelectedItem = row + 1;
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    float temp = [dateComponent month] - row;
+    if (temp>0) {
+//        _currentSelectedItem =  [NSString stringWithFormat:@"%d%0*.0f", [dateComponent year], 2,temp];
+        _currentYear = [dateComponent year];
+        _currentMonth = temp;
+    }else{
+//        _currentSelectedItem =  [NSString stringWithFormat:@"%d%0*.0f", [dateComponent year] - 1,2, temp+12];
+        _currentYear = [dateComponent year] - 1;
+        _currentMonth = temp + 12;
+    }
 }
 
 @end

@@ -66,7 +66,7 @@
         _lblRunTime.text = [NSString stringWithFormat:@"%@:%@:%@", temphh, tempmm, tempss];
         
         //calorie
-        _lblCalorie.text = [NSString stringWithFormat:@"%.2f", _trendInfo.calorie];
+        _lblCalorie.text = [NSString stringWithFormat:@"%.0f", _trendInfo.calorie];
         
         //speed
         float secondPerMileage = (_trendInfo.mileage > 0.0001) ? _trendInfo.minute * 60 / _trendInfo.mileage : 0;

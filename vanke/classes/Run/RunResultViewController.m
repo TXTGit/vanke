@@ -438,6 +438,17 @@
 //        [formData appendPartWithFileData:imageData name:@"shareImg" fileName:@"23_201306200600.jpg" mimeType:@"image/jpeg"];
 //    }];
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    
+    // Configure for text only and offset down
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = @"图片上传中...";
+    hud.margin = 10.f;
+    hud.yOffset = 150.0f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud show:YES];
+//    [hud hide:YES afterDelay:2];
+    
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:nil parameters:dicParam constructingBodyWithBlock:nil];
     
@@ -470,9 +481,10 @@
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:2];
         }
-        
+        [hud hide:YES];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [hud hide:YES];
     }];
     
     [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
