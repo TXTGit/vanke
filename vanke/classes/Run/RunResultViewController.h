@@ -15,6 +15,7 @@
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
 #import "EGOImageButton.h"
+#import "BMKPinAnnotationView.h"
 
 @interface RunResultViewController : UIViewController<BMKMapViewDelegate,MKMapViewDelegate,UIActionSheetDelegate,SinaWeiboDelegate, SinaWeiboRequestDelegate, EGOImageButtonDelegate>
 
@@ -31,6 +32,12 @@
 
 @property (nonatomic, retain) RunRecord *runRecord;
 @property (nonatomic, assign) BOOL isHistory;
+
+@property (nonatomic, retain) BMKPointAnnotation *startPoint;
+@property (nonatomic, retain) BMKPointAnnotation *endPoint;
+
+@property (nonatomic, retain) BMKPinAnnotationView *startPin;
+@property (nonatomic, retain) BMKPinAnnotationView *endPin;
 
 -(void)doBack;
 -(IBAction)doCancel:(id)sender;

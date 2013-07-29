@@ -44,6 +44,9 @@
 @synthesize runRecord = _runRecord;
 @synthesize isHistory = _isHistory;
 
+@synthesize startPoint = _startPoint;
+@synthesize endPoint = _endPoint;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -128,10 +131,11 @@
         coors[i].longitude = [[dl objectAtIndex:1] doubleValue];
         
         if (i == 0) {
-            BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-            annotation.coordinate = coors[i];
-            annotation.title = @"起点";
-            [_mapView addAnnotation:annotation];
+            _startPoint = [[BMKPointAnnotation alloc]init];
+            _startPoint.coordinate = coors[i];
+            _startPoint.title = @"起点";
+            [_mapView convertCoordinate:coors[i] toPointToView:self.mapView];
+            [_mapView addAnnotation:_startPoint];
         }
         
         if (i == locationCount / 2) {
@@ -150,10 +154,10 @@
         }
         
         if (i == locationCount - 1) {
-            BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-            annotation.coordinate = coors[i];
-            annotation.title = @"终点";
-            [_mapView addAnnotation:annotation];
+            _endPoint = [[BMKPointAnnotation alloc]init];
+            _endPoint.coordinate = coors[i];
+            _endPoint.title = @"终点";
+            [_mapView addAnnotation:_endPoint];
         }
         
     }
@@ -188,8 +192,10 @@
         BMKPinAnnotationView *newAnnotation = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
         if ([annotation.title isEqualToString:@"起点"]) {
             newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            self.startPin = newAnnotation;
         } else if ([annotation.title isEqualToString:@"终点"]) {
             newAnnotation.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"lbs_user_tip" ofType:@"png"]];
+            self.endPin = newAnnotation;
         }
         
         //显示头像图片
@@ -358,7 +364,8 @@
     
     //screenshots
     UIImage *mapimage = [self glToUIImage];
-    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+//    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    UIImage *tipimage = [self captureView:self.mapView];
     UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
     
     NSString *descText = [NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.nickname, _lblRunDistance.text];
@@ -399,7 +406,8 @@
     //screenshots
     UIImage *mapimage = [self glToUIImage];
 //    UIImage *tipimage = [self capture:_mapView];
-    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+//    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    UIImage *tipimage = [self captureView:_mapView];
     UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
     
     //保存图像
@@ -576,6 +584,20 @@
     return tempImage;
 }
 
+#pragma mark 截图（View）
+- (UIImage *)captureView:(UIView*)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0);
+    
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 //合并图片
 -(UIImage *)mergerImage:(UIImage *)firstImage secodImage:(UIImage *)secondImage{
     
@@ -583,7 +605,7 @@
     UIGraphicsBeginImageContext(imageSize);
     
     [firstImage drawInRect:CGRectMake(0, 0, firstImage.size.width, firstImage.size.height)];
-    [secondImage drawInRect:CGRectMake(310 - 40, 190 - 60, secondImage.size.width, secondImage.size.height)];
+    [secondImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
     
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -759,7 +781,9 @@
     
     //screenshots
     UIImage *mapimage = [self glToUIImage];
-    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+//    UIImage *tipimage = [UIImage imageWithName:@"lbs_user_tip" type:@"png"];
+    
+    UIImage *tipimage = [self captureView:self.mapView];
     UIImage *image = [self mergerImage:mapimage secodImage:tipimage];
     
     NSString *descText = [NSString stringWithFormat:@"%@完成了%@公里",[UserSessionManager GetInstance].currentRunUser.nickname, _lblRunDistance.text];
