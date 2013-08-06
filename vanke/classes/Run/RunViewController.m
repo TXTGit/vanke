@@ -106,6 +106,8 @@
 
 @synthesize weekRunList = _weekRunList;
 
+@synthesize errorAlert = _errorAlert;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -235,9 +237,10 @@
 //修改为如果身高体重小于10，则提醒设置身高体重
 -(void)firstEnterRunningShowTip{
     if (![[UserSessionManager GetInstance].currentRunUser.nickname isEqualToString:@""] && ([UserSessionManager GetInstance].currentRunUser.tall<10 || [UserSessionManager GetInstance].currentRunUser.weight<10)) {
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
+        if (!_settingAlert) {
+            _settingAlert = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        }
+        [_settingAlert show];
     }
 //    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 //    if (![ud boolForKey:@"FirstEnterRunning"]) {
@@ -259,7 +262,7 @@
         if (buttonIndex==1) {
             [self stopRun];
         }
-    }else
+    }else if(alertView != _errorAlert)
     {
         if (1 == buttonIndex) {
             [self touchSettingAction:nil];
@@ -344,6 +347,8 @@
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
     
+    [_settingAlert setDelegate:nil];
+    _settingAlert = nil;
 }
 
 -(BOOL)canBecomeFirstResponder{
@@ -946,6 +951,10 @@
         //作弊过滤－超过20km/h不计算 by 20130726
         if (tempSpeed > 5.56) {
             tempOneDistance = 0;
+            if (!_errorAlert) {
+                _errorAlert= [[UIAlertView alloc]initWithTitle:nil message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            }
+            [_errorAlert show];
         }
         _nDistance += tempOneDistance;//本次跑步距离
         
@@ -1581,6 +1590,8 @@
     [self setBtnMenuCenter:nil];
     [self setIvMenuBg:nil];
     [self setMenuBottomView:nil];
+    [self setErrorAlert:nil];
+    [self setSettingAlert:nil];
     [super viewDidUnload];
 }
 @end

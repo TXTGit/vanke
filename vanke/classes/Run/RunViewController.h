@@ -95,6 +95,9 @@
 
 @property (nonatomic, retain) NSMutableArray *weekRunList;
 
+@property (nonatomic, retain) UIAlertView *errorAlert;
+@property (nonatomic, retain) UIAlertView *settingAlert;
+
 -(void)firstEnterRunningShowTip;
 
 -(void)initLocalDatabase;

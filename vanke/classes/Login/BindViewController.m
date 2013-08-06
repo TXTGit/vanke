@@ -122,29 +122,29 @@
 -(IBAction)doSelect:(id)sender{
     
     NSLog(@"doSelect...");
-    
-    _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
-    [pickerView setBackgroundColor:[UIColor blueColor]];
-    pickerView.tag = 101;
-    pickerView.delegate = self;
-    pickerView.dataSource = self;
-    pickerView.showsSelectionIndicator = YES;
-    
-    [_achtionSheet addSubview:pickerView];
-    
-    UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
-    [button setSegmentedControlStyle:UISegmentedControlStyleBar];
-    [button setFrame:CGRectMake(270, 20, 50, 30)];
-    [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    [_achtionSheet addSubview:button];
-    
-    [_achtionSheet showInView:self.view];
-    [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
-    [_achtionSheet setBackgroundColor:[UIColor whiteColor]];
-    
+    if ([_communityList count]>0) {
+        _achtionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        [_achtionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+        
+        UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 320, 150)];
+        [pickerView setBackgroundColor:[UIColor blueColor]];
+        pickerView.tag = 101;
+        pickerView.delegate = self;
+        pickerView.dataSource = self;
+        pickerView.showsSelectionIndicator = YES;
+        
+        [_achtionSheet addSubview:pickerView];
+        
+        UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"完成", nil]];
+        [button setSegmentedControlStyle:UISegmentedControlStyleBar];
+        [button setFrame:CGRectMake(270, 20, 50, 30)];
+        [button addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+        [_achtionSheet addSubview:button];
+        
+        [_achtionSheet showInView:self.view];
+        [_achtionSheet setBounds:CGRectMake(0, 0, 320, 400)];
+        [_achtionSheet setBackgroundColor:[UIColor whiteColor]];
+    }
 }
 
 -(void)segmentAction:(UISegmentedControl *)seg{

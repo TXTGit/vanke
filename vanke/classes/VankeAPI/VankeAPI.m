@@ -46,7 +46,7 @@
  */
 +(NSString *)getLoginUrl:(NSString *)mobile password:(NSString *)password{
     
-    return [NSString stringWithFormat:@"%@?type=login&mobile=%@&password=%@", VANKE_DOMAIN, mobile, password];
+    return [NSString stringWithFormat:@"%@?type=login&mobile=%@&password=%@", VANKE_DOMAIN, [PCommonUtil encodeUrlParameter:mobile], password];
 }
 
 /*
