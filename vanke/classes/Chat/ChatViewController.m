@@ -110,14 +110,14 @@
     [self initData];
     
     _currentPage = 1;
-    _rows = 5;
+    _rows = 50;
     
     //nav bar
     NSString *title = [[NSString alloc]init];
     switch (_chatType) {
         case chatTypeDefault:
             title = @"聊天";
-            [self reloadTableViewDataSource];
+            [self reloadTableViewDataSource:YES];
             break;
         case chatTypeInvite:
             title = @"约跑";
@@ -479,6 +479,7 @@
     
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     _chatTableView.frame = CGRectMake(0, 0, 320, height - 210);
+    [self scrollTableToFoot:YES];
 }
 
 -(IBAction)resiginTextField:(id)sender{
@@ -561,7 +562,7 @@
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
 
-- (void)reloadTableViewDataSource{
+- (void)reloadTableViewDataSource:(BOOL)toFoot{
 	
 	//  should be calling your tableviews data source model to reload
 	//  put here just for demo
@@ -610,6 +611,9 @@
                 hud.removeFromSuperViewOnHide = YES;
                 [hud hide:YES afterDelay:2];
             }
+            if (toFoot) {
+                [self scrollTableToFoot:NO];
+            }
         }else if([status isEqual:@"1"]){
             NSString *errMsg = [dicResult objectForKey:@"msg"];
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -629,8 +633,17 @@
         [self doneLoadingTableViewData];
     }];
     [operation start];
+}
+
+- (void)scrollTableToFoot:(BOOL)animated {
+    NSInteger s = [_chatTableView numberOfSections];
+    if (s<1) return;
+    NSInteger r = [_chatTableView numberOfRowsInSection:s-1];
+    if (r<1) return;
     
-	_reloading = YES;
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:r-1 inSection:s-1];
+    
+    [_chatTableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
 
 - (void)doneLoadingTableViewData{
@@ -658,7 +671,7 @@
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
-	[self reloadTableViewDataSource];
+	[self reloadTableViewDataSource:NO];
 //	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
 	
 }
