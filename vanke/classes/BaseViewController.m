@@ -76,15 +76,15 @@
         [_menuOfCustomWindow show];
         
     } completion:^(BOOL finished) {
-        NSString *menuName = [NSString stringWithFormat:@"%@",[self class]];
-        NSString *FirstMenu = [[NSUserDefaults standardUserDefaults] objectForKey:menuName];
-        if (!FirstMenu || [FirstMenu isEqualToString:@""]) {
+//        NSString *menuName = [NSString stringWithFormat:@"%@",[self class]];
+//        NSString *FirstMenu = [[NSUserDefaults standardUserDefaults] objectForKey:menuName];
+//        if (!FirstMenu || [FirstMenu isEqualToString:@""]) {
             [_menuOfCustomWindow setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.6]];
             UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
             [imgView setImage:[UIImage imageWithName:@"menu_descriptioin"]];
             [_menuOfCustomWindow addSubview:imgView];
-            [[NSUserDefaults standardUserDefaults] setObject:@"done" forKey:menuName];
-        }
+//            [[NSUserDefaults standardUserDefaults] setObject:@"done" forKey:menuName];
+//        }
     }];
 }
 

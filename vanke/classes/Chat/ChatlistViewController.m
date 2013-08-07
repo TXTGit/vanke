@@ -69,10 +69,12 @@
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 0, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"run_bg" type:@"png"]];
+    [bgImageView setFrame:CGRectMake(0, 0, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
+    [self.view insertSubview:bgImageView atIndex:0];
+    
     _friendTableView.backgroundColor = [UIColor clearColor];
-    _friendTableView.backgroundView = bgImageView;
+//    _friendTableView.backgroundView = bgImageView;
     _friendTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _friendTableView.frame = CGRectMake(0, 44, 320, height - 44);
     
@@ -101,7 +103,7 @@
         if ([status isEqual:@"0"]) {
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
-            if (datalistCount>0) {
+            if (datalistCount>0 && [self isViewLoaded]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
                 [alert show];
             }

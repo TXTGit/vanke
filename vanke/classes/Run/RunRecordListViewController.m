@@ -126,10 +126,13 @@
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 0, 320, height - 44)];
+    [bgImageView setFrame:CGRectMake(0, 44, 320, 551)];
     [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
+    
+    [self.view insertSubview:bgImageView atIndex:0];
+    
     _runRecordTableView.backgroundColor = [UIColor clearColor];
-    _runRecordTableView.backgroundView = bgImageView;
+//    _runRecordTableView.backgroundView = bgImageView;
     _runRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _runRecordTableView.frame = CGRectMake(0, 44, 320, height - 44);
     

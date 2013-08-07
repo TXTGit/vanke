@@ -11,7 +11,9 @@
 #import "VankeConfig.h"
 
 @interface VankeViewController ()
-
+{
+    bool isRoot;
+}
 @end
 
 @implementation VankeViewController
@@ -61,9 +63,12 @@
 }
 
 -(void)doBack{
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
+    if (isRoot) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else{
+        [_vankeWebView goBack];
+    }
 }
 
 -(void)initData{
@@ -88,7 +93,15 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    
+    //NSLog(@"url: %@",webView.request.URL.absoluteString);
+    if([webView.request.URL.absoluteString isEqualToString:VANKE_VANKE_URL])
+    {
+        isRoot = TRUE;
+    }
+    else
+    {
+        isRoot = FALSE;
+    }
     if(_indicatorView.isAnimating){
         [_indicatorView stopAnimating];
     }

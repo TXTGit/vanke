@@ -11,7 +11,9 @@
 #import "VankeConfig.h"
 
 @interface StoreViewController ()
-
+{
+    bool isRoot;
+}
 @end
 
 @implementation StoreViewController
@@ -61,15 +63,18 @@
 }
 
 -(void)doBack{
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
+    if (isRoot) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else{
+        [_storeWebView goBack];
+    }
 }
 
 -(void)initData{
     
     [_storeWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:VANKE_STORE_URL]]];
-    
+    isRoot = TRUE;
 }
 
 #pragma webview delegate
@@ -88,6 +93,18 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
+    //NSLog(@"url: %@",webView.request.URL.absoluteString);
+    if([webView.request.URL.absoluteString isEqualToString:VANKE_STORE_URL] ||
+       [webView.request.URL.absoluteString isEqualToString:@"http://125.64.17.11:8350/lights_list.html"] ||
+       [webView.request.URL.absoluteString isEqualToString:@"http://125.64.17.11:8350/pref_list.html"] ||
+       [webView.request.URL.absoluteString isEqualToString:@"http://125.64.17.11:8350/mall_list.html"])
+    {
+        isRoot = TRUE;
+    }
+    else
+    {
+        isRoot = FALSE;
+    }
     
     if(_indicatorView.isAnimating){
         [_indicatorView stopAnimating];

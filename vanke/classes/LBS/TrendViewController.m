@@ -66,8 +66,8 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 44, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"share_list_bg" type:@"png"]];
+    [bgImageView setFrame:CGRectMake(0, 44, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
     [self.view insertSubview:bgImageView atIndex:0];
     
     //tableview

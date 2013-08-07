@@ -952,7 +952,7 @@
         if (tempSpeed > 5.56) {
             tempOneDistance = 0;
             if (!_errorAlert) {
-                _errorAlert= [[UIAlertView alloc]initWithTitle:nil message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                _errorAlert= [[UIAlertView alloc]initWithTitle:nil message:@"您好，您跑的比刘翔还快了！不能给您算分了。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             }
             [_errorAlert show];
         }

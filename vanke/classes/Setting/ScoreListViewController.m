@@ -45,7 +45,7 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     //nav bar
-    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"积分兑换" bgImageView:@"index_nav_bg"];
+    _navView = [[PCustomNavigationBarView alloc] initWithTitle:@"兑换记录" bgImageView:@"index_nav_bg"];
     [self.view addSubview:_navView];
     
     UIImage *indexBack = [UIImage imageWithName:@"main_back" type:@"png"];
@@ -65,8 +65,8 @@
     [_navView.rightButton addTarget:self action:@selector(touchMenuAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 44, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"share_list_bg" type:@"png"]];
+    [bgImageView setFrame:CGRectMake(0, 44, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
     [self.view insertSubview:bgImageView atIndex:0];
     
     //tableview

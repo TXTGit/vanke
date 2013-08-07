@@ -98,10 +98,12 @@
     
     //tableview
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 0, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"run_bg" type:@"png"]];
+    [bgImageView setFrame:CGRectMake(0, 0, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
+    [self.view insertSubview:bgImageView atIndex:0];
+    
     _activityTableView.backgroundColor = [UIColor clearColor];
-    _activityTableView.backgroundView = bgImageView;
+//    _activityTableView.backgroundView = bgImageView;
     _activityTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _activityTableView.frame = CGRectMake(0, 44, 320, height - 44);
     
