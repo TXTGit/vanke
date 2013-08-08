@@ -14,7 +14,6 @@
 #import "AFJSONRequestOperation.h"
 #import "IndexViewController.h"
 #import "UserSessionManager.h"
-#import "MBProgressHUD.h"
 #import "PCommonUtil.h"
 
 @interface RegisterViewController ()
@@ -171,16 +170,17 @@
     }
     
     if (errMsg && ![errMsg isEqualToString:@""]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = errMsg;
-        hud.margin = 10.f;
-        hud.yOffset = 150.f;
-        hud.removeFromSuperViewOnHide = YES;
-        
-        [hud hide:YES afterDelay:2];
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        
+//        // Configure for text only and offset down
+//        hud.mode = MBProgressHUDModeText;
+//        hud.labelText = errMsg;
+//        hud.margin = 10.f;
+//        hud.yOffset = 150.f;
+//        hud.removeFromSuperViewOnHide = YES;
+//        
+//        [hud hide:YES afterDelay:2];
+        [SVProgressHUD showErrorWithStatus:errMsg];
         
         [self.btnNext setEnabled:YES];
         return;
@@ -215,15 +215,16 @@
             }
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
             
             [self.btnNext setEnabled:YES];
         }
@@ -236,6 +237,8 @@
         if(_indicatorView.isAnimating){
             [_indicatorView stopAnimating];
         }
+        [self.btnNext setEnabled:YES];
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     

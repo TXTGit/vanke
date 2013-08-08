@@ -337,6 +337,8 @@
 		CE25F86517A55D380036443F /* btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE25F86417A55D380036443F /* btn_bg.png */; };
 		CE25F86917A5799E0036443F /* NoticeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE25F86717A5799E0036443F /* NoticeDetailViewController.m */; };
 		CE25F86A17A5799E0036443F /* NoticeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE25F86817A5799E0036443F /* NoticeDetailViewController.xib */; };
+		CE4D63AE17B23F450074B95A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE4D63AB17B23F450074B95A /* SVProgressHUD.bundle */; };
+		CE4D63AF17B23F450074B95A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4D63AD17B23F450074B95A /* SVProgressHUD.m */; };
 		CE8AF8791775273C0037C402 /* touxiang_headBg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8AF8781775273C0037C402 /* touxiang_headBg.png */; };
 		CE8BFCFC17733FB6001AFAA9 /* share_list_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFCF317733FB6001AFAA9 /* share_list_bg.png */; };
 		CE8BFCFD17733FB6001AFAA9 /* share_list_vline.png in Resources */ = {isa = PBXBuildFile; fileRef = CE8BFCF417733FB6001AFAA9 /* share_list_vline.png */; };
@@ -831,6 +833,9 @@
 		CE25F86617A5799E0036443F /* NoticeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeDetailViewController.h; sourceTree = "<group>"; };
 		CE25F86717A5799E0036443F /* NoticeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeDetailViewController.m; sourceTree = "<group>"; };
 		CE25F86817A5799E0036443F /* NoticeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeDetailViewController.xib; sourceTree = "<group>"; };
+		CE4D63AB17B23F450074B95A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		CE4D63AC17B23F450074B95A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		CE4D63AD17B23F450074B95A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		CE8AF8781775273C0037C402 /* touxiang_headBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touxiang_headBg.png; sourceTree = "<group>"; };
 		CE8BFCF317733FB6001AFAA9 /* share_list_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_list_bg.png; sourceTree = "<group>"; };
 		CE8BFCF417733FB6001AFAA9 /* share_list_vline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_list_vline.png; sourceTree = "<group>"; };
@@ -1143,6 +1148,7 @@
 		165C8ECC1764AF4C00DEF452 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE4D63AA17B23F3C0074B95A /* SVProgressHUD */,
 				18524E1C178FBBAF00426BC1 /* Store */,
 				18524E16178FBB6200426BC1 /* Vanke */,
 				182A6B92178116C300E1F5D7 /* RefreshTableHeaderView */,
@@ -1799,6 +1805,16 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		CE4D63AA17B23F3C0074B95A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D63AB17B23F450074B95A /* SVProgressHUD.bundle */,
+				CE4D63AC17B23F450074B95A /* SVProgressHUD.h */,
+				CE4D63AD17B23F450074B95A /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		CE8BFCF217733F12001AFAA9 /* share */ = {
 			isa = PBXGroup;
 			children = (
@@ -2112,6 +2128,7 @@
 				CE95F60E17A6103200DB0EDB /* run_circle_menu_30.png in Resources */,
 				CE95F60F17A6103200DB0EDB /* run_circle_menu_40.png in Resources */,
 				CE95F61317A611F600DB0EDB /* run_circle_menu_20.png in Resources */,
+				CE4D63AE17B23F450074B95A /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2220,6 +2237,7 @@
 				18524E20178FBBBC00426BC1 /* StoreViewController.m in Sources */,
 				CEE18D8517A2417300E868D4 /* BaseViewController.m in Sources */,
 				CE25F86917A5799E0036443F /* NoticeDetailViewController.m in Sources */,
+				CE4D63AF17B23F450074B95A /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

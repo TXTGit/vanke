@@ -10,7 +10,6 @@
 #import "UIImage+PImageCategory.h"
 #import "VankeAPI.h"
 #import "AFJSONRequestOperation.h"
-#import "MBProgressHUD.h"
 #import "UserSessionManager.h"
 
 @implementation ChatCell
@@ -119,31 +118,34 @@
             
             [self doSend:[NSString stringWithFormat:@"%@已接受您的邀请",[UserSessionManager GetInstance].currentRunUser.nickname]];
             
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"添加好友成功！";
-            hud.margin = 10.f;
-            hud.yOffset = 0.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"添加好友成功！";
+//            hud.margin = 10.f;
+//            hud.yOffset = 0.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showSuccessWithStatus:@"添加好友成功！"];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
 }
@@ -172,19 +174,21 @@
             
         }else if([status isEqual:@"0"]){
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     
@@ -208,31 +212,34 @@
             
             [self doSend:[NSString stringWithFormat:@"%@已拒绝您的邀请",[UserSessionManager GetInstance].currentRunUser.nickname]];
             
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"您已经拒绝该好友的添加请求！";
-            hud.margin = 10.f;
-            hud.yOffset = 0.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"您已经拒绝该好友的添加请求！";
+//            hud.margin = 10.f;
+//            hud.yOffset = 0.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showSuccessWithStatus: @"您已经拒绝该好友的添加请求！"];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
 }

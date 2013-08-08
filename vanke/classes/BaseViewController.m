@@ -163,4 +163,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //更新未读提醒
+    [[NSNotificationCenter defaultCenter] postNotificationName:UpdateUnreadMessageCount object:nil userInfo:nil];
+    [[AppDelegate App] getUnreadList];
+    //更新头像
+    [[NSNotificationCenter defaultCenter] postNotificationName:UpdateHeadImg object:nil userInfo:nil];
+}
+
 @end

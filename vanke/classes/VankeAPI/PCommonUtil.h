@@ -13,6 +13,7 @@
 #define EARTH_RADIUS 6378.137   //地球半径km
 
 #define UpdateUnreadMessageCount @"UpdateUnreadMessageCount"
+#define UpdateHeadImg @"UpdateHeadImg"
 
 #define MainFont(s) [UIFont fontWithName:@"Bebas" size:s]
 

@@ -29,7 +29,7 @@
 @synthesize btnIsRecordAccount = _btnIsRecordAccount;
 @synthesize btnCreateAccount = _btnCreateAccount;
 
-@synthesize HUD = _HUD;
+//@synthesize HUD = _HUD;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -122,16 +122,18 @@
     }
     
     if (errMsg && ![errMsg isEqualToString:@""]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = errMsg;
-        hud.margin = 10.f;
-        hud.yOffset = 150.f;
-        hud.removeFromSuperViewOnHide = YES;
-        
-        [hud hide:YES afterDelay:2];
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        
+//        // Configure for text only and offset down
+//        hud.mode = MBProgressHUDModeText;
+//        hud.labelText = errMsg;
+//        hud.margin = 10.f;
+//        hud.yOffset = 150.f;
+//        hud.removeFromSuperViewOnHide = YES;
+//        
+//        [hud hide:YES afterDelay:2];
+
+        [SVProgressHUD showErrorWithStatus:errMsg];
         
         [self.btnLogin setEnabled:YES];
         return;
@@ -165,58 +167,62 @@
     
     NSLog(@"doUse...");
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = @"暂未开放";
-    hud.margin = 10.f;
-    hud.yOffset = 150.f;
-    hud.removeFromSuperViewOnHide = YES;
-    
-    [hud hide:YES afterDelay:2];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+//    hud.labelText = @"暂未开放";
+//    hud.margin = 10.f;
+//    hud.yOffset = 150.f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    
+//    [hud hide:YES afterDelay:2];
+    [SVProgressHUD showErrorWithStatus:@"暂未开放"];
     
 }
 
 #pragma mark -
 #pragma mark MBProgressHUDDelegate methods
 
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
-	[_HUD removeFromSuperview];
-	_HUD = nil;
-}
+//- (void)hudWasHidden:(MBProgressHUD *)hud {
+//	// Remove HUD from screen when the HUD was hidded
+////	[_HUD removeFromSuperview];
+////	_HUD = nil;
+//}
 
 #pragma login delegate
 
 -(void)autoLoginStart{
     
-    _HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	_HUD.delegate = self;
-    
+//    _HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//	_HUD.delegate = self;
+    [SVProgressHUD show];
 }
 
 -(void)autoLoginFailed:(NSString *)msg{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-//    hud.labelText = @"帐号或者密码有误，请重新登录";
-    hud.labelText = msg;
-    hud.margin = 10.f;
-    hud.yOffset = 150.f;
-    hud.removeFromSuperViewOnHide = YES;
-    
-    [hud hide:YES afterDelay:2];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+////    hud.labelText = @"帐号或者密码有误，请重新登录";
+//    hud.labelText = msg;
+//    hud.margin = 10.f;
+//    hud.yOffset = 150.f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    
+//    [hud hide:YES afterDelay:2];
+    [SVProgressHUD showErrorWithStatus:@"帐号或者密码有误，请重新登录"];
     
     [self.btnLogin setEnabled: YES];
     
-    [_HUD setHidden:YES];
+//    [_HUD setHidden:YES];
+//    [SVProgressHUD dismiss];
 }
 
 -(void)autoLoginSuccess{
     
-    [_HUD setHidden:YES];
+//    [_HUD setHidden:YES];
+    [SVProgressHUD dismiss];
     NSLog(@"communityid:%d",[UserSessionManager GetInstance].currentRunUser.communityid);
     if ([UserSessionManager GetInstance].currentRunUser.communityid == 0) {
         BindViewController *bindViewControll = [[BindViewController alloc]initWithNibName:@"BindViewController" bundle:nil];

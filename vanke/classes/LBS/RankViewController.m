@@ -141,15 +141,16 @@
             [_rankTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
         if(_indicatorView.isAnimating){
@@ -162,6 +163,7 @@
         if(_indicatorView.isAnimating){
             [_indicatorView stopAnimating];
         }
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -196,15 +198,16 @@
             [_rankTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
         if(_indicatorView.isAnimating){
@@ -217,6 +220,7 @@
         if(_indicatorView.isAnimating){
             [_indicatorView stopAnimating];
         }
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -251,15 +255,16 @@
             [_rankTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
         if(_indicatorView.isAnimating){
@@ -272,6 +277,7 @@
         if(_indicatorView.isAnimating){
             [_indicatorView stopAnimating];
         }
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -329,15 +335,16 @@
             [_rankTableView reloadData];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
         if(_indicatorView.isAnimating){
@@ -350,6 +357,7 @@
         if(_indicatorView.isAnimating){
             [_indicatorView stopAnimating];
         }
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -393,12 +401,16 @@
     
     int temprank = temprankinfo.rank;
     cell.lblRank.text = [NSString stringWithFormat:@"%d", temprank];
-//    cell.headImageView.imageURL = [NSURL URLWithString:temprankinfo.headImg];
+    if ([PCommonUtil checkDataIsNull:temprankinfo.headImg]) {
+        cell.headImageView.placeholderImage = [UIImage imageWithName:@"main_head"];
+        cell.headImageView.imageURL = [NSURL URLWithString:[PCommonUtil getHeadImgUrl:temprankinfo.headImg]];
+    }
     cell.headImageView.tag = temprankinfo.memberID;
+    [cell.headImageView removeTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
     [cell.headImageView addTarget:self action:@selector(doGotoSetting:) forControlEvents:UIControlEventTouchUpInside];
     cell.lblNickname.text = temprankinfo.nickName;
     cell.lblTime.text = temprankinfo.loginTime;
-    cell.lblEnergy.text = [NSString stringWithFormat:@"%.3f", temprankinfo.energy];
+    cell.lblEnergy.text = [NSString stringWithFormat:@"%.2f", temprankinfo.mileage];
     if (temprankinfo.isFan > 0) {
         cell.isFriendImageView.hidden = NO;
     } else {
@@ -526,12 +538,12 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //更新未读提醒
-    [[AppDelegate App] getUnreadList];
-}
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    //更新未读提醒
+//    [[AppDelegate App] getUnreadList];
+//}
 
 @end

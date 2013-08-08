@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AutoLogin.h"
-#import "MBProgressHUD.h"
 
-@interface LoginViewController : UIViewController<UITextFieldDelegate, AutoLoginDelegate, MBProgressHUDDelegate>
+@interface LoginViewController : UIViewController<UITextFieldDelegate, AutoLoginDelegate>
 {
     BOOL IsRemember;
     BOOL IsAutoLogin;
@@ -26,7 +25,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnIsAutoLogin;
 @property (nonatomic, retain) IBOutlet UIButton *btnCreateAccount;
 
-@property (nonatomic, retain) MBProgressHUD *HUD;
+//@property (nonatomic, retain) MBProgressHUD *HUD;
 
 -(IBAction)doLogin:(id)sender;
 -(IBAction)doUse:(id)sender;

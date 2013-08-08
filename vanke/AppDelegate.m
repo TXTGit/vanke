@@ -72,6 +72,7 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:pathInCacheDirectory(@"com.vanke") withIntermediateDirectories:YES attributes:nil error:nil];
         [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithBool:YES] forKey:@"firstLaunch"];
     }
+    [self clearCaches:pathInCacheDirectory(@"com.vanke")];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -198,7 +199,7 @@
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
-        
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     
@@ -253,6 +254,35 @@
 +(AppDelegate*)App
 {
     return (AppDelegate *)[[UIApplication sharedApplication]delegate];
+}
+
+#pragma mark 清除过期缓存
+-(void)clearCaches:(NSString*)path
+{
+    
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    
+    NSArray* array = [fileManager contentsOfDirectoryAtPath:path error:nil];
+    for(int i = 0; i<[array count]; i++)
+    {
+        NSString *fullPath = [path stringByAppendingPathComponent:[array objectAtIndex:i]];
+        
+        BOOL isDir;
+        if ( !([fileManager fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) )
+        {
+            NSDictionary *fileAttributeDic=[fileManager attributesOfItemAtPath:fullPath error:nil];
+            NSTimeInterval time=[[NSDate date] timeIntervalSinceDate:fileAttributeDic.fileModificationDate];
+            int days=((int)time)/(3600*24); 
+            if (days>7) {
+                //删除待删除的文件
+                [fileManager removeItemAtPath:fullPath error:nil];
+            }
+        }
+        else
+        {
+            [self clearCaches:fullPath];
+        }
+    }
 }
 
 @end

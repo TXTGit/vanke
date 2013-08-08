@@ -26,11 +26,15 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblTotalDistance;
 @property (nonatomic, retain) IBOutlet UILabel *lblDuiHuanDistance;
 
-@property (nonatomic, retain) IBOutlet UILabel *lblMingCi;               //名称
+@property (nonatomic, retain) IBOutlet UILabel *lblMingCi;               //名次
 @property (nonatomic, retain) IBOutlet UILabel *lblHaoYou;               //好友
 @property (nonatomic, retain) IBOutlet UILabel *lblNengLiang;            //能量
 @property (nonatomic, retain) IBOutlet UILabel *lblDeFen;                //得分
 @property (nonatomic, retain) IBOutlet UIImageView *menuMarkImageView;      //覆盖菜单图片
+@property (weak, nonatomic) IBOutlet UILabel *lblMingCiTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblHaoYouTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblNengLiangTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblJiFenTitle;
 
 @property (nonatomic, retain) IBOutlet UIImageView *settingBodyMenuImageView;
 

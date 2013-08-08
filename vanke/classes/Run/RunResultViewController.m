@@ -20,7 +20,6 @@
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 
-#import "MBProgressHUD.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
 
@@ -64,8 +63,8 @@
     //bg
     _runResultBgImageView.hidden = YES;
     UIImageView *resultBg = [[UIImageView alloc] init];
-    resultBg.frame = CGRectMake(0, 0, 320, 548);
-    resultBg.image = [UIImage imageWithName:@"run_result_bg" type:@"png"];
+    resultBg.frame = CGRectMake(0, 0, 320, 551);
+    resultBg.image = [UIImage imageWithName:@"login_bg" type:@"png"];
     [self.view addSubview:resultBg];
     [self.view sendSubviewToBack:resultBg];
     
@@ -446,15 +445,16 @@
 //        [formData appendPartWithFileData:imageData name:@"shareImg" fileName:@"23_201306200600.jpg" mimeType:@"image/jpeg"];
 //    }];
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = @"图片上传中...";
-    hud.margin = 10.f;
-    hud.yOffset = 150.0f;
-    hud.removeFromSuperViewOnHide = YES;
-    [hud show:YES];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+//    hud.labelText = @"图片上传中...";
+//    hud.margin = 10.f;
+//    hud.yOffset = 150.0f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud show:YES];
+    [SVProgressHUD showWithStatus:@"图片上传中..."];
 //    [hud hide:YES afterDelay:2];
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
@@ -467,32 +467,36 @@
         NSString *msg = [dicResult objectForKey:@"msg"];
         NSLog(@"status: %@, msg: %@", status, msg);
         if ([status isEqual:@"0"]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"分享成功";
-            hud.margin = 10.f;
-            hud.yOffset = 0.f;
-            hud.removeFromSuperViewOnHide = YES;
-            
-            [hud hide:YES afterDelay:3];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"分享成功";
+//            hud.margin = 10.f;
+//            hud.yOffset = 0.f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            
+//            [hud hide:YES afterDelay:3];
+            [SVProgressHUD showSuccessWithStatus:@"分享成功"];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
-        [hud hide:YES];
+//        [hud hide:YES];
+        [SVProgressHUD dismiss];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
-        [hud hide:YES];
+//        [hud hide:YES];
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     
     [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
@@ -647,6 +651,7 @@
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     
@@ -685,6 +690,7 @@
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     

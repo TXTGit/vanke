@@ -13,8 +13,6 @@
 #import "UserSessionManager.h"
 #import "TaskViewController.h"
 
-#import "MBProgressHUD.h"
-
 #import "FriendInfo.h"
 #import "ChatViewController.h"
 #import "UserSessionManager.h"
@@ -175,19 +173,21 @@
                 }
             }else{
                 NSString *errMsg = [dicResult objectForKey:@"msg"];
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-                
-                // Configure for text only and offset down
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = errMsg;
-                hud.margin = 10.f;
-                hud.yOffset = 150.0f;
-                hud.removeFromSuperViewOnHide = YES;
-                [hud hide:YES afterDelay:2];
+//                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//                
+//                // Configure for text only and offset down
+//                hud.mode = MBProgressHUDModeText;
+//                hud.labelText = errMsg;
+//                hud.margin = 10.f;
+//                hud.yOffset = 150.0f;
+//                hud.removeFromSuperViewOnHide = YES;
+//                [hud hide:YES afterDelay:2];
+                [SVProgressHUD showErrorWithStatus:errMsg];
             }
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSLog(@"failure: %@", error);
+            [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         }];
         [operation start];
         
@@ -313,9 +313,17 @@
                 _lblDuiHuanDistance.text = [NSString stringWithFormat:@"可兑换里程%.2fkm", tempCanUseMileage];
                 
                 _lblMingCi.text = [NSString stringWithFormat:@"%d", _runner.rank];
+                [_lblMingCi sizeThatFits:CGSizeMake(32, 21)];
+                _lblMingCiTitle.layer.position = CGPointMake(_lblMingCi.frame.origin.x + _lblMingCi.frame.size.width + 3, _lblMingCiTitle.layer.position.y);
                 _lblHaoYou.text = [NSString stringWithFormat:@"%d", _runner.fanCount];
+                [_lblHaoYou sizeThatFits:CGSizeMake(42, 21)];
+                _lblHaoYouTitle.layer.position = CGPointMake(_lblHaoYou.frame.origin.x + _lblHaoYou.frame.size.width + 3, _lblHaoYou.layer.position.y);
                 _lblNengLiang.text = [NSString stringWithFormat:@"%.2f", _runner.energy];
+                [_lblNengLiang sizeThatFits:CGSizeMake(39, 21)];
+                _lblNengLiangTitle.layer.position = CGPointMake(_lblNengLiang.frame.origin.x + _lblNengLiang.frame.size.width + 3, _lblNengLiang.layer.position.y);
                 _lblDeFen.text = [NSString stringWithFormat:@"%ld", _runner.score];
+                [_lblDeFen sizeThatFits:CGSizeMake(30, 21)];
+                _lblJiFenTitle.layer.position = CGPointMake(_lblDeFen.frame.origin.x + _lblDeFen.frame.size.width + 3, _lblDeFen.layer.position.y);
                 
                 _tallField.text = [NSString stringWithFormat:@"%.2f", _runner.tall];
                 _weightField.text = [NSString stringWithFormat:@"%.2f", _runner.weight];
@@ -335,24 +343,26 @@
                 } else {
                     [_switchPosition setOn:NO animated:YES];
                 }
-                
+                [UserSessionManager GetInstance].currentRunUser = _runner;
             }else{
                 NSString *errMsg = [dicResult objectForKey:@"msg"];
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-                
-                // Configure for text only and offset down
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = errMsg;
-                hud.margin = 10.f;
-                hud.yOffset = 150.0f;
-                hud.removeFromSuperViewOnHide = YES;
-                [hud hide:YES afterDelay:2];
+//                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//                
+//                // Configure for text only and offset down
+//                hud.mode = MBProgressHUDModeText;
+//                hud.labelText = errMsg;
+//                hud.margin = 10.f;
+//                hud.yOffset = 150.0f;
+//                hud.removeFromSuperViewOnHide = YES;
+//                [hud hide:YES afterDelay:2];
+                [SVProgressHUD showErrorWithStatus:errMsg];
             }
             
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
 }
@@ -418,31 +428,18 @@
             NSLog(@"status: %@", status);
             if ([status isEqual:@"0"]) {
                 NSLog(@"SetInfo successful...");
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                
-                // Configure for text only and offset down
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"保存成功";
-                hud.margin = 10.f;
-                hud.yOffset = 0.f;
-                hud.removeFromSuperViewOnHide = YES;
-                
-                [hud hide:YES afterDelay:3];
+                if (!changeHeadImg) {
+                    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+                    [self initData];
+                }
             }else{
                 NSString *errMsg = [dicResult objectForKey:@"msg"];
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-                
-                // Configure for text only and offset down
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = errMsg;
-                hud.margin = 10.f;
-                hud.yOffset = 150.0f;
-                hud.removeFromSuperViewOnHide = YES;
-                [hud hide:YES afterDelay:2];
+                [SVProgressHUD showErrorWithStatus:errMsg];
             }
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSLog(@"failure: %@", error);
+            [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         }];
         [operation start];
         
@@ -470,6 +467,8 @@
         NSData *headData = UIImagePNGRepresentation(avatarImage);
         */
         
+        [SVProgressHUD showWithStatus:@"头像上传中"];
+        
         NSData *headData = UIImagePNGRepresentation(self.btnHeadImg.imageView.image);
         NSString *base64data = [[NSString alloc] initWithData:[GTMBase64 encodeData:headData] encoding:NSUTF8StringEncoding];
         
@@ -490,11 +489,13 @@
             NSString *msg = [dicResult objectForKey:@"msg"];
             NSLog(@"status: %@, msg: %@", status, msg);
             if ([status isEqual:@"0"]) {
-                
+                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+                changeHeadImg = NO;
+                [self initData];
             }
-            
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSLog(@"failure: %@", error);
+            [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         }];
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
@@ -537,6 +538,7 @@
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
     
@@ -568,30 +570,33 @@
         NSString *status = [dicResult objectForKey:@"status"];
         NSLog(@"status: %@", status);
         if ([status isEqual:@"0"]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"您已成功发送好友邀请！";
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"您已成功发送好友邀请！";
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showSuccessWithStatus:@"您已成功发送好友邀请！"];
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
 }
@@ -665,15 +670,16 @@
         int duihuanMileage = _runner.mileage - _runner.mileageUsed;
         if (duihuanMileage < 2 * _currentSelectedItem) {
             
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"您的可兑换里程不足";
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"您的可兑换里程不足";
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:@"您的可兑换里程不足"];
             
             return;
         }
@@ -702,32 +708,35 @@
             //刷新数据
             [self initData];
             
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"兑换成功";
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = @"兑换成功";
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showSuccessWithStatus:@"兑换成功"];
             
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            
-            // Configure for text only and offset down
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = errMsg;
-            hud.margin = 10.f;
-            hud.yOffset = 150.0f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:2];
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            
+//            // Configure for text only and offset down
+//            hud.mode = MBProgressHUDModeText;
+//            hud.labelText = errMsg;
+//            hud.margin = 10.f;
+//            hud.yOffset = 150.0f;
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hide:YES afterDelay:2];
+            [SVProgressHUD showErrorWithStatus:errMsg];
         }
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -946,6 +955,10 @@
 
 - (void)viewDidUnload {
     [self setBtnHeadImg:nil];
+    [self setLblMingCiTitle:nil];
+    [self setLblHaoYouTitle:nil];
+    [self setLblNengLiangTitle:nil];
+    [self setLblJiFenTitle:nil];
     [super viewDidUnload];
 }
 

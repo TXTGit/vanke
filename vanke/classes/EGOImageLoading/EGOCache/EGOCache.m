@@ -68,7 +68,7 @@ static EGOCache* __instance;
 	@synchronized(self) {
 		if(!__instance) {
 			__instance = [[EGOCache alloc] init];
-			__instance.defaultTimeoutInterval = 86400;
+			__instance.defaultTimeoutInterval = 86400*7;
 		}
 	}
 	

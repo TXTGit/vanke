@@ -16,6 +16,7 @@
 @property (nonatomic, retain) UIButton *leftButton;
 @property (nonatomic, retain) EGOImageButton *rightButton;
 @property (nonatomic, retain) UIImageView *messageTipImageView;
+@property (nonatomic, assign) BOOL showHeadImg;
 
 - (id)initWithTitle:(NSString *)tTitle bgImageView:(NSString *)tImageName;
 

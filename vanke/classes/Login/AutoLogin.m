@@ -63,6 +63,7 @@
         if (_delegate && [_delegate respondsToSelector:@selector(autoLoginFailed:)]) {
             [_delegate autoLoginFailed:@"网络异常,请重试"];
         }
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];
@@ -106,6 +107,7 @@
         [itlock lock];
         [itlock signal];//失败也要设置事件,不然下面一直死等了
         [itlock unlock];
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
         
     }];
     [operation start];

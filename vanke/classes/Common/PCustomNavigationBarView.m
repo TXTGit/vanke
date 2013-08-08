@@ -18,6 +18,7 @@
 @synthesize leftButton = _leftButton;
 @synthesize rightButton = _rightButton;
 @synthesize messageTipImageView = _messageTipImageView;
+@synthesize showHeadImg = _showHeadImg;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -73,27 +74,58 @@
         [_messageTipImageView setImage:messageTip];
         [_messageTipImageView setHidden:YES];
         [self addSubview:_messageTipImageView];
-        
-        //添加监听，判断是否有未读消息
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
     }
     return self;
 }
 
+-(void)setShowHeadImg:(BOOL)showHeadImg
+{
+    if (showHeadImg) {
+        _showHeadImg = showHeadImg;
+        //添加监听，判断是否有未读消息
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(updateUnreadTips) name:UpdateUnreadMessageCount object:nil];
+        //添加监听，是否更新头像
+        [self updateHeadImg];
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(updateHeadImg) name:UpdateHeadImg object:nil];
+    }
+}
+
 -(void)updateUnreadTips
 {
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
-        [self.messageTipImageView setHidden:NO];
-    } else {
-        [self.messageTipImageView setHidden:YES];
+    if (_showHeadImg) {
+        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+            [self.messageTipImageView setHidden:NO];
+        } else {
+            [self.messageTipImageView setHidden:YES];
+        }
+    }
+}
+
+-(void)updateHeadImg
+{
+    if (_showHeadImg) {
+        NSString *headImg = [UserSessionManager GetInstance].currentRunUser.headImg;
+        self.rightButton.placeholderImage = [UIImage imageWithName:@"main_head"];
+        if (headImg && ![headImg isEqualToString:@""]) {
+            NSURL *headUrl = [NSURL URLWithString:headImg];
+            [self.rightButton setImageURL:headUrl];
+        }else{
+            UIImage *indexHeadBg = [UIImage imageWithName:@"main_head" type:@"png"];
+            [self.rightButton setBackgroundImage:indexHeadBg forState:UIControlStateNormal];
+        }
     }
 }
 
 -(void)dealloc
 {
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self name:UpdateUnreadMessageCount object:nil];
+    if (_showHeadImg) {
+        [[NSNotificationCenter defaultCenter]
+         removeObserver:self name:UpdateUnreadMessageCount object:nil];
+        [[NSNotificationCenter defaultCenter]
+         removeObserver:self name:UpdateHeadImg object:nil];
+    }
 }
 
 #pragma EGOImageButtonDelegate
@@ -136,10 +168,8 @@
 }
 
 - (void)imageButtonFailedToLoadImage:(EGOImageButton*)imageButton error:(NSError*)error{
-    
     UIImage *defaultAvatarImage = [UIImage imageWithName:@"main_head" type:@"png"];
     [imageButton setImage:defaultAvatarImage forState:UIControlStateNormal];
-    
 }
 
 @end
