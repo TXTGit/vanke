@@ -122,7 +122,7 @@
     
     NSString *FirstIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"FirstIndex"];
     if (!FirstIndex || [FirstIndex isEqualToString:@""]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"万科夺宝计划正式启动。跑步里程1公里=1能量点，系统自动累计。凭能量点兑换豪华运动装备！跑步领奖两不误！活动结束日期：2013.12.31" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"万科夺宝计划正式启动。跑步里程1公里=1能量点，系统自动累计。凭能量点兑换豪华运动装备！跑步领奖两不误！活动结束日期：2013.12.31" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
         [[NSUserDefaults standardUserDefaults] setObject:@"done" forKey:@"FirstIndex"];
     }

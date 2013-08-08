@@ -105,9 +105,10 @@
         if ([status isEqual:@"0"]) {
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
-            if (datalistCount>0 && [self isViewLoaded]) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
-                [alert show];
+            NSLog(@"self.view.window:%c",[self.view.window isKeyWindow]);
+            if (datalistCount>0 && [self.view.window isKeyWindow]) {
+                _alertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+                [_alertView show];
             }
             
             //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
@@ -265,6 +266,13 @@
     [chatViewController setFriendInfo:friendinfo];
     [self.navigationController pushViewController:chatViewController animated:YES];
     
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [_alertView setDelegate:nil];
+    _alertView = nil;
+    [super viewDidDisappear:animated];
 }
 
 @end

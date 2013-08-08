@@ -37,6 +37,8 @@
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,assign) NSInteger rows;
 
+@property (nonatomic,retain) UIAlertView *alertView;
+
 -(void)doBack;
 -(void)initData;
 

@@ -364,7 +364,7 @@
         if ([status isEqual:@"0"]) {
             
             NSString *tempAddress = [dicResult objectForKey:@"address"];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请到以下地址领取礼品:" message:tempAddress delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请到以下地址领取礼品:" message:tempAddress delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
             
         }else{

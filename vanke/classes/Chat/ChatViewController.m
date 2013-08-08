@@ -269,9 +269,9 @@
         if ([status isEqual:@"0"]) {
             NSArray *datalist = [dicResult objectForKey:@"list"];
             int datalistCount = [datalist count];
-            if (datalistCount>0) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
-                [alert show];
+            if (datalistCount>0 && [self.view.window isKeyWindow]) {
+                _alertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+                [_alertView show];
             }
             
 //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];

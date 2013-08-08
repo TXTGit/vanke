@@ -238,7 +238,7 @@
 //修改为如果身高体重小于10，则提醒设置身高体重
 -(void)firstEnterRunningShowTip{
     if (![[UserSessionManager GetInstance].currentRunUser.nickname isEqualToString:@""] && ([UserSessionManager GetInstance].currentRunUser.tall<10 || [UserSessionManager GetInstance].currentRunUser.weight<10)) {
-        if (!_settingAlert) {
+        if (!_settingAlert && [self.view.window isKeyWindow]) {
             _settingAlert = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置身高和体重哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         }
         [_settingAlert show];
@@ -1599,5 +1599,12 @@
     [self setErrorAlert:nil];
     [self setSettingAlert:nil];
     [super viewDidUnload];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [_settingAlert setDelegate:nil];
+    _settingAlert = nil;
+    [super viewDidDisappear:animated];
 }
 @end

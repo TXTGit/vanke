@@ -19,6 +19,8 @@
 
 @property (nonatomic, retain) NSMutableArray *unReadFriendList;
 
+@property (nonatomic, retain) UIAlertView *alertView;
+
 -(void)doBack;
 -(void)initData;
 -(void)doGotoChat:(id)sender;
