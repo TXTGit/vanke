@@ -100,9 +100,9 @@
     float height = [UIScreen mainScreen].bounds.size.height - 20;
     
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 0, 320, height)];
-    [bgImageView setImage:[UIImage imageWithName:@"setting_bg" type:@"png"]];
-    [self.view addSubview:bgImageView];
+    [bgImageView setFrame:CGRectMake(0, 0, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
+    [self.view insertSubview:bgImageView atIndex:0];
     
     _broadView.frame = CGRectMake(0, 0, 320, 590);//688
     
@@ -343,7 +343,10 @@
                 } else {
                     [_switchPosition setOn:NO animated:YES];
                 }
-                [UserSessionManager GetInstance].currentRunUser = _runner;
+                //如果是登录者，则更新Session内容
+                if (currentMemberid == _memberid) {
+                    [UserSessionManager GetInstance].currentRunUser = _runner;
+                }
             }else{
                 NSString *errMsg = [dicResult objectForKey:@"msg"];
 //                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];

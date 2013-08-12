@@ -105,7 +105,7 @@
     
     [super viewWillAppear:animated];
     
-    if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+    if ([UserSessionManager GetInstance].unreadMessageCount > 0 || [UserSessionManager GetInstance].inviteMessageCount > 0) {
         [_navView.messageTipImageView setHidden:NO];
     } else {
         [_navView.messageTipImageView setHidden:YES];

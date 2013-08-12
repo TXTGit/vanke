@@ -84,55 +84,64 @@
     _unReadFriendList = [[NSMutableArray alloc] init];
     
     //清零
-    [UserSessionManager GetInstance].unreadMessageCount = 0;
-    
+//    [UserSessionManager GetInstance].unreadMessageCount = 0;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     //from net
     [self initData];
     [self getInviteData];
 }
 
 -(void)getInviteData{
-    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
-    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
-    NSLog(@"msgList:%@",msgListUrl);
-    NSURL *url = [NSURL URLWithString:msgListUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"App.net Global Stream: %@", JSON);
-        NSDictionary *dicResult = JSON;
-        NSString *status = [dicResult objectForKey:@"status"];
-        NSLog(@"status: %@", status);
-        if ([status isEqual:@"0"]) {
-            NSArray *datalist = [dicResult objectForKey:@"list"];
-            int datalistCount = [datalist count];
-            NSLog(@"self.view.window:%c",[self.view.window isKeyWindow]);
-            if (datalistCount>0 && [self.view.window isKeyWindow]) {
-                _alertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
-                [_alertView show];
-            }
-            
-            //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-            //            [chatViewController setChatType:chatTYpeInviteCheck];
-            //            [self.navigationController pushViewController:chatViewController animated:YES];
-        }else{
-            NSString *errMsg = [dicResult objectForKey:@"msg"];
-//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    if ([UserSessionManager GetInstance].inviteMessageCount > 0) {
+        _alertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",[UserSessionManager GetInstance].inviteMessageCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+        [_alertView show];
+        [UserSessionManager GetInstance].inviteMessageCount = 0;
+    }
+//    NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
+//    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
+//    NSLog(@"msgList:%@",msgListUrl);
+//    NSURL *url = [NSURL URLWithString:msgListUrl];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//        NSLog(@"App.net Global Stream: %@", JSON);
+//        NSDictionary *dicResult = JSON;
+//        NSString *status = [dicResult objectForKey:@"status"];
+//        NSLog(@"status: %@", status);
+//        if ([status isEqual:@"0"]) {
+//            NSArray *datalist = [dicResult objectForKey:@"list"];
+//            int datalistCount = [datalist count];
+//            NSLog(@"self.view.window:%c",[self.view.window isKeyWindow]);
+//            if (datalistCount>0 && [self.view.window isKeyWindow]) {
+//                _alertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您有%d条邀请，请查看！",datalistCount] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+//                [_alertView show];
+//            }
 //            
-//            // Configure for text only and offset down
-//            hud.mode = MBProgressHUDModeText;
-//            hud.labelText = errMsg;
-//            hud.margin = 10.f;
-//            hud.yOffset = 150.0f;
-//            hud.removeFromSuperViewOnHide = YES;
-//            [hud hide:YES afterDelay:2];
-            [SVProgressHUD showErrorWithStatus:errMsg];
-        }
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"failure: %@", error);
-        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
-    }];
-    [operation start];
+//            //            ChatViewController *chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
+//            //            [chatViewController setChatType:chatTYpeInviteCheck];
+//            //            [self.navigationController pushViewController:chatViewController animated:YES];
+//        }else{
+//            NSString *errMsg = [dicResult objectForKey:@"msg"];
+////            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+////            
+////            // Configure for text only and offset down
+////            hud.mode = MBProgressHUDModeText;
+////            hud.labelText = errMsg;
+////            hud.margin = 10.f;
+////            hud.yOffset = 150.0f;
+////            hud.removeFromSuperViewOnHide = YES;
+////            [hud hide:YES afterDelay:2];
+//            [SVProgressHUD showErrorWithStatus:errMsg];
+//        }
+//        
+//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//        NSLog(@"failure: %@", error);
+//        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
+//    }];
+//    [operation start];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

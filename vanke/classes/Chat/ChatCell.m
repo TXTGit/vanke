@@ -129,6 +129,7 @@
 //            
 //            [hud hide:YES afterDelay:2];
             [SVProgressHUD showSuccessWithStatus:@"添加好友成功！"];
+            [UserSessionManager GetInstance].inviteMessageCount = 0;
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
 //            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -223,6 +224,7 @@
 //            
 //            [hud hide:YES afterDelay:2];
             [SVProgressHUD showSuccessWithStatus: @"您已经拒绝该好友的添加请求！"];
+            [UserSessionManager GetInstance].inviteMessageCount = 0;
         }else{
             NSString *errMsg = [dicResult objectForKey:@"msg"];
 //            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];

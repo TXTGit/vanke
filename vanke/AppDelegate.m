@@ -177,7 +177,7 @@
 }
 
 -(void)getUnreadList{
-    
+    //获取未读消息
     NSString *memberid = [UserSessionManager GetInstance].currentRunUser.userid;
     NSString *unreadListUrl = [VankeAPI getUnreadList:memberid];
     NSLog(@"unreadListUrl:%@",unreadListUrl);
@@ -202,7 +202,33 @@
         [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
     }];
     [operation start];
-    
+    //获取未读邀请
+    NSString *msgListUrl = [VankeAPI getInviteListUrl:memberid :1 :10];
+    NSLog(@"msgList:%@",msgListUrl);
+    NSURL *urlInvite = [NSURL URLWithString:msgListUrl];
+    NSURLRequest *requestInvite = [NSURLRequest requestWithURL:urlInvite];
+    AFJSONRequestOperation *operationInvite = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestInvite success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"App.net Global Stream: %@", JSON);
+        NSDictionary *dicResult = JSON;
+        NSString *status = [dicResult objectForKey:@"status"];
+        NSLog(@"status: %@", status);
+        if ([status isEqual:@"0"]) {
+            NSArray *datalist = [dicResult objectForKey:@"list"];
+            int datalistCount = [datalist count];
+            if (datalistCount>0) {
+                [UserSessionManager GetInstance].inviteMessageCount = datalistCount;
+                [[NSNotificationCenter defaultCenter] postNotificationName:UpdateUnreadMessageCount object:nil userInfo:nil];
+            }
+        }else{
+            NSString *errMsg = [dicResult objectForKey:@"msg"];
+            [SVProgressHUD showErrorWithStatus:errMsg];
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"failure: %@", error);
+        [SVProgressHUD showErrorWithStatus:@"网络异常,请重试"];
+    }];
+    [operationInvite start];
 }
 
 #pragma something

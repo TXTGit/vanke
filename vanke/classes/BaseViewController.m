@@ -64,7 +64,7 @@
         _menuOfHeadView.btnMenu2.alpha = 1.0f;
         _menuOfHeadView.btnMenu3.alpha = 1.0f;
         _menuOfHeadView.btnMenu4.alpha = 1.0f;
-        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        if ([UserSessionManager GetInstance].unreadMessageCount > 0 || [UserSessionManager GetInstance].inviteMessageCount > 0) {
             _menuOfHeadView.redDotImageView.hidden = NO;
         } else {
             _menuOfHeadView.redDotImageView.hidden = YES;

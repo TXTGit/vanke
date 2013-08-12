@@ -75,13 +75,13 @@
     
     //bg
     UIImageView *bgImageView = [[UIImageView alloc] init];
-    [bgImageView setFrame:CGRectMake(0, 44, 320, height - 44)];
-    [bgImageView setImage:[UIImage imageWithName:@"run_bg" type:@"png"]];
-    [self.view addSubview:bgImageView];
+    [bgImageView setFrame:CGRectMake(0, 44, 320, 551)];
+    [bgImageView setImage:[UIImage imageWithName:@"login_bg" type:@"png"]];
+    [self.view insertSubview:bgImageView atIndex:0];
     
     //tableview
     _chatTableView.backgroundColor = [UIColor clearColor];
-    _chatTableView.backgroundView = bgImageView;
+//    _chatTableView.backgroundView = bgImageView;
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //如果是邀请列表页，则隐藏发送窗口
@@ -144,7 +144,7 @@
     
     if (_chatType!=chatTypeInviteCheck) {
 //        [self timerStart];
-        [self getInviteData];
+//        [self getInviteData];
     }
     _isChatViewShow = YES;
 }

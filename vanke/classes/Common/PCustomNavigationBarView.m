@@ -95,7 +95,7 @@
 -(void)updateUnreadTips
 {
     if (_showHeadImg) {
-        if ([UserSessionManager GetInstance].unreadMessageCount > 0) {
+        if ([UserSessionManager GetInstance].unreadMessageCount > 0 || [UserSessionManager GetInstance].inviteMessageCount > 0) {
             [self.messageTipImageView setHidden:NO];
         } else {
             [self.messageTipImageView setHidden:YES];

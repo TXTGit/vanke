@@ -14,6 +14,7 @@
 @property (nonatomic, retain) RunUser *currentRunUser;
 @property (nonatomic, assign) BOOL isLoggedIn;
 @property (nonatomic, assign) int unreadMessageCount;
+@property (nonatomic, assign) int inviteMessageCount;
 
 +(UserSessionManager *)GetInstance;
 +(void)CleanInstance;

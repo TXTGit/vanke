@@ -63,8 +63,8 @@
     //bg
     _runResultBgImageView.hidden = YES;
     UIImageView *resultBg = [[UIImageView alloc] init];
-    resultBg.frame = CGRectMake(0, 0, 320, 551);
-    resultBg.image = [UIImage imageWithName:@"login_bg" type:@"png"];
+    resultBg.frame = CGRectMake(0, -10, 320, 568);
+    resultBg.image = [UIImage imageWithName:@"run_result_bg" type:@"png"];
     [self.view addSubview:resultBg];
     [self.view sendSubviewToBack:resultBg];
     
